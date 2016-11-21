@@ -9,7 +9,7 @@ import android.view.View;
 
 import static android.graphics.Color.RED;
 
-class MainActivity extends Activity {
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,11 @@ class MainActivity extends Activity {
 
     public void goToRegisterScreen(View view) {
         Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToSpeed(View view){
+        Intent intent = new Intent(this, TrackSpeedActivity.class);
         startActivity(intent);
     }
 }

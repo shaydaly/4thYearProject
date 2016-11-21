@@ -8,6 +8,11 @@
     <string name="firstName">First Name</string>
     <string name="surname">Surname</string>
     <string name="phoneNumber">Phone Number</string>
+    <string name="email">Email</string>
+    <string name="signIn">Sign In</string>
+    <string name="trackSpeed">Track Speed</string>
+    <string name="initialSpeed">0.0km/h</string>
+    <string name="speedMetric">km/h</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

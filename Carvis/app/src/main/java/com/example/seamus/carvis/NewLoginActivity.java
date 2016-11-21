@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 
 
+
 public class NewLoginActivity extends Activity {
     public static String EXTRA_MESSAGE="seamus";
 
@@ -22,8 +23,15 @@ public class NewLoginActivity extends Activity {
         Intent intent = new Intent(this, LoggedInActivity.class);
         EditText editText = (EditText) findViewById(R.id.email);
         String username = editText.getText().toString();
+        editText = (EditText)  findViewById(R.id.password);
+        String password= editText.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, username);
-        startActivity(intent);
+        if(username.equals("shay")&&password.equals("shay1")) {
+            startActivity(intent);
+        }
+        else{
+
+        }
     }
 }
 

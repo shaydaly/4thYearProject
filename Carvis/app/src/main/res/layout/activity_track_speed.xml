@@ -16,30 +16,21 @@
         android:text="@string/initialSpeed"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:textSize="50dp"
-        android:id="@+id/currentSpeed"
-        android:layout_centerVertical="true"
+        android:textSize="50sp"
+        android:id="@+id/speedLimit"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/slow"
-        android:id="@+id/stopSign"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:visibility="visible"
-        android:foregroundGravity="fill"/>
-
-    <Button
-        android:text="Show Image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="22dp"
-        android:id="@+id/showImage"
-        android:onClick="showImage"
+    <TextView
+        android:text="@string/initialSpeed"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:textSize="50sp"
+        android:id="@+id/currentSpeed"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/currentSpeed" />
+        android:layout_alignStart="@+id/speedLimit"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="38dp"
+        android:textStyle="bold"/>
 
 </RelativeLayout>

@@ -34,6 +34,12 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(this, TrackSpeedActivity.class);
         startActivity(intent);
     }
+
+    public void goToHttp(View view){
+        Intent intent = new Intent(this, TestHttp.class);
+        startActivity(intent);
+    }
+
 }
 
 

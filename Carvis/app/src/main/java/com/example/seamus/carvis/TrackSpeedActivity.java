@@ -32,6 +32,13 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
@@ -43,6 +50,13 @@ import static java.security.AccessController.getContext;
 
 //import com.google.android.gms.location.LocationClient;
 import android.os.Vibrator;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class TrackSpeedActivity extends Activity {
@@ -70,20 +84,21 @@ public class TrackSpeedActivity extends Activity {
 // Define a listener that responds to location updates
         LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
+                makeHttpRequest(String.valueOf(location.getLongitude()), String.valueOf(location.getLatitude()));
                 // Called when a new location is found by the network location provider.
                 TextView textView = (TextView) findViewById(R.id.currentSpeed);
                 textView.setText("location");
                 double kilomPerHour = Math.round((location.getSpeed() * 3.6) * 100.0) / 100.0;
                 textView.setText(String.valueOf(kilomPerHour)+"km/h");
-                if(kilomPerHour >SPEED_LIMIT){
-                    Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-
-                    // Vibrate for 400 milliseconds
-                    v.vibrate(5000);
-
-                    ImageView im = (ImageView) findViewById(R.id.stopSign);
-                    im.setVisibility(View.VISIBLE);
-                }
+//                if(kilomPerHour >SPEED_LIMIT){
+//                    Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+//
+//                    // Vibrate for 400 milliseconds
+//                    v.vibrate(5000);
+//
+////                    ImageView im = (ImageView) findViewById(R.id.stopSign);
+////                    im.setVisibility(View.VISIBLE);
+//                }
             }
 
             public void onStatusChanged(String provider, int status, Bundle extras) {}
@@ -101,8 +116,8 @@ public class TrackSpeedActivity extends Activity {
     }
 
     public void showImage(View view){
-        ImageView im = (ImageView) findViewById(R.id.stopSign);
-        im.setVisibility(View.INVISIBLE);
+//        ImageView im = (ImageView) findViewById(R.id.stopSign);
+//        im.setVisibility(View.INVISIBLE);
     }
 
     public void getLocation(View view){
@@ -126,7 +141,7 @@ public class TrackSpeedActivity extends Activity {
         };
 
 // Register the listener with the Location Manager to receive location updates
-       // locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+        // locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
 
 
 //        locationChecking=true;
@@ -137,7 +152,7 @@ public class TrackSpeedActivity extends Activity {
 //            String currentLocation = locationService.getLocation(this);
 //            TextView locationResult = (TextView) findViewById(R.id.currentSpeed);
 //            locationResult.setText(currentLocation);
-        }
+    }
 
 
     public void stopGettingLocation(View view){
@@ -253,5 +268,121 @@ public class TrackSpeedActivity extends Activity {
 //            }
 //        });
 //    }
+
+    public void makeHttpRequest(String lon, String lat) {
+        final TextView textView = (TextView) findViewById(R.id.speedLimit);
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        //String url ="http://www.openstreetmap.org/api/0.6/way/48290550";
+        //String url ="http://overpass-api.de/api/interpreter?data=[out:json];way(4402297);out;";
+        String url = "http://nominatim.openstreetmap.org/reverse?format=json&lat="+lat+"&lon="+lon;
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        textView.setText(ID(response)+"km/h");
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                textView.setText(error.toString());
+            }
+
+
+        }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<String, String>();
+                headers.put("User-agent", "CARVIS");
+                return headers;
+            }
+        };
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
+
+    }
+
+    public String ID(String json) {
+        //return xml.split("<"+tagName+">")[1].split("</"+tagName+">")[0];
+        String maxSpeed = "_";
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            // JsonNode jsonNode = mapper.readValue(json,JsonNode.class);
+            JSONObject jsonO = new JSONObject(json);
+            //maxSpeed= String.valueOf(jsonNode.get("elements.tags"));
+            maxSpeed = jsonO.get("osm_id").toString();
+            System.out.println(maxSpeed);
+
+
+            final TextView textView = (TextView) findViewById(R.id.speedLimit);
+
+            RequestQueue queue = Volley.newRequestQueue(this);
+            //String url ="http://www.openstreetmap.org/api/0.6/way/48290550";
+            String url = "http://overpass-api.de/api/interpreter?data=[out:json];way(" + maxSpeed + ");out;";
+
+            // Request a string response from the provided URL.
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // Display the first 500 characters of the response string.
+                            textView.setText(getNewSpeed(response));
+
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    textView.setText(error.toString());
+                }
+
+
+            }) {
+                @Override
+                public Map<String, String> getHeaders() {
+                    Map<String, String> headers = new HashMap<String, String>();
+                    headers.put("User-agent", "CARVIS");
+                    return headers;
+                }
+            };
+// Add the request to the RequestQueue.
+            queue.add(stringRequest);
+        } catch (Exception e) {
+
+        }
+
+        return getNewSpeed("Seamus");
+
+    }
+
+
+    public String getNewSpeed(String json) {
+        String s = "";
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            // JsonNode jsonNode = mapper.readValue(json,JsonNode.class);
+            JSONObject jsonO = new JSONObject(json);
+            //maxSpeed= String.valueOf(jsonNode.get("elements.tags"));
+            s = jsonO.get("elements").toString();
+
+            JSONArray ja = new JSONArray(s);
+            //for(int i=0; i<ja.length(); i++){
+            JSONObject j = (JSONObject)ja.get(0);
+            JSONObject jo = (JSONObject)j.get("tags");
+
+
+            s= String.valueOf(jo.get("maxspeed"));
+
+            // }
+
+
+
+        } catch (JSONException e) {
+
+        }
+        return s;
+    }
 
 }

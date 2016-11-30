@@ -35,8 +35,16 @@
         android:text="Go To Speed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/button"
-        android:onClick="goToSpeed"/>
+        android:id="@+id/goSpeed"
+        android:onClick="goToSpeed"
+        android:layout_marginBottom="10dp"/>
+
+    <Button
+        android:text="go to http"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button2"
+        android:onClick="goToHttp"/>
 
 </LinearLayout>
 

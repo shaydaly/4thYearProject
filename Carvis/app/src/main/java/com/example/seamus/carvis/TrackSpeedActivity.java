@@ -39,6 +39,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.android.gms.appdatasearch.GetRecentContextCall;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
@@ -65,6 +66,7 @@ public class TrackSpeedActivity extends Activity {
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
     };
+    String maxSpeed="";
     static boolean locationChecking=false;
 
     LocationService locationService = new LocationService();
@@ -87,7 +89,6 @@ public class TrackSpeedActivity extends Activity {
                 makeHttpRequest(String.valueOf(location.getLongitude()), String.valueOf(location.getLatitude()));
                 // Called when a new location is found by the network location provider.
                 TextView textView = (TextView) findViewById(R.id.currentSpeed);
-                textView.setText("location");
                 double kilomPerHour = Math.round((location.getSpeed() * 3.6) * 100.0) / 100.0;
                 textView.setText(String.valueOf(kilomPerHour)+"km/h");
 //                if(kilomPerHour >SPEED_LIMIT){
@@ -140,18 +141,7 @@ public class TrackSpeedActivity extends Activity {
             public void onProviderDisabled(String provider) {}
         };
 
-// Register the listener with the Location Manager to receive location updates
-        // locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
 
-
-//        locationChecking=true;
-//        if(checkCallingOrSelfPermission(INITIAL_PERMS[0]) == PackageManager.PERMISSION_DENIED || checkCallingOrSelfPermission(INITIAL_PERMS[1]) == PackageManager.PERMISSION_DENIED ) {
-//            ActivityCompat.requestPermissions(this, INITIAL_PERMS, 0);
-//        }
-//        while(locationChecking==true) {
-//            String currentLocation = locationService.getLocation(this);
-//            TextView locationResult = (TextView) findViewById(R.id.currentSpeed);
-//            locationResult.setText(currentLocation);
     }
 
 
@@ -307,21 +297,20 @@ public class TrackSpeedActivity extends Activity {
 
     public String ID(String json) {
         //return xml.split("<"+tagName+">")[1].split("</"+tagName+">")[0];
-        String maxSpeed = "_";
+        String osmId = "";
         try {
             ObjectMapper mapper = new ObjectMapper();
             // JsonNode jsonNode = mapper.readValue(json,JsonNode.class);
             JSONObject jsonO = new JSONObject(json);
             //maxSpeed= String.valueOf(jsonNode.get("elements.tags"));
-            maxSpeed = jsonO.get("osm_id").toString();
-            System.out.println(maxSpeed);
+            osmId = jsonO.get("osm_id").toString();
 
 
             final TextView textView = (TextView) findViewById(R.id.speedLimit);
 
             RequestQueue queue = Volley.newRequestQueue(this);
             //String url ="http://www.openstreetmap.org/api/0.6/way/48290550";
-            String url = "http://overpass-api.de/api/interpreter?data=[out:json];way(" + maxSpeed + ");out;";
+            String url = "http://overpass-api.de/api/interpreter?data=[out:json];way(" + osmId + ");out;";
 
             // Request a string response from the provided URL.
             StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -329,7 +318,7 @@ public class TrackSpeedActivity extends Activity {
                         @Override
                         public void onResponse(String response) {
                             // Display the first 500 characters of the response string.
-                            textView.setText(getNewSpeed(response));
+                            maxSpeed = (getNewSpeed(response));
 
                         }
                     }, new Response.ErrorListener() {
@@ -353,27 +342,28 @@ public class TrackSpeedActivity extends Activity {
 
         }
 
-        return getNewSpeed("Seamus");
+        return maxSpeed;
 
     }
 
 
     public String getNewSpeed(String json) {
-        String s = "";
+        String speed = "";
+        String jas="";
         try {
             ObjectMapper mapper = new ObjectMapper();
             // JsonNode jsonNode = mapper.readValue(json,JsonNode.class);
             JSONObject jsonO = new JSONObject(json);
             //maxSpeed= String.valueOf(jsonNode.get("elements.tags"));
-            s = jsonO.get("elements").toString();
+            jas = jsonO.get("elements").toString();
 
-            JSONArray ja = new JSONArray(s);
+            JSONArray ja = new JSONArray(jas);
             //for(int i=0; i<ja.length(); i++){
             JSONObject j = (JSONObject)ja.get(0);
             JSONObject jo = (JSONObject)j.get("tags");
 
 
-            s= String.valueOf(jo.get("maxspeed"));
+            speed= String.valueOf(jo.get("maxspeed"));
 
             // }
 
@@ -382,7 +372,7 @@ public class TrackSpeedActivity extends Activity {
         } catch (JSONException e) {
 
         }
-        return s;
+        return speed;
     }
 
 }

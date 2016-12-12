@@ -51,7 +51,7 @@ public class TestHttp extends Activity {
         RequestQueue queue = Volley.newRequestQueue(this);
         //String url ="http://www.openstreetmap.org/api/0.6/way/48290550";
         //String url ="http://overpass-api.de/api/interpreter?data=[out:json];way(4402297);out;";
-        String url = "http://nominatim.openstreetmap.org/reverse?format=json&lat=53.3488056&lon=-6.378415";
+        String url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/QuerySpeed/callqueryspeed?latitude=53.3509124&longitude=-6.37792";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -59,7 +59,9 @@ public class TestHttp extends Activity {
                     @Override
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
-                        ID(response);
+//                        ID(response);
+                        String str = response;
+                        textView.setText(str+" is the max speed");
                     }
                 }, new Response.ErrorListener() {
             @Override

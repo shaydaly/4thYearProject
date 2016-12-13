@@ -29,40 +29,30 @@ def handler(event, context):
     """
     This function fetches content from mysql RDS instance
     """
-    longitude=""
-    latitude=""
-    my_list = []
+    longitude = event["longitude"]
+    latitude = event["latitude"]
     
-
-    for i in event:
-        my_list.append(event[i])
-     
-    #return len(my_list) 
-    latitude = my_list[0]
-    longitude = my_list[1]
-    
-    content = urllib2.urlopen("http://nominatim.openstreetmap.org/reverse?format=json&lat="+latitude+"&lon="+longitude+"&zoom=18&addressdetails=1").read()
-    text = json.loads(content)
-    node_id = text["osm_id"]
-   
+    try:
+        content = urllib2.urlopen("http://nominatim.openstreetmap.org/reverse?format=json&osm_type=W&lat="+latitude+"&lon="+longitude+"&zoom=16").read()
+        #content = urllib2.urlopen("http://open.mapquestapi.com/nominatim/v1/reverse.php?key=SloiHBpLJDvIOPDkBAWjbansNvWLPnQU&format=json&lat="+latitude+"&lon="+longitude).read()
+        text = json.loads(content)
+        osm_id = text["osm_id"]
+        #osm_type =text["osm_type"]
+        
+        content2 = urllib2.urlopen("http://overpass-api.de/api/interpreter?data=[out:json];way("+osm_id+");out;").read()
+        nodeInfo = json.loads(content2)
+        speed = nodeInfo["elements"][0]["tags"]["maxspeed"]
+        return speed
+        #if speed is None:
+         #   return "Unknown"
+        #else:
+         #   return speed
+    except Exception as e:
+        return "NA!"
     #return latitude+"_"+longitude
 
-    item_count = 0
-
-    with conn.cursor() as cur:
-        #cur.execute("create table SpeedLimits ( limitID  int NOT NULL, speed int NOT NULL, PRIMARY KEY (limitID))")  
-        #cur.execute('insert into SpeedLimits (limitID, speed) values(1, 50)')
-        #cur.execute('insert into SpeedLimits (limitID, speed) values(2, 50)')
-        #cur.execute('insert into SpeedLimits (limitID, speed) values(3, 100)')
-        #conn.commit()
-        cur.execute("select speed_limit  from SpeedLimit where node_id ="+node_id)
-        for row in cur:
-            item_count += 1
-            logger.info(row)
-            return row
-
-    
-
-    #sns = boto3.client('sns')
-    #number = '0851329485'
-    #sns.publish(PhoneNumber = number, Message='example text message' )
+    #item_count = 0
+    #with conn.cursor() as cur:
+        #cur.execute("select speed_limit from SpeedLimitNew where way_id ="+node_id+" or node_id="+node_id)
+        #for row in cur:
+            #return row

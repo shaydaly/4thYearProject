@@ -39,7 +39,7 @@ public class TrackSpeedActivity extends Activity {
     };
     String maxSpeed = "";
     static boolean locationChecking = false;
-    String speedLimit = "N/A";
+    String speedLimit = "";
     String longitude = "";
     String latitude = "";
     int count = 0;
@@ -54,8 +54,8 @@ public class TrackSpeedActivity extends Activity {
 
 
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        TextView textView = (TextView) findViewById(R.id.currentSpeed);
-
+        final TextView currentSpeedTextView = (TextView) findViewById(R.id.currentSpeed);
+        final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
         final Handler ha = new Handler();
         ha.postDelayed(new Runnable() {
 
@@ -64,26 +64,39 @@ public class TrackSpeedActivity extends Activity {
                 //call function
                 getSpeedFromLambda(latitude, longitude);
                 ha.postDelayed(this, 5000);
+                //final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
+
+
+                speedLimitTextView.setText(speedLimit);
+//                if(!speedLimit.equals("\"Unknown\"")) {
+//                    speedLimitTextView.setText(speedLimit.replaceAll("[^\\d.]", ""));
+//                }
+//                else{
+//                    speedLimitTextView.setText(speedLimit);
+//                }
+
             }
         }, 5000);
 
 // Define a listener that responds to location updates
         LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
+                count++;
+
                 latitude = String.valueOf(location.getLatitude());
                 longitude = String.valueOf(location.getLongitude());
                 //makeHttpRequest( String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude()));
                 // Called when a new location is found by the network location provider.
-                TextView textView = (TextView) findViewById(R.id.currentSpeed);
+                //TextView textView = (TextView) findViewById(R.id.currentSpeed);
                 //TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
                 double kilomPerHour = Math.round((location.getSpeed() * 3.6) * 100.0) / 100.0;
-                textView.setText(String.valueOf(kilomPerHour) + "km/h");
+                currentSpeedTextView.setText(String.valueOf(kilomPerHour) + "km/h");
                 //getSpeedFromLambda( latitude,longitude );
 
-                if (!speedLimit.contains("N")) {
-                    speedLimit = speedLimit.replaceAll("\\D+", "");
-                    speedLimit = speedLimit + " km/h";
-                }
+//                if (!speedLimit.contains("N")) {
+//                    speedLimit = speedLimit.replaceAll("\\D+", "");
+//                    speedLimit = speedLimit + " km/h";
+//                }
 
 
 //                if(kilomPerHour >SPEED_LIMIT){
@@ -115,7 +128,6 @@ public class TrackSpeedActivity extends Activity {
     }
 
     public void getSpeedFromLambda(String latitude, String longitude) {
-        final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/QuerySpeed/callqueryspeed?latitude=" + latitude + "&longitude=" + longitude;
 
@@ -129,7 +141,7 @@ public class TrackSpeedActivity extends Activity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                speedLimitTextView.setText("error getting speed");
+                //speedLimitTextView.setText("error getting speed");
             }
         }) {
             @Override
@@ -141,7 +153,6 @@ public class TrackSpeedActivity extends Activity {
         };
 // Add the request to the RequestQueue.
         queue.add(stringRequest);
-        speedLimitTextView.setText(speedLimit);
     }
 
     public void setSpeedLimit(String response) {

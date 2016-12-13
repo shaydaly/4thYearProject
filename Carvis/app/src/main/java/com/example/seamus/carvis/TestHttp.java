@@ -45,11 +45,12 @@ public class TestHttp extends Activity {
 
     }
 
-    public void makeHttpRequest(View view) {
+    public void makeTestHttpRequest(View view) {
         final TextView textView = (TextView) findViewById(R.id.Result);
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        //String url ="http://www.openstreetmap.org/api/0.6/way/48290550";
+        //S
+        // tring url ="http://www.openstreetmap.org/api/0.6/way/48290550";
         //String url ="http://overpass-api.de/api/interpreter?data=[out:json];way(4402297);out;";
         String url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/QuerySpeed/callqueryspeed?latitude=53.3509124&longitude=-6.37792";
 

@@ -5,16 +5,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,21 +30,17 @@ import java.util.HashMap;
 import java.util.Map;
 import android.os.Handler;
 
-
 public class TrackSpeedActivity extends Activity {
-    public static final double SPEED_LIMIT = 25.0;
+
     private static final String[] INITIAL_PERMS = {
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
     };
-    String maxSpeed = "";
-    static boolean locationChecking = false;
-    String speedLimit = "";
-    String longitude = "";
-    String latitude = "";
+    private String speedLimit = "";
+    private String longitude = "";
+    private String latitude = "";
+    private double currentSpeed = 0.0;
     int count = 0;
-
-    LocationService locationService = new LocationService();
     Intent intent = getIntent();
 
     @Override
@@ -53,61 +49,28 @@ public class TrackSpeedActivity extends Activity {
         setContentView(R.layout.activity_track_speed);
 
 
-        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+
         final TextView currentSpeedTextView = (TextView) findViewById(R.id.currentSpeed);
         final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
-        final Handler ha = new Handler();
-        ha.postDelayed(new Runnable() {
 
-            @Override
-            public void run() {
-                //call function
-                getSpeedFromLambda(latitude, longitude);
-                ha.postDelayed(this, 5000);
-                //final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
+        final ImageView imageView50 = (ImageView) findViewById(R.id.speed50km);
+        final ImageView imageView60 = (ImageView) findViewById(R.id.speed60km);
+        final ImageView imageView80 = (ImageView) findViewById(R.id.speed80km);
+        final ImageView imageView100 = (ImageView) findViewById(R.id.speed100km);
 
-
-                speedLimitTextView.setText(speedLimit);
-//                if(!speedLimit.equals("\"Unknown\"")) {
-//                    speedLimitTextView.setText(speedLimit.replaceAll("[^\\d.]", ""));
-//                }
-//                else{
-//                    speedLimitTextView.setText(speedLimit);
-//                }
-
-            }
-        }, 5000);
-
-// Define a listener that responds to location updates
+        // Define a listener that responds to location updates
         LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
-                count++;
 
                 latitude = String.valueOf(location.getLatitude());
                 longitude = String.valueOf(location.getLongitude());
-                //makeHttpRequest( String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude()));
                 // Called when a new location is found by the network location provider.
-                //TextView textView = (TextView) findViewById(R.id.currentSpeed);
-                //TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
-                double kilomPerHour = Math.round((location.getSpeed() * 3.6) * 100.0) / 100.0;
-                currentSpeedTextView.setText(String.valueOf(kilomPerHour) + "km/h");
-                //getSpeedFromLambda( latitude,longitude );
-
-//                if (!speedLimit.contains("N")) {
-//                    speedLimit = speedLimit.replaceAll("\\D+", "");
-//                    speedLimit = speedLimit + " km/h";
-//                }
-
-
-//                if(kilomPerHour >SPEED_LIMIT){
-//                    Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-//
-//                    // Vibrate for 400 milliseconds
-//                    v.vibrate(5000);
-//
-////                    ImageView im = (ImageView) findViewById(R.id.stopSign);
-////                    im.setVisibility(View.VISIBLE);
-//                }
+                if(location.hasSpeed()==true) {
+                    currentSpeed = Math.round((location.getSpeed() * 3.6) * 100.0) / 100.0;
+                    currentSpeedTextView.setText(String.valueOf(currentSpeed)+"km/h");
+                }
             }
 
             public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -120,11 +83,52 @@ public class TrackSpeedActivity extends Activity {
             }
         };
         String locationProvider = LocationManager.GPS_PROVIDER;
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.GET_PERMISSIONS) {
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.GET_PERMISSIONS) {
             ActivityCompat.requestPermissions(this, INITIAL_PERMS, 0);
-            locationManager.requestLocationUpdates(locationProvider, 0, 0, locationListener);
         }
 
+
+        final Handler ha = new Handler();
+        ha.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                //call function
+                getSpeedFromLambda(latitude, longitude);
+                ha.postDelayed(this, 5000);
+                //final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
+                try {
+                    String newSpeed= speedLimit.replaceAll("[^\\d.]", "");
+                    //speedLimitTextView.setText(newSpeed+"km/h");
+                    int limit = Integer.parseInt(newSpeed);
+                    while(currentSpeed > limit) {
+                        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+//                    // Vibrate for 400 milliseconds
+                        v.vibrate(1000);
+                    }
+
+                    if(limit == 50){
+                        showImage(imageView50);
+                    }
+                    if(limit == 60){
+                        showImage(imageView60);
+                    }
+                    if(limit == 80){
+                        showImage(imageView80);
+                    }
+                    if(limit == 100){
+                        showImage(imageView100);
+                    }
+                }
+                catch(Exception e){
+                    speedLimitTextView.setText(speedLimit);
+                }
+
+            }
+        }, 5000);
     }
 
     public void getSpeedFromLambda(String latitude, String longitude) {
@@ -159,9 +163,10 @@ public class TrackSpeedActivity extends Activity {
         speedLimit = response;
     }
 
-    public void showImage(View view) {
-//        ImageView im = (ImageView) findViewById(R.id.stopSign);
-//        im.setVisibility(View.INVISIBLE);
+    public void showImage(ImageView view) {
+        view.setVisibility(View.VISIBLE);
+        view.bringToFront();
+
     }
 }
 

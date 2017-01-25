@@ -36,11 +36,13 @@ public class TrackSpeedActivity extends Activity {
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
     };
-    private String speedLimit = "";
-    private String longitude = "";
-    private String latitude = "";
-    private double currentSpeed = 0.0;
-    int count = 0;
+//    private String speedLimit = "";
+//    private String longitude = "";
+//    private String latitude = "";
+//    private double currentSpeed = 0.0;
+
+
+    Journey journey = new Journey();
     Intent intent = getIntent();
 
     @Override
@@ -64,12 +66,12 @@ public class TrackSpeedActivity extends Activity {
         LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
 
-                latitude = String.valueOf(location.getLatitude());
-                longitude = String.valueOf(location.getLongitude());
+                journey.setLatitude(String.valueOf(location.getLatitude()));
+                journey.setLongitude(String.valueOf(location.getLongitude()));
                 // Called when a new location is found by the network location provider.
                 if(location.hasSpeed()==true) {
-                    currentSpeed = Math.round((location.getSpeed() * 3.6) * 100.0) / 100.0;
-                    currentSpeedTextView.setText(String.valueOf(currentSpeed)+"km/h");
+                    journey.setCurrentSpeed(Math.round((location.getSpeed() * 3.6) * 100.0) / 100.0);
+                    currentSpeedTextView.setText(String.valueOf(journey.getCurrentSpeed())+"km/h");
                 }
             }
 
@@ -97,14 +99,14 @@ public class TrackSpeedActivity extends Activity {
             @Override
             public void run() {
                 //call function
-                getSpeedFromLambda(latitude, longitude);
+                getSpeedFromLambda(journey.getLatitude(), journey.getLongitude());
                 ha.postDelayed(this, 5000);
                 //final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
                 try {
-                    String newSpeed= speedLimit.replaceAll("[^\\d.]", "");
+                    String newSpeed= journey.getSpeedLimit().replaceAll("[^\\d.]", "");
                     //speedLimitTextView.setText(newSpeed+"km/h");
                     int limit = Integer.parseInt(newSpeed);
-                    while(currentSpeed > limit) {
+                    while(journey.getCurrentSpeed() > limit) {
                         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 //                    // Vibrate for 400 milliseconds
                         v.vibrate(1000);
@@ -124,7 +126,7 @@ public class TrackSpeedActivity extends Activity {
                     }
                 }
                 catch(Exception e){
-                    speedLimitTextView.setText(speedLimit);
+                    speedLimitTextView.setText(journey.getSpeedLimit());
                 }
 
             }
@@ -140,7 +142,7 @@ public class TrackSpeedActivity extends Activity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        setSpeedLimit(response);
+                        journey.setSpeedLimit((response));
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -157,10 +159,6 @@ public class TrackSpeedActivity extends Activity {
         };
 // Add the request to the RequestQueue.
         queue.add(stringRequest);
-    }
-
-    public void setSpeedLimit(String response) {
-        speedLimit = response;
     }
 
     public void showImage(ImageView view) {

@@ -1,0 +1,1 @@
+CREATE SEQUENCE journeySequence START 101;

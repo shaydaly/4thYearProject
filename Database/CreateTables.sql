@@ -8,7 +8,9 @@ password varchar2(255),
 phoneNum varchar2(10),
 );
 
-Create table Customer OF cust;
+Create table Customer OF cust(
+userID primary key
+);
 
 
 Create or replace type journeyObject as Object(
@@ -18,17 +20,22 @@ startLongitude numeric,
 endLatitude numeric,
 endLongitude numeric,
 journeyTime datetime,
-journeyUser cust
+journeyUser REF cust scope is Customer
 );
 
-Create table Journey of JourneyObject;
+Create table Journey of JourneyObject(
+JourneyID primary key
+);
 
 Create or replace type OverSpeed as Object(
-OverSpeedUser cust,
-journey journeyObject,
+incidentID numeric,
+OverSpeedUser REF cust Scope is customer,
+journey REF journeyObject Scope is Journey,
 timeOfIncident datetime);
 
-Create table OverSpeedLimit of overspeed;
+Create table OverSpeedLimit of overspeed(
+incidentID primary key
+);
 
 Create or replace type camera as object(
 cameraID numeric,
@@ -38,7 +45,9 @@ endLatitude numeric,
 endLongitude numeric,
 );
 
-Create table SpeedCamera of camera;
+Create table SpeedCamera of camera(
+cameraID primary key
+);
 
 Create or replace type tempCamera as object
 (
@@ -47,4 +56,6 @@ longitude numeric,
 latitude numeric
 );
 
-create table TemporaryCamera of tempCamera;
+create table TemporaryCamera of tempCamera(
+cameraID primary key
+);

@@ -32,6 +32,8 @@ customer cust references Customer(customer)
 );
 
 Create type OverSpeed as(
+latitude numeric,
+longitude numeric,
 timeOfIncident time,
 speedTravelling numeric,
 speedLimit numeric

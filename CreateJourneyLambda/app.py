@@ -31,21 +31,30 @@ except:
 
 logger.info("SUCCESS: Connection to RDS PGRES! instance succeeded")
 def handler(event, context):
-
+    #longitude = event["longitude"]
+    #latitude = event["latitude"]
+    #currentSpeed = event["currentSpeed"]
+    #speedLimit = event["speedLimit"]
+    #time ="10:00:00"
+    #sequence =""
+    #query =  "INSERT INTO overspeedlimit VALUES (nextval('overspeedLimitSequence'),(select customer from customer where userid = 1),(select journey from journey where journeyid = 101),ROW(%s, %s, %s, %s, %s));"
+    #data = (latitude, longitude, time , currentSpeed, speedLimit)
+    print event
     longitude = event["longitude"]
     latitude = event["latitude"]
-    currentSpeed = event["currentSpeed"]
-    speedLimit = event["speedLimit"]
-    time ="10:00:00"
-    sequence =""
-    
-    query =  "INSERT INTO overspeedlimit VALUES (nextval('overspeedLimitSequence'),(select customer from customer where userid = 1),(select journey from journey where journeyid = 101),ROW(%s, %s, %s, %s, %s));"
-    data = (latitude, longitude, time , currentSpeed, speedLimit)
-
     item_count = 0
-    with conn.cursor() as cur:
-        cur.execute(query, data)
-        conn.commit()
+    query = """insert into testJson(longitude,latitude) VALUES(%s,%s)"""
+    data = (longitude,latitude)
+    print "seamus"
+    print (query,data)
+    try:
+        with conn.cursor() as cur:
+            cur.execute(query, data)
+            conn.commit()
+    except Exception as e:
+        logger.error("could not insert into test table")
+        print str(e)
+        sys.exit()
         #for row in cur:
          #   item_count += 1
          #   logger.info(row)

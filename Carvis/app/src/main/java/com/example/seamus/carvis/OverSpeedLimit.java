@@ -6,9 +6,10 @@ package com.example.seamus.carvis;
 
 public class OverSpeedLimit {
 
-    private String longitude, latitude, currentSpeed, speedLimit;
+    private String longitude, latitude, speedLimit;
+    private double currentSpeed;
 
-    public OverSpeedLimit(String longitude, String latitude, String currentSpeed, String speedLimit) {
+    public OverSpeedLimit(String longitude, String latitude, double currentSpeed, String speedLimit) {
         this.longitude = longitude;
         this.latitude = latitude;
         this.currentSpeed = currentSpeed;
@@ -23,7 +24,7 @@ public class OverSpeedLimit {
         return latitude;
     }
 
-    public String getCurrentSpeed() {
+    public double getCurrentSpeed() {
         return currentSpeed;
     }
 
@@ -39,7 +40,7 @@ public class OverSpeedLimit {
         this.latitude = latitude;
     }
 
-    public void setCurrentSpeed(String currentSpeed) {
+    public void setCurrentSpeed(double currentSpeed) {
         this.currentSpeed = currentSpeed;
     }
 
@@ -47,7 +48,6 @@ public class OverSpeedLimit {
         this.speedLimit = speedLimit;
     }
 
-    public void AddOverLimitDB(OverSpeedLimit o){
-        
+    public void InsertOverLimitDB(Journey j){
     }
 }

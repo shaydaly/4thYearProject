@@ -22,13 +22,19 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Exchanger;
+
 import android.os.Handler;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class TrackSpeedActivity extends Activity {
 
@@ -41,20 +47,19 @@ public class TrackSpeedActivity extends Activity {
 //    private String latitude = "";
 //    private double currentSpeed = 0.0;
 
-
-    Journey journey = new Journey();
     Intent intent = getIntent();
-
+    Journey journey = new Journey();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_track_speed);
 
-
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        journey.addJourneyDB();
 
 
         final TextView currentSpeedTextView = (TextView) findViewById(R.id.currentSpeed);
+        currentSpeedTextView.setText(journey.addJourneyDB());
         final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
 
         final ImageView imageView50 = (ImageView) findViewById(R.id.speed50km);
@@ -71,7 +76,7 @@ public class TrackSpeedActivity extends Activity {
                 // Called when a new location is found by the network location provider.
                 if(location.hasSpeed()==true) {
                     journey.setCurrentSpeed(Math.round((location.getSpeed() * 3.6) * 100.0) / 100.0);
-                    currentSpeedTextView.setText(String.valueOf(journey.getCurrentSpeed())+"km/h");
+                    //currentSpeedTextView.setText(String.valueOf(journey.getCurrentSpeed())+"km/h");
                 }
             }
 
@@ -106,6 +111,10 @@ public class TrackSpeedActivity extends Activity {
                     String newSpeed= journey.getSpeedLimit().replaceAll("[^\\d.]", "");
                     //speedLimitTextView.setText(newSpeed+"km/h");
                     int limit = Integer.parseInt(newSpeed);
+                    if(journey.getCurrentSpeed() > limit){
+                        OverSpeedLimit o = new OverSpeedLimit(journey.getLatitude(),journey.getLongitude(),journey.getCurrentSpeed(),journey.getSpeedLimit());
+                        o.InsertOverLimitDB(journey);
+                    }
                     while(journey.getCurrentSpeed() > limit) {
                         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 //                    // Vibrate for 400 milliseconds
@@ -133,33 +142,65 @@ public class TrackSpeedActivity extends Activity {
         }, 5000);
     }
 
-    public void getSpeedFromLambda(String latitude, String longitude) {
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/QuerySpeed/callqueryspeed?latitude=" + latitude + "&longitude=" + longitude;
+//    public void getSpeedFromLambda(String latitude, String longitude) {
+//        RequestQueue queue = Volley.newRequestQueue(this);
+//        String url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/QuerySpeed/callqueryspeed?latitude=" + latitude + "&longitude=" + longitude;
+//
+//        // Request a string response from the provided URL.
+//        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        journey.setSpeedLimit((response));
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                //speedLimitTextView.setText("error getting speed");
+//            }
+//        }) {
+//            @Override
+//            public Map<String, String> getHeaders() {
+//                Map<String, String> headers = new HashMap<String, String>();
+//                headers.put("User-agent", "CARVIS");
+//                return headers;
+//            }
+//        };
+//// Add the request to the RequestQueue.
+//        queue.add(stringRequest);
+//    }
+public void getSpeedFromLambda(String latitude, String longitude) {
+    RequestQueue queue = Volley.newRequestQueue(this);
+    String url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/QuerySpeed/callqueryspeed?latitude=" + latitude + "&longitude=" + longitude;
+    final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
+    JsonObjectRequest jsObjRequest = new JsonObjectRequest
+            (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        journey.setSpeedLimit((response));
+                @Override
+                public void onResponse(JSONObject response) {
+                    try{
+                    JSONObject obj = new JSONObject(response.toString());
+                        journey.setSpeedLimit((obj.get("speed").toString()));
+                }
+
+                    catch(JSONException e){
+
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                //speedLimitTextView.setText("error getting speed");
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<String, String>();
-                headers.put("User-agent", "CARVIS");
-                return headers;
-            }
-        };
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    // TODO Auto-generated method stub
+
+                }
+            });
+
+// Access the RequestQueue through your singleton class.
+ //   MySingleton.getInstance(this).addToRequestQueue(jsObjRequest);
 // Add the request to the RequestQueue.
-        queue.add(stringRequest);
-    }
+    queue.add(jsObjRequest);
+}
 
     public void showImage(ImageView view) {
         view.setVisibility(View.VISIBLE);

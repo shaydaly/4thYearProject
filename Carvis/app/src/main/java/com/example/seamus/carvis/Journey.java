@@ -102,14 +102,8 @@ public class Journey extends Activity{
     public String getLongitude(){
         return longitude;
     }
-private String result="seamus";
-    public void setResult(String s){
-        result= s;
-    }
 
-    public String getResult(){
-        return result;
-    }
+
     public  void addJourneyDB(Context c){
         try {
             RequestQueue requestQueue = Volley.newRequestQueue(c);

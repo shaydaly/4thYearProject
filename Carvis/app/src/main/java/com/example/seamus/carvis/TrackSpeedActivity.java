@@ -12,6 +12,7 @@ import android.location.LocationManager;
 import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -65,6 +66,9 @@ public class TrackSpeedActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_track_speed);
 
+
+
+
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         //journey.addJourneyDB();
         //addJourneyDB();
@@ -82,8 +86,9 @@ public class TrackSpeedActivity extends Activity {
         final ImageView imageView80 = (ImageView) findViewById(R.id.speed80km);
         final ImageView imageView100 = (ImageView) findViewById(R.id.speed100km);
 
+        LocationListener locationListener;
         // Define a listener that responds to location updates
-        LocationListener locationListener = new LocationListener() {
+        locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
 
                 journey.setLatitude(String.valueOf(location.getLatitude()));
@@ -91,8 +96,7 @@ public class TrackSpeedActivity extends Activity {
                 // Called when a new location is found by the network location provider.
                 if(location.hasSpeed()==true) {
                     journey.setCurrentSpeed(Math.round((location.getSpeed() * 3.6) * 100.0) / 100.0);
-                    //currentSpeedTextView.setText(String.valueOf(journey.getCurrentSpeed())+"km/h");
-                    currentSpeedTextView.setText(journey.getResult());
+                    currentSpeedTextView.setText(String.valueOf(journey.getCurrentSpeed())+"km/h");
                 }
             }
 
@@ -106,12 +110,27 @@ public class TrackSpeedActivity extends Activity {
             }
         };
         String locationProvider = LocationManager.GPS_PROVIDER;
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.GET_PERMISSIONS) {
-            ActivityCompat.requestPermissions(this, INITIAL_PERMS, 0);
+        try {
+            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, INITIAL_PERMS, 0);
+            }
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
         }
+        catch(Exception e){
+
+        }
+
+//        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+//                != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(this, INITIAL_PERMS, 0);
+//        }
+
+//        if ( ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
+//
+//            ActivityCompat.requestPermissions( this, new String[] {  android.Manifest.permission.ACCESS_FINE_LOCATION  },
+//                    LocationService.ACCESS_FINE_LOCATION );
+//        }
 
 
         final Handler ha = new Handler();
@@ -207,14 +226,10 @@ public void getSpeedFromLambda(String latitude, String longitude) {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    // TODO Auto-generated method stub
+                    journey.setSpeedLimit("NA");
 
                 }
             });
-
-// Access the RequestQueue through your singleton class.
- //   MySingleton.getInstance(this).addToRequestQueue(jsObjRequest);
-// Add the request to the RequestQueue.
     queue.add(jsObjRequest);
 }
 

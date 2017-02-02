@@ -3,7 +3,7 @@ import logging
 import rds_config
 import psycopg2
 #rds settings
-rds_host  = "carvis-pgres-db.cuqx5uhbzyug.us-east-1.rds.amazonaws.com"
+rds_host  = rds_config.rds_host
 name = rds_config.db_username
 password = rds_config.db_password
 db_name = rds_config.db_name
@@ -14,7 +14,12 @@ logger.setLevel(logging.INFO)
 
 try:
     #Define our connection string
-	conn_string = "host='carvis-pgres-db.cuqx5uhbzyug.us-east-1.rds.amazonaws.com' dbname='CARVIS_DB' user='shayAWS' password='ShayVisCar'"
+	#conn_string = "host='carvis-pgres-db.cuqx5uhbzyug.us-east-1.rds.amazonaws.com' dbname='CARVIS_DB' user='shayAWS' password='ShayVisCar'"
+	#conn_string = "host='carvis-pgres-db.cuqx5uhbzyug.us-east-1.rds.amazonaws.com' dbname='CARVIS_DB' user='shayAWS' password='ShayVisCar'"
+	#print conn_string
+	conn_string = "host=%s dbname=%s user=%s password=%s "%(rds_host,db_name,name,password)
+	#print newcon
+	#conn_params = (rds_host, db_name, name, password)
  
 	# print the connection string we will use to connect
 	print "Connecting to database\n	->%s" % (conn_string)
@@ -31,22 +36,14 @@ except:
 
 logger.info("SUCCESS: Connection to RDS PGRES! instance succeeded")
 def handler(event, context):
-    #longitude = event["longitude"]
-    #latitude = event["latitude"]
-    #currentSpeed = event["currentSpeed"]
-    #speedLimit = event["speedLimit"]
-    #time ="10:00:00"
-    #sequence =""
-    #query =  "INSERT INTO overspeedlimit VALUES (nextval('overspeedLimitSequence'),(select customer from customer where userid = 1),(select journey from journey where journeyid = 101),ROW(%s, %s, %s, %s, %s));"
-    #data = (latitude, longitude, time , currentSpeed, speedLimit)
-    print event
-    longitude = event["longitude"]
-    latitude = event["latitude"]
+    longitude = event["body-json"]["longitude"]
+    latitude = event["body-json"]["latitude"]
+    startTime = event["body-json"]["startTime"]
+    endTime = event["body-json"]["endTime"]
     item_count = 0
-    query = """insert into testJson(longitude,latitude) VALUES(%s,%s)"""
-    data = (longitude,latitude)
-    print "seamus"
-    print (query,data)
+    #query = """insert into testJson(longitude,latitude) VALUES(%s,%s)"""
+    query ="""insert into journey values (nextval('journeySequence'), ROW(%s,%s,%s,%s,%s,%s) , (select customer from customer where userid =1))"""
+    data = (latitude,longitude,latitude,longitude,startTime,endTime)
     try:
         with conn.cursor() as cur:
             cur.execute(query, data)
@@ -55,10 +52,10 @@ def handler(event, context):
         logger.error("could not insert into test table")
         print str(e)
         sys.exit()
-        #for row in cur:
-         #   item_count += 1
-         #   logger.info(row)
-            #print(row)
+        for row in cur:
+            item_count += 1
+            logger.info(row)
+            print(row)
     
 
-    #return "Added %d items from RDS MySQL table" %(item_count)
+    #return "Added %d items from RDS PostGRES table" %(item_count)

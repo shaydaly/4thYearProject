@@ -1,7 +1,9 @@
 package com.example.seamus.carvis;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -31,14 +33,34 @@ public class Journey extends Activity{
     private String latitude;
     private double  currentSpeed;
     private String speedLimit;
+    private Date startTime;
 
-    public Journey(String latitude,String longitude, double currentSpeed, String speedLimit) {
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    private Date endTime;
+
+    public Journey(String latitude,String longitude, double currentSpeed, String speedLimit, Date start, Date end) {
         this.latitude = latitude;
         this.currentSpeed = currentSpeed;
         this.speedLimit = speedLimit;
         this.longitude = longitude;
+        this.startTime = start;
+        this.endTime = end;
     }
-
 
     public Journey(){
         longitude="";
@@ -80,7 +102,7 @@ public class Journey extends Activity{
     public String getLongitude(){
         return longitude;
     }
-private String result;
+private String result="seamus";
     public void setResult(String s){
         result= s;
     }
@@ -88,32 +110,30 @@ private String result;
     public String getResult(){
         return result;
     }
-    public String addJourneyDB(){
+    public  void addJourneyDB(Context c){
         try {
-            RequestQueue requestQueue = Volley.newRequestQueue(this);
-            String URL = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/QuerySpeed/createjourneyobject";
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            final TextView currentSpeedTextView = (TextView) findViewById(R.id.currentSpeed);
-            currentSpeedTextView.setText("called");
-            Date date = new Date();
+            RequestQueue requestQueue = Volley.newRequestQueue(c);
+            String URL = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/createjourneyobject";
+            DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+            startTime  = new Date();
+            endTime = new Date();
             JSONObject jsonBody = new JSONObject();
-            jsonBody.put("longitude", longitude);
-            jsonBody.put("latitude", latitude);
-            jsonBody.put("time",date);
+            jsonBody.put("longitude", "77777");
+            jsonBody.put("latitude", "333333");
+            jsonBody.put("startTime",startTime);
+            jsonBody.put("endTime",endTime);
             final String requestBody = jsonBody.toString();
-            final
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    result = response;
+                    //result = response;
                     Log.i("VOLLEY", response);
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    result = error.toString();
-                    currentSpeedTextView.setText(error.toString());
+                    //result = error.toString();
                 }
             }) {
                 @Override
@@ -126,7 +146,7 @@ private String result;
                     try {
                         return requestBody == null ? null : requestBody.getBytes("utf-8");
                     } catch (UnsupportedEncodingException uee) {
-                        result = uee.toString();
+                       // result = uee.toString();
                         VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
                         return null;
                     }
@@ -138,7 +158,7 @@ private String result;
                     if (response != null) {
                         responseString = String.valueOf(response.statusCode);
                         // can get more details such as response.headers
-                        result = (response.toString());
+                        //result = (response.toString());
                     }
                     return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
                 }
@@ -147,7 +167,7 @@ private String result;
             requestQueue.add(stringRequest);
         } catch (Exception e) {
             e.printStackTrace();
+            //result = e.toString();
         }
-        return result;
     }
 }

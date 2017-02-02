@@ -14,19 +14,28 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 
+import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Exchanger;
@@ -47,21 +56,27 @@ public class TrackSpeedActivity extends Activity {
 //    private String latitude = "";
 //    private double currentSpeed = 0.0;
 
+    private static Context context;
     Intent intent = getIntent();
     Journey journey = new Journey();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_track_speed);
 
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        journey.addJourneyDB();
+        //journey.addJourneyDB();
+        //addJourneyDB();
+        context= getApplicationContext();
+
+
+        journey.addJourneyDB(context);
+
 
 
         final TextView currentSpeedTextView = (TextView) findViewById(R.id.currentSpeed);
-        currentSpeedTextView.setText(journey.addJourneyDB());
         final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
-
         final ImageView imageView50 = (ImageView) findViewById(R.id.speed50km);
         final ImageView imageView60 = (ImageView) findViewById(R.id.speed60km);
         final ImageView imageView80 = (ImageView) findViewById(R.id.speed80km);
@@ -77,6 +92,7 @@ public class TrackSpeedActivity extends Activity {
                 if(location.hasSpeed()==true) {
                     journey.setCurrentSpeed(Math.round((location.getSpeed() * 3.6) * 100.0) / 100.0);
                     //currentSpeedTextView.setText(String.valueOf(journey.getCurrentSpeed())+"km/h");
+                    currentSpeedTextView.setText(journey.getResult());
                 }
             }
 
@@ -202,10 +218,72 @@ public void getSpeedFromLambda(String latitude, String longitude) {
     queue.add(jsObjRequest);
 }
 
+    public void addJourneyDB(){
+        try {
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            String URL = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/createjourneyobject";
+            DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+            final TextView currentSpeedTextView = (TextView) findViewById(R.id.currentSpeed);
+            currentSpeedTextView.setText("called");
+            Date date = new Date();
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("longitude", "9999");
+            jsonBody.put("latitude", "5555");
+            jsonBody.put("time",date);
+            final String requestBody = jsonBody.toString();
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    //result = response;
+                    Log.i("VOLLEY", response);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //result = error.toString();
+                    currentSpeedTextView.setText(error.toString());
+                }
+            }) {
+                @Override
+                public String getBodyContentType() {
+                    return "application/json; charset=utf-8";
+                }
+
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    try {
+                        return requestBody == null ? null : requestBody.getBytes("utf-8");
+                    } catch (UnsupportedEncodingException uee) {
+                        //result = uee.toString();
+                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                        return null;
+                    }
+                }
+
+                @Override
+                protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                    String responseString = "";
+                    if (response != null) {
+                        responseString = String.valueOf(response.statusCode);
+                        // can get more details such as response.headers
+                        //result = (response.toString());
+                    }
+                    return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+                }
+            };
+
+            requestQueue.add(stringRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+            //result = e.toString();
+        }
+    }
+
     public void showImage(ImageView view) {
         view.setVisibility(View.VISIBLE);
         view.bringToFront();
-
     }
+
 }
 

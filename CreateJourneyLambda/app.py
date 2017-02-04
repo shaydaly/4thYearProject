@@ -40,22 +40,23 @@ def handler(event, context):
     latitude = event["body-json"]["latitude"]
     startTime = event["body-json"]["startTime"]
     endTime = event["body-json"]["endTime"]
+    username = event["body-json"]["username"]
     item_count = 0
     #query = """insert into testJson(longitude,latitude) VALUES(%s,%s)"""
-    query ="""insert into journey values (nextval('journeySequence'), ROW(%s,%s,%s,%s,%s,%s) , (select customer from customer where userid =1))"""
-    data = (latitude,longitude,latitude,longitude,startTime,endTime)
+    query ="""insert into journey values (nextval('journeySequence'), ROW(%s,%s,%s,%s,%s,%s) , (select customer from customer where (customer).username=%s))"""
+    data = (latitude,longitude,latitude,longitude,startTime,endTime,username)
     try:
         with conn.cursor() as cur:
             cur.execute(query, data)
             conn.commit()
+            #for row in cur:
+            #    item_count += 1
+            #    logger.info(row)
+            #    print(row)
     except Exception as e:
         logger.error("could not insert into test table")
         print str(e)
         sys.exit()
-        for row in cur:
-            item_count += 1
-            logger.info(row)
-            print(row)
     
 
-    #return "Added %d items from RDS PostGRES table" %(item_count)
+    return "Added %d items from RDS PostGRES table" %(item_count)

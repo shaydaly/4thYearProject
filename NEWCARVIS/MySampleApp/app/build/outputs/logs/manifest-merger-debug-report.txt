@@ -1,0 +1,166 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:16:1-120:12
+	package
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:17:5-30
+		INJECTED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:16:11-69
+	android:versionCode
+		INJECTED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml
+uses-permission#android.permission.INTERNET
+ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:19:5-67
+	android:name
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:19:22-64
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:20:5-79
+	android:name
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:20:22-76
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:21:5-76
+	android:name
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:21:22-73
+uses-permission#android.permission.GET_ACCOUNTS
+ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:23:5-71
+	android:name
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:23:22-68
+uses-permission#android.permission.READ_PROFILE
+ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:24:5-71
+	android:name
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:24:22-68
+uses-permission#android.permission.READ_CONTACTS
+ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:25:5-72
+	android:name
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:25:22-69
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:28:5-79
+	android:name
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:28:22-76
+uses-permission#android.permission.ACCESS_COURSE_LOCATION
+ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:29:5-81
+	android:name
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:29:22-78
+uses-permission#android.permission.VIBRATE
+ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:30:5-66
+	android:name
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:30:22-63
+application
+ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:32:5-119:19
+MERGED from [com.android.support:appcompat-v7:23.1.0] C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.0\AndroidManifest.xml:22:5-20
+MERGED from [com.facebook.android:facebook-android-sdk:4.6.0] C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.6.0\AndroidManifest.xml:28:5-20
+MERGED from [com.android.support:support-v4:23.1.0] C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:22:5-20
+MERGED from [com.android.volley:volley:1.0.0] C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.volley\volley\1.0.0\AndroidManifest.xml:9:5-20
+	android:label
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:35:9-41
+	android:allowBackup
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:33:9-35
+	android:icon
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:34:9-43
+	android:theme
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:36:9-40
+	android:name
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:37:9-51
+activity#com.carvis.TrackSpeedActivity
+ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:39:9-44:24
+	android:name
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:39:19-63
+activity#com.mysampleapp.SplashActivity
+ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:45:9-53:20
+	android:label
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:47:13-45
+	android:configChanges
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:48:13-83
+	android:name
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:46:13-43
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:49:13-52:29
+action#android.intent.action.MAIN
+ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:50:17-69
+	android:name
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:50:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:51:17-77
+	android:name
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:51:27-74
+activity#com.mysampleapp.SignInActivity
+ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:54:9-59:20
+	android:label
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:56:13-59
+	android:configChanges
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:57:13-83
+	android:name
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:55:13-43
+activity#com.mysampleapp.demo.userpools.ForgotPasswordActivity
+ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:60:9-65:20
+	android:label
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:62:13-67
+	android:configChanges
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:63:13-83
+	android:name
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:61:13-66
+activity#com.mysampleapp.demo.userpools.SignUpActivity
+ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:66:9-71:20
+	android:label
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:68:13-59
+	android:configChanges
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:69:13-83
+	android:name
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:67:13-58
+activity#com.mysampleapp.demo.userpools.MFAActivity
+ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:72:9-77:20
+	android:label
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:74:13-55
+	android:configChanges
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:75:13-83
+	android:name
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:73:13-55
+activity#com.mysampleapp.demo.userpools.SignUpConfirmActivity
+ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:78:9-83:20
+	android:label
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:80:13-67
+	android:configChanges
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:81:13-83
+	android:name
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:79:13-65
+activity#com.mysampleapp.MainActivity
+ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:84:9-88:20
+	android:label
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:87:13-56
+	android:launchMode
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:86:13-48
+	android:name
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:85:13-41
+activity#com.facebook.FacebookActivity
+ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:92:9-96:75
+	android:label
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:95:13-45
+	android:configChanges
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:94:13-96
+	android:theme
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:96:13-72
+	android:name
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:93:13-57
+meta-data#com.facebook.sdk.ApplicationId
+ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:98:9-108
+	android:value
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:98:66-105
+	android:name
+		ADDED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml:98:20-65
+uses-sdk
+INJECTED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.android.support:multidex:1.0.1] C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.support\multidex\1.0.1\AndroidManifest.xml:18:5-42
+MERGED from [com.android.support:appcompat-v7:23.1.0] C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.0\AndroidManifest.xml:20:5-43
+MERGED from [com.facebook.android:facebook-android-sdk:4.6.0] C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.6.0\AndroidManifest.xml:24:5-26:41
+MERGED from [com.android.support:support-v4:23.1.0] C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:20:5-43
+MERGED from [com.android.volley:volley:1.0.0] C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.volley\volley\1.0.0\AndroidManifest.xml:7:5-43
+	android:targetSdkVersion
+		INJECTED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Seamus\Downloads\NEWCARVIS\MySampleApp\app\src\main\AndroidManifest.xml

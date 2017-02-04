@@ -1,10 +1,7 @@
 Create type cust as (
-firstName text,
-surname text,
-DOB date,
+name text,
 username varchar(10),
 email text,
-password text,
 phoneNum varchar
 );
 
@@ -22,7 +19,8 @@ startLatitude numeric,
 startLongitude numeric,
 endLatitude numeric,
 endLongitude numeric,
-journeyTime time
+journeyStartTime timestamp,
+journeyEndTime timestamp
 );
 
 Create table Journey(

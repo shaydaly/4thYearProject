@@ -40,9 +40,9 @@ speedLimit numeric
 
 Create table OverSpeedLimit(
 incidentID numeric primary key,
-customer cust references Customer(customer),
+overspeedL overspeed,
 journey journeyObject REFerences Journey(journey),
-overspeedL overspeed
+customer cust references Customer(customer)
 );
 
 Create type camera as(

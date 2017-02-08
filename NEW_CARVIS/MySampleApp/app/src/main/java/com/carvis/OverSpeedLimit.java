@@ -72,7 +72,6 @@ public class OverSpeedLimit {
 
     public void InsertOverLimitDB(Context c, String journeyID,  String user){
         try {
-            System.out.println(journeyID+"_______+++");
             RequestQueue requestQueue = Volley.newRequestQueue(c);
             String URL = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/createoverspeedobject";
 //            DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
@@ -91,7 +90,6 @@ public class OverSpeedLimit {
             jsonBody.put("speedTravelling", currentSpeed);
             jsonBody.put("speedLimit",speedLimit);
 
-            System.out.println(latitude+"\t hello"+longitude+"\t"+currentTime+"\t"+user+"\t"+journeyID+"\t"+currentTime+"\t"+speedLimit);
 //            jsonBody.put("journeyID", "196");
 //            jsonBody.put("longitude","55555");
 //            jsonBody.put("latitude","66666");

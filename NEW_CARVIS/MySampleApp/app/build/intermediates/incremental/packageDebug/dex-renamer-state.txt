@@ -1,7 +1,7 @@
-#Tue Feb 07 15:48:41 GMT 2017
-base.0=C\:\\Users\\Seamus\\Downloads\\NEWCARVIS\\MySampleApp\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_41e1fb3f5e4cb46a018aee669a28901b0da1e581
+#Wed Feb 08 00:07:58 GMT 2017
+base.0=C\:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_f05824ccd42d77568fd57b0880a0d165724bcacf
 renamed.1=classes.dex
 renamed.0=classes2.dex
-file.1=C\:\\Users\\Seamus\\Downloads\\NEWCARVIS\\MySampleApp\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_ee7ef0cfb3029478eaf4ff1b2996ddcb7b79f6c1\\classes.dex
-base.1=C\:\\Users\\Seamus\\Downloads\\NEWCARVIS\\MySampleApp\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_ee7ef0cfb3029478eaf4ff1b2996ddcb7b79f6c1
-file.0=C\:\\Users\\Seamus\\Downloads\\NEWCARVIS\\MySampleApp\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_41e1fb3f5e4cb46a018aee669a28901b0da1e581\\classes.dex
+file.1=C\:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_8f0fa7de0348373bbb63e1a18ec8c1fcdea46949\\classes.dex
+base.1=C\:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_8f0fa7de0348373bbb63e1a18ec8c1fcdea46949
+file.0=C\:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_f05824ccd42d77568fd57b0880a0d165724bcacf\\classes.dex

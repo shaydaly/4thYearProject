@@ -13,10 +13,6 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 try:
-    #Define our connection string
-	#conn_string = "host='carvis-pgres-db.cuqx5uhbzyug.us-east-1.rds.amazonaws.com' dbname='CARVIS_DB' user='shayAWS' password='ShayVisCar'"
-	#conn_string = "host='carvis-pgres-db.cuqx5uhbzyug.us-east-1.rds.amazonaws.com' dbname='CARVIS_DB' user='shayAWS' password='ShayVisCar'"
-	#print conn_string
 	conn_string = "host=%s dbname=%s user=%s password=%s "%(rds_host,db_name,name,password)
 	#print newcon
 	#conn_params = (rds_host, db_name, name, password)
@@ -41,24 +37,30 @@ def handler(event, context):
     startTime = event["body-json"]["startTime"]
     endTime = event["body-json"]["endTime"]
     username = event["body-json"]["username"]
+    sqlType = event["body-json"]["sqlType"]
+    journeyID = event["body-json"]["journeyID"]
     item_count = 0
     journeyid = -1
     
     #query = """insert into testJson(longitude,latitude) VALUES(%s,%s)"""
-    query ="""insert into journey values (nextval('journeySequence'), ROW(%s,%s,%s,%s,%s,%s) , (select customer from customer where (customer).username=%s)) returning journeyid"""
-    data = (latitude,longitude,latitude,longitude,startTime,endTime,username)
+    if sqlType == 'insert':
+        query ="""insert into journey values (nextval('journeySequence'), ROW(%s,%s,0,0,%s,null) , (select customer from customer where (customer).username=%s)) returning journeyid"""
+        data = (latitude,longitude,startTime,username)
+    elif sqlType == 'update':
+        query ="""update  journey set journey.endlatitude = %s, journey.endlongitude = %s,journey.journeyEndTime  = %s where journeyid = %s"""
+        data = (latitude,longitude,endTime,journeyID)
     try:
         with conn.cursor() as cur:
             cur.execute(query, data)
             #print id_of_new_row
             #lastid = cur.fetchone()['journeyid']
             conn.commit()
-
+            if sqlType == 'insert':
             #cur.execute('select journey from journey')
-            for row in cur:
-                item_count += 1
-                logger.info(row)
-                journeyid = row
+                for row in cur:
+                    item_count += 1
+                    logger.info(row)
+                    journeyid = row
             #print cur.lastrowid   
     except Exception as e:
         logger.error("could not insert into test table")

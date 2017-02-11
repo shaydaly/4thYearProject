@@ -39,7 +39,9 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -55,40 +57,40 @@ public class TrackSpeedActivity extends Activity implements
         GoogleApiClient.OnConnectionFailedListener,
         com.google.android.gms.location.LocationListener {
 
+
     private static final String[] INITIAL_PERMS = {
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
     };
 
-    private static Context context;
+
+    private  Context context;
     Intent intent = getIntent();
     Journey journey;
+    JourneyFragment journeyFragment;
     CognitoUserPoolsSignInProvider provider;
     int count = 0;
 
-
     private GoogleApiClient mGoogleApiClient;
-
     private LocationRequest mLocationRequest;
+
+    SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 
     String s;
 
+    List<JourneyFragment> journeyList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_track_speed);
-
         journey = new Journey();
+        journeyList  = new ArrayList<>();
 
-
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         context = getApplicationContext();
         provider = new CognitoUserPoolsSignInProvider(context);
 
-        //Intent i = getIntent();
-        //Customer myParcelableObject = (Customer) i.getParcelableExtra("CustomerBundle");
 
 
         final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
@@ -97,8 +99,7 @@ public class TrackSpeedActivity extends Activity implements
         final ImageView imageView80 = (ImageView) findViewById(R.id.speed80km);
         final ImageView imageView100 = (ImageView) findViewById(R.id.speed100km);
 
-        //Testing new location
-
+        TextView currentSpeedTextView = (TextView) findViewById(R.id.currentSpeed);
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
@@ -106,7 +107,6 @@ public class TrackSpeedActivity extends Activity implements
                 .addOnConnectionFailedListener(this)
                 .build();
 
-// end new location
         final Handler ha = new Handler();
         ha.postDelayed(new Runnable() {
 
@@ -122,6 +122,11 @@ public class TrackSpeedActivity extends Activity implements
                     //speedLimitTextView.setText(newSpeed+"km/h");
                     int limit = Integer.parseInt(newSpeed);
 
+                    Date dNow = new Date( );
+
+                    journeyFragment = new JourneyFragment(journey.getLatitude(),journey.getLongitude(),journey.getCurrentSpeed(),String.valueOf(limit),dNow);
+
+                    journeyList.add(journeyFragment);
                     if (journey.getCurrentSpeed() > limit) {
                         if (!journey.getJourneyID().equals("")) {
                             //currentSpeedTextView.setText(jID);
@@ -129,11 +134,6 @@ public class TrackSpeedActivity extends Activity implements
                             o.InsertOverLimitDB(context, journey.getJourneyID(), provider.getUserName());
                         }
                     }
-//                    while(journey.getCurrentSpeed() > limit) {
-////                        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-//////                    // Vibrate for 400 milliseconds
-////                        v.vibrate(1000);
-//                    }
 
                     if (limit == 50) {
                         showImage(imageView50);
@@ -164,6 +164,15 @@ public class TrackSpeedActivity extends Activity implements
     @Override
     protected void onStop() {
         // Disconnecting the client invalidates it.
+       // journey.addJourneyDB(context, provider.getUserName(),"update");
+
+
+        for(int i=0; i<journeyList.size(); i++){
+            System.out.println(journeyList.get(i).getLatitude()+"\t"+journeyList.get(i).getLongitude()+"\t"+journeyList.get(i).getCurrentSpeed());
+        }
+
+
+        JourneyFragment.AddJourneyFragments(context,provider.getUserName(),journeyList);
         mGoogleApiClient.disconnect();
         super.onStop();
     }
@@ -193,8 +202,15 @@ public class TrackSpeedActivity extends Activity implements
                 }
             }
 
+            mLocationRequest = LocationRequest.create();
+            mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+            mLocationRequest.setInterval(1000); // Update location every second
+
+            LocationServices.FusedLocationApi.requestLocationUpdates(
+                    mGoogleApiClient, mLocationRequest, this);
+
         } catch (Exception e) {
-            System.out.println("lalala");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -219,7 +235,7 @@ public class TrackSpeedActivity extends Activity implements
             currentSpeedTextView.setText(String.valueOf(journey.getCurrentSpeed()) + "km-h");
         }
         if (count == 0) {
-            journey.addJourneyDB(context, provider.getUserName());
+            //journey.addJourneyDB(context, provider.getUserName(),"insert");
             count++;
         }
     }
@@ -244,8 +260,7 @@ public class TrackSpeedActivity extends Activity implements
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        journey.setSpeedLimit("NA");
-
+                        journey.setSpeedLimit("N----A");
                     }
                 });
         queue.add(jsObjRequest);

@@ -31,9 +31,9 @@ public class OverSpeedLimit {
     private String currentSpeed;
     Date currentTime;
 
-    public OverSpeedLimit(String longitude, String latitude, String currentSpeed, String speedLimit) {
-        this.longitude = longitude;
+    public OverSpeedLimit(String latitude,String longitude, String currentSpeed, String speedLimit) {
         this.latitude = latitude;
+        this.longitude = longitude;
         this.currentSpeed = currentSpeed;
         this.speedLimit = speedLimit;
     }
@@ -90,13 +90,6 @@ public class OverSpeedLimit {
             jsonBody.put("speedTravelling", currentSpeed);
             jsonBody.put("speedLimit",speedLimit);
 
-//            jsonBody.put("journeyID", "196");
-//            jsonBody.put("longitude","55555");
-//            jsonBody.put("latitude","66666");
-//            jsonBody.put("speedTravelling", "50");
-//            jsonBody.put("speedLimit","40");
-//            jsonBody.put("username", "fogo1991");
-//            jsonBody.put("time",currentTime);
 
             final String requestBody = jsonBody.toString();
 

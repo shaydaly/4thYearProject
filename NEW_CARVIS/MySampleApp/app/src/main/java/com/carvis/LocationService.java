@@ -30,6 +30,12 @@ public class LocationService extends Activity implements
 
     Journey journey;
 
+    //                    while(journey.getCurrentSpeed() > limit) {
+////                        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+//////                    // Vibrate for 400 milliseconds
+////                        v.vibrate(1000);
+//                    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

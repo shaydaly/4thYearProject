@@ -29,6 +29,17 @@ journey journeyObject,
 customer cust references Customer(customer)
 );
 
+create table JourneyFragment(
+journeyfragid numeric,
+latitude  numeric,
+longitude numeric,
+currentSpeed numeric, 
+speedLimit numeric,
+timeFragment timestamp,
+journeyid numeric references Journey(journeyid),
+customer numeric references Customer(userID)
+)
+
 Create type OverSpeed as(
 latitude numeric,
 longitude numeric,

@@ -41,14 +41,14 @@ public class SignInActivity extends Activity {
          */
         @Override
         public void onSuccess(final IdentityProvider provider) {
-            Log.d(LOG_TAG, String.format("User sign-in with %s succeeded",
-                provider.getDisplayName()));
+            //Log.d(LOG_TAG, String.format("User sign-in with %s succeeded",
+              //  provider.getDisplayName()));
 
             // The sign-in manager is no longer needed once signed in.
             SignInManager.dispose();
 
-            Toast.makeText(SignInActivity.this, String.format("Sign-in with %s succeeded.",
-                provider.getDisplayName()), Toast.LENGTH_LONG).show();
+            //Toast.makeText(SignInActivity.this, String.format("Sign-in with %s succeeded.",
+              //  provider.getDisplayName()), Toast.LENGTH_LONG).show();
 
             // Load user name and image.
             AWSMobileClient.defaultMobileClient()

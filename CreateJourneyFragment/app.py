@@ -32,36 +32,27 @@ except:
 
 logger.info("SUCCESS: Connection to RDS PGRES! instance succeeded")
 def handler(event, context):
-    longitude = event["body-json"]["longitude"]
-    latitude = event["body-json"]["latitude"]
-    startTime = event["body-json"]["startTime"]
-    time = event["body-json"]["time"]
-
-    journeyID = event["body-json"]["journeyID"]
-    item_count = 0
-    journeyid = -1
-    
-        query ="""insert into journeyFragment values (nextval('journeyFragmentSequence'), ROW(%s,%s,0,0,%s,null) , (select customer from customer where (customer).username=%s)) returning journeyid"""
-        data = (latitude,longitude,time,journeyid, userid)
+    #return event
+    for i in event["body-json"]:
+    #    print i["journeyID"]
+        longitude = i["longitude"]
+        latitude = i["latitude"]
+        speed = i["speed"]
+        speedLimit = i["speedLimit"]
+        time = i["time"]
+        username = i["username"]
+        journeyID = i["journeyID"]
+        
+        #query = """insert into TestingFragment values (%s,%s)"""
+        #data = (latitude,longitude)
+        query ="""insert into JourneyFragment values (nextval('journeyFragmentSequence'),%s,%s,%s,%s,%s,%s,(select userid from customer where (customer).username=%s))"""
+        data = (latitude,longitude,speed,speedLimit,time,journeyID, username)
  
-    try:
-        with conn.cursor() as cur:
-            cur.execute(query, data)
-            #print id_of_new_row
-            #lastid = cur.fetchone()['journeyid']
-            conn.commit()
-            if sqlType == 'insert':
-            #cur.execute('select journey from journey')
-                for row in cur:
-                    item_count += 1
-                    logger.info(row)
-                    journeyid = row
-            #print cur.lastrowid   
-    except Exception as e:
-        logger.error("could not insert into test table")
-        print str(e)
-        sys.exit()
-    
-
-    #return "Added %d items from RDS PostGRES table" %(item_count)
-    return journeyid
+        try:
+            with conn.cursor() as cur:
+                cur.execute(query, data)
+                conn.commit()
+        except Exception as e:
+            logger.error("ERROR: Unexpected error: Could not connect to MySql instance.")
+            return str(e)
+            sys.exit()

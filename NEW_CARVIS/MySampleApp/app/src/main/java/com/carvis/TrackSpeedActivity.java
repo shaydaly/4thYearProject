@@ -91,7 +91,7 @@ public class TrackSpeedActivity extends Activity implements
         context = getApplicationContext();
         provider = new CognitoUserPoolsSignInProvider(context);
 
-
+        journey.getUsersJourneys(context, provider.getUserName());
 
         final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
         final ImageView imageView50 = (ImageView) findViewById(R.id.speed50km);
@@ -124,7 +124,7 @@ public class TrackSpeedActivity extends Activity implements
 
                     Date dNow = new Date( );
 
-                    journeyFragment = new JourneyFragment(journey.getLatitude(),journey.getLongitude(),journey.getCurrentSpeed(),String.valueOf(limit),dNow);
+                    journeyFragment = new JourneyFragment(journey.getLatitude(),journey.getLongitude(),journey.getCurrentSpeed(),String.valueOf(limit),dNow,journey.getJourneyID(), provider.getUserName());
 
                     journeyList.add(journeyFragment);
                     if (journey.getCurrentSpeed() > limit) {
@@ -172,7 +172,7 @@ public class TrackSpeedActivity extends Activity implements
         }
 
 
-        JourneyFragment.AddJourneyFragments(context,provider.getUserName(),journeyList);
+        JourneyFragment.AddJourneyFragments(context,journeyList);
         mGoogleApiClient.disconnect();
         super.onStop();
     }
@@ -235,7 +235,7 @@ public class TrackSpeedActivity extends Activity implements
             currentSpeedTextView.setText(String.valueOf(journey.getCurrentSpeed()) + "km-h");
         }
         if (count == 0) {
-            //journey.addJourneyDB(context, provider.getUserName(),"insert");
+            journey.addJourneyDB(context, provider.getUserName(),"insert");
             count++;
         }
     }
@@ -253,7 +253,7 @@ public class TrackSpeedActivity extends Activity implements
                             JSONObject obj = new JSONObject(response.toString());
                             journey.setSpeedLimit((obj.get("speed").toString()));
                         } catch (JSONException e) {
-
+                            System.out.println(e.getMessage());
                         }
                     }
                 }, new Response.ErrorListener() {

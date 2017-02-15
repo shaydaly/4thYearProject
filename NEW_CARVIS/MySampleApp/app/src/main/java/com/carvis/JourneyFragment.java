@@ -1,11 +1,23 @@
 package com.carvis;
 
 import android.content.Context;
+import android.util.Log;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.plus.model.people.Person;
 import com.google.gson.Gson;
 
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,6 +29,9 @@ import com.google.gson.Gson;
 import java.util.List;
 import java.util.ArrayList;
 import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONObject;
+
 import java.lang.reflect.Type;
 
 
@@ -28,16 +43,18 @@ public class JourneyFragment{
 
 
     private Date time;
-    private String latitude, longitude, speedLimit;
+    private String latitude, longitude, speedLimit, journeyID, username;
     double speed;
 
-    JourneyFragment(String lat, String lon,  double sp, String sl,Date d){
+    JourneyFragment(String lat, String lon,  double sp, String sl,Date d, String jID, String u){
  //       super(lat,lon,speed,speedLimit);
         latitude = lat;
         longitude = lon;
         speed = sp;
         speedLimit = sl;
         time = d;
+        journeyID = jID;
+        username = u;
     }
 
     public double getCurrentSpeed(){
@@ -103,46 +120,74 @@ public class JourneyFragment{
 
 
 
-    public static void AddJourneyFragments(Context c, String username, List<JourneyFragment> journies){
-        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd");
-        Date dNow = new Date( );
-
-
-
+    public static void AddJourneyFragments(Context c,  List<JourneyFragment> journies){
         try {
-//
-//
-//            List<JourneyFragment> jo = new ArrayList<>();
-////
-//            JourneyFragment j = new JourneyFragment("55.55", "55", 55, "70", "hel");
-//            JourneyFragment j2 = new JourneyFragment("55.55", "55", 55,"880", "hel");
-//
-//
-//            //Journey jour = new Journey("55.55","88",50.0,"56",null,dNow);
-//
-//
-//            jo.add((j));
-//            jo.add(j2);
-//
-//            List<TestObject> strings = new ArrayList<>();
-//            strings.add(new TestObject("Seamus","Daly",25));
-//            strings.add(new TestObject("Dean","Flood",25));
-//            strings.add(new TestObject("Aar","Fogo",25));
-
-
+            System.out.println("called");
             Gson gson = new Gson();
             String json = gson.toJson(journies);
             System.out.println(json);
+            try {
+                RequestQueue requestQueue = Volley.newRequestQueue(c);
+                String URL = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/journeyfragment";
+                final String requestBody = json;
+
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //result = response;
+                        Log.i("VOLLEY", response);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //result = error.toString();
+                    }
+                }) {
+                    @Override
+                    public String getBodyContentType() {
+                        return "application/json; charset=utf-8";
+                    }
+
+                    @Override
+                    public byte[] getBody() throws AuthFailureError {
+                        try {
+                            return requestBody == null ? null : requestBody.getBytes("utf-8");
+
+                        } catch (UnsupportedEncodingException uee) {
+                            // result = uee.toString();
+                            VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                            return null;
+                        }
+                    }
+
+                    @Override
+                    protected Response<String> parseNetworkResponse(NetworkResponse response) {
+
+                        String responseString = "";
+                        if (response != null) {
+                            responseString = String.valueOf(response.statusCode);
+                            // can get more details such as response.headers
+                            //result = (response.toString());
+
+                            try {
+                                String str = new String(response.data, "UTF-8");
+                                //journeyID = jID;
+                            }
+                            catch(UnsupportedEncodingException e){
+                                System.out.println(e.getMessage());
+                            }
 
 
-//
-//
-//
-//
-//            final StringWriter sw =new StringWriter();
-//            final ObjectMapper mapper = new ObjectMapper();
-//
+                        }
+                        return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+                    }
+                };
 
+                requestQueue.add(stringRequest);
+            } catch (Exception e) {
+                e.printStackTrace();
+                //result = e.toString();
+            }
 
 
 

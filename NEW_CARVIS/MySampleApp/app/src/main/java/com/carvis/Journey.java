@@ -3,6 +3,8 @@ package com.carvis;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
 import com.android.volley.AuthFailureError;
@@ -13,9 +15,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.JsonArray;
+import com.mysampleapp.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
@@ -128,11 +136,45 @@ public class Journey extends Activity {
         journeyID = journeyId;
     }
 
+    final ArrayList<String> mEntries = new ArrayList<>();
+    public ArrayList<String> getUsersJourneys(Context c, String username){
+
+        RequestQueue queue = Volley.newRequestQueue(c);
+        String url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/retrieveuserjourneys?username="+username;
+        //JsonArrayRequest jsObjRequest = new JsonArrayRequest
+        JsonArrayRequest request = new JsonArrayRequest("https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/retrieveuserjourneys?username="+username,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray jsonArray) {
+                        for(int i = 0; i < jsonArray.length(); i++) {
+                            try {
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                mEntries.add(jsonObject.toString());
+                                System.out.println(jsonObject.toString());
+                            }
+                            catch(JSONException e) {
+                                mEntries.add("Error: " + e.getLocalizedMessage());
+                            }
+                        }
+
+                       // allDone();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        //Toast.makeText(MainActivity.this, "Unable to fetch data: " + volleyError.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        //mEntries
+        queue.add(request);
+
+        return mEntries;
+    }
 
     public  void addJourneyDB(Context c, String username,String updateType){
         try {
-            System.out.println(updateType+"############");
-            System.out.println(journeyID+"____---____");
             RequestQueue requestQueue = Volley.newRequestQueue(c);
             String URL = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/createjourneyobject";
             Date dNow = new Date( );

@@ -37,8 +37,8 @@ currentSpeed numeric,
 speedLimit numeric,
 timeFragment timestamp,
 journeyid numeric references Journey(journeyid),
-customer numeric references Customer(userID)
-)
+userid numeric references Customer(userID)
+);
 
 Create type OverSpeed as(
 latitude numeric,

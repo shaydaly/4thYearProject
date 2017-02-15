@@ -33,6 +33,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COURSE_LOCATION" />
     <uses-permission android:name="android.permission.VIBRATE" />
+
     <!-- Optional permission for Analytics to run. -->
     <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Permissions required for GCM -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
@@ -73,33 +74,27 @@
         <activity
             android:name="com.mysampleapp.SignInActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:label="@string/title_activity_sign_in" >
-        </activity>
+            android:label="@string/title_activity_sign_in" />
         <activity
             android:name="com.mysampleapp.demo.userpools.ForgotPasswordActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:label="@string/title_activity_forgot_password" >
-        </activity>
+            android:label="@string/title_activity_forgot_password" />
         <activity
             android:name="com.mysampleapp.demo.userpools.SignUpActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:label="@string/title_activity_sign_up" >
-        </activity>
+            android:label="@string/title_activity_sign_up" />
         <activity
             android:name="com.mysampleapp.demo.userpools.MFAActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:label="@string/title_activity_mfa" >
-        </activity>
+            android:label="@string/title_activity_mfa" />
         <activity
             android:name="com.mysampleapp.demo.userpools.SignUpConfirmActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:label="@string/title_activity_sign_up_confirm" >
-        </activity>
+            android:label="@string/title_activity_sign_up_confirm" />
         <activity
             android:name="com.mysampleapp.MainActivity"
             android:label="@string/title_activity_main"
-            android:launchMode="singleInstance" >
-        </activity>
+            android:launchMode="singleInstance" />
 
         <!-- BEGIN - FACEBOOK SIGN-IN -->
 
@@ -134,7 +129,22 @@
 
         <!-- <activity android:name=".TestHttp" /> -->
 
+        <activity android:name="com.carvis.ListJourney" />
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
 
+        <activity
+            android:name="com.carvis.MapsActivity"
+            android:label="@string/title_activity_maps" />
         <!-- Include the AdActivity and InAppPurchaseActivity configChanges and themes. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"

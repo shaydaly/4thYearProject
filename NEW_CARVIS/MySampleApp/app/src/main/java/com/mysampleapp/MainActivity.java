@@ -116,6 +116,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TrackSpeed.titleResId = R.string.trackSpeed;
         navigationDrawer.addDemoFeatureToMenu(TrackSpeed);
 
+        DemoConfiguration.DemoFeature JourneyList = new DemoConfiguration.DemoFeature();
+        JourneyList.iconResId = R.mipmap.icon_home;
+        JourneyList.titleResId = R.string.journeys;
+        navigationDrawer.addDemoFeatureToMenu(JourneyList);
+
+        DemoConfiguration.DemoFeature Map = new DemoConfiguration.DemoFeature();
+        JourneyList.iconResId = R.mipmap.icon_home;
+        JourneyList.titleResId = R.string.map;
+        navigationDrawer.addDemoFeatureToMenu(JourneyList);
+
 
         for (DemoConfiguration.DemoFeature demoFeature : DemoConfiguration.getDemoFeatureList()) {
             navigationDrawer.addDemoFeatureToMenu(demoFeature);

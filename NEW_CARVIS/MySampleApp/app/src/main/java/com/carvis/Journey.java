@@ -28,24 +28,30 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Seamus on 24/01/2017.
  */
 
 public class Journey extends Activity {
-    private String journeyID;
-    private String longitude;
-    private String latitude;
+    private String journeyID, journeyFragmentID;
+    private String longitude , endLongitude;
+    private String latitude, endLatitude;
     private double  currentSpeed;
+    String speed;
     private String speedLimit;
     private Date startTime;
     private Date endTime;
+    String start, end, time;
     List<JourneyFragment> journeyFragmentList;
+    ArrayList<Journey> journeys;
+    ArrayList<Journey> journeyFragments;
 
     CognitoUserPoolsSignInProvider provider;
 
@@ -57,7 +63,19 @@ public class Journey extends Activity {
         this.startTime = start;
         this.endTime = end;
         journeyFragmentList = new ArrayList<>();
+        journeys = new ArrayList<>();
+    }
 
+    public Journey(String jIn, String latitude, String longitude, String endLatitude, String endLong, String startTime, String endTime) {
+        journeyID = jIn;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.endLatitude = endLatitude;
+        this.endLongitude  = endLong;
+        this.start = startTime;
+        this.end= endTime;
+        journeyFragmentList = new ArrayList<>();
+        journeys = new ArrayList<>();
     }
 
     public Journey(String latitude, String longitude, double currentSpeed, String speedLimit) {
@@ -66,6 +84,17 @@ public class Journey extends Activity {
         this.currentSpeed = currentSpeed;
         this.speedLimit = speedLimit;
         this.longitude = longitude;
+        journeys = new ArrayList<>();
+    }
+
+    public Journey(String jfid, String latitude, String longitude, String speed, String speedLimit, String time){
+        journeyFragmentID = jfid;
+        this.latitude =latitude;
+        this.longitude = longitude;
+        this.speed = speed;
+        this.speedLimit = speedLimit;
+        this.time = time;
+        journeyFragments = new ArrayList<>();
     }
 
     public Journey(){
@@ -74,6 +103,11 @@ public class Journey extends Activity {
         latitude="";
         currentSpeed=0.0;
         speedLimit="";
+        journeys = new ArrayList<>();
+    }
+
+    public String getStart() {
+        return start;
     }
 
     public void addJourneyFragment(JourneyFragment jf){
@@ -136,8 +170,36 @@ public class Journey extends Activity {
         journeyID = journeyId;
     }
 
-    final ArrayList<String> mEntries = new ArrayList<>();
-    public ArrayList<String> getUsersJourneys(Context c, String username){
+//    public void setJourneyList(ArrayList a){
+//        journeys = a;
+//        System.out.println("set journeys called");
+//        for(String s: journeys){
+//            System.out.println(s);
+//        }
+//    }
+//
+//    public void AddToJourneyList(String s){
+//        journeys.add(s);
+//    }
+    public ArrayList<Journey> getListOfJourneys(Context c){
+//        System.out.println("list start");
+//        for(String s: journeys){
+//            System.out.println("__"+s);
+//        }
+//        System.out.println("list emd");
+        return journeys;
+    }
+
+    public ArrayList<Journey> getListOfJourneyFragments(Context c){
+//        System.out.println("list start");
+//        for(String s: journeys){
+//            System.out.println("__"+s);
+//        }
+//        System.out.println("list emd");
+        return journeyFragments;
+    }
+
+    public void getUsersJourneys(Context c, String username){
 
         RequestQueue queue = Volley.newRequestQueue(c);
         String url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/retrieveuserjourneys?username="+username;
@@ -149,15 +211,38 @@ public class Journey extends Activity {
                         for(int i = 0; i < jsonArray.length(); i++) {
                             try {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                mEntries.add(jsonObject.toString());
-                                System.out.println(jsonObject.toString());
+                                //AddToJourneyList(jsonObject.toString());
+                                //journeys.add((jsonObject.get("starttime").toString()));
+
+
+                                String startTime = jsonObject.get("starttime").toString();
+                                String endTime =  jsonObject.get("endtime").toString();
+                                String startLon =  jsonObject.get("startLon").toString();
+                                String startLat =  jsonObject.get("startLat").toString();
+                                String journeyID =  jsonObject.get("journeyID").toString();
+                                String endLon =  jsonObject.get("endLon").toString();
+                                String endLat =  jsonObject.get("endLat").toString();
+
+                                Journey j = new Journey(journeyID,startLat,startLon,endLat,endLon,startTime,endTime);
+                                journeys.add(j);
+//                                DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+//                                Date date = format.parse(startTime);
+//                                Date date2 = format.parse(startTime);
+//                                System.out.println("date calc");
+//                                System.out.println(date2.getTime() - date.getTime());
+
+
+
+                                //jarr.put(jsonObject);
                             }
                             catch(JSONException e) {
-                                mEntries.add("Error: " + e.getLocalizedMessage());
+                                //j.add("Error: " + e.getLocalizedMessage());
                             }
+//                            catch(ParseException e) {
+//                                //j.add("Error: " + e.getLocalizedMessage());
+//                            }
                         }
-
-                       // allDone();
+                            //System.out.println("++++"+journeys.size());
                     }
                 },
                 new Response.ErrorListener() {
@@ -166,12 +251,66 @@ public class Journey extends Activity {
                         //Toast.makeText(MainActivity.this, "Unable to fetch data: " + volleyError.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-
         //mEntries
         queue.add(request);
-
-        return mEntries;
     }
+    public void getJourneyFragments(Context c, String username,String journeyID){
+
+        RequestQueue queue = Volley.newRequestQueue(c);
+        String url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/journeyfragment?username="+username+"&journeyID="+journeyID;
+        //JsonArrayRequest jsObjRequest = new JsonArrayRequest
+        JsonArrayRequest request = new JsonArrayRequest(url,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray jsonArray) {
+                        for(int i = 0; i < jsonArray.length(); i++) {
+                            try {
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                //AddToJourneyList(jsonObject.toString());
+                                //journeys.add((jsonObject.get("starttime").toString()));
+
+
+                                String journeyFragID = jsonObject.get("journeyFragID").toString();
+                                String longitude =  jsonObject.get("longitude").toString();
+                                String latitude =  jsonObject.get("latitude").toString();
+                                String time =  jsonObject.get("time").toString();
+                                String speedLimit =  jsonObject.get("speedLimit").toString();
+                                String currentSpeed =  jsonObject.get("currentSpeed").toString();
+
+
+                                Journey j = new Journey(journeyFragID,latitude,longitude,currentSpeed,speedLimit,time);
+                                journeyFragments.add(j);
+//                                DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+//                                Date date = format.parse(startTime);
+//                                Date date2 = format.parse(startTime);
+//                                System.out.println("date calc");
+//                                System.out.println(date2.getTime() - date.getTime());
+
+
+
+                                //jarr.put(jsonObject);
+                            }
+                            catch(JSONException e) {
+                                //j.add("Error: " + e.getLocalizedMessage());
+                            }
+//                            catch(ParseException e) {
+//                                //j.add("Error: " + e.getLocalizedMessage());
+//                            }
+                        }
+                        //System.out.println("++++"+journeys.size());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        //Toast.makeText(MainActivity.this, "Unable to fetch data: " + volleyError.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+        //mEntries
+        queue.add(request);
+    }
+
+
 
     public  void addJourneyDB(Context c, String username,String updateType){
         try {

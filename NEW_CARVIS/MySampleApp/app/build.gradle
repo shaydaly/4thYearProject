@@ -50,27 +50,27 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile fileTree(include: ['*.jar'], dir: 'app/libs')
-    compile 'com.android.support:appcompat-v7:23.1.0'
-    compile 'com.android.support:support-v4:23.1.0'
 
-    compile 'com.amazonaws:aws-android-sdk-core:2.3.8'
-    compile ('com.amazonaws:aws-android-sdk-cognitoidentityprovider:2.3.8')
-    compile 'com.facebook.android:facebook-android-sdk:4.6.0'
-    compile 'com.google.code.gson:gson:2.4'
-//Volley Dependencie
-    compile 'com.android.volley:volley:1.0.0'
-
-    compile 'com.google.android.gms:play-services:10.0.1'
+    //Volley Dependencie
+    
 
     //jackson
+    
+compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:support-v4:23.4.0'
+    compile 'com.amazonaws:aws-android-sdk-core:2.3.8'
+    compile 'com.amazonaws:aws-android-sdk-cognitoidentityprovider:2.3.8'
+    compile 'com.facebook.android:facebook-android-sdk:4.6.0'
+    compile 'com.google.code.gson:gson:2.4'
+    compile 'com.android.volley:volley:1.0.0'
+    compile 'com.google.android.gms:play-services:10.0.1'
     compile 'com.fasterxml.jackson.core:jackson-core:2.7.2'
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.7.2'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.7.2'
-
 }
 
-repositories{
-    flatDir{
+repositories {
+    flatDir {
         dirs 'libs'
     }
 }

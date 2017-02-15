@@ -27,6 +27,8 @@ import android.widget.TextView;
 import com.amazonaws.mobile.AWSMobileClient;
 import com.amazonaws.mobile.user.IdentityManager;
 import com.amazonaws.mobile.user.IdentityProvider;
+import com.carvis.ListJourney;
+import com.carvis.MapsActivity;
 import com.carvis.TrackSpeedActivity;
 import com.mysampleapp.R;
 import com.mysampleapp.demo.DemoConfiguration;
@@ -98,6 +100,16 @@ public class NavigationDrawer {
                 }
                 if(position==1){
                     goToSpeed();
+                    return;
+                }
+
+                if(position ==2){
+                    goToJourneys();
+                    return;
+                }
+
+                if(position ==3){
+                    goToMap();
                     return;
                 }
 
@@ -217,6 +229,18 @@ public class NavigationDrawer {
 
     public void goToSpeed(){
         Intent myIntent = new Intent(this.containingActivity, TrackSpeedActivity.class);
+        myIntent.putExtra("key", value); //Optional parameters
+        this.containingActivity.startActivity(myIntent);
+    }
+
+    public void goToJourneys(){
+        Intent myIntent = new Intent(this.containingActivity, ListJourney.class);
+        myIntent.putExtra("key", value); //Optional parameters
+        this.containingActivity.startActivity(myIntent);
+    }
+
+    public void goToMap(){
+        Intent myIntent = new Intent(this.containingActivity, MapsActivity.class);
         myIntent.putExtra("key", value); //Optional parameters
         this.containingActivity.startActivity(myIntent);
     }

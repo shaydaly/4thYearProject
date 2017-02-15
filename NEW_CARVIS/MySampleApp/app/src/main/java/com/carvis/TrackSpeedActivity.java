@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
@@ -19,18 +17,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool;
-import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
@@ -65,7 +56,7 @@ public class TrackSpeedActivity extends Activity implements
 
 
     private  Context context;
-    Intent intent = getIntent();
+    //Intent intent = getIntent();
     Journey journey;
     JourneyFragment journeyFragment;
     CognitoUserPoolsSignInProvider provider;
@@ -91,7 +82,15 @@ public class TrackSpeedActivity extends Activity implements
         context = getApplicationContext();
         provider = new CognitoUserPoolsSignInProvider(context);
 
+
+
         journey.getUsersJourneys(context, provider.getUserName());
+        //journey.getListOfJourneys();
+
+
+        //ArrayList<String> js = new ArrayList<>();
+        //int jse = journey.getListOfJourneys();
+        //System.out.println(jse+"------__------");
 
         final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
         final ImageView imageView50 = (ImageView) findViewById(R.id.speed50km);
@@ -117,6 +116,7 @@ public class TrackSpeedActivity extends Activity implements
                 ha.postDelayed(this, 5000);
                 //final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
                 try {
+                    //journey.getListOfJourneys();
                     String newSpeed = journey.getSpeedLimit().replaceAll("[^\\d.]", "");
 
                     //speedLimitTextView.setText(newSpeed+"km/h");
@@ -164,12 +164,12 @@ public class TrackSpeedActivity extends Activity implements
     @Override
     protected void onStop() {
         // Disconnecting the client invalidates it.
-       // journey.addJourneyDB(context, provider.getUserName(),"update");
+        journey.addJourneyDB(context, provider.getUserName(),"update");
 
 
-        for(int i=0; i<journeyList.size(); i++){
-            System.out.println(journeyList.get(i).getLatitude()+"\t"+journeyList.get(i).getLongitude()+"\t"+journeyList.get(i).getCurrentSpeed());
-        }
+//        for(int i=0; i<journeyList.size(); i++){
+//            System.out.println(journeyList.get(i).getLatitude()+"\t"+journeyList.get(i).getLongitude()+"\t"+journeyList.get(i).getCurrentSpeed());
+//        }
 
 
         JourneyFragment.AddJourneyFragments(context,journeyList);

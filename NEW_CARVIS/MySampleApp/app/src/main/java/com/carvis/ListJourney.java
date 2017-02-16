@@ -18,8 +18,11 @@ package com.carvis;
 
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
 import com.carvis.MobileArrayAdapter;
+import com.mysampleapp.navigation.NavigationDrawer;
+
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ListView;
@@ -28,6 +31,10 @@ import android.view.View;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import static android.R.attr.value;
 
 public class ListJourney extends ListActivity {
 
@@ -36,7 +43,7 @@ public class ListJourney extends ListActivity {
     Context context;
     CognitoUserPoolsSignInProvider provider;
     Journey journey;
-
+    ArrayList<JourneyFragment> journeyFragments;
 
 
     @Override
@@ -72,22 +79,23 @@ public class ListJourney extends ListActivity {
             public void run() {
                 //call function
 
-                //final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
                 try {
                     ArrayList<Journey> js = journey.getListOfJourneys(context);
+                    ArrayList<String> journeyIDs = new ArrayList<String>();
                     ArrayList<String> timestamps = new ArrayList<String>();
+                    HashMap<String, String> map2 = new HashMap<String, String>();
                     for(int i = 0; i< js.size(); i++){
+                        journeyIDs.add(js.get(i).getJourneyID());
                         timestamps.add(js.get(i).getStart());
-                    }
-                    setListAdapter(new MobileArrayAdapter(context, timestamps
 
-                    ));
+                    }
+                    setListAdapter(new MobileArrayAdapter(context, journeyIDs, timestamps));
                 }
                 catch(Exception e){
                     System.out.println(e.getMessage());
                 }
             }
-        }, 3000);
+        }, 1700);
 
 
 
@@ -102,6 +110,64 @@ public class ListJourney extends ListActivity {
         //get selected items
         String selectedValue = (String) getListAdapter().getItem(position);
         Toast.makeText(this, selectedValue, Toast.LENGTH_SHORT).show();
+        journey.getJourneyFragments(context, provider.getUserName(), selectedValue);
+
+
+
+        Handler ha = new Handler();
+        ha.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                //call function
+                journeyFragments = journey.getListOfJourneyFragments(context);
+                goToMap(journeyFragments);
+
+            }
+        }, 3000);
+
+        Handler ha2 = new Handler();
+        ha.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                //call function
+
+            }
+        }, 2000);
+
+    }
+
+    public void goToMap(ArrayList<JourneyFragment> fragments){
+        Intent myIntent = new Intent(this, MapsActivity.class);
+        ArrayList <JourneyFragment> addyExtras = new ArrayList <JourneyFragment>();
+
+        System.out.println(")))"+fragments.size());
+        for (int i = 0; i < fragments.size(); i++)
+            addyExtras.add (fragments.get(i));
+
+        System.out.println("(((("+addyExtras.size());
+        myIntent.putExtra ("mylist", addyExtras);
+
+        myIntent.putExtra("key", fragments); //Optional parameters
+
+        this.startActivity(myIntent);
+
+
+
+
+        // for some reason, I remember a posting saying it's best to create a new
+        // object to pass.  I have no idea why..
+
+//        startActivity(intent);
+
+    }
+
+    @Override
+    protected void onStop() {
+        // Disconnecting the client invalidates it.
+        super.onStop();
+        journey.clearJourneyFragments();
     }
 
 }

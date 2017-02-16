@@ -10,16 +10,21 @@ import android.widget.TextView;
 
 import com.mysampleapp.R;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class MobileArrayAdapter extends ArrayAdapter<String> {
+public class MobileArrayAdapter extends  ArrayAdapter<String> {
     private final Context context;
-    private final ArrayList<String> values;
+    private final ArrayList<String> journeys;
+    private final ArrayList<String> timestamps;
 
-    public MobileArrayAdapter(Context context, ArrayList<String> values) {
-        super(context, R.layout.activity_list_journey, values);
+
+    public MobileArrayAdapter(Context context, ArrayList<String> journeys, ArrayList<String> timestamps) {
+       super(context, R.layout.activity_list_journey, journeys);
         this.context = context;
-        this.values = values;
+        this.journeys = journeys;
+        this.timestamps = timestamps;
     }
 
     @Override
@@ -28,15 +33,20 @@ public class MobileArrayAdapter extends ArrayAdapter<String> {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View rowView = inflater.inflate(R.layout.activity_list_journey, parent, false);
-        TextView textView = (TextView) rowView.findViewById(R.id.label);
+        TextView journeyIDtextView = (TextView) rowView.findViewById(R.id.journeyID);
         //ImageView imageView = (ImageView) rowView.findViewById(R.id.logo);
-        textView.setText(values.get(position));
-        textView.setTextColor(Color.BLACK);
+        journeyIDtextView.setText(journeys.get(position));
+        journeyIDtextView.setTextColor(Color.BLACK);
+
+        TextView timestampView = (TextView) rowView.findViewById(R.id.timestamp);
+        //ImageView imageView = (ImageView) rowView.findViewById(R.id.logo);
+        timestampView.setText(timestamps.get(position));
+        timestampView.setTextColor(Color.RED);
 
         // Change icon based on name
-        String s = values.get(position);
-
-        System.out.println(s);
+//        String s = values.get(position);
+//
+//        System.out.println(s);
 
 //        if (s.equals("WindowsMobile")) {
 //            imageView.setImageResource(R.drawable.windowsmobile_logo);

@@ -166,12 +166,6 @@ public class TrackSpeedActivity extends Activity implements
         // Disconnecting the client invalidates it.
         journey.addJourneyDB(context, provider.getUserName(),"update");
 
-
-//        for(int i=0; i<journeyList.size(); i++){
-//            System.out.println(journeyList.get(i).getLatitude()+"\t"+journeyList.get(i).getLongitude()+"\t"+journeyList.get(i).getCurrentSpeed());
-//        }
-
-
         JourneyFragment.AddJourneyFragments(context,journeyList);
         mGoogleApiClient.disconnect();
         super.onStop();

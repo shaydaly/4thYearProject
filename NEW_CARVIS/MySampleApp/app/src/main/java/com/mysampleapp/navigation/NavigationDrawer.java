@@ -1,6 +1,7 @@
 package com.mysampleapp.navigation;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -61,6 +62,7 @@ public class NavigationDrawer {
      * @param layout the DrawerLayout for this navigation drawer.
      * @param drawerItemsContainer the parent view group for the navigation drawer items.
      */
+
     public NavigationDrawer(final AppCompatActivity activity,
                             final Toolbar toolbar,
                             final DrawerLayout layout,
@@ -263,4 +265,7 @@ public class NavigationDrawer {
     public boolean isDrawerOpen() {
         return drawerLayout.isDrawerOpen(GravityCompat.START);
     }
+
 }
+
+

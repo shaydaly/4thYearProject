@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.plus.model.people.Person;
 import com.google.gson.Gson;
 
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,12 +40,14 @@ import java.lang.reflect.Type;
  * Created by Seamus on 08/02/2017.
  */
 
-public class JourneyFragment{
+public class JourneyFragment implements Serializable{
 
 
     private Date time;
     private String latitude, longitude, speedLimit, journeyID, username;
     double speed;
+    String currentSpeed;
+    String timeString;
 
     JourneyFragment(String lat, String lon,  double sp, String sl,Date d, String jID, String u){
  //       super(lat,lon,speed,speedLimit);
@@ -55,6 +58,27 @@ public class JourneyFragment{
         time = d;
         journeyID = jID;
         username = u;
+    }
+
+    JourneyFragment(String jid, String latitude,String lon, String currentSpeed, String speedLimit, String time ){
+        this.latitude = latitude;
+        longitude = lon;
+        this.currentSpeed = currentSpeed;
+        this.speedLimit = speedLimit;
+        this.timeString = time;
+        journeyID = jid;
+    }
+
+    public String getJourneyID() {
+        return journeyID;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getTimeString() {
+        return timeString;
     }
 
     public double getCurrentSpeed(){
@@ -104,6 +128,10 @@ public class JourneyFragment{
 
     public double getSpeed() {
         return speed;
+    }
+
+    public String getFragmentSpeed(){
+        return currentSpeed;
     }
 
     JourneyFragment(){

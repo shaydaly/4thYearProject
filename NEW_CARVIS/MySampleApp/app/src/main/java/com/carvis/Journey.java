@@ -44,14 +44,14 @@ public class Journey extends Activity {
     private String longitude , endLongitude;
     private String latitude, endLatitude;
     private double  currentSpeed;
-    String speed;
+    private String speed;
     private String speedLimit;
     private Date startTime;
     private Date endTime;
-    String start, end, time;
-    List<JourneyFragment> journeyFragmentList;
-    ArrayList<Journey> journeys;
-    ArrayList<Journey> journeyFragments;
+    private String start, end, time;
+    private List<JourneyFragment> journeyFragmentList;
+    private ArrayList<Journey> journeys;
+    private ArrayList<JourneyFragment> journeyFragments;
 
     CognitoUserPoolsSignInProvider provider;
 
@@ -64,6 +64,7 @@ public class Journey extends Activity {
         this.endTime = end;
         journeyFragmentList = new ArrayList<>();
         journeys = new ArrayList<>();
+        journeyFragments = new ArrayList<>();
     }
 
     public Journey(String jIn, String latitude, String longitude, String endLatitude, String endLong, String startTime, String endTime) {
@@ -76,6 +77,7 @@ public class Journey extends Activity {
         this.end= endTime;
         journeyFragmentList = new ArrayList<>();
         journeys = new ArrayList<>();
+        journeyFragments = new ArrayList<>();
     }
 
     public Journey(String latitude, String longitude, double currentSpeed, String speedLimit) {
@@ -84,7 +86,9 @@ public class Journey extends Activity {
         this.currentSpeed = currentSpeed;
         this.speedLimit = speedLimit;
         this.longitude = longitude;
+        journeyFragmentList = new ArrayList<>();
         journeys = new ArrayList<>();
+        journeyFragments = new ArrayList<>();
     }
 
     public Journey(String jfid, String latitude, String longitude, String speed, String speedLimit, String time){
@@ -104,6 +108,7 @@ public class Journey extends Activity {
         currentSpeed=0.0;
         speedLimit="";
         journeys = new ArrayList<>();
+        journeyFragments = new ArrayList<>();
     }
 
     public String getStart() {
@@ -190,13 +195,12 @@ public class Journey extends Activity {
         return journeys;
     }
 
-    public ArrayList<Journey> getListOfJourneyFragments(Context c){
-//        System.out.println("list start");
-//        for(String s: journeys){
-//            System.out.println("__"+s);
-//        }
-//        System.out.println("list emd");
+    public ArrayList<JourneyFragment> getListOfJourneyFragments(Context c){
         return journeyFragments;
+    }
+
+    public void clearJourneyFragments(){
+        journeyFragments.clear();
     }
 
     public void getUsersJourneys(Context c, String username){
@@ -255,7 +259,6 @@ public class Journey extends Activity {
         queue.add(request);
     }
     public void getJourneyFragments(Context c, String username,String journeyID){
-
         RequestQueue queue = Volley.newRequestQueue(c);
         String url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/journeyfragment?username="+username+"&journeyID="+journeyID;
         //JsonArrayRequest jsObjRequest = new JsonArrayRequest
@@ -268,8 +271,6 @@ public class Journey extends Activity {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                                 //AddToJourneyList(jsonObject.toString());
                                 //journeys.add((jsonObject.get("starttime").toString()));
-
-
                                 String journeyFragID = jsonObject.get("journeyFragID").toString();
                                 String longitude =  jsonObject.get("longitude").toString();
                                 String latitude =  jsonObject.get("latitude").toString();
@@ -277,9 +278,9 @@ public class Journey extends Activity {
                                 String speedLimit =  jsonObject.get("speedLimit").toString();
                                 String currentSpeed =  jsonObject.get("currentSpeed").toString();
 
-
-                                Journey j = new Journey(journeyFragID,latitude,longitude,currentSpeed,speedLimit,time);
-                                journeyFragments.add(j);
+                                JourneyFragment j = new JourneyFragment(journeyFragID,latitude,longitude,currentSpeed,speedLimit,time);
+                               //System.out.println(j.getCurrentSpeed());
+                                    journeyFragments.add(j);
 //                                DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
 //                                Date date = format.parse(startTime);
 //                                Date date2 = format.parse(startTime);
@@ -297,7 +298,7 @@ public class Journey extends Activity {
 //                                //j.add("Error: " + e.getLocalizedMessage());
 //                            }
                         }
-                        //System.out.println("++++"+journeys.size());
+                        //System.out.println("++++"+journeyFragments.size());
                     }
                 },
                 new Response.ErrorListener() {

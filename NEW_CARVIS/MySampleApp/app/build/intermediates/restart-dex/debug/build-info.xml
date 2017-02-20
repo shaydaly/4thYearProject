@@ -5,33 +5,40 @@
     density="xxhdpi"
     format="8"
     plugin-version="2.2.3"
-    timestamp="821226518291536"
+    timestamp="225032778999818"
     token="-4771584141700072933"
-    verifier="FULL_BUILD_REQUESTED" >
+    verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="2236" />
+        duration="562" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="2305" />
+        duration="53" />
     <task
         name="verifier"
-        duration="770" />
+        duration="2" />
 
     <artifact
-        location="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\outputs\apk\app-debug.apk"
-        type="MAIN" />
+        location="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_1\classes.dex"
+        type="DEX" />
 
     <build
-        timestamp="821226518291536"
+        timestamp="223517621729120"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\outputs\apk\app-debug.apk"
             type="MAIN" />
+    </build>
+    <build
+        timestamp="225032778999818"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_1\classes.dex"
+            type="DEX" />
     </build>
 
 </instant-run>

@@ -121,10 +121,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         JourneyList.titleResId = R.string.journeys;
         navigationDrawer.addDemoFeatureToMenu(JourneyList);
 
-        DemoConfiguration.DemoFeature Map = new DemoConfiguration.DemoFeature();
-        JourneyList.iconResId = R.mipmap.icon_home;
-        JourneyList.titleResId = R.string.map;
-        navigationDrawer.addDemoFeatureToMenu(JourneyList);
+//        DemoConfiguration.DemoFeature Map = new DemoConfiguration.DemoFeature();
+//        JourneyList.iconResId = R.mipmap.icon_home;
+//        JourneyList.titleResId = R.string.map;
+//        navigationDrawer.addDemoFeatureToMenu(JourneyList);
 
 
         for (DemoConfiguration.DemoFeature demoFeature : DemoConfiguration.getDemoFeatureList()) {

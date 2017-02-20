@@ -1,6 +1,7 @@
 package com.carvis;
 
 import android.graphics.Color;
+import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -12,6 +13,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
+
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.mysampleapp.R;
@@ -23,15 +25,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private MarkerOptions options = new MarkerOptions();
-    PolylineOptions rectOptions = new PolylineOptions().width(20).geodesic(true);
-//            .add(new LatLng(37.35, -122.0))
-//            .add(new LatLng(37.45, -122.0))  // North of the previous point, but at the same longitude
-//            .add(new LatLng(37.45, -122.2))  // Same latitude, and 30km to the west
-//            .add(new LatLng(37.35, -122.2))  // Same longitude, and 16km to the south
-//            .add(new LatLng(37.35, -122.0)); // Closes the polyline.
+    private PolylineOptions rectOptions = new PolylineOptions().width(20).geodesic(true);
+    private ArrayList<LatLng> latlngs = new ArrayList<>();
 
-    // Get back the mutable Polyline
-    //Polyline polyline = myMap.addPolyline(rectOptions);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +53,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        ArrayList<LatLng> latlngs = new ArrayList<>();
 
         Bundle extras = getIntent().getExtras();
-        System.out.println("__________"+extras.toString());
         if (extras != null) {
             ArrayList<JourneyFragment> listOfJourneys = (ArrayList<JourneyFragment>) extras.get("mylist");
-            System.out.println(listOfJourneys.size());
 
             for (int i = 0; i < listOfJourneys.size(); i++) {
                 LatLng latLng = new LatLng(Double.parseDouble(listOfJourneys.get(i).getLatitude()), Double.parseDouble(listOfJourneys.get(i).getLongitude()));
@@ -78,31 +72,39 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if(i+1 < listOfJourneys.size()) {
                     if (Double.parseDouble(listOfJourneys.get(i).getFragmentSpeed()) > Double.parseDouble(listOfJourneys.get(i).getSpeedLimit())) {
                         options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                        options.flat(true);
                         //rectOptions.add(latLng).color(Color.RED);
                         mMap.addPolyline(new PolylineOptions()
                                 .add(new LatLng(Double.parseDouble(listOfJourneys.get(i).getLatitude()), Double.parseDouble(listOfJourneys.get(i).getLongitude())), new LatLng(Double.parseDouble(listOfJourneys.get(i + 1).getLatitude()), Double.parseDouble(listOfJourneys.get(i + 1).getLongitude())))
                                 .width(20)
+                                .geodesic(true)
                                 .color(Color.RED));
-                    } else {
+                    }
+                    else {
                         options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                        options.flat(true);
                         //rectOptions.add(latLng).color(Color.GREEN);
                         mMap.addPolyline(new PolylineOptions()
                                 .add(new LatLng(Double.parseDouble(listOfJourneys.get(i).getLatitude()), Double.parseDouble(listOfJourneys.get(i).getLongitude())), new LatLng(Double.parseDouble(listOfJourneys.get(i + 1).getLatitude()), Double.parseDouble(listOfJourneys.get(i + 1).getLongitude())))
                                 .width(20)
-                                .color(Color.GREEN));
+                                .color(Color.GREEN)
+                                .geodesic(true));
                     }
                 }
-                googleMap.addMarker(options).setAlpha(0.3f);
+                googleMap.addMarker(options).setAlpha(0.0f);
                 //mMap.addMarker(new MarkerOptions().position(latLng).title("Marker in Dublin"+latitudes.get(i)+"_"+longitudes.get(i)));
             }
-            LatLngBounds boundingArea = new LatLngBounds(latlngs.get(latlngs.size()-1), latlngs.get(0));
-            //mMap.moveCamera(CameraUpdateFactory.newLatLng(latlngs.get(1)));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(boundingArea, 0));
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(16.0f));
+
+            if(latlngs.size()!= 0) {
+                //LatLngBounds boundingArea = new LatLngBounds(latlngs.get(latlngs.size() - 1),latlngs.get(0));
+
+                //mMap.moveCamera(CameraUpdateFactory.newLatLng(latlngs.get(1)));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlngs.get(0),12.0f));
+            }
+            else{
+                LatLng home = new LatLng(53.3514105, -6.3803316);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(home,14.0f));
+            }
         }
     }
-
-
-
-    //public void
 }

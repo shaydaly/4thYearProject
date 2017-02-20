@@ -127,7 +127,7 @@ public class TrackSpeedActivity extends Activity implements
                     journeyFragment = new JourneyFragment(journey.getLatitude(),journey.getLongitude(),journey.getCurrentSpeed(),String.valueOf(limit),dNow,journey.getJourneyID(), provider.getUserName());
 
                     journeyList.add(journeyFragment);
-                    if (journey.getCurrentSpeed() > limit) {
+                    if (Double.parseDouble(journey.getCurrentSpeed()) > limit) {
                         if (!journey.getJourneyID().equals("")) {
                             //currentSpeedTextView.setText(jID);
                             OverSpeedLimit o = new OverSpeedLimit(journey.getLatitude(), journey.getLongitude(), String.valueOf(journey.getCurrentSpeed()), String.valueOf(limit));
@@ -225,7 +225,7 @@ public class TrackSpeedActivity extends Activity implements
         journey.setLongitude(String.valueOf(location.getLongitude()));
         // Called when a new location is found by the network location provider.
         if (location.hasSpeed() == true) {
-            journey.setCurrentSpeed(Math.round((location.getSpeed() * 3.6) * 100.0) / 100.0);
+            journey.setCurrentSpeed(String.valueOf(Math.round((location.getSpeed() * 3.6) * 100.0) / 100.0));
             currentSpeedTextView.setText(String.valueOf(journey.getCurrentSpeed()) + "km-h");
         }
         if (count == 0) {
@@ -254,7 +254,7 @@ public class TrackSpeedActivity extends Activity implements
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        journey.setSpeedLimit("N----A");
+                        //journey.setSpeedLimit("");
                     }
                 });
         queue.add(jsObjRequest);

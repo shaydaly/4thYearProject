@@ -36,6 +36,7 @@ import java.util.Map;
 
 import static android.R.attr.value;
 
+
 public class ListJourney extends ListActivity {
 
 
@@ -49,12 +50,6 @@ public class ListJourney extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ArrayList<String> js = new ArrayList();
-        js.add("List1");
-        js.add("List2");
-        js.add("List3");
-        js.add("List4");
-        js.add("List5");
  //setListAdapter(new MobileArrayAdapter(this, MOBILE_OS));
 
 
@@ -83,19 +78,21 @@ public class ListJourney extends ListActivity {
                     ArrayList<Journey> js = journey.getListOfJourneys(context);
                     ArrayList<String> journeyIDs = new ArrayList<String>();
                     ArrayList<String> timestamps = new ArrayList<String>();
+                    ArrayList<String> durations = new ArrayList<String>();
                     HashMap<String, String> map2 = new HashMap<String, String>();
                     for(int i = 0; i< js.size(); i++){
                         journeyIDs.add(js.get(i).getJourneyID());
                         timestamps.add(js.get(i).getStart());
+                        durations.add(js.get(i).getJourneyDuration());
 
                     }
-                    setListAdapter(new MobileArrayAdapter(context, journeyIDs, timestamps));
+                    setListAdapter(new MobileArrayAdapter(context, journeyIDs, timestamps,durations));
                 }
                 catch(Exception e){
                     System.out.println(e.getMessage());
                 }
             }
-        }, 1700);
+        }, 3500);
 
 
 
@@ -124,7 +121,7 @@ public class ListJourney extends ListActivity {
                 goToMap(journeyFragments);
 
             }
-        }, 3000);
+        }, 5000);
 
         Handler ha2 = new Handler();
         ha.postDelayed(new Runnable() {
@@ -142,7 +139,6 @@ public class ListJourney extends ListActivity {
         Intent myIntent = new Intent(this, MapsActivity.class);
         ArrayList <JourneyFragment> addyExtras = new ArrayList <JourneyFragment>();
 
-        System.out.println(")))"+fragments.size());
         for (int i = 0; i < fragments.size(); i++)
             addyExtras.add (fragments.get(i));
 

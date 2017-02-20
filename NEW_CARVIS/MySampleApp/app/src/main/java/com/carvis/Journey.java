@@ -22,6 +22,9 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.JsonArray;
 import com.mysampleapp.R;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +38,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.xml.datatype.Duration;
+
 /**
  * Created by Seamus on 24/01/2017.
  */
@@ -43,8 +48,7 @@ public class Journey extends Activity {
     private String journeyID, journeyFragmentID;
     private String longitude , endLongitude;
     private String latitude, endLatitude;
-    private double  currentSpeed;
-    private String speed;
+    private String  currentSpeed;
     private String speedLimit;
     private Date startTime;
     private Date endTime;
@@ -55,7 +59,9 @@ public class Journey extends Activity {
 
     CognitoUserPoolsSignInProvider provider;
 
-    public Journey(String latitude, String longitude, double currentSpeed, String speedLimit, Date start, Date end) {
+
+
+    public Journey(String latitude, String longitude, String currentSpeed, String speedLimit, Date start, Date end) {
         this.latitude = latitude;
         this.currentSpeed = currentSpeed;
         this.speedLimit = speedLimit;
@@ -80,7 +86,12 @@ public class Journey extends Activity {
         journeyFragments = new ArrayList<>();
     }
 
-    public Journey(String latitude, String longitude, double currentSpeed, String speedLimit) {
+
+    public String getTime() {
+        return time;
+    }
+
+    public Journey(String latitude, String longitude, String currentSpeed, String speedLimit) {
         journeyID="";
         this.latitude = latitude;
         this.currentSpeed = currentSpeed;
@@ -91,11 +102,11 @@ public class Journey extends Activity {
         journeyFragments = new ArrayList<>();
     }
 
-    public Journey(String jfid, String latitude, String longitude, String speed, String speedLimit, String time){
+    public Journey(String jfid, String latitude, String longitude, String currentSpeed, String speedLimit, String time){
         journeyFragmentID = jfid;
         this.latitude =latitude;
         this.longitude = longitude;
-        this.speed = speed;
+        this.currentSpeed = currentSpeed;
         this.speedLimit = speedLimit;
         this.time = time;
         journeyFragments = new ArrayList<>();
@@ -105,7 +116,7 @@ public class Journey extends Activity {
         journeyID="";
         longitude="";
         latitude="";
-        currentSpeed=0.0;
+        currentSpeed="";
         speedLimit="";
         journeys = new ArrayList<>();
         journeyFragments = new ArrayList<>();
@@ -115,6 +126,9 @@ public class Journey extends Activity {
         return start;
     }
 
+    public String getEnd(){
+        return end;
+    }
     public void addJourneyFragment(JourneyFragment jf){
         journeyFragmentList.add(jf);
     }
@@ -142,7 +156,7 @@ public class Journey extends Activity {
         this.latitude = latitude;
     }
 
-    public void setCurrentSpeed(double currentSpeed) {
+    public void setCurrentSpeed(String currentSpeed) {
         this.currentSpeed = currentSpeed;
     }
 
@@ -155,7 +169,7 @@ public class Journey extends Activity {
         return speedLimit;
     }
 
-    public double getCurrentSpeed() {
+    public String getCurrentSpeed() {
         return currentSpeed;
     }
 
@@ -199,6 +213,15 @@ public class Journey extends Activity {
         return journeyFragments;
     }
 
+    public String getJourneyDuration(){
+            DateTimeFormatter format = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");;
+            DateTime journeyBeginning = format.parseDateTime(start);
+            DateTime journeyEnd = format.parseDateTime(end);
+            System.out.println(); // Sat Jan 02 00:00:00 GMT 2010
+            org.joda.time.Duration duration = new org.joda.time.Duration(journeyBeginning,journeyEnd);
+            return duration.getStandardHours()+" hrs "+duration.getStandardMinutes()+" mins";
+    }
+
     public void clearJourneyFragments(){
         journeyFragments.clear();
     }
@@ -229,11 +252,7 @@ public class Journey extends Activity {
 
                                 Journey j = new Journey(journeyID,startLat,startLon,endLat,endLon,startTime,endTime);
                                 journeys.add(j);
-//                                DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
-//                                Date date = format.parse(startTime);
-//                                Date date2 = format.parse(startTime);
-//                                System.out.println("date calc");
-//                                System.out.println(date2.getTime() - date.getTime());
+
 
 
 

@@ -97,7 +97,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
-        sha1="97d064a9086b201d35ef425ad0f0a3149e87ef55">
+        sha1="efeb2d07c00bf1d7ac7995563baf5cbd6005d00d">
         <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_8f0fa7de0348373bbb63e1a18ec8c1fcdea46949\classes.dex" />
     </item>
     <item
@@ -250,7 +250,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
-        sha1="90d654979af69744a735440372513b83612b35b6">
+        sha1="16a8eed6ad265447674dcb971d6d99b320fe90b5">
         <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_f05824ccd42d77568fd57b0880a0d165724bcacf\classes.dex" />
     </item>
     <item
@@ -549,6 +549,15 @@
         revision="24.0.2"
         sha1="c14f0c89f28cf782e42581ab0aba5f63af39b3d2">
         <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-plus-10.0.1_ad9b2526efa57d59a7c2ed3ec982136c451d62e3\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\libs\joda-time-2.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="89e9725439adffbbd41c5f5c215c136082b34a7f">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\2\joda-time-2.4_bfd5d22859a23888eb6c0905803a4b3715fe7dd4\classes.dex" />
     </item>
     <item
         is-multidex="true"

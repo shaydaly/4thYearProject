@@ -18,13 +18,15 @@ public class MobileArrayAdapter extends  ArrayAdapter<String> {
     private final Context context;
     private final ArrayList<String> journeys;
     private final ArrayList<String> timestamps;
+    private final ArrayList<String> durations;
 
 
-    public MobileArrayAdapter(Context context, ArrayList<String> journeys, ArrayList<String> timestamps) {
+    public MobileArrayAdapter(Context context, ArrayList<String> journeys, ArrayList<String> timestamps,ArrayList<String> durations ) {
        super(context, R.layout.activity_list_journey, journeys);
         this.context = context;
         this.journeys = journeys;
         this.timestamps = timestamps;
+        this.durations = durations;
     }
 
     @Override
@@ -42,6 +44,11 @@ public class MobileArrayAdapter extends  ArrayAdapter<String> {
         //ImageView imageView = (ImageView) rowView.findViewById(R.id.logo);
         timestampView.setText(timestamps.get(position));
         timestampView.setTextColor(Color.RED);
+
+        TextView durationsView = (TextView) rowView.findViewById(R.id.duration);
+        //ImageView imageView = (ImageView) rowView.findViewById(R.id.logo);
+        durationsView.setText(durations.get(position));
+        durationsView.setTextColor(Color.BLUE);
 
         // Change icon based on name
 //        String s = values.get(position);

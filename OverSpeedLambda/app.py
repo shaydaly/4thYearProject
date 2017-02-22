@@ -42,7 +42,7 @@ def handler(event, context):
     #journeyid = -1
     
     #query = """insert into testJson(longitude,latitude) VALUES(%s,%s)"""
-    query ="""insert into overspeedlimit values (nextval('overspeedlimitsequence'), ROW(%s,%s,%s,%s,%s), (select (journey) from journey where journeyid=%s), (select customer from customer where (customer).username=%s))"""
+    query ="""insert into overspeedlimit values (nextval('overspeedlimitsequence'), ROW(%s,%s,%s,%s,%s),%s, (select userid from customer where (customer).username=%s))"""
     data = (latitude,longitude,time,speedTravelling,speedLimit,journeyID,username)
     try:
         with conn.cursor() as cur:

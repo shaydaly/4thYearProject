@@ -44,7 +44,7 @@
     <string msgid="1739665135565985480" name="cast_rewind">"Terugspoelen"</string>
     <string msgid="6432793028560778843" name="cast_rewind_10">"Tien seconden terugspoelen"</string>
     <string msgid="4677199707225681325" name="cast_rewind_30">"Dertig seconden terugspoelen"</string>
-    <string msgid="9078075166993780241" name="cast_seek_bar">"Schuifbalk voor afspelen"</string>
+    <string msgid="9078075166993780241" name="cast_seek_bar">"Scrollbar voor afspelen"</string>
     <string msgid="3991548379225047363" name="cast_skip_next">"Overslaan en naar volgend item"</string>
     <string msgid="8369073097776576935" name="cast_skip_prev">"Overslaan en naar vorig item"</string>
     <string msgid="9191388946729723891" name="cast_stop">"Stoppen"</string>

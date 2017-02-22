@@ -17,14 +17,14 @@
 package com.carvis;
 
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
-import com.carvis.MobileArrayAdapter;
-import com.mysampleapp.navigation.NavigationDrawer;
+
 
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.view.View;
@@ -45,56 +45,48 @@ public class ListJourney extends ListActivity {
     CognitoUserPoolsSignInProvider provider;
     Journey journey;
     ArrayList<JourneyFragment> journeyFragments;
+    ArrayList<String> journeyIDs;
+    ArrayList<String> timestamps;
+    ArrayList<String> durations;
 
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            setListAdapter(new MobileArrayAdapter(context, journeyIDs, timestamps, durations));
+        }
+    };
+
+    Handler handler2 = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            fillJourneyList();
+        }
+    };
+
+    Handler fragmentHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            goToMap(journeyFragments);
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
  //setListAdapter(new MobileArrayAdapter(this, MOBILE_OS));
 
-
         journey = new Journey();
-
-
-
         context = getApplicationContext();
         provider = new CognitoUserPoolsSignInProvider(context);
 
 
 
-        journey.getUsersJourneys(context, provider.getUserName());
+        getUserJourneys();
+
 //        //journey.getUsersJourneys(context, provider.getUserName());
 //        for(int i= 0; i<=50; i++ ){
 //            System.out.println(i);
 //        }
-        final Handler ha = new Handler();
-        ha.postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                //call function
-
-                try {
-                    ArrayList<Journey> js = journey.getListOfJourneys(context);
-                    ArrayList<String> journeyIDs = new ArrayList<String>();
-                    ArrayList<String> timestamps = new ArrayList<String>();
-                    ArrayList<String> durations = new ArrayList<String>();
-                    HashMap<String, String> map2 = new HashMap<String, String>();
-                    for(int i = 0; i< js.size(); i++){
-                        journeyIDs.add(js.get(i).getJourneyID());
-                        timestamps.add(js.get(i).getStart());
-                        durations.add(js.get(i).getJourneyDuration());
-
-                    }
-                    setListAdapter(new MobileArrayAdapter(context, journeyIDs, timestamps,durations));
-                }
-                catch(Exception e){
-                    System.out.println(e.getMessage());
-                }
-            }
-        }, 3500);
-
-
 
 //        ArrayList<String > j ;
 //        j = journey.getListOfJourneys(context);
@@ -105,34 +97,38 @@ public class ListJourney extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
 
         //get selected items
-        String selectedValue = (String) getListAdapter().getItem(position);
+        final String selectedValue = (String) getListAdapter().getItem(position);
         Toast.makeText(this, selectedValue, Toast.LENGTH_SHORT).show();
-        journey.getJourneyFragments(context, provider.getUserName(), selectedValue);
+        getFragments(selectedValue);
 
 
+    }
 
-        Handler ha = new Handler();
-        ha.postDelayed(new Runnable() {
-
+    public void getFragments(String selectedValue){
+        final String val = selectedValue;
+        Runnable r = new Runnable() {
             @Override
             public void run() {
+                journey.getJourneyFragments(context, provider.getUserName(), val);
+                long futureTme = System.currentTimeMillis()+3000;
+                while (System.currentTimeMillis()< futureTme){
+                    synchronized (this){
+                        try{
+                            wait(futureTme-System.currentTimeMillis());
+                        }
+                        catch(Exception e){
+
+                        }
+                    }
+                }
                 //call function
                 journeyFragments = journey.getListOfJourneyFragments(context);
-                goToMap(journeyFragments);
-
+                fragmentHandler.sendEmptyMessage(0);
             }
-        }, 5000);
 
-        Handler ha2 = new Handler();
-        ha.postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                //call function
-
-            }
-        }, 2000);
-
+        };
+        Thread fragments = new Thread(r);
+        fragments.start();
     }
 
     public void goToMap(ArrayList<JourneyFragment> fragments){
@@ -150,13 +146,6 @@ public class ListJourney extends ListActivity {
         this.startActivity(myIntent);
 
 
-
-
-        // for some reason, I remember a posting saying it's best to create a new
-        // object to pass.  I have no idea why..
-
-//        startActivity(intent);
-
     }
 
     @Override
@@ -164,6 +153,54 @@ public class ListJourney extends ListActivity {
         // Disconnecting the client invalidates it.
         super.onStop();
         journey.clearJourneyFragments();
+    }
+
+    public void getUserJourneys(){
+        journey.getUsersJourneys(context, provider.getUserName());
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                long futureTme = System.currentTimeMillis()+3000;
+                while (System.currentTimeMillis()< futureTme){
+                    synchronized (this){
+                        try{
+                            wait(futureTme-System.currentTimeMillis());
+                        }
+                        catch(Exception e){
+
+                        }
+                    }
+                }
+                handler2.sendEmptyMessage(0);
+            }
+        };
+        Thread userJourneys = new Thread(r);
+        userJourneys.start();
+    }
+
+    public void fillJourneyList() {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    ArrayList<Journey> js = journey.getListOfJourneys(context);
+                    journeyIDs = new ArrayList<String>();
+                    timestamps = new ArrayList<String>();
+                    durations = new ArrayList<String>();
+                    for (int i = 0; i < js.size(); i++) {
+                        journeyIDs.add(js.get(i).getJourneyID());
+                        timestamps.add(js.get(i).getStart());
+                        durations.add(js.get(i).getJourneyDuration());
+                    }
+
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                handler.sendEmptyMessage(0);
+            }
+        };
+        Thread journeyList = new Thread(runnable);
+        journeyList.start();
     }
 
 }

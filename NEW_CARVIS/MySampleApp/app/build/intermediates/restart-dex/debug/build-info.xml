@@ -5,40 +5,47 @@
     density="xxhdpi"
     format="8"
     plugin-version="2.2.3"
-    timestamp="225032778999818"
+    timestamp="398775375634728"
     token="-4771584141700072933"
-    verifier="COLD_SWAP_REQUESTED" >
+    verifier="COMPATIBLE" >
 
     <task
         name="javac"
-        duration="562" />
+        duration="535" />
     <task
         name="instant-run-dex"
-        duration="0" />
+        duration="22" />
     <task
         name="instant-run-transform"
-        duration="53" />
+        duration="91" />
     <task
         name="verifier"
-        duration="2" />
+        duration="40" />
 
     <artifact
-        location="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_1\classes.dex"
-        type="DEX" />
+        location="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\reload-dex\debug\classes.dex"
+        type="RELOAD_DEX" />
 
     <build
-        timestamp="223517621729120"
+        timestamp="394043894572878"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\outputs\apk\app-debug.apk"
             type="MAIN" />
     </build>
     <build
-        timestamp="225032778999818"
+        timestamp="398119316281903"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_1\classes.dex"
             type="DEX" />
+    </build>
+    <build
+        timestamp="398775375634728"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\reload-dex\debug\classes.dex"
+            type="RELOAD_DEX" />
     </build>
 
 </instant-run>

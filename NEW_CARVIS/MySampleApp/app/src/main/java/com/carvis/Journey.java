@@ -2,6 +2,7 @@ package com.carvis;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,11 +41,13 @@ import java.util.Locale;
 
 import javax.xml.datatype.Duration;
 
+import static android.R.attr.value;
+
 /**
  * Created by Seamus on 24/01/2017.
  */
 
-public class Journey extends Activity {
+public class Journey  extends Activity{
     private String journeyID, journeyFragmentID;
     private String longitude , endLongitude;
     private String latitude, endLatitude;
@@ -56,9 +59,6 @@ public class Journey extends Activity {
     private List<JourneyFragment> journeyFragmentList;
     private ArrayList<Journey> journeys;
     private ArrayList<JourneyFragment> journeyFragments;
-
-    CognitoUserPoolsSignInProvider provider;
-
 
 
     public Journey(String latitude, String longitude, String currentSpeed, String speedLimit, Date start, Date end) {
@@ -201,11 +201,6 @@ public class Journey extends Activity {
 //        journeys.add(s);
 //    }
     public ArrayList<Journey> getListOfJourneys(Context c){
-//        System.out.println("list start");
-//        for(String s: journeys){
-//            System.out.println("__"+s);
-//        }
-//        System.out.println("list emd");
         return journeys;
     }
 
@@ -214,12 +209,17 @@ public class Journey extends Activity {
     }
 
     public String getJourneyDuration(){
-            DateTimeFormatter format = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");;
+            DateTimeFormatter format = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+        if(start!= null&& end!=null) {
             DateTime journeyBeginning = format.parseDateTime(start);
             DateTime journeyEnd = format.parseDateTime(end);
             System.out.println(); // Sat Jan 02 00:00:00 GMT 2010
-            org.joda.time.Duration duration = new org.joda.time.Duration(journeyBeginning,journeyEnd);
-            return duration.getStandardHours()+" hrs "+duration.getStandardMinutes()+" mins";
+            org.joda.time.Duration duration = new org.joda.time.Duration(journeyBeginning, journeyEnd);
+            return duration.getStandardHours() + " hrs " + duration.getStandardMinutes() + " mins";
+        }
+        else{
+            return "NA";
+        }
     }
 
     public void clearJourneyFragments(){
@@ -227,21 +227,16 @@ public class Journey extends Activity {
     }
 
     public void getUsersJourneys(Context c, String username){
-
         RequestQueue queue = Volley.newRequestQueue(c);
         String url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/retrieveuserjourneys?username="+username;
         //JsonArrayRequest jsObjRequest = new JsonArrayRequest
-        JsonArrayRequest request = new JsonArrayRequest("https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/retrieveuserjourneys?username="+username,
+        JsonArrayRequest request = new JsonArrayRequest(url,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray jsonArray) {
                         for(int i = 0; i < jsonArray.length(); i++) {
                             try {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                //AddToJourneyList(jsonObject.toString());
-                                //journeys.add((jsonObject.get("starttime").toString()));
-
-
                                 String startTime = jsonObject.get("starttime").toString();
                                 String endTime =  jsonObject.get("endtime").toString();
                                 String startLon =  jsonObject.get("startLon").toString();
@@ -259,18 +254,19 @@ public class Journey extends Activity {
                                 //jarr.put(jsonObject);
                             }
                             catch(JSONException e) {
-                                //j.add("Error: " + e.getLocalizedMessage());
+                                System.out.println(e.getMessage()+"----");
                             }
 //                            catch(ParseException e) {
 //                                //j.add("Error: " + e.getLocalizedMessage());
 //                            }
                         }
-                            //System.out.println("++++"+journeys.size());
+                        //goToJourneys(journeys);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
+                        System.out.println(volleyError.toString());
                         //Toast.makeText(MainActivity.this, "Unable to fetch data: " + volleyError.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -405,4 +401,11 @@ public class Journey extends Activity {
             //result = e.toString();
         }
     }
+
+//    public void goToJourneys(ArrayList<Journey> journeys){
+//        Intent myIntent = new Intent(this, ListJourney.class);
+//        myIntent.putExtra("listOfJourneys", journeys); //Optional parameters
+//        startActivity(myIntent);
+//    }
+
 }

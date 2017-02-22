@@ -49,11 +49,18 @@ speedLimit numeric
 );
 
 
-Create table OverSpeedLimit(
+/*Create table OverSpeedLimit(
 incidentID numeric primary key,
 overspeedL overspeed,
 journey journeyObject REFerences Journey(journey),
 customer cust references Customer(customer)
+);/*
+
+Create table OverSpeedLimit(
+incidentID numeric primary key,
+overspeedL overspeed,
+journeyid numeric REFerences Journey(journeyid),
+userid numeric references Customer(userid)
 );
 
 Create type camera as(

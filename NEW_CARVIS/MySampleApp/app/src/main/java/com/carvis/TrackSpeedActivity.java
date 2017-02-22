@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -71,6 +72,14 @@ public class TrackSpeedActivity extends Activity implements
 
     List<JourneyFragment> journeyList;
 
+
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +93,7 @@ public class TrackSpeedActivity extends Activity implements
 
 
 
-        journey.getUsersJourneys(context, provider.getUserName());
+        //journey.getUsersJourneys(context, provider.getUserName());
         //journey.getListOfJourneys();
 
 
@@ -113,7 +122,7 @@ public class TrackSpeedActivity extends Activity implements
             public void run() {
                 //call function
                 getSpeedFromLambda(journey.getLatitude(), journey.getLongitude());
-                ha.postDelayed(this, 5000);
+                ha.postDelayed(this, 3000);
                 //final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
                 try {
                     //journey.getListOfJourneys();
@@ -151,7 +160,9 @@ public class TrackSpeedActivity extends Activity implements
                     speedLimitTextView.setText(journey.getSpeedLimit());
                 }
             }
-        }, 5000);
+        }, 3000);
+
+
     }
 
     @Override
@@ -163,10 +174,8 @@ public class TrackSpeedActivity extends Activity implements
 
     @Override
     protected void onStop() {
-        // Disconnecting the client invalidates it.
-        journey.addJourneyDB(context, provider.getUserName(),"update");
 
-        JourneyFragment.AddJourneyFragments(context,journeyList);
+        endJourneys();
         mGoogleApiClient.disconnect();
         super.onStop();
     }
@@ -281,10 +290,6 @@ public class TrackSpeedActivity extends Activity implements
                     } catch (Exception e) {
 
                     }
-                } else {
-
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
                 }
                 return;
             }
@@ -296,6 +301,23 @@ public class TrackSpeedActivity extends Activity implements
         view.setVisibility(View.VISIBLE);
         view.bringToFront();
     }
+
+    public void endJourneys() {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                journey.addJourneyDB(context, provider.getUserName(), "update");
+
+                JourneyFragment.AddJourneyFragments(context, journeyList);
+                handler.sendEmptyMessage(0);
+                handler.sendEmptyMessage(0);
+            }
+        };
+
+        Thread endThread = new Thread(runnable);
+        endThread.start();
+    }
+    // Disconnecting the client invalidates it.
 
 }
 

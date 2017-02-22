@@ -31,7 +31,7 @@
     <string msgid="9191388946729723891" name="cast_stop">"ನಿಲ್ಲಿಸು"</string>
     <string msgid="1219622777438777099" name="cast_stop_live_stream">"ಲೈವ್ ಸ್ಟ್ರೀಮ್ ನಿಲ್ಲಿಸು"</string>
     <string msgid="4250321332248956563" name="cast_tracks_chooser_dialog_audio">"ಆಡಿಯೊ"</string>
-    <string msgid="1162380934229249476" name="cast_tracks_chooser_dialog_cancel">"ರದ್ದು ಮಾಡು"</string>
+    <string msgid="1162380934229249476" name="cast_tracks_chooser_dialog_cancel">"ರದ್ದು ಮಾಡಿ"</string>
     <string msgid="1779359505126875127" name="cast_tracks_chooser_dialog_closed_captions">"ಮುಚ್ಚಿದ ಶೀರ್ಷಿಕೆಗಳು"</string>
     <string msgid="3012268736704635952" name="cast_tracks_chooser_dialog_default_track_name">"<ns1:g id="POSITION">%1$d</ns1:g> ಟ್ರ್ಯಾಕ್ ಮಾಡಿ"</string>
     <string msgid="5563446400083425854" name="cast_tracks_chooser_dialog_no_audio_tracks">"ಯಾವುದೇ ಆಡಿಯೋ ಟ್ರ್ಯಾಕ್‌ಗಳು ಲಭ್ಯವಿಲ್ಲ"</string>
@@ -82,7 +82,7 @@
     <string msgid="6099173376375995052" name="decline">"ನಿರಾಕರಿಸು"</string>
     <string name="messenger_send_button_text">ಕಳುಹಿಸು</string>
     <string msgid="1303870564366209730" name="place_autocomplete_clear_button">"ಹುಡುಕಾಟ ತೆರವುಗೊಳಿಸಿ"</string>
-    <string msgid="2809095107724486040" name="place_autocomplete_search_hint">"ಹುಡುಕು"</string>
+    <string msgid="2809095107724486040" name="place_autocomplete_search_hint">"ಹುಡುಕಿ"</string>
     <string msgid="8020323581538738027" name="store_picture_message">"ಚಿತ್ರದ ಗ್ಯಾಲರಿಯಲ್ಲಿ ಚಿತ್ರ ಸಂಗ್ರಹಿಸಿಡಲು ಜಾಹೀರಾತಿಗೆ ಅನುಮತಿಸುವುದೇ?"</string>
     <string msgid="4180630057627064606" name="store_picture_title">"ಚಿತ್ರ ಉಳಿಸು"</string>
     <string msgid="363496807345461806" name="wallet_buy_button_place_holder">"Google ನಲ್ಲಿ ಖರೀದಿಸಿ"</string>

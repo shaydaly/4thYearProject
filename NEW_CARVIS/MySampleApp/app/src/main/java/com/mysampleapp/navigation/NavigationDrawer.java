@@ -28,6 +28,7 @@ import android.widget.TextView;
 import com.amazonaws.mobile.AWSMobileClient;
 import com.amazonaws.mobile.user.IdentityManager;
 import com.amazonaws.mobile.user.IdentityProvider;
+import com.carvis.Journey;
 import com.carvis.ListJourney;
 import com.carvis.MapsActivity;
 import com.carvis.TrackSpeedActivity;
@@ -237,7 +238,7 @@ public class NavigationDrawer {
 
     public void goToJourneys(){
         Intent myIntent = new Intent(this.containingActivity, ListJourney.class);
-        myIntent.putExtra("key", value); //Optional parameters
+        myIntent.putExtra("listOfJourneys", "value"); //Optional parameters
         this.containingActivity.startActivity(myIntent);
     }
 

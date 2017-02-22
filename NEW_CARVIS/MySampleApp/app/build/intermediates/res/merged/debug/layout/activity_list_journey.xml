@@ -30,11 +30,18 @@
         android:layout_weight="3">
     </TextView>
     <TextView
+        android:id="@+id/spacebar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_weight="3">
+    </TextView>
+    <TextView
         android:id="@+id/duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@+id/label"
-        android:layout_weight="3">
+        android:layout_weight="1">
     </TextView>
 
 </LinearLayout>

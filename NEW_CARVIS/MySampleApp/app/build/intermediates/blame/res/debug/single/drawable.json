@@ -5,7 +5,11 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_icon_dark.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.0.1\\res\\drawable\\common_google_signin_btn_icon_dark.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.2.0\\res\\drawable\\common_google_signin_btn_icon_dark.xml"
+    },
+    {
+        "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_icon_dark_normal.xml",
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.2.0\\res\\drawable\\common_google_signin_btn_icon_dark_normal.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_text_cursor_material.xml",
@@ -13,27 +17,27 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_icon_dark_focused.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.0.1\\res\\drawable\\common_google_signin_btn_icon_dark_focused.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.2.0\\res\\drawable\\common_google_signin_btn_icon_dark_focused.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_mini_controller_skip_next.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_mini_controller_skip_next.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_mini_controller_skip_next.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_mini_controller_stop_large.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_mini_controller_stop_large.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_mini_controller_stop_large.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_notification_rewind10.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_notification_rewind10.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_notification_rewind10.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_mini_controller_pause.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_mini_controller_pause.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_mini_controller_pause.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_expanded_controller_rewind30.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_expanded_controller_rewind30.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_expanded_controller_rewind30.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_dark.xml",
@@ -41,7 +45,7 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_mini_controller_play.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_mini_controller_play.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_mini_controller_play.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_menu_overflow_material.xml",
@@ -49,7 +53,7 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_mini_controller_stop.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_mini_controller_stop.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_mini_controller_stop.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\messenger_button_blue_bg_selector.xml",
@@ -57,7 +61,7 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_text_dark_focused.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.0.1\\res\\drawable\\common_google_signin_btn_text_dark_focused.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.2.0\\res\\drawable\\common_google_signin_btn_text_dark_focused.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\messenger_button_white_bg_round.xml",
@@ -65,7 +69,7 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_notification_forward10.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_notification_forward10.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_notification_forward10.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_media_route_connecting_dark.xml",
@@ -77,7 +81,7 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_icon_light_focused.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.0.1\\res\\drawable\\common_google_signin_btn_icon_light_focused.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.2.0\\res\\drawable\\common_google_signin_btn_icon_light_focused.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_track_material.xml",
@@ -97,19 +101,19 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_skip_ad_label_border.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_skip_ad_label_border.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_skip_ad_label_border.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_notification_rewind.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_notification_rewind.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_notification_rewind.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_expanded_controller_forward30.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_expanded_controller_forward30.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_expanded_controller_forward30.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_notification_forward.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_notification_forward.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_notification_forward.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_dialog_material_background_light.xml",
@@ -125,7 +129,7 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_notification_rewind30.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_notification_rewind30.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_notification_rewind30.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\selector_button_login.xml",
@@ -137,7 +141,7 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_expanded_controller_actionbar_bg_gradient_light.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_expanded_controller_actionbar_bg_gradient_light.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_expanded_controller_actionbar_bg_gradient_light.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\com_facebook_button_send_background.xml",
@@ -145,11 +149,11 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_notification_pause.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_notification_pause.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_notification_pause.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_notification_small_icon.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_notification_small_icon.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_notification_small_icon.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_radio_material.xml",
@@ -161,11 +165,11 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_notification_play.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_notification_play.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_notification_play.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_expanded_controller_stop.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_expanded_controller_stop.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_expanded_controller_stop.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\speed30km.png",
@@ -177,11 +181,11 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_expanded_controller_play.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_expanded_controller_play.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_expanded_controller_play.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_expanded_controller_bg_gradient_light.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_expanded_controller_bg_gradient_light.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_expanded_controller_bg_gradient_light.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\speed60km.png",
@@ -197,11 +201,11 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_mini_controller_gradient_light.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_mini_controller_gradient_light.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_mini_controller_gradient_light.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_notification_disconnect.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_notification_disconnect.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_notification_disconnect.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_audiotrack_light.xml",
@@ -217,7 +221,7 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_expanded_controller_closed_caption.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_expanded_controller_closed_caption.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_expanded_controller_closed_caption.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_dialog_material_background.xml",
@@ -225,7 +229,11 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_expanded_controller_seekbar_thumb.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_expanded_controller_seekbar_thumb.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_expanded_controller_seekbar_thumb.xml"
+    },
+    {
+        "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_text_disabled.xml",
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.2.0\\res\\drawable\\common_google_signin_btn_text_disabled.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_check_material.xml",
@@ -233,7 +241,7 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_mini_controller_rewind30.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_mini_controller_rewind30.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_mini_controller_rewind30.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\speed120km.png",
@@ -245,15 +253,23 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_expanded_controller_mute.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_expanded_controller_mute.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_expanded_controller_mute.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_mini_controller_skip_prev.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_mini_controller_skip_prev.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_mini_controller_skip_prev.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_mini_controller_pause_large.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_mini_controller_pause_large.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_mini_controller_pause_large.xml"
+    },
+    {
+        "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_icon_light_normal.xml",
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.2.0\\res\\drawable\\common_google_signin_btn_icon_light_normal.xml"
+    },
+    {
+        "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_text_dark_normal.xml",
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.2.0\\res\\drawable\\common_google_signin_btn_text_dark_normal.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_media_route_on_light.xml",
@@ -269,7 +285,7 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_notification_forward30.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_notification_forward30.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_notification_forward30.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\com_facebook_button_like_background.xml",
@@ -288,12 +304,16 @@
         "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.facebook.android\\facebook-android-sdk\\4.6.0\\res\\drawable\\messenger_button_white_bg_selector.xml"
     },
     {
+        "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_text_light_normal.xml",
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.2.0\\res\\drawable\\common_google_signin_btn_text_light_normal.xml"
+    },
+    {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_text_dark.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.0.1\\res\\drawable\\common_google_signin_btn_text_dark.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.2.0\\res\\drawable\\common_google_signin_btn_text_dark.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_expanded_controller_seekbar_track.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_expanded_controller_seekbar_track.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_expanded_controller_seekbar_track.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_tick_mark_material.xml",
@@ -313,7 +333,7 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_text_light_focused.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.0.1\\res\\drawable\\common_google_signin_btn_text_light_focused.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.2.0\\res\\drawable\\common_google_signin_btn_text_light_focused.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_thumb_material.xml",
@@ -321,7 +341,7 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_text_light.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.0.1\\res\\drawable\\common_google_signin_btn_text_light.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.2.0\\res\\drawable\\common_google_signin_btn_text_light.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_close_dark.xml",
@@ -333,7 +353,7 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_expanded_controller_pause.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_expanded_controller_pause.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_expanded_controller_pause.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_go_search_api_material.xml",
@@ -353,7 +373,7 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_mini_controller_closed_caption.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_mini_controller_closed_caption.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_mini_controller_closed_caption.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_search_api_material.xml",
@@ -369,7 +389,7 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_expanded_controller_skip_previous.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_expanded_controller_skip_previous.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_expanded_controller_skip_previous.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_cast_light.xml",
@@ -377,7 +397,7 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_mini_controller_forward30.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_mini_controller_forward30.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_mini_controller_forward30.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_play_dark.xml",
@@ -393,11 +413,11 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_mini_controller_progress_drawable.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_mini_controller_progress_drawable.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_mini_controller_progress_drawable.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_mini_controller_mute.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_mini_controller_mute.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_mini_controller_mute.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_pause_dark.xml",
@@ -409,11 +429,15 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_notification_connecting.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast\\10.0.1\\res\\drawable\\cast_ic_notification_connecting.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast\\10.2.0\\res\\drawable\\cast_ic_notification_connecting.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_expanded_controller_skip_next.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_expanded_controller_skip_next.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_expanded_controller_skip_next.xml"
+    },
+    {
+        "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_icon_disabled.xml",
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.2.0\\res\\drawable\\common_google_signin_btn_icon_disabled.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_search_material.xml",
@@ -433,11 +457,11 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_icon_light.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.0.1\\res\\drawable\\common_google_signin_btn_icon_light.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.2.0\\res\\drawable\\common_google_signin_btn_icon_light.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_notification_skip_prev.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_notification_skip_prev.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_notification_skip_prev.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_edit_text_material.xml",
@@ -445,7 +469,7 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_notification_stop_live_stream.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_notification_stop_live_stream.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_notification_stop_live_stream.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\speed100km.png",
@@ -453,7 +477,7 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_mini_controller_play_large.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_mini_controller_play_large.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_mini_controller_play_large.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_play_light.xml",
@@ -469,7 +493,7 @@
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_notification_skip_next.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.0.1\\res\\drawable\\cast_ic_notification_skip_next.xml"
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_notification_skip_next.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\speed80km.png",

@@ -69,6 +69,18 @@ public class JourneyFragment implements Serializable{
         journeyID = jid;
     }
 
+//    public JourneyFragment() {
+//        this.latitude = "";
+//        this.time = null;
+//        this.longitude = "";
+//        this.speedLimit = "";
+//        this.journeyID = "";
+//        this.username = "";
+//        this.speed = "";
+//        this.currentSpeed = "";
+//        this.timeString ="";
+//    }
+
     public String getJourneyID() {
         return journeyID;
     }
@@ -134,9 +146,6 @@ public class JourneyFragment implements Serializable{
         return currentSpeed;
     }
 
-    JourneyFragment(){
-
-    }
 
 //    public void setTime(Date time) {
 //        this.time = time;
@@ -147,13 +156,19 @@ public class JourneyFragment implements Serializable{
 //    }
 
 
+    public void setJourneyID(String journeyID) {
+        this.journeyID = journeyID;
+    }
 
-    public static void AddJourneyFragments(Context c,  List<JourneyFragment> journies){
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public static void AddJourneyFragments(Context c, List<JourneyFragment> journies){
         try {
-            System.out.println("called");
+            System.out.println("AddJourneyFragments called");
             Gson gson = new Gson();
             String json = gson.toJson(journies);
-            System.out.println(json);
             try {
                 RequestQueue requestQueue = Volley.newRequestQueue(c);
                 String URL = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/journeyfragment";
@@ -163,12 +178,12 @@ public class JourneyFragment implements Serializable{
                     @Override
                     public void onResponse(String response) {
                         //result = response;
-                        Log.i("VOLLEY", response);
+                        Log.i("AddJourneyFragments", response);
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        //result = error.toString();
+                        Log.i("Volley Error1 ",error.toString());
                     }
                 }) {
                     @Override
@@ -200,6 +215,7 @@ public class JourneyFragment implements Serializable{
                             try {
                                 String str = new String(response.data, "UTF-8");
                                 //journeyID = jID;
+                                System.out.println(str+"______________!!");
                             }
                             catch(UnsupportedEncodingException e){
                                 System.out.println(e.getMessage());

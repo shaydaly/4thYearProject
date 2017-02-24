@@ -34,13 +34,14 @@ except:
 logger.info("SUCCESS: Connection to RDS PGRES! instance succeeded")
 def handler(event, context):
     username = event["username"]
+    journeyID = "journeyid"
     startLongitude ="(journey).startlongitude"
     startLatitude = "(journey).startlatitude"
     endLongitude ="(journey).endlongitude"
     endLatitude = "(journey).endlatitude"
     startTime = "(journey).journeystarttime"
     endTime = "(journey).journeyendtime"
-    query = """select {0}, {1},{2},{3},{4},{5} from journey where (customer).username='{6}'""".format(startLatitude,startLongitude,endLatitude,endLongitude,startTime,endTime, username)
+    query = """select {0}, {1},{2},{3},{4},{5},{7} from journey,customer where journey.userid = customer.userid AND (customer).username='{6}' order by journeyid desc""".format(startLatitude,startLongitude,endLatitude,endLongitude,startTime,endTime, username,journeyID)
     try:
         with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as cur:
             cur.execute(query)
@@ -52,7 +53,14 @@ def handler(event, context):
             js=""
             #cur.execute('select journey from journey')
             for row in cur:
-                data.append({"startLat": str(row[0]), "startLon": str(row[1]), "endLat": str(row[2]), "endLon": str(row[3]), "starttime" : str(row[4]), "endtime" : str(row[5])})
+                #data["startLat"] = str(row[0])  
+                #data["startLon"] = str(row[1])
+                #data["endLat"] = str(row[2])
+                #data["endLon"] = str(row[3])
+                #data["starttime"] = str(row[4])
+                #data["endtime"] = str(row[5])
+                
+                data.append({"startLat": str(row[0]), "startLon": str(row[1]), "endLat": str(row[2]), "endLon": str(row[3]), "starttime" : str(row[4]), "endtime" : str(row[5]), "journeyID" : str(row[6])})
                 
             json_data = (json.dumps(data))
             jsonlist = json.loads(json_data)  

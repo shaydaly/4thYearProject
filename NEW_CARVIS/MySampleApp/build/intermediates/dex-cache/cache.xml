@@ -3,6 +3,15 @@
 
     <item
         is-multidex="true"
+        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads-lite\10.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="4ef2d91da513c4d7e773ae438fe04d0e4c135957">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-ads-lite-10.2.0_7d238c7bc77390839e4ded76f6ae89b7c2425def\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-vision\10.2.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -30,12 +39,66 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\24.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="b327fbe2fad414bc38cf0ce8f7efe1a38f572837">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-mediarouter-v7-24.0.0_92a37cba65c20b269c0946f9ab2d7d914f447950\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.6.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="1c1afa0ab2a8197a5da1b36c4167a9e479cb74d9">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.facebook.android-facebook-android-sdk-4.6.0_2f3d31694fb5630825b639907740630c2b3e91f8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\24.0.0\jars\libs\internal_impl-24.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="b6763651ec29b4c95e7bbe63fc393ffcc8c4c2c5">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.0.0_7ba48992a30bfa5ea47c96553af1b5a101b2ce0f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gass\10.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="857ce7350acf811749c8fd0254d3d39b02aa71f5">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-gass-10.2.0_777d4cbdb713da5e04b23925918d189f0d88d281\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
-        sha1="069bfe7b8a6e9fd52f64e23e886a6e3e12a0da26">
+        sha1="ec93af0278ddc02f45adea591c35b08c3b518c3e">
         <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_8f0fa7de0348373bbb63e1a18ec8c1fcdea46949\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.support\multidex\1.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="78ea232052df889856dcb7b7b542707c89bb3bfb">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-multidex-1.0.1_a473dba595f1a2b31142735a7ecab4de655e7617\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\10.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="7d14fe9bd2283b2eb7fcab08458aa0357917e138">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-nearby-10.2.0_2fab0e0b83e5f27f69c52f8e66840204bfc7061e\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -45,6 +108,24 @@
         revision="24.0.2"
         sha1="101393e975eaf36e3ff40b277ee9a019e077afef">
         <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-wearable-10.2.0_8954f1955454e13cd6fe9912edbf4c9d2de480c2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-identity\10.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="db48dfabe8ecc46681ceca418d6bd61a5339f818">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-identity-10.2.0_eb0d88f3763098a177e6d85a62fa7a7754939da4\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-database\10.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="94fca868854457ede6df15c902938468c71d579e">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-database-10.2.0_8880bf14191029e31985d12c2dc0e39ac738666a\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -75,6 +156,15 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="e70f608219ed6b974644c333249ab2bb7b71de98">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-24.0.0_b8eae626e51aa2a7e01120ea3d02d7fbb86360e4\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\10.2.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -90,6 +180,15 @@
         revision="24.0.2"
         sha1="fcaf463e10e69c1923ccf1edeba3b4196d239e00">
         <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.0.0_44f0e1efdc383d66b32ec366efc01638e0f9f200\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tagmanager-v4-impl\10.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="8438c64f9eb581429dc592f7c9b3156a3d071653">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tagmanager-v4-impl-10.2.0_5da7b284d83560cebd79f414af525497d33f1698\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -120,6 +219,15 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-storage\10.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="8e1d31656bc9f1889283836e025e6cb703acd38a">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-storage-10.2.0_cad9151773f32685d8b674fd14f470df5ad6c4ad\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-fitness\10.2.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -138,12 +246,39 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-crash\10.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="0f58195bee8a08f35e7d4ee7fd4b0479e570e172">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-crash-10.2.0_3df5857795fdf4f56ddd16d514b47d7eeaf13e9d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Seamus\.gradle\caches\modules-2\files-2.1\com.amazonaws\aws-android-sdk-core\2.3.8\59f066964f4ef43fb092312f103d122f80fd4e06\aws-android-sdk-core-2.3.8.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="59f066964f4ef43fb092312f103d122f80fd4e06">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\aws-android-sdk-core-2.3.8_58fd8a26816657a9829ec81fdfd8514e2ec41c2d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Seamus\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.4\695b63d702f505b9b916e02272e3b6381bade7f\gson-2.4.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
         sha1="0695b63d702f505b9b916e02272e3b6381bade7f">
         <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\gson-2.4_69dc4d7253314c95656067e565ba5b467ec9e5d3\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.support\palette-v7\24.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="734e80dffea7bd76c18ae256822a124c30d85850">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-palette-v7-24.0.0_d6a6850481b41cf7c70dc2f12f451ab4f9178d7a\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -165,6 +300,15 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-instantapps\10.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="423fb69e69759d8b726fa4a4fb6a1ea9fc86d1cd">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-instantapps-10.2.0_d2520e72eccca5417185759814e5287e1a3bafdb\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-auth\10.2.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -178,7 +322,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
-        sha1="a1c9923cd2e7e53722753f285515019ba7ae9e4e">
+        sha1="901cf038038349226bc8ac6a52db029b19652979">
         <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_f05824ccd42d77568fd57b0880a0d165724bcacf\classes.dex" />
     </item>
     <item
@@ -228,12 +372,66 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\10.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="bd75f9f0296fe220da6d0ad961831b04541c4452">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tasks-10.2.0_3204676f916c66bd396fce011494929dce65f295\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="3bd97cfefd783e9de1dd1c30574a6adb44b4409b">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-24.0.0_c90624f49a9d35bcf3cf08f5ba05171e92870d72\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\10.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="646b2c48e147b943f0a39842457fdc66d501e4b6">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-appinvite-10.2.0_15e050d508b4b16c36d29a5857b928b9c474b33d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-auth\10.2.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
         sha1="b831d3902674d096189451d46fce219e2c2904b7">
         <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-auth-10.2.0_09416ceda40632c5a256d3f19766f7a0da2cafea\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\10.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="a3f7595ca32e614b454ceb7b7e241bb037a28e86">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-cast-10.2.0_fa4698f16e64eea9b978d60f65bd4bf65bade7cf\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics\10.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="a61e7010aa7be5da53cd1bc5279630510c9a4912">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-analytics-10.2.0_009822849b322c0aad0f7bdeb0cc56c063fb6a7f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\10.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="90270132a5f1a33584f453c571257dd35e728201">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-drive-10.2.0_da7aa4d8d281abd98fb1ef3e04fa074b5c84c28f\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -246,6 +444,15 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics-impl\10.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="ce9112e08a027c8620ae693983e38cdbb9f6371b">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-analytics-impl-10.2.0_b5738a47da5f60ca29c1982d44b40b2971347b5c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics-impl\10.2.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -255,12 +462,30 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-storage-common\10.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="1df6d719c4e264d66bb98baa5cb637495b8cca66">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-storage-common-10.2.0_84c80bb4e849b1e9138bd8d6b8dd0dd6d8fc7ef0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\10.2.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
         sha1="db4aca1c1ec60f2c098d3b6c91cedfb7838f83ed">
         <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-panorama-10.2.0_2f112e32556ee51ff9d157a177d591952a850d1b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\10.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="ddb7fed808f4331174b59428ccfc46b3696c9812">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-games-10.2.0_c4f5bc7850b01ba09408fc9c8c1b83dcacb39400\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -288,6 +513,15 @@
         revision="24.0.2"
         sha1="2f7e6e2dad1bccaf68a8820820adc6c0d5b96d37">
         <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-24.0.0_c85f5e7168ae54010b038cc59ef22a98baae0f7f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\libs\joda-time-2.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="89e9725439adffbbd41c5f5c215c136082b34a7f">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\2\joda-time-2.4_bfd5d22859a23888eb6c0905803a4b3715fe7dd4\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -336,267 +570,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-places\10.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="654b294d429b56fd18392f2b68ad79954f431f8e">
-        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-places-10.2.0_2799d3cee6315fc55df3275819d44ab4528d8106\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Seamus\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-android\1.2.0\6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd\bolts-android-1.2.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd">
-        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\bolts-android-1.2.0_c390eb250d87b37c6a34825c6db9d85e754a86e4\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Seamus\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-core\2.7.2\8b8310381b690e317f5f0574e9b2dd7034778b4c\jackson-core-2.7.2.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="8b8310381b690e317f5f0574e9b2dd7034778b4c">
-        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\jackson-core-2.7.2_50e8307aacb8e78b880493c8d9f6a23c0f07d008\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads-lite\10.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="4ef2d91da513c4d7e773ae438fe04d0e4c135957">
-        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-ads-lite-10.2.0_7d238c7bc77390839e4ded76f6ae89b7c2425def\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\24.0.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="b327fbe2fad414bc38cf0ce8f7efe1a38f572837">
-        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-mediarouter-v7-24.0.0_92a37cba65c20b269c0946f9ab2d7d914f447950\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.6.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="1c1afa0ab2a8197a5da1b36c4167a9e479cb74d9">
-        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.facebook.android-facebook-android-sdk-4.6.0_2f3d31694fb5630825b639907740630c2b3e91f8\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\24.0.0\jars\libs\internal_impl-24.0.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="b6763651ec29b4c95e7bbe63fc393ffcc8c4c2c5">
-        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.0.0_7ba48992a30bfa5ea47c96553af1b5a101b2ce0f\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gass\10.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="857ce7350acf811749c8fd0254d3d39b02aa71f5">
-        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-gass-10.2.0_777d4cbdb713da5e04b23925918d189f0d88d281\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.support\multidex\1.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="78ea232052df889856dcb7b7b542707c89bb3bfb">
-        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-multidex-1.0.1_a473dba595f1a2b31142735a7ecab4de655e7617\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\10.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="7d14fe9bd2283b2eb7fcab08458aa0357917e138">
-        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-nearby-10.2.0_2fab0e0b83e5f27f69c52f8e66840204bfc7061e\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-identity\10.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="db48dfabe8ecc46681ceca418d6bd61a5339f818">
-        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-identity-10.2.0_eb0d88f3763098a177e6d85a62fa7a7754939da4\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-database\10.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="94fca868854457ede6df15c902938468c71d579e">
-        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-database-10.2.0_8880bf14191029e31985d12c2dc0e39ac738666a\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.0.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="e70f608219ed6b974644c333249ab2bb7b71de98">
-        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-24.0.0_b8eae626e51aa2a7e01120ea3d02d7fbb86360e4\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tagmanager-v4-impl\10.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="8438c64f9eb581429dc592f7c9b3156a3d071653">
-        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tagmanager-v4-impl-10.2.0_5da7b284d83560cebd79f414af525497d33f1698\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-storage\10.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="8e1d31656bc9f1889283836e025e6cb703acd38a">
-        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-storage-10.2.0_cad9151773f32685d8b674fd14f470df5ad6c4ad\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-crash\10.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="0f58195bee8a08f35e7d4ee7fd4b0479e570e172">
-        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-crash-10.2.0_3df5857795fdf4f56ddd16d514b47d7eeaf13e9d\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Seamus\.gradle\caches\modules-2\files-2.1\com.amazonaws\aws-android-sdk-core\2.3.8\59f066964f4ef43fb092312f103d122f80fd4e06\aws-android-sdk-core-2.3.8.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="59f066964f4ef43fb092312f103d122f80fd4e06">
-        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\aws-android-sdk-core-2.3.8_58fd8a26816657a9829ec81fdfd8514e2ec41c2d\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.support\palette-v7\24.0.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="734e80dffea7bd76c18ae256822a124c30d85850">
-        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-palette-v7-24.0.0_d6a6850481b41cf7c70dc2f12f451ab4f9178d7a\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-instantapps\10.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="423fb69e69759d8b726fa4a4fb6a1ea9fc86d1cd">
-        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-instantapps-10.2.0_d2520e72eccca5417185759814e5287e1a3bafdb\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\10.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="bd75f9f0296fe220da6d0ad961831b04541c4452">
-        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tasks-10.2.0_3204676f916c66bd396fce011494929dce65f295\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.0.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="3bd97cfefd783e9de1dd1c30574a6adb44b4409b">
-        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-24.0.0_c90624f49a9d35bcf3cf08f5ba05171e92870d72\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\10.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="646b2c48e147b943f0a39842457fdc66d501e4b6">
-        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-appinvite-10.2.0_15e050d508b4b16c36d29a5857b928b9c474b33d\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\10.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="a3f7595ca32e614b454ceb7b7e241bb037a28e86">
-        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-cast-10.2.0_fa4698f16e64eea9b978d60f65bd4bf65bade7cf\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics\10.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="a61e7010aa7be5da53cd1bc5279630510c9a4912">
-        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-analytics-10.2.0_009822849b322c0aad0f7bdeb0cc56c063fb6a7f\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\10.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="90270132a5f1a33584f453c571257dd35e728201">
-        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-drive-10.2.0_da7aa4d8d281abd98fb1ef3e04fa074b5c84c28f\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics-impl\10.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="ce9112e08a027c8620ae693983e38cdbb9f6371b">
-        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-analytics-impl-10.2.0_b5738a47da5f60ca29c1982d44b40b2971347b5c\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-storage-common\10.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="1df6d719c4e264d66bb98baa5cb637495b8cca66">
-        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-storage-common-10.2.0_84c80bb4e849b1e9138bd8d6b8dd0dd6d8fc7ef0\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\10.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="ddb7fed808f4331174b59428ccfc46b3696c9812">
-        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-games-10.2.0_c4f5bc7850b01ba09408fc9c8c1b83dcacb39400\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\libs\joda-time-2.4.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="89e9725439adffbbd41c5f5c215c136082b34a7f">
-        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\2\joda-time-2.4_bfd5d22859a23888eb6c0905803a4b3715fe7dd4\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tagmanager\10.2.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -621,6 +594,33 @@
         revision="24.0.2"
         sha1="1ac56e5801e986583cbe27f2cce57f626cc7ff93">
         <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-basement-10.2.0_e69b5aa10ffffea8e77ca946711f7562beff63fa\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-places\10.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="654b294d429b56fd18392f2b68ad79954f431f8e">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-places-10.2.0_2799d3cee6315fc55df3275819d44ab4528d8106\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Seamus\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-android\1.2.0\6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd\bolts-android-1.2.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\bolts-android-1.2.0_c390eb250d87b37c6a34825c6db9d85e754a86e4\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Seamus\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-core\2.7.2\8b8310381b690e317f5f0574e9b2dd7034778b4c\jackson-core-2.7.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="8b8310381b690e317f5f0574e9b2dd7034778b4c">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\jackson-core-2.7.2_50e8307aacb8e78b880493c8d9f6a23c0f07d008\classes.dex" />
     </item>
     <item
         is-multidex="true"

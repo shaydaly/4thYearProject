@@ -35,6 +35,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -59,7 +61,7 @@ public class TrackSpeedActivity extends Activity implements
     private  Context context;
     //Intent intent = getIntent();
     Journey journey;
-    JourneyFragment journeyFragment;
+    //JourneyFragment journeyFragment;
     CognitoUserPoolsSignInProvider provider;
     int count = 0;
 
@@ -68,12 +70,25 @@ public class TrackSpeedActivity extends Activity implements
 
     SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 
-    String s;
+
 
     List<JourneyFragment> journeyList;
 
+    ImageView imageView50;
+    ImageView imageView60 ;
+    ImageView imageView80;
+    ImageView imageView100 ;
 
-    Handler handler = new Handler(){
+    TextView currentSpeedTextView;
+    TextView speedLimitTextView;
+    int limit;
+    Date dNow;
+    String newSpeed;
+    int speed;
+    RequestQueue queue;
+    private Timer timer ;
+
+    Handler updateHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -87,62 +102,40 @@ public class TrackSpeedActivity extends Activity implements
         journey = new Journey();
         journeyList  = new ArrayList<>();
 
+        timer = new Timer();
 
         context = getApplicationContext();
         provider = new CognitoUserPoolsSignInProvider(context);
 
-
-
-        //journey.getUsersJourneys(context, provider.getUserName());
-        //journey.getListOfJourneys();
-
-
-        //ArrayList<String> js = new ArrayList<>();
-        //int jse = journey.getListOfJourneys();
-        //System.out.println(jse+"------__------");
-
-        final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
-        final ImageView imageView50 = (ImageView) findViewById(R.id.speed50km);
-        final ImageView imageView60 = (ImageView) findViewById(R.id.speed60km);
-        final ImageView imageView80 = (ImageView) findViewById(R.id.speed80km);
-        final ImageView imageView100 = (ImageView) findViewById(R.id.speed100km);
-
-        TextView currentSpeedTextView = (TextView) findViewById(R.id.currentSpeed);
-
+//        imageView50 = (ImageView) findViewById(R.id.speed50km);
+//        imageView60 = (ImageView) findViewById(R.id.speed60km);
+//        imageView80 = (ImageView) findViewById(R.id.speed80km);
+//        imageView100 = (ImageView) findViewById(R.id.speed100km);
+        currentSpeedTextView = (TextView) findViewById(R.id.currentSpeed);
+        speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
 
-        final Handler ha = new Handler();
-        ha.postDelayed(new Runnable() {
-
+        timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                //call function
-                getSpeedFromLambda(journey.getLatitude(), journey.getLongitude());
-                ha.postDelayed(this, 3000);
-                //final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
+
                 try {
-                    //journey.getListOfJourneys();
-                    String newSpeed = journey.getSpeedLimit().replaceAll("[^\\d.]", "");
+                    getSpeedFromLambda(journey.getLatitude(), journey.getLongitude());
+                    newSpeed = journey.getSpeedLimit().replaceAll("[^\\d.]", "");
 
                     //speedLimitTextView.setText(newSpeed+"km/h");
-                    int limit = Integer.parseInt(newSpeed);
+                    limit = Integer.parseInt(newSpeed);
 
-                    Date dNow = new Date( );
+                    //speedLimitTextView.setText(String.valueOf(limit)+"km/h");
+                    dNow  = new Date();
 
-                    journeyFragment = new JourneyFragment(journey.getLatitude(),journey.getLongitude(),journey.getCurrentSpeed(),String.valueOf(limit),dNow,journey.getJourneyID(), provider.getUserName());
+                    //journeyFragment = new JourneyFragment(journey.getLatitude(), journey.getLongitude(), journey.getCurrentSpeed(), String.valueOf(limit), dNow, journey.getJourneyID(), provider.getUserName());
 
-                    journeyList.add(journeyFragment);
-                    if (Double.parseDouble(journey.getCurrentSpeed()) > limit) {
-                        if (!journey.getJourneyID().equals("")) {
-                            //currentSpeedTextView.setText(jID);
-                            OverSpeedLimit o = new OverSpeedLimit(journey.getLatitude(), journey.getLongitude(), String.valueOf(journey.getCurrentSpeed()), String.valueOf(limit));
-                            o.InsertOverLimitDB(context, journey.getJourneyID(), provider.getUserName());
-                        }
-                    }
+                    journeyList.add(new JourneyFragment(journey.getLatitude(), journey.getLongitude(), journey.getCurrentSpeed(), String.valueOf(limit), dNow, journey.getJourneyID(), provider.getUserName()));
 
                     if (limit == 50) {
                         showImage(imageView50);
@@ -156,13 +149,55 @@ public class TrackSpeedActivity extends Activity implements
                     if (limit == 100) {
                         showImage(imageView100);
                     }
-                } catch (Exception e) {
-                    speedLimitTextView.setText(journey.getSpeedLimit());
+                }
+                catch(Exception e){
+                    Log.i("Get Limit"," Exception");
                 }
             }
-        }, 3000);
+        }, 0, 5000);//5 seconds
 
 
+//        final Handler ha = new Handler();
+//        ha.postDelayed(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                System.out.println("RAN");
+//                //call function
+//                getSpeedFromLambda(journey.getLatitude(), journey.getLongitude());
+//                //final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
+//                ha.postDelayed(this, 3000);
+//                try {
+//                    newSpeed = journey.getSpeedLimit().replaceAll("[^\\d.]", "");
+//
+//                    //speedLimitTextView.setText(newSpeed+"km/h");
+//                    limit = Integer.parseInt(newSpeed);
+//
+//                    dNow  = new Date();
+//
+//                    journeyFragment = new JourneyFragment(journey.getLatitude(), journey.getLongitude(), journey.getCurrentSpeed(), String.valueOf(limit), dNow, journey.getJourneyID(), provider.getUserName());
+//
+//                    journeyList.add(journeyFragment);
+//
+//                    if (limit == 50) {
+//                        showImage(imageView50);
+//                    }
+//                    if (limit == 60) {
+//                        showImage(imageView60);
+//                    }
+//                    if (limit == 80) {
+//                        showImage(imageView80);
+//                    }
+//                    if (limit == 100) {
+//                        showImage(imageView100);
+//                    }
+//                }
+//                catch(Exception e){
+//                    Log.i("Get Limit","");
+//                }
+//            }
+//
+//        }, 3000);
     }
 
     @Override
@@ -174,10 +209,16 @@ public class TrackSpeedActivity extends Activity implements
 
     @Override
     protected void onStop() {
-
+        // Disconnecting the client invalidates it.
+        super.onStop();
+        timer.cancel();
+        timer.purge();
+        if (queue != null) {
+            System.out.println(queue+" is not empty so cancelling");
+            queue.cancelAll(this);
+        }
         endJourneys();
         mGoogleApiClient.disconnect();
-        super.onStop();
     }
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
@@ -229,30 +270,46 @@ public class TrackSpeedActivity extends Activity implements
 
     @Override
     public void onLocationChanged(Location location) {
-        final TextView currentSpeedTextView = (TextView) findViewById(R.id.currentSpeed);
+
         journey.setLatitude(String.valueOf(location.getLatitude()));
         journey.setLongitude(String.valueOf(location.getLongitude()));
         // Called when a new location is found by the network location provider.
         if (location.hasSpeed() == true) {
-            journey.setCurrentSpeed(String.valueOf(Math.round((location.getSpeed() * 3.6) * 100.0) / 100.0));
+            speed = (int)(Math.round((location.getSpeed() * 3.6) * 100.0) / 100.0);
+            journey.setCurrentSpeed(String.valueOf(speed));
             currentSpeedTextView.setText(String.valueOf(journey.getCurrentSpeed()) + "km-h");
         }
         if (count == 0) {
             journey.addJourneyDB(context, provider.getUserName(),"insert");
             count++;
         }
+        try {
+//            if (Double.parseDouble(journey.getCurrentSpeed()) > limit) {
+//                if (!journey.getJourneyID().equals("")) {
+//                    //currentSpeedTextView.setText(jID);
+//                    //OverSpeedLimit o = new OverSpeedLimit(journey.getLatitude(), journey.getLongitude(), String.valueOf(journey.getCurrentSpeed()), String.valueOf(limit));
+//                    //o.InsertOverLimitDB(context, journey.getJourneyID(), provider.getUserName());
+//                }
+//            }
+
+        } catch (Exception e) {
+            //speedLimitTextView.setText(journey.getSpeedLimit());
+        }
     }
 
+
     public void getSpeedFromLambda(String latitude, String longitude) {
-        RequestQueue queue = Volley.newRequestQueue(this);
+        System.out.println("GET SPEED CALLED");
+        queue  = Volley.newRequestQueue(context);
         String url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/QuerySpeed/callqueryspeed?latitude=" + latitude + "&longitude=" + longitude;
-        final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
+        //final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+                            System.out.println("response from getspeed\n"+response.toString());
                             JSONObject obj = new JSONObject(response.toString());
                             journey.setSpeedLimit((obj.get("speed").toString()));
                         } catch (JSONException e) {
@@ -263,7 +320,7 @@ public class TrackSpeedActivity extends Activity implements
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        //journey.setSpeedLimit("");
+                        Log.i("Speed Lambda","ERROR");
                     }
                 });
         queue.add(jsObjRequest);
@@ -290,6 +347,10 @@ public class TrackSpeedActivity extends Activity implements
                     } catch (Exception e) {
 
                     }
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
                 }
                 return;
             }
@@ -303,21 +364,20 @@ public class TrackSpeedActivity extends Activity implements
     }
 
     public void endJourneys() {
+        System.out.println("end journeys called");
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 journey.addJourneyDB(context, provider.getUserName(), "update");
-
                 JourneyFragment.AddJourneyFragments(context, journeyList);
-                handler.sendEmptyMessage(0);
-                handler.sendEmptyMessage(0);
+                updateHandler.sendEmptyMessage(0);
+                //updateHandler.sendEmptyMessage(0);
             }
         };
 
         Thread endThread = new Thread(runnable);
         endThread.start();
     }
-    // Disconnecting the client invalidates it.
 
 }
 

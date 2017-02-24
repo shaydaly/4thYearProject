@@ -84,7 +84,8 @@
     <string name="email">Email</string>
     <string name="signIn">Sign In</string>
     <string name="trackSpeed">Track Speed</string>
-    <string name="initialSpeed">0.0 km/h</string>
+    <string name="initialSpeed">0 km/h</string>
+    <string name="speedLimit">0 k/m</string>
     <string name="speedMetric">km/h</string>
     <string name="journeys">Journeys</string>
 

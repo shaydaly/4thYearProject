@@ -85,7 +85,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            ArrayList<JourneyFragment> listOfJourneys = (ArrayList<JourneyFragment>) extras.get("mylist");
+            ArrayList<JourneyFragment> listOfJourneys = (ArrayList<JourneyFragment>) extras.get("journeyFragments");
+
 
             for (int i = 0; i < listOfJourneys.size(); i++) {
                 LatLng latLng = new LatLng(Double.parseDouble(listOfJourneys.get(i).getLatitude()), Double.parseDouble(listOfJourneys.get(i).getLongitude()));
@@ -94,7 +95,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 //rectOptions.color(Color.RED);
                 options.position(latLng);
                 //options.title(listOfJourneys.get(i).getLatitude()+"_"+listOfJourneys.get(i).getLongitude());
-               options.title("Speed: "+listOfJourneys.get(i).getFragmentSpeed());
+                options.title("Speed: "+listOfJourneys.get(i).getFragmentSpeed());
                 options.snippet("Limit:"+listOfJourneys.get(i).getSpeedLimit());//
 
 
@@ -144,12 +145,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlngs.get(latlngs.size()-1),13.0f));
 
             }
-            }
-            else{
-                LatLng home = new LatLng(53.3514105, -6.3803316);
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(home,13.0f));
-            }
         }
+        else{
+            LatLng home = new LatLng(53.3514105, -6.3803316);
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(home,13.0f));
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        // Disconnecting the client invalidates it.
+        super.onStop();
+    }
 
 
     public String getLocation(){

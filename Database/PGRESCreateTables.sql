@@ -26,7 +26,7 @@ journeyEndTime timestamp
 Create table Journey(
 JourneyID numeric primary key,
 journey journeyObject,
-customer cust references Customer(customer)
+userid numeric references customer(userid)
 );
 
 create table JourneyFragment(

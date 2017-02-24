@@ -17,6 +17,13 @@
 package com.carvis;
 
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.android.gms.maps.model.LatLng;
 
 
 import android.app.ListActivity;
@@ -28,6 +35,10 @@ import android.os.Message;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.view.View;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -56,19 +67,27 @@ public class ListJourney extends ListActivity {
         }
     };
 
-    Handler handler2 = new Handler(){
+    Handler userJourneyHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             fillJourneyList();
         }
     };
-
+//    Handler snapPointHandler = new Handler(){
+//        @Override
+//        public void handleMessage(Message msg) {
+//            goToMap(journeyFragments);
+//        }
+//    };
     Handler fragmentHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
+            //getSnapToRoadsPoints(context,journeyFragments);
             goToMap(journeyFragments);
         }
     };
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,14 +102,7 @@ public class ListJourney extends ListActivity {
 
         getUserJourneys();
 
-//        //journey.getUsersJourneys(context, provider.getUserName());
-//        for(int i= 0; i<=50; i++ ){
-//            System.out.println(i);
-//        }
 
-//        ArrayList<String > j ;
-//        j = journey.getListOfJourneys(context);
-//        setListAdapter(new MobileArrayAdapter(this, j));
     }
 
     @Override
@@ -110,19 +122,22 @@ public class ListJourney extends ListActivity {
             @Override
             public void run() {
                 journey.getJourneyFragments(context, provider.getUserName(), val);
-                long futureTme = System.currentTimeMillis()+3000;
-                while (System.currentTimeMillis()< futureTme){
-                    synchronized (this){
-                        try{
-                            wait(futureTme-System.currentTimeMillis());
-                        }
-                        catch(Exception e){
-
-                        }
-                    }
-                }
+//                long futureTme = System.currentTimeMillis()+3000;
+//                while (System.currentTimeMillis()< futureTme){
+//                    synchronized (this){
+//                        try{
+//                            wait(futureTme-System.currentTimeMillis());
+//                        }
+//                        catch(Exception e){
+//
+//                        }
+//                    }
+//                }
                 //call function
                 journeyFragments = journey.getListOfJourneyFragments(context);
+                while(journeyFragments.size()==0){
+                    journeyFragments = journey.getListOfJourneyFragments(context);
+                }
                 fragmentHandler.sendEmptyMessage(0);
             }
 
@@ -133,15 +148,14 @@ public class ListJourney extends ListActivity {
 
     public void goToMap(ArrayList<JourneyFragment> fragments){
         Intent myIntent = new Intent(this, MapsActivity.class);
-        ArrayList <JourneyFragment> addyExtras = new ArrayList <JourneyFragment>();
+//        ArrayList <JourneyFragment> addyExtras = new ArrayList <JourneyFragment>();
+//
+//        for (int i = 0; i < fragments.size(); i++)
+//            addyExtras.add (fragments.get(i));
+//
+//        //myIntent.putExtra ("mylist", addyExtras);
 
-        for (int i = 0; i < fragments.size(); i++)
-            addyExtras.add (fragments.get(i));
-
-        System.out.println("(((("+addyExtras.size());
-        myIntent.putExtra ("mylist", addyExtras);
-
-        myIntent.putExtra("key", fragments); //Optional parameters
+        myIntent.putExtra("journeyFragments", fragments); //Optional parameters
 
         this.startActivity(myIntent);
 
@@ -156,22 +170,23 @@ public class ListJourney extends ListActivity {
     }
 
     public void getUserJourneys(){
-        journey.getUsersJourneys(context, provider.getUserName());
+//        journey.getUsersJourneys(context, provider.getUserName());
         Runnable r = new Runnable() {
             @Override
             public void run() {
+                journey.getUsersJourneys(context, provider.getUserName());
                 long futureTme = System.currentTimeMillis()+3000;
-                while (System.currentTimeMillis()< futureTme){
-                    synchronized (this){
-                        try{
-                            wait(futureTme-System.currentTimeMillis());
-                        }
-                        catch(Exception e){
-
-                        }
-                    }
-                }
-                handler2.sendEmptyMessage(0);
+//                while (System.currentTimeMillis()< futureTme){
+//                    synchronized (this){
+//                        try{
+//                            wait(futureTme-System.currentTimeMillis());
+//                        }
+//                        catch(Exception e){
+//
+//                        }
+//                    }
+//                }
+                userJourneyHandler.sendEmptyMessage(0);
             }
         };
         Thread userJourneys = new Thread(r);
@@ -184,6 +199,9 @@ public class ListJourney extends ListActivity {
             public void run() {
                 try {
                     ArrayList<Journey> js = journey.getListOfJourneys(context);
+                    while(js.size()==0) {
+                        js = journey.getListOfJourneys(context);
+                    }
                     journeyIDs = new ArrayList<String>();
                     timestamps = new ArrayList<String>();
                     durations = new ArrayList<String>();
@@ -202,5 +220,64 @@ public class ListJourney extends ListActivity {
         Thread journeyList = new Thread(runnable);
         journeyList.start();
     }
+
+//    public void getSnapToRoadsPoints(Context c, final ArrayList<JourneyFragment> fragments){
+//        final Context context = c;
+//        Runnable r = new Runnable() {
+//            @Override
+//            public void run() {
+//                String path="";
+//                for(int i = 0; i< fragments.size(); i=i+5){
+//                    path += fragments.get(i).getLatitude() + "," + fragments.get(i).getLongitude() + "|";
+//                }
+//                path = path.substring(0, path.length()-1);
+//
+//                final ArrayList<LatLng> latsLongs = new ArrayList<>();
+//                System.out.println("Called!!");
+//                RequestQueue queue = Volley.newRequestQueue(context);
+//                String url = "https://roads.googleapis.com/v1/snapToRoads?path="+path+"&interpolate=true&key=AIzaSyANu-d2RqCWLTyyZoh3s9lL0_PurPTNlIQ";
+//                final JsonObjectRequest jsObjRequest = new JsonObjectRequest
+//                        (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+//
+//                            @Override
+//                            public void onResponse(JSONObject response) {
+//                                try {
+//                                    JSONObject obj = new JSONObject(response.toString());
+////                            //journey.setSpeedLimit((obj.get("speed").toString()));
+//                                    JSONArray jarray = obj.getJSONArray("snappedPoints");
+//                                    //System.out.println("11\t"+jarray.toString());
+//
+//                                    for(int i =0; i< jarray.length(); i++) {
+//                                            JSONObject o = (jarray.getJSONObject(i).getJSONObject("location"));
+//                                            //LatLng l = new LatLng(o.getDouble("latitude"),o.getDouble("longitude"));
+//
+//                                            fragments.get(i).setLatitude(o.get("latitude").toString());
+//                                            fragments.get(i).setLongitude(o.get("longitude").toString());
+//                                        }
+//
+//                                } catch (JSONException e) {
+//                                    System.out.println(e.getMessage());
+//                                }
+//                                snapPointHandler.sendEmptyMessage(0);
+//                            }
+//                        }, new Response.ErrorListener() {
+//
+//                            @Override
+//                            public void onErrorResponse(VolleyError error) {
+//                                //journey.setSpeedLimit("");
+//                                System.out.println(error.toString());
+//                            }
+//                        });
+//
+//
+//                queue.add(jsObjRequest);
+//                snapPointHandler.sendEmptyMessage(0);
+//            }
+//
+//
+//        };
+//        Thread snapThread = new Thread(r);
+//        snapThread.start();
+//    }
 
 }

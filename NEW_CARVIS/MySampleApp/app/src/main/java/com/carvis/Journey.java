@@ -4,10 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -17,12 +13,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.JsonArray;
-import com.mysampleapp.R;
-
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -31,23 +23,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-
-import javax.xml.datatype.Duration;
-
-import static android.R.attr.value;
 
 /**
  * Created by Seamus on 24/01/2017.
  */
 
-public class Journey  extends Activity{
+public class Journey extends Activity {
     private String journeyID, journeyFragmentID;
     private String longitude , endLongitude;
     private String latitude, endLatitude;
@@ -227,6 +212,7 @@ public class Journey  extends Activity{
     }
 
     public void getUsersJourneys(Context c, String username){
+        System.out.println("userJOurNeysCalled");
         RequestQueue queue = Volley.newRequestQueue(c);
         String url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/retrieveuserjourneys?username="+username;
         //JsonArrayRequest jsObjRequest = new JsonArrayRequest
@@ -266,7 +252,7 @@ public class Journey  extends Activity{
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-                        System.out.println(volleyError.toString());
+                        System.out.println("volley error in USe JouRS "+volleyError.toString());
                         //Toast.makeText(MainActivity.this, "Unable to fetch data: " + volleyError.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -296,13 +282,6 @@ public class Journey  extends Activity{
                                 JourneyFragment j = new JourneyFragment(journeyFragID,latitude,longitude,currentSpeed,speedLimit,time);
                                //System.out.println(j.getCurrentSpeed());
                                     journeyFragments.add(j);
-//                                DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
-//                                Date date = format.parse(startTime);
-//                                Date date2 = format.parse(startTime);
-//                                System.out.println("date calc");
-//                                System.out.println(date2.getTime() - date.getTime());
-
-
 
                                 //jarr.put(jsonObject);
                             }
@@ -332,7 +311,7 @@ public class Journey  extends Activity{
         try {
             RequestQueue requestQueue = Volley.newRequestQueue(c);
             String URL = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/createjourneyobject";
-            Date dNow = new Date( );
+            Date dNow = new Date();
             SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("longitude", longitude);
@@ -385,7 +364,7 @@ public class Journey  extends Activity{
                             String str = new String(response.data, "UTF-8");
                             String jID = str.replaceAll("[^\\d.]", "");
                             journeyID = jID;
-                            System.out.println(journeyID);
+                            System.out.println("JOURNEYID: "+journeyID);
                         }
                         catch(UnsupportedEncodingException e){
 

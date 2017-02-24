@@ -1,0 +1,58 @@
+{
+  "project_info": {
+    "project_number": "54865169501",
+    "firebase_url": "https://carvis-a8d0c.firebaseio.com",
+    "project_id": "carvis-a8d0c",
+    "storage_bucket": "carvis-a8d0c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:54865169501:android:0ed891489004be59",
+        "android_client_info": {
+          "package_name": "com.amazon.mysampleapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "54865169501-oifdaq2ldfr2q3aaih4176945vdnltsb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.amazon.mysampleapp",
+            "certificate_hash": "564d57a38b4ecea7eb9af7ae2f264d6669fe3f48"
+          }
+        },
+        {
+          "client_id": "54865169501-uhq8n32kas19q6h0i2ms6hnmm29468k4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXWZNBgfzdbr5rdKa4xtRimy1oJ2vVyzE"
+        },
+        {
+          "current_key": "AIzaSyCQtI-6TdTZgd-P3GGUsgCL1K2d-hlSmhQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "54865169501-uhq8n32kas19q6h0i2ms6hnmm29468k4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

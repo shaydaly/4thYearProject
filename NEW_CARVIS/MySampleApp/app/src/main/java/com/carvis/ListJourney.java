@@ -24,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.model.LatLng;
+import com.mysampleapp.R;
 
 
 import android.app.ListActivity;
@@ -33,6 +34,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.view.View;
 
@@ -59,6 +61,8 @@ public class ListJourney extends ListActivity {
     ArrayList<String> journeyIDs;
     ArrayList<String> timestamps;
     ArrayList<String> durations;
+
+    ProgressBar pBar;
 
     Handler handler = new Handler(){
         @Override
@@ -99,6 +103,7 @@ public class ListJourney extends ListActivity {
         provider = new CognitoUserPoolsSignInProvider(context);
 
 
+        pBar = (ProgressBar) findViewById(R.id.listProgressBar);
 
         getUserJourneys();
 
@@ -200,6 +205,7 @@ public class ListJourney extends ListActivity {
                 try {
                     ArrayList<Journey> js = journey.getListOfJourneys(context);
                     while(js.size()==0) {
+                        //pBar.setVisibility(View.VISIBLE);
                         js = journey.getListOfJourneys(context);
                     }
                     journeyIDs = new ArrayList<String>();
@@ -220,6 +226,8 @@ public class ListJourney extends ListActivity {
         Thread journeyList = new Thread(runnable);
         journeyList.start();
     }
+
+
 
 //    public void getSnapToRoadsPoints(Context c, final ArrayList<JourneyFragment> fragments){
 //        final Context context = c;

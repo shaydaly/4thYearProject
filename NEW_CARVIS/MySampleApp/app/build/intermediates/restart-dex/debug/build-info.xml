@@ -5,37 +5,50 @@
     density="xxhdpi"
     format="8"
     plugin-version="2.2.3"
-    timestamp="644648766051888"
+    timestamp="825389453291515"
     token="-4771584141700072933"
     verifier="COMPATIBLE" >
 
     <task
         name="javac"
-        duration="1799" />
+        duration="1044" />
     <task
         name="instant-run-dex"
-        duration="32" />
+        duration="11" />
     <task
         name="instant-run-transform"
-        duration="78" />
+        duration="38" />
     <task
         name="verifier"
-        duration="7" />
+        duration="4" />
 
+    <artifact
+        location="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\instant-run-resources\resources-debug.ir.ap_"
+        type="RESOURCES" />
     <artifact
         location="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\reload-dex\debug\classes.dex"
         type="RELOAD_DEX" />
 
     <build
-        timestamp="644416925898236"
-        verifier="MANIFEST_FILE_CHANGE" >
+        timestamp="824389487634940"
+        verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\outputs\apk\app-debug.apk"
             type="MAIN" />
     </build>
     <build
-        timestamp="644648766051888"
+        timestamp="825001175914441"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_1\classes.dex"
+            type="DEX" />
+    </build>
+    <build
+        timestamp="825389453291515"
         verifier="COMPATIBLE" >
+        <artifact
+            location="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\instant-run-resources\resources-debug.ir.ap_"
+            type="RESOURCES" />
         <artifact
             location="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\reload-dex\debug\classes.dex"
             type="RELOAD_DEX" />

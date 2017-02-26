@@ -11,8 +11,8 @@
 //public class CustomStringRequest extends StringRequest {
 //    private Priority priority = Priority.LOW;
 //
-//    CustomStringRequest(String url, Response.ErrorListener errorListener) {
-//            super(url, l,r);
+//    CustomStringRequest(String url, Listenerstring>listener,ErrorListener errorListener) { string>
+//            super(url, listener, errorListener);
 //    }
 //
 //    @Override
@@ -23,4 +23,5 @@
 //    public void setPriority(Priority priority){
 //        this.priority = priority;
 //    }
+//}
 //}

@@ -34,7 +34,17 @@
         android:id="@+id/speedLimit"
         android:textStyle="bold"
         android:layout_below="@+id/currentSpeed"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="@string/addCamera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addSpeedCamera"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="19dp" />
 
     <!--<FrameLayout-->
         <!--android:layout_width="match_parent"-->

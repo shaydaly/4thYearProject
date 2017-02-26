@@ -87,4 +87,10 @@ cameraID numeric primary key,
 camera tempCamera
 );
 
+Create table SpeedLimits(
+osm_road_id numeric, 
+longitude numeric,
+latitude numeric
+);
+
 commit

@@ -8,4 +8,6 @@ create sequence overspeedLimitSequence start 101;
 
 create sequence customerSequence start 1;
 
+create sequence speedlimitSequence start with 1
+
 create sequence camerasequence start with 1

@@ -88,6 +88,7 @@
     <string name="speedLimit">0 k/m</string>
     <string name="speedMetric">km/h</string>
     <string name="journeys">Journeys</string>
+    <string name="addCamera">Add Speed Camera</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

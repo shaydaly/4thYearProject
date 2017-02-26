@@ -29,6 +29,7 @@
         android:text="@+id/label"
         android:layout_weight="3">
     </TextView>
+
     <TextView
         android:id="@+id/spacebar"
         android:layout_width="wrap_content"
@@ -43,5 +44,12 @@
         android:text="@+id/label"
         android:layout_weight="1">
     </TextView>
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/listProgressBar"
+            android:layout_weight="305.50"
+            android:visibility="invisible"/>
+  </LinearLayout>
 
-</LinearLayout>

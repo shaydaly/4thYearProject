@@ -208,22 +208,22 @@ public class JourneyFragment implements Serializable{
                     protected Response<String> parseNetworkResponse(NetworkResponse response) {
 
                         String responseString = "";
-                        if (response != null) {
-                            responseString = String.valueOf(response.statusCode);
-                            // can get more details such as response.headers
-                            //result = (response.toString());
-
-                            try {
-                                String str = new String(response.data, "UTF-8");
-                                //journeyID = jID;
-                                System.out.println(str+"______________!!");
-                            }
-                            catch(UnsupportedEncodingException e){
-                                System.out.println(e.getMessage());
-                            }
-
-
-                        }
+//                        if (response != null) {
+//                            responseString = String.valueOf(response.statusCode);
+//                            // can get more details such as response.headers
+//                            //result = (response.toString());
+//
+////                            try {
+////                                String str = new String(response.data, "UTF-8");
+////                                //journeyID = jID;
+////                                //System.out.println(str+"______________!!");
+////                            }
+////                            catch(UnsupportedEncodingException e){
+////                                System.out.println(e.getMessage());
+////                            }
+//
+//
+//                        }
                         return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
                     }
                 };

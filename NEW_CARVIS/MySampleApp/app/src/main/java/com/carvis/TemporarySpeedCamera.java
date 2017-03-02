@@ -1,6 +1,7 @@
 package com.carvis;
 
 import android.content.Context;
+import android.location.Location;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
@@ -8,59 +9,88 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * Created by Seamus on 26/02/2017.
  */
 
 public class TemporarySpeedCamera {
-    private String latitude, longitude;
-    private Date time;
+    private double latitude, longitude;
+    private String time;
+    static HashSet<TemporarySpeedCamera> temporarySpeedCameras = new HashSet<>();
 
-    public TemporarySpeedCamera(String latitude, String longitude, Date time) {
+    public TemporarySpeedCamera(double latitude, double longitude, String time) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.time = time;
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public Date getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public void setTime(Date time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
-    public void setLongitude(String longitude) {
+    public static void addTemporaryCamera(TemporarySpeedCamera t){
+        temporarySpeedCameras.add(t);
+    }
+
+
+
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
-    public static void addTemporaryCamera(String latitude, String longitude, Date time, Context context){
+
+    public static void addTemporaryCamera(String latitude, String longitude, String date, Context context){
         FirebaseApp.initializeApp(context);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
+        DatabaseReference myRef = database.getReference("reportedSpeedCameras");
 
-        final HashMap<String, String> map1 = new HashMap<>();
-        map1.put("startLatitude", latitude);
-        map1.put("startLongitude", longitude);
-        //map1.put("time", String.valueOf(time));
-        map1.put("endLatitude", latitude);
-        map1.put("endLongitude", longitude);
-        //myRef.push().setValue(map1);
 
-        myRef.push().setValue(new SpeedCamera(Double.parseDouble(latitude),
- Double.parseDouble(longitude),Double.parseDouble(latitude),Double.parseDouble(longitude)));
+
+//        final HashMap<String, String> map1 = new HashMap<>();
+//        map1.put("startLatitude", latitude);
+//        map1.put("startLongitude", longitude);
+//        //map1.put("time", String.valueOf(time));
+//        map1.put("endLatitude", latitude);
+//        map1.put("endLongitude", longitude);
+//        //myRef.push().setValue(map1);
+
+        Location cameraLocation = new Location("New Location");
+        cameraLocation.setLatitude(Double.parseDouble(latitude));
+        cameraLocation.setLongitude(Double.parseDouble(longitude));
+        if(!checkCameraDistance(cameraLocation)) {
+            myRef.push().setValue(new TemporarySpeedCamera(Double.parseDouble(latitude), Double.parseDouble(longitude), date));
+        }
+    }
+
+    public static boolean checkCameraDistance(Location location) {
+        Location cameraLocation;
+        for (TemporarySpeedCamera t : temporarySpeedCameras) {
+            cameraLocation = new Location("cameraLocation");
+            cameraLocation.setLatitude(t.getLatitude());
+            cameraLocation.setLongitude(t.getLongitude());
+
+            if ((location.distanceTo(cameraLocation) / 1000) < 0.5) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

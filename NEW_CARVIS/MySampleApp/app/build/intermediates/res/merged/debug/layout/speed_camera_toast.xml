@@ -12,7 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="WARNING SPEED CAMERA NEARBY"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:textColor="@color/red"
+        />
 
     <TextView android:id="@+id/speedVanLocation"
         android:layout_marginTop="50dp"

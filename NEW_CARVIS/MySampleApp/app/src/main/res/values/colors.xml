@@ -1,15 +1,15 @@
 <resources>
 
-    <color name="top_bar_background">#dc000000</color>
+    <color name="top_bar_background">#020016</color>
     <color name="splash_text">#bf000000</color>
-    <color name="splash_background">#FFFFFF</color>
-    <color name="main_background">#FFFFFF</color>
+    <color name="splash_background">#9fa0a1</color>
+    <color name="main_background">#f1ecec</color>
 
     <color name="black_overlay">#66000000</color>
-    <color name="nav_drawer_background">#FFFFFF</color>
-    <color name="nav_drawer_top_background">#CCCCCC</color>
+    <color name="nav_drawer_background">#ffffff</color>
+    <color name="nav_drawer_top_background">#dcffffff</color>
     <color name="nav_drawer_no_user_background">#AAAAAA</color>
-    <color name="sign_in_separator_color">#DDDDDD</color>
-    <color name="instructions_list_border_color">#FFDDDDDD</color>
+    <color name="sign_in_separator_color">#ffffff</color>
+    <color name="instructions_list_border_color">#ffee00</color>
     <color name="red">#ff0000</color>
 </resources>

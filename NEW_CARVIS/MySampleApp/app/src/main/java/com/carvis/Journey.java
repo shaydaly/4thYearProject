@@ -13,6 +13,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import org.joda.time.DateTime;
@@ -379,6 +380,36 @@ public class Journey extends Activity {
             e.printStackTrace();
             //result = e.toString();
         }
+    }
+
+    public void getSpeedFromLambda(Context context,RequestQueue queue) {
+        System.out.println("GET SPEED CALLED");
+        queue  = Volley.newRequestQueue(context);
+        String url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/QuerySpeed/callqueryspeed?latitude=" + latitude + "&longitude=" + longitude;
+        //final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONObject obj = new JSONObject(response.toString());
+                            speedLimit = ((obj.get("speed").toString()));
+                            //speedLimitTextView.setText(newSpeed+"km/h");
+                            System.out.println(speedLimit);
+
+                        } catch (JSONException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i("Speed Lambda","ERROR");
+                    }
+                });
+        queue.add(jsObjRequest);
     }
 
 //    public void goToJourneys(ArrayList<Journey> journeys){

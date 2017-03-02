@@ -180,6 +180,10 @@
         "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\src\\main\\res\\layout\\activity_track_speed.xml"
     },
     {
+        "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_notification.xml",
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\src\\main\\res\\layout\\activity_notification.xml"
+    },
+    {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\messenger_button_send_white_round.xml",
         "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.facebook.android\\facebook-android-sdk\\4.6.0\\res\\layout\\messenger_button_send_white_round.xml"
     },

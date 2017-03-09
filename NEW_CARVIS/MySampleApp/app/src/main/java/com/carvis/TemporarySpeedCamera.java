@@ -7,9 +7,13 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 /**
  * Created by Seamus on 26/02/2017.
@@ -18,7 +22,7 @@ import java.util.HashSet;
 public class TemporarySpeedCamera {
     private double latitude, longitude;
     private String time;
-    static HashSet<TemporarySpeedCamera> temporarySpeedCameras = new HashSet<>();
+    static LinkedHashSet<TemporarySpeedCamera> temporarySpeedCameras = new LinkedHashSet<>();
 
     public TemporarySpeedCamera(double latitude, double longitude, String time) {
         this.latitude = latitude;
@@ -91,6 +95,32 @@ public class TemporarySpeedCamera {
             }
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 31). // two randomly chosen prime numbers
+                // if deriving: appendSuper(super.hashCode()).
+                        append(latitude).
+                        append(longitude).
+                        append(time).
+                        toHashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof TemporarySpeedCamera))
+            return false;
+        if (obj == this)
+            return true;
+
+        TemporarySpeedCamera rhs = (TemporarySpeedCamera) obj;
+        return new EqualsBuilder().
+                // if deriving: appendSuper(super.equals(obj)).
+                        append(latitude, rhs.latitude).
+                        append(longitude, rhs.longitude).
+                        append(time, rhs.time).
+                        isEquals();
     }
 
 }

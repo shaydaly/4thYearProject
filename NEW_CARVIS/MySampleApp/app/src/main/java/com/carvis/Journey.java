@@ -3,6 +3,7 @@ package com.carvis;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.util.Log;
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -16,6 +17,9 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -45,7 +49,6 @@ public class Journey extends Activity {
     private List<JourneyFragment> journeyFragmentList;
     private ArrayList<Journey> journeys;
     private ArrayList<JourneyFragment> journeyFragments;
-
 
     public Journey(String latitude, String longitude, String currentSpeed, String speedLimit, Date start, Date end) {
         this.latitude = latitude;
@@ -310,6 +313,7 @@ public class Journey extends Activity {
 
     public  void addJourneyDB(Context c, String username,String updateType){
         try {
+            System.out.println("Add journey called");
             RequestQueue requestQueue = Volley.newRequestQueue(c);
             String URL = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/createjourneyobject";
             Date dNow = new Date();
@@ -328,12 +332,13 @@ public class Journey extends Activity {
                 @Override
                 public void onResponse(String response) {
                     //result = response;
-                    Log.i("VOLLEY", response);
+                    Log.i("JOURNEY VOLLEY", response.toString());
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     //result = error.toString();
+                    Log.i("JOURNEY VOLLEY", error.toString());
                 }
             }) {
                 @Override
@@ -382,7 +387,8 @@ public class Journey extends Activity {
         }
     }
 
-    public void getSpeedFromLambda(Context context,RequestQueue queue) {
+    public void getSpeedFromLambda(FirebaseDatabase database, Context context,RequestQueue queue) {
+        final DatabaseReference myRef = database.getReference("speedLimits");
         System.out.println("GET SPEED CALLED");
         queue  = Volley.newRequestQueue(context);
         String url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/QuerySpeed/callqueryspeed?latitude=" + latitude + "&longitude=" + longitude;
@@ -397,9 +403,15 @@ public class Journey extends Activity {
                             speedLimit = ((obj.get("speed").toString()));
                             //speedLimitTextView.setText(newSpeed+"km/h");
                             System.out.println(speedLimit);
+//                            Location l = new Location("location");
+//                            l.setLatitude(Double.parseDouble(latitude));
+//                            l.setLongitude(Double.parseDouble(longitude));
+                            //myRef.push().setValue(new Road(Integer.parseInt(String.valueOf(obj.get("osm_id"))), Integer.parseInt(speedLimit), l));
+                            myRef.child(String.valueOf(obj.get("osm_id"))).push().setValue(new RoadRecord(latitude,longitude, Integer.parseInt(speedLimit)));
+                            //myRef.child(String.valueOf(obj.get("osm_id"))).child("location").child("speedLimit").push().setValue(speedLimit);
 
                         } catch (JSONException e) {
-                            System.out.println(e.getMessage());
+                            Log.i("GET SPEED EXCEPTIOM ", e.getMessage());
                         }
                     }
                 }, new Response.ErrorListener() {

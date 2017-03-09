@@ -89,7 +89,7 @@
     <string name="speedMetric">km/h</string>
     <string name="journeys">Journeys</string>
     <string name="addCamera">Add Speed Camera</string>
-
+    <string name="speedCameraMap">Speed Camera Map</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
@@ -104,5 +104,6 @@
     </string>
     <string name="title_activity_maps">Map</string>
     <string name="map">Map</string>
+    <string name="title_activity_speed_camera_map">Map</string>
 
 </resources>

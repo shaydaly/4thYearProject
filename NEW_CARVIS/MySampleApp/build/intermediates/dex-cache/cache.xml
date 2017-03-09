@@ -34,7 +34,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
-        sha1="b04c6ca6f3dba89f3579a91db4b4118e5f4fdf80">
+        sha1="728506aad5f727156acde54b18afbab1f11208ac">
         <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_8f0fa7de0348373bbb63e1a18ec8c1fcdea46949\classes.dex" />
     </item>
     <item
@@ -178,7 +178,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
-        sha1="01cb6a3c25d997d39f94c68d46279a7c47f50d3f">
+        sha1="67ec0236d8364380b38a3d2f10015af486b95b84">
         <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_f05824ccd42d77568fd57b0880a0d165724bcacf\classes.dex" />
     </item>
     <item
@@ -360,6 +360,15 @@
         revision="24.0.2"
         sha1="8b8310381b690e317f5f0574e9b2dd7034778b4c">
         <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\jackson-core-2.7.2_50e8307aacb8e78b880493c8d9f6a23c0f07d008\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Seamus\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-lang3\3.5\6c6c702c89bfff3cd9e80b04d668c5e190d588c6\commons-lang3-3.5.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="6c6c702c89bfff3cd9e80b04d668c5e190d588c6">
+        <dex dex="C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\commons-lang3-3.5_d72735e9838e6cc210a9469d3ea8e260aa82b221\classes.dex" />
     </item>
     <item
         is-multidex="true"

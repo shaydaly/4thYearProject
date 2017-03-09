@@ -80,7 +80,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        getSnapToRoadsPoints(context);
+        // getSnapToRoadsPoints(context);
         mMap = googleMap;
 
         Bundle extras = getIntent().getExtras();
@@ -93,14 +93,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 latlngs.add(latLng);
                 //rectOptions.add(latLng);
                 //rectOptions.color(Color.RED);
-                options.position(latLng);
+                //options.position(latLng);
                 //options.title(listOfJourneys.get(i).getLatitude()+"_"+listOfJourneys.get(i).getLongitude());
                 options.title("Speed: "+listOfJourneys.get(i).getFragmentSpeed());
                 options.snippet("Limit:"+listOfJourneys.get(i).getSpeedLimit());//
-
-
                 if(i+1 < listOfJourneys.size()) {
-                    if (Double.parseDouble(listOfJourneys.get(i).getFragmentSpeed()) > Double.parseDouble(listOfJourneys.get(i).getSpeedLimit())) {
+                    if(Integer.parseInt(listOfJourneys.get(i).getSpeedLimit())==0){
+                        options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+                        options.flat(true);
+                        options.position(latLng);
+                        mMap.addPolyline(new PolylineOptions()
+                                .add(new LatLng(Double.parseDouble(listOfJourneys.get(i).getLatitude()), Double.parseDouble(listOfJourneys.get(i).getLongitude())), new LatLng(Double.parseDouble(listOfJourneys.get(i + 1).getLatitude()), Double.parseDouble(listOfJourneys.get(i + 1).getLongitude())))
+                                .width(20)
+                                .geodesic(true)
+                                .jointType(JointType.BEVEL)
+                                .endCap(new RoundCap())
+                                .startCap(new RoundCap())
+                                .color(Color.BLUE));
+                    }
+
+                    else if (Double.parseDouble(listOfJourneys.get(i).getFragmentSpeed()) > Double.parseDouble(listOfJourneys.get(i).getSpeedLimit())) {
                         options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                         options.flat(true);
                         options.position(latLng);

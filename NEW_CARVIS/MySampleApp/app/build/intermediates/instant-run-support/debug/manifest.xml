@@ -33,6 +33,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COURSE_LOCATION" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!-- Optional permission for Analytics to run. -->
     <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Permissions required for GCM -->
@@ -147,6 +148,9 @@
         <activity
             android:name="com.carvis.MapsActivity"
             android:label="@string/title_activity_maps" />
+        <activity
+            android:name="com.carvis.SpeedCameraMap"
+            android:label="@string/title_activity_speed_camera_map" />
         <!-- Include the AdActivity and InAppPurchaseActivity configChanges and themes. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"

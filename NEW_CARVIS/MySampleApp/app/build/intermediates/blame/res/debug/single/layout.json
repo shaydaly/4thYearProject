@@ -1,5 +1,9 @@
 [
     {
+        "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_speed_camera_map.xml",
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\src\\main\\res\\layout\\activity_speed_camera_map.xml"
+    },
+    {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_checkbox.xml",
         "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.0.0\\res\\layout\\abc_list_menu_item_checkbox.xml"
     },

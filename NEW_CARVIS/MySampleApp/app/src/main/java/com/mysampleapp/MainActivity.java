@@ -121,6 +121,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         JourneyList.titleResId = R.string.journeys;
         navigationDrawer.addDemoFeatureToMenu(JourneyList);
 
+        DemoConfiguration.DemoFeature CameraMap = new DemoConfiguration.DemoFeature();
+        CameraMap.iconResId = R.mipmap.icon_home;
+        CameraMap.titleResId = R.string.speedCameraMap;
+        navigationDrawer.addDemoFeatureToMenu(CameraMap);
+
 //        DemoConfiguration.DemoFeature Map = new DemoConfiguration.DemoFeature();
 //        JourneyList.iconResId = R.mipmap.icon_home;
 //        JourneyList.titleResId = R.string.map;

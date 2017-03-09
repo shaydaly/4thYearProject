@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:13:1-129:12
+ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:13:1-133:12
 	package
 		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:14:5-30
 		INJECTED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml
@@ -74,8 +74,12 @@ uses-permission#android.permission.VIBRATE
 ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:27:5-66
 	android:name
 		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:27:22-63
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:28:5-81
+	android:name
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:28:22-78
 application
-ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:29:5-127:19
+ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:30:5-131:19
 MERGED from [com.facebook.android:facebook-android-sdk:4.6.0] C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.6.0\AndroidManifest.xml:28:5-20
 MERGED from [com.android.volley:volley:1.0.0] C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.volley\volley\1.0.0\AndroidManifest.xml:9:5-20
 MERGED from [com.google.android.gms:play-services:10.2.0] C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services\10.2.0\AndroidManifest.xml:5:5-20
@@ -126,119 +130,125 @@ MERGED from [com.google.android.gms:play-services-tasks:10.2.0] C:\Users\Seamus\
 MERGED from [com.google.android.gms:play-services-basement:10.2.0] C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\10.2.0\AndroidManifest.xml:19:5-21:19
 MERGED from [com.android.support:support-v4:24.0.0] C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.0.0\AndroidManifest.xml:25:5-20
 	android:label
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:33:9-41
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:34:9-41
 	android:allowBackup
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:31:9-35
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:32:9-35
 	android:icon
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:32:9-43
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:33:9-43
 	android:largeHeap
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:34:9-33
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:35:9-33
 	android:theme
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:35:9-40
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:36:9-40
 	android:name
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:30:9-36
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:31:9-36
 activity#com.carvis.TrackSpeedActivity
-ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:36:9-42:20
+ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:37:9-43:20
 	android:name
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:36:19-63
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:37:19-63
 activity#com.mysampleapp.SplashActivity
-ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:43:9-52:20
+ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:44:9-53:20
 	android:label
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:46:13-45
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:47:13-45
 	android:configChanges
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:45:13-83
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:46:13-83
 	android:name
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:44:13-43
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:45:13-43
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:47:13-51:29
+ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:48:13-52:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:48:17-69
+ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:49:17-69
 	android:name
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:48:25-66
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:49:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:50:17-77
+ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:51:17-77
 	android:name
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:50:27-74
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:51:27-74
 activity#com.mysampleapp.SignInActivity
-ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:53:9-56:62
+ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:54:9-57:62
 	android:label
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:56:13-59
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:57:13-59
 	android:configChanges
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:55:13-83
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:56:13-83
 	android:name
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:54:13-43
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:55:13-43
 activity#com.mysampleapp.demo.userpools.ForgotPasswordActivity
-ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:57:9-60:70
+ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:58:9-61:70
 	android:label
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:60:13-67
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:61:13-67
 	android:configChanges
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:59:13-83
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:60:13-83
 	android:name
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:58:13-66
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:59:13-66
 activity#com.mysampleapp.demo.userpools.SignUpActivity
-ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:61:9-64:62
+ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:62:9-65:62
 	android:label
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:64:13-59
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:65:13-59
 	android:configChanges
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:63:13-83
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:64:13-83
 	android:name
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:62:13-58
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:63:13-58
 activity#com.mysampleapp.demo.userpools.MFAActivity
-ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:65:9-68:58
+ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:66:9-69:58
 	android:label
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:68:13-55
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:69:13-55
 	android:configChanges
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:67:13-83
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:68:13-83
 	android:name
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:66:13-55
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:67:13-55
 activity#com.mysampleapp.demo.userpools.SignUpConfirmActivity
-ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:69:9-72:70
+ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:70:9-73:70
 	android:label
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:72:13-67
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:73:13-67
 	android:configChanges
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:71:13-83
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:72:13-83
 	android:name
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:70:13-65
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:71:13-65
 activity#com.mysampleapp.MainActivity
-ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:73:9-76:51
+ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:74:9-77:51
 	android:label
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:75:13-56
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:76:13-56
 	android:launchMode
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:76:13-48
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:77:13-48
 	android:name
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:74:13-41
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:75:13-41
 activity#com.facebook.FacebookActivity
-ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:80:9-84:75
+ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:81:9-85:75
 	android:label
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:83:13-45
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:84:13-45
 	android:configChanges
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:82:13-96
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:83:13-96
 	android:theme
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:84:13-72
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:85:13-72
 	android:name
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:81:13-57
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:82:13-57
 meta-data#com.facebook.sdk.ApplicationId
-ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:86:9-88:55
+ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:87:9-89:55
 	android:value
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:88:13-52
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:89:13-52
 	android:name
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:87:13-58
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:88:13-58
 activity#com.carvis.ListJourney
-ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:111:9-59
+ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:112:9-59
 	android:name
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:111:19-56
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:112:19-56
 meta-data#com.google.android.geo.API_KEY
-ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:120:9-122:55
+ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:121:9-123:55
 	android:value
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:122:13-52
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:123:13-52
 	android:name
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:121:13-58
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:122:13-58
 activity#com.carvis.MapsActivity
-ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:124:9-126:68
+ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:125:9-127:59
 	android:label
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:126:13-56
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:127:13-56
 	android:name
-		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:125:13-51
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:126:13-51
+activity#com.carvis.SpeedCameraMap
+ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:128:9-130:80
+	android:label
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:130:13-68
+	android:name
+		ADDED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:129:13-53
 uses-sdk
 INJECTED from C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 MERGED from [com.android.support:multidex:1.0.1] C:\Users\Seamus\Desktop\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.support\multidex\1.0.1\AndroidManifest.xml:18:5-42

@@ -1,4 +1,4 @@
-#Thu Mar 09 10:33:41 GMT 2017
+#Tue Mar 14 23:11:55 GMT 2017
 base.0=C\:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_f05824ccd42d77568fd57b0880a0d165724bcacf
 renamed.1=classes.dex
 renamed.0=classes2.dex

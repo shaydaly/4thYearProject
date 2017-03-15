@@ -43,18 +43,19 @@ userid numeric references Customer(userID)
 Create type OverSpeed as(
 latitude numeric,
 longitude numeric,
-timeOfIncident time,
+timeOfIncident timestamp,
 speedTravelling numeric,
 speedLimit numeric
 );
 
 
-/*Create table OverSpeedLimit(
+
+Create table OverSpeedLimit(
 incidentID numeric primary key,
 overspeedL overspeed,
 journey journeyObject REFerences Journey(journey),
 customer cust references Customer(customer)
-);/*
+);
 
 Create table OverSpeedLimit(
 incidentID numeric primary key,

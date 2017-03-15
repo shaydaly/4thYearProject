@@ -387,10 +387,10 @@ public class Journey extends Activity {
         }
     }
 
-    public void getSpeedFromLambda(FirebaseDatabase database, Context context,RequestQueue queue) {
+    public void getSpeedFromLambda(FirebaseDatabase database,RequestQueue queue) {
         final DatabaseReference myRef = database.getReference("speedLimits");
         System.out.println("GET SPEED CALLED");
-        queue  = Volley.newRequestQueue(context);
+        //queue  = Volley.newRequestQueue(context);
         String url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/QuerySpeed/callqueryspeed?latitude=" + latitude + "&longitude=" + longitude;
         //final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
@@ -399,10 +399,11 @@ public class Journey extends Activity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+                            Log.i("speed lambda response", response.toString());
                             JSONObject obj = new JSONObject(response.toString());
-                            speedLimit = ((obj.get("speed").toString()));
+                            //speedLimit = ((obj.get("speed").toString()));
                             //speedLimitTextView.setText(newSpeed+"km/h");
-                            System.out.println(speedLimit);
+                            //System.out.println(speedLimit+ " from speed lambda");
 //                            Location l = new Location("location");
 //                            l.setLatitude(Double.parseDouble(latitude));
 //                            l.setLongitude(Double.parseDouble(longitude));
@@ -412,6 +413,9 @@ public class Journey extends Activity {
 
                         } catch (JSONException e) {
                             Log.i("GET SPEED EXCEPTIOM ", e.getMessage());
+                        }
+                        catch(Exception e){
+                            Log.i("sp ex ", "speed lambda exception");
                         }
                     }
                 }, new Response.ErrorListener() {

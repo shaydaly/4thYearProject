@@ -164,14 +164,19 @@ public class JourneyFragment implements Serializable{
         this.username = username;
     }
 
-    public static void AddJourneyFragments(Context c, List<JourneyFragment> journies){
+    public static void AddJourneyFragments(RequestQueue queue, List<JourneyFragment> journies, String journeyID){
         try {
+            for(JourneyFragment j : journies){
+                if(j.getJourneyID().equals("")){
+                    j.setJourneyID(journeyID);
+                }
+            }
             System.out.println("AddJourneyFragments called");
             Gson gson = new Gson();
             String json = gson.toJson(journies);
             System.out.println(json);
             try {
-                RequestQueue requestQueue = Volley.newRequestQueue(c);
+                //RequestQueue requestQueue = Volley.newRequestQueue(c);
                 String URL = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/journeyfragment";
                 final String requestBody = json;
 
@@ -228,7 +233,7 @@ public class JourneyFragment implements Serializable{
                     }
                 };
 
-                requestQueue.add(stringRequest);
+                queue.add(stringRequest);
             } catch (Exception e) {
                 e.printStackTrace();
                 //result = e.toString();

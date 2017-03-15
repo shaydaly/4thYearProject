@@ -3,6 +3,7 @@ package com.carvis;
 import android.location.Location;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -51,6 +52,15 @@ public class Road {
 
     public void addToCoOrdinates(RoadRecord r){
         roadRecords.add(r);
+    }
+
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 31). // two randomly chosen prime numbers
+                // if deriving: appendSuper(super.hashCode()).
+                        append(osm_id).
+                        toHashCode();
     }
 
     @Override

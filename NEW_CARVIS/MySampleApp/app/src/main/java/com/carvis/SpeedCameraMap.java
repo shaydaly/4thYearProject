@@ -21,6 +21,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.JointType;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Polyline;
+//import com.google.maps.*;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.maps.model.RoundCap;
@@ -38,6 +40,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallback {
 
@@ -173,7 +176,7 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
                 try {
                     SpeedCamera s = new SpeedCamera(startLatitude, startLongitude, endLatitude, endLongitude);
 
-                //getSnapToRoadsPoints(getApplicationContext(), s.getCameraLocations(), mMap);
+                getSnapToRoadsPoints(getApplicationContext(), startLatitude,startLongitude,endLatitude,endLongitude);
                 }
                 catch(Exception e){
                     System.out.println(e.getMessage());
@@ -221,6 +224,9 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
             }
         });
 
+
+
+
         //getSnapToRoadsPoints(getApplicationContext(), 53.416, -6.178, 53.4511,-6.1508, mMap);
         //mMap = googleMap;
 
@@ -232,53 +238,54 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
 //            mMap.addMarker(new MarkerOptions().position(latLng).title(t.getTime()).icon(BitmapDescriptorFactory.fromResource(R.drawable.speedcamera)));
 //        }
 
-
        // mMap = googleMap;
         // Add a marker in Sydney and move the camera
 //        LatLng sydney = new LatLng(-34, 151);
 //        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
-//    public void getSnapToRoadsPoints(Context c, ArrayList<Location> locations, final GoogleMap mMap){
-//        //String url = "https://roads.googleapis.com/v1/snapToRoads?path="+startLatitude+","+ startLongitude+"|"+endLatitude+","+endLongitude+"&interpolate=true&key=AIzaSyANu-d2RqCWLTyyZoh3s9lL0_PurPTNlIQ";
-//        //String url = "https://roads.googleapis.com/v1/snapToRoads?path=-35.27801,149.12958|-35.28032,149.12907&interpolate=true&key=AIzaSyANu-d2RqCWLTyyZoh3s9lL0_PurPTNlIQ";
+    public void getSnapToRoadsPoints(Context c, double startLat, double startLong, double endLat, double endLong){
+        //String url = "https://roads.googleapis.com/v1/snapToRoads?path="+startLatitude+","+ startLongitude+"|"+endLatitude+","+endLongitude+"&interpolate=true&key=AIzaSyANu-d2RqCWLTyyZoh3s9lL0_PurPTNlIQ";
+        //String url = "https://roads.googleapis.com/v1/snapToRoads?path=-35.27801,149.12958|-35.28032,149.12907&interpolate=true&key=AIzaSyANu-d2RqCWLTyyZoh3s9lL0_PurPTNlIQ";
 //        String params = "";
 //        for(Location l : locations){
 //            params+= l.getLatitude()+","+l.getLongitude()+"|";
 //        }
 //        params = params.substring(0, params.length()-1);
-//        String url = "https://roads.googleapis.com/v1/snapToRoads?path="+params+"&interpolate=true&key=AIzaSyANu-d2RqCWLTyyZoh3s9lL0_PurPTNlIQ";
+//        String url = "https://roads.googleapis.com/v1/snapToRoads?path="+startLat+","+startLong+"|"+endLat+","+endLong+"&interpolate=true&key=AIzaSyANu-d2RqCWLTyyZoh3s9lL0_PurPTNlIQ";
 //        System.out.println(url);
-//        //String url = "http://router.project-osrm.org/trip/v1/driving/"+params+"?overview=false";
-//        //System.out.println(url);
-//        final JsonObjectRequest jsObjRequest = new JsonObjectRequest
-//                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-//
-//
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        try {
-//
-//                            JSONObject obj = new JSONObject(response.toString());
-////                            //journey.setSpeedLimit((obj.get("speed").toString()));
-//                            JSONArray jarray = obj.getJSONArray("snappedPoints");
-//                            //System.out.println("11\t"+jarray.toString());
-//                            //System.out.println(jarray.toString() + " _ _ _ _ _ _ ");
-//                            for (int i = 0; i < jarray.length(); i++) {
-//                                //System.out.println(jarray.length());
-//                                    JSONObject jsonObject = jarray.getJSONObject(i);
-//                                    //System.out.println(jsonObject.toString());
-//                                double lat = Double.parseDouble(String.valueOf(jsonObject.getJSONObject("location").get("latitude")));
-//                                double longitude = Double.parseDouble(String.valueOf(jsonObject.getJSONObject("location").get("longitude")));
-//
-//
-//                                    //System.out.println(Double.parseDouble(String.valueOf(jsonObject.get("latitude"))) + Double.parseDouble(String.valueOf(jsonObject.get("longitude"))));
-//                                    //LatLng l = new LatLng(Double.parseDouble(String.valueOf(jsonObject.get("latitude"))), Double.parseDouble(String.valueOf(jsonObject.get("longitude"))));
-//                                    //System.out.println(l.toString());
-//
-//                                    lats.add(new LatLng(lat,longitude));
-//
-//                                }
+        //String url = "http://router.project-osrm.org/trip/v1/driving/"+params+"?overview=false";
+        //System.out.println(url);
+        String url = makeURL(startLat, startLong, endLat, endLong);
+        System.out.println(url);
+        final JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            drawPath(response.toString());
+                            JSONObject obj = new JSONObject(response.toString());
+//                            //journey.setSpeedLimit((obj.get("speed").toString()));
+                            JSONArray jarray = obj.getJSONArray("snappedPoints");
+                            //System.out.println("11\t"+jarray.toString());
+                            //System.out.println(jarray.toString() + " _ _ _ _ _ _ ");
+                            for (int i = 0; i < jarray.length(); i++) {
+                                //System.out.println(jarray.length());
+                                    JSONObject jsonObject = jarray.getJSONObject(i);
+                                    //System.out.println(jsonObject.toString());
+                                double lat = Double.parseDouble(String.valueOf(jsonObject.getJSONObject("location").get("latitude")));
+                                double longitude = Double.parseDouble(String.valueOf(jsonObject.getJSONObject("location").get("longitude")));
+
+
+                                    //System.out.println(Double.parseDouble(String.valueOf(jsonObject.get("latitude"))) + Double.parseDouble(String.valueOf(jsonObject.get("longitude"))));
+                                    //LatLng l = new LatLng(Double.parseDouble(String.valueOf(jsonObject.get("latitude"))), Double.parseDouble(String.valueOf(jsonObject.get("longitude"))));
+                                    //System.out.println(l.toString());
+
+                                    lats.add(new LatLng(lat,longitude));
+
+                                }
 //                            for(int i = 0; i< lats.size(); i++){
 //                                mMap.addPolyline(new PolylineOptions()
 //                                        .add(lats.get(i), lats.get(i+1))
@@ -289,23 +296,148 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
 //                                        .startCap(new RoundCap())
 //                                        .color(Color.RED));
 //                            }
+
+//                            lats.add(new LatLng(startLatitude,startLongitude));
+//                            lats.add(new LatLng(endLatitude,endLongitude));
+                            //polyLineHandler.sendEmptyMessage(0);
+                        } catch (JSONException e) {
+                            System.out.println(e.getMessage());
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //journey.setSpeedLimit("");
+                        System.out.println(error.toString());
+                    }
+                });
+        queue.add(jsObjRequest);
+    }
+
+//    private List<SnappedPoint> snapToRoads(GeoApiContext context) throws Exception {
+//        List<SnappedPoint> snappedPoints = new ArrayList<>();
 //
-////                            lats.add(new LatLng(startLatitude,startLongitude));
-////                            lats.add(new LatLng(endLatitude,endLongitude));
-//                            //polyLineHandler.sendEmptyMessage(0);
-//                        } catch (JSONException e) {
-//                            System.out.println(e.getMessage());
-//                        }
+//        int offset = 0;
+//        while (offset < mCapturedLocations.size()) {
+//            // Calculate which points to include in this request. We can't exceed the API's
+//            // maximum and we want to ensure some overlap so the API can infer a good location for
+//            // the first few points in each request.
+//            if (offset > 0) {
+//                offset -= PAGINATION_OVERLAP;   // Rewind to include some previous points.
+//            }
+//            int lowerBound = offset;
+//            int upperBound = Math.min(offset + PAGE_SIZE_LIMIT, mCapturedLocations.size());
 //
-//                    }
-//                }, new Response.ErrorListener() {
+//            // Get the data we need for this page.
+//            LatLng[] page = mCapturedLocations
+//                    .subList(lowerBound, upperBound)
+//                    .toArray(new LatLng[upperBound - lowerBound]);
 //
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        //journey.setSpeedLimit("");
-//                        System.out.println(error.toString());
-//                    }
-//                });
-//        queue.add(jsObjRequest);
+//            // Perform the request. Because we have interpolate=true, we will get extra data points
+//            // between our originally requested path. To ensure we can concatenate these points, we
+//            // only start adding once we've hit the first new point (that is, skip the overlap).
+//            SnappedPoint[] points = RoadsApi.snapToRoads(context, true, page).await();
+//            boolean passedOverlap = false;
+//            for (SnappedPoint point : points) {
+//                if (offset == 0 || point.originalIndex >= PAGINATION_OVERLAP - 1) {
+//                    passedOverlap = true;
+//                }
+//                if (passedOverlap) {
+//                    snappedPoints.add(point);
+//                }
+//            }
+//
+//            offset = upperBound;
+//        }
+//
+//        return snappedPoints;
 //    }
+
+    public String makeURL (double sourcelat, double sourcelog, double destlat, double destlog ){
+        StringBuilder urlString = new StringBuilder();
+        urlString.append("https://maps.googleapis.com/maps/api/directions/json");
+        urlString.append("?origin=");// from
+        urlString.append(Double.toString(sourcelat));
+        urlString.append(",");
+        urlString
+                .append(Double.toString( sourcelog));
+        urlString.append("&destination=");// to
+        urlString
+                .append(Double.toString( destlat));
+        urlString.append(",");
+        urlString.append(Double.toString( destlog));
+        urlString.append("&sensor=false&mode=driving&alternatives=true");
+        urlString.append("&key=AIzaSyANu-d2RqCWLTyyZoh3s9lL0_PurPTNlIQ");
+        return urlString.toString();
+    }
+
+
+    public void drawPath(String  result) {
+
+        try {
+            //Tranform the string into a json object
+            final JSONObject json = new JSONObject(result);
+            JSONArray routeArray = json.getJSONArray("routes");
+            JSONObject routes = routeArray.getJSONObject(0);
+            JSONObject overviewPolylines = routes.getJSONObject("overview_polyline");
+            String encodedString = overviewPolylines.getString("points");
+            List<LatLng> list = decodePoly(encodedString);
+            Polyline line = mMap.addPolyline(new PolylineOptions()
+                    .addAll(list)
+                    .width(12)
+                    .color(Color.parseColor("#05b1fb"))//Google maps blue color
+                    .geodesic(true)
+            );
+           /*
+           for(int z = 0; z<list.size()-1;z++){
+                LatLng src= list.get(z);
+                LatLng dest= list.get(z+1);
+                Polyline line = mMap.addPolyline(new PolylineOptions()
+                .add(new LatLng(src.latitude, src.longitude), new LatLng(dest.latitude,   dest.longitude))
+                .width(2)
+                .color(Color.BLUE).geodesic(true));
+            }
+           */
+        }
+        catch (JSONException e) {
+
+        }
+    }
+
+    private List<LatLng> decodePoly(String encoded) {
+
+        List<LatLng> poly = new ArrayList<LatLng>();
+        int index = 0, len = encoded.length();
+        int lat = 0, lng = 0;
+
+        while (index < len) {
+            int b, shift = 0, result = 0;
+            do {
+                b = encoded.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lat += dlat;
+
+            shift = 0;
+            result = 0;
+            do {
+                b = encoded.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lng += dlng;
+
+            LatLng p = new LatLng( (((double) lat / 1E5)),
+                    (((double) lng / 1E5) ));
+            poly.add(p);
+        }
+
+        return poly;
+    }
+
 }

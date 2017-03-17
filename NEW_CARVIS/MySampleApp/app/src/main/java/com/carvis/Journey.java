@@ -311,10 +311,9 @@ public class Journey extends Activity {
 
 
 
-    public  void addJourneyDB(Context c, String username,String updateType){
+    public  void addJourneyDB(RequestQueue queue, String username,String updateType){
         try {
             System.out.println("Add journey called");
-            RequestQueue requestQueue = Volley.newRequestQueue(c);
             String URL = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/createjourneyobject";
             Date dNow = new Date();
             SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
@@ -380,14 +379,14 @@ public class Journey extends Activity {
                 }
             };
 
-            requestQueue.add(stringRequest);
+            queue.add(stringRequest);
         } catch (Exception e) {
             e.printStackTrace();
             //result = e.toString();
         }
     }
 
-    public void getSpeedFromLambda(FirebaseDatabase database,RequestQueue queue) {
+    public void getSpeedFromLambda(FirebaseDatabase database, RequestQueue queue, final SpeedSearch speedSearch) {
         final DatabaseReference myRef = database.getReference("speedLimits");
         System.out.println("GET SPEED CALLED");
         //queue  = Volley.newRequestQueue(context);
@@ -410,7 +409,7 @@ public class Journey extends Activity {
                             //myRef.push().setValue(new Road(Integer.parseInt(String.valueOf(obj.get("osm_id"))), Integer.parseInt(speedLimit), l));
                             myRef.child(String.valueOf(obj.get("osm_id"))).push().setValue(new RoadRecord(latitude,longitude, Integer.parseInt(speedLimit)));
                             //myRef.child(String.valueOf(obj.get("osm_id"))).child("location").child("speedLimit").push().setValue(speedLimit);
-
+                            speedSearch.setOsm_id(obj.getInt("osm_id"));
                         } catch (JSONException e) {
                             Log.i("GET SPEED EXCEPTIOM ", e.getMessage());
                         }

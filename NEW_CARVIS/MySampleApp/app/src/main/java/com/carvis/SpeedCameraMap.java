@@ -53,6 +53,8 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
     ArrayList<LatLng> lats = new ArrayList<>();
     ArrayList<SpeedCamera> cameras = new ArrayList<>();
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,13 +108,13 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        FirebaseDatabase database;
+        final FirebaseDatabase database;
         DatabaseReference vanRef;
         DatabaseReference cameraRef;
         FirebaseApp.initializeApp(getApplicationContext());
         database = FirebaseDatabase.getInstance();
         cameraRef = database.getReference("reportedSpeedCameras");
-        vanRef = database.getReference("speedVans");
+        vanRef = database.getReference("speedVanDecodedLocation");
         mMap = googleMap;
         LatLng dublin = new LatLng(53.348778, -6.270933);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(dublin,11.0f));
@@ -165,31 +167,104 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
         });
 
         int i = 0;
+//        vanRef.addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+//                int id = Integer.parseInt(dataSnapshot.getKey());
+//                double startLatitude = Double.parseDouble(String.valueOf(dataSnapshot.child("startLatitude").getValue()));
+//                double startLongitude = Double.parseDouble(String.valueOf(dataSnapshot.child("startLongitude").getValue()));
+//                double endLatitude = Double.parseDouble(String.valueOf(dataSnapshot.child("endLatitude").getValue()));
+//                double endLongitude = Double.parseDouble(String.valueOf(dataSnapshot.child("endLongitude").getValue()));
+//
+//                try {
+//                    SpeedCamera s = new SpeedCamera(id, startLatitude, startLongitude, endLatitude, endLongitude);
+//
+//                //getSnapToRoadsPoints(getApplicationContext(), s);
+//                }
+//                catch(Exception e){
+//                    System.out.println(e.getMessage());
+//                }
+//
+//                mMap.addPolyline(new PolylineOptions()
+//                        .add(new LatLng(startLatitude, startLongitude), new LatLng(endLatitude, endLongitude))
+//                        .width(10)
+//                        .geodesic(true)
+//                        .jointType(JointType.BEVEL)
+//                        .endCap(new RoundCap())
+//                        .startCap(new RoundCap())
+//                        .color(Color.RED)).isClickable();
+//            }
+//            @Override
+//            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
+//
+//
+//////                cameras.remove(dataSnapshot.getKey());
+//////                System.out.println(cameras.size());
+////
+////                int id = Integer.parseInt(String.valueOf(dataSnapshot.getKey()));
+////                double startLat = Double.parseDouble(String.valueOf(dataSnapshot.child("startLatitude").getValue()));
+////                double startLong = Double.parseDouble(String.valueOf(dataSnapshot.child("startLongitude").getValue()));
+////                double endLat = Double.parseDouble(String.valueOf(dataSnapshot.child("endLatitude").getValue()));
+////                double endLong = Double.parseDouble(String.valueOf(dataSnapshot.child("endLongitude").getValue()));
+////                //cameras.add(new SpeedCamera(id, startLat, startLong, endLat, endLong));
+////
+////                System.out.println(SpeedCamera.cameras.size());
+//            }
+//
+//            @Override
+//            public void onChildRemoved(DataSnapshot dataSnapshot) {
+////                //cameras.remove(dataSnapshot.getKey());
+////                SpeedCamera.removeSpeedCamera(Integer.parseInt(dataSnapshot.getKey()));
+////                System.out.println("camera size : "+SpeedCamera.cameras.size());
+//            }
+//
+//            @Override
+//            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//            }
+//        });
+
+
         vanRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                double startLatitude = Double.parseDouble(String.valueOf(dataSnapshot.child("startLatitude").getValue()));
-                double startLongitude = Double.parseDouble(String.valueOf(dataSnapshot.child("startLongitude").getValue()));
-                double endLatitude = Double.parseDouble(String.valueOf(dataSnapshot.child("endLatitude").getValue()));
-                double endLongitude = Double.parseDouble(String.valueOf(dataSnapshot.child("endLongitude").getValue()));
-
                 try {
-                    SpeedCamera s = new SpeedCamera(startLatitude, startLongitude, endLatitude, endLongitude);
 
-                getSnapToRoadsPoints(getApplicationContext(), startLatitude,startLongitude,endLatitude,endLongitude);
+//                    for (DataSnapshot snapshot : dataSnapshot.child("latLngs").getChildren()) {
+//                        System.out.println(snapshot.child("latitude").getValue());
+//
+//
+//                    }
+                     PolylineOptions rectOptions = new PolylineOptions().width(15).geodesic(true).color(Color.RED);
+                    for (DataSnapshot snapshot : dataSnapshot.child("latLngs").getChildren()) {
+                        rectOptions.add(new LatLng(Double.parseDouble(String.valueOf(snapshot.child("latitude").getValue())), Double.parseDouble(String.valueOf(snapshot.child("longitude").getValue()))));
+//                        mMap.addPolyline(new PolylineOptions()
+//                                .add(new LatLng(Double.parseDouble(String.valueOf(snapshot.child("latitude").getValue())), Double.parseDouble(String.valueOf(snapshot.child("longitude").getValue()))))
+//                                .width(10)
+//                                .geodesic(true)
+//                                .jointType(JointType.BEVEL)
+//                                .endCap(new RoundCap())
+//                                .startCap(new RoundCap())
+//                                .color(Color.RED)).isClickable();
+                    }
+                    mMap.addPolyline(rectOptions);
+
+
                 }
                 catch(Exception e){
                     System.out.println(e.getMessage());
                 }
-
-                mMap.addPolyline(new PolylineOptions()
-                        .add(new LatLng(startLatitude, startLongitude), new LatLng(endLatitude, endLongitude))
-                        .width(10)
-                        .geodesic(true)
-                        .jointType(JointType.BEVEL)
-                        .endCap(new RoundCap())
-                        .startCap(new RoundCap())
-                        .color(Color.RED)).isClickable();
+//                mMap.addPolyline(new PolylineOptions()
+//                        .add(new LatLng(startLatitude, startLongitude), new LatLng(endLatitude, endLongitude))
+//                        .width(10)
+//                        .geodesic(true)
+//                        .jointType(JointType.BEVEL)
+//                        .endCap(new RoundCap())
+//                        .startCap(new RoundCap())
+//                        .color(Color.RED)).isClickable();
             }
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
@@ -224,9 +299,6 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
             }
         });
 
-
-
-
         //getSnapToRoadsPoints(getApplicationContext(), 53.416, -6.178, 53.4511,-6.1508, mMap);
         //mMap = googleMap;
 
@@ -244,7 +316,7 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
 //        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
-    public void getSnapToRoadsPoints(Context c, double startLat, double startLong, double endLat, double endLong){
+    public void getSnapToRoadsPoints(Context c, final SpeedCamera speedCamera){
         //String url = "https://roads.googleapis.com/v1/snapToRoads?path="+startLatitude+","+ startLongitude+"|"+endLatitude+","+endLongitude+"&interpolate=true&key=AIzaSyANu-d2RqCWLTyyZoh3s9lL0_PurPTNlIQ";
         //String url = "https://roads.googleapis.com/v1/snapToRoads?path=-35.27801,149.12958|-35.28032,149.12907&interpolate=true&key=AIzaSyANu-d2RqCWLTyyZoh3s9lL0_PurPTNlIQ";
 //        String params = "";
@@ -256,7 +328,7 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
 //        System.out.println(url);
         //String url = "http://router.project-osrm.org/trip/v1/driving/"+params+"?overview=false";
         //System.out.println(url);
-        String url = makeURL(startLat, startLong, endLat, endLong);
+        String url = makeURL(speedCamera.getStartLatitude(), speedCamera.getStartLongitude(), speedCamera.getEndLatitude(), speedCamera.getEndLongitude());
         System.out.println(url);
         final JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -265,7 +337,7 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            drawPath(response.toString());
+                            drawPath(speedCamera, response.toString());
                             JSONObject obj = new JSONObject(response.toString());
 //                            //journey.setSpeedLimit((obj.get("speed").toString()));
                             JSONArray jarray = obj.getJSONArray("snappedPoints");
@@ -374,7 +446,7 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
     }
 
 
-    public void drawPath(String  result) {
+    public void drawPath(SpeedCamera s, String  result) {
 
         try {
             //Tranform the string into a json object
@@ -384,6 +456,15 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
             JSONObject overviewPolylines = routes.getJSONObject("overview_polyline");
             String encodedString = overviewPolylines.getString("points");
             List<LatLng> list = decodePoly(encodedString);
+
+
+
+            FirebaseApp.initializeApp(mContext);
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference("speedVanDecodedLocation");
+
+            myRef.push().setValue(new SpeedVanLocations(list));
+
             Polyline line = mMap.addPolyline(new PolylineOptions()
                     .addAll(list)
                     .width(12)
@@ -435,8 +516,10 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
             LatLng p = new LatLng( (((double) lat / 1E5)),
                     (((double) lng / 1E5) ));
             poly.add(p);
-        }
 
+        }
+//        mMap.addMarker(new MarkerOptions().position(poly.get(0)).title(String.valueOf(poly.get(0).latitude+","+poly.get(0).longitude)));
+//        mMap.addMarker(new MarkerOptions().position(poly.get(poly.size()-1)).title(String.valueOf(poly.get(poly.size()-1).latitude+","+poly.get(poly.size()-1).longitude)));
         return poly;
     }
 

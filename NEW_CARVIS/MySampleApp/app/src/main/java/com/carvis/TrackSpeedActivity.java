@@ -6,9 +6,11 @@ import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Address;
@@ -16,6 +18,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
@@ -75,6 +78,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mysampleapp.R;
+//import com.carvis.SpeedCheckService.SpeedLocalBinder;
 
 import static com.google.android.gms.plus.PlusOneDummyView.TAG;
 
@@ -89,6 +93,8 @@ public class TrackSpeedActivity extends Activity implements
             Manifest.permission.ACCESS_COARSE_LOCATION
     };
 
+    //  SpeedCheckService speedCheckService;
+    boolean isBound = false;
 
     private Context context;
     //Intent intent = getIntent();
@@ -120,7 +126,7 @@ public class TrackSpeedActivity extends Activity implements
     private RequestQueue queue;
 
 
-    private Location test ;
+    private Location test;
     //private Timer timer , timer2;
 
     //    HashSet<SpeedCamera> cameras;
@@ -133,9 +139,10 @@ public class TrackSpeedActivity extends Activity implements
     ArrayList<RoadRecord> record;
 
     HashMap<Integer, ArrayList<RoadRecord>> roadHashMap;
+    //boolean speeding;
 
     //Location trackSpeedLocation;
-
+    boolean isRunning;
     SpeedSearch speedSearch;
     ExecutorService mThreadPool;
     ScheduledExecutorService ses;
@@ -148,11 +155,70 @@ public class TrackSpeedActivity extends Activity implements
     };
 
 
-
     Handler updateHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
+        }
+    };
+
+
+    Handler speedVanHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            Bundle summaryBundle = msg.getData();
+            SpeedCamera s = (SpeedCamera)summaryBundle.get("SpeedCamera");
+
+            LayoutInflater inflater = getLayoutInflater();
+            View layout = inflater.inflate(R.layout.speed_camera_toast,
+                    (ViewGroup) findViewById(R.id.custom_toast_container));
+
+            TextView text = (TextView) layout.findViewById(R.id.speedVanLocation);
+            text.setText(SpeedCamera.getSpeedCameraAddress(context, s.getStartLatitude(), s.getEndLongitude()));
+
+            TextView lastLocated = (TextView) layout.findViewById(R.id.lastSpotted);
+            if (s.getReportedTimes().size() != 0) {
+                lastLocated.setText(s.getReportedTimes().get(s.getReportedTimes().size() - 1));
+            }
+            TextView header = (TextView) layout.findViewById(R.id.speedToastHeader);
+            header.setText("Speed Van Nearby");
+
+            Toast toast = new Toast(context);
+            toast.setGravity(Gravity.DISPLAY_CLIP_VERTICAL, 0, 0);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setView(layout);
+            toast.show();
+        }
+    };
+
+
+    Handler speedCameraHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            Bundle summaryBundle = msg.getData();
+            TemporarySpeedCamera t = (TemporarySpeedCamera)summaryBundle.get("TemporarySpeedCamera");
+
+            LayoutInflater inflater = getLayoutInflater();
+            View layout = inflater.inflate(R.layout.speed_camera_toast,
+                    (ViewGroup) findViewById(R.id.custom_toast_container));
+            TextView header = (TextView) layout.findViewById(R.id.speedToastHeader);
+            header.setText("Speed Camera Nearby");
+
+
+            TextView text = (TextView) layout.findViewById(R.id.speedVanLocation);
+            text.setText(SpeedCamera.getSpeedCameraAddress(context, t.getLatitude(), t.getLongitude()));
+
+
+            TextView lastLocated = (TextView) layout.findViewById(R.id.lastSpotted);
+
+            lastLocated.setText(t.getTime());
+
+
+            Toast toast = new Toast(context);
+            toast.setGravity(Gravity.DISPLAY_CLIP_VERTICAL, 0, 0);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setView(layout);
+            toast.show();
         }
     };
 
@@ -163,11 +229,23 @@ public class TrackSpeedActivity extends Activity implements
         }
     };
 
+    Handler overSpeedHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (Integer.parseInt(journey.getCurrentSpeed()) > Integer.parseInt(journey.getSpeedLimit())) {
+                overSpeedLimits.add(new OverSpeedLimit(journey.getLatitude(), journey.getLongitude(), String.valueOf(journey.getCurrentSpeed()),
+                        String.valueOf(limit), dNow, provider.getUserName(), journey.getJourneyID(),speedSearch.getOsm_id()));
+            }
+        }
+    };
+
+
 //    private Handler handler;
 //    private Runnable runnable;
 //
 //    private Handler journeyFragmentHandler;
 //    private Runnable journeyFragmentRunnable;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,11 +254,12 @@ public class TrackSpeedActivity extends Activity implements
         journey = new Journey();
         journeyList = new ArrayList<>();
         overSpeedLimits = new ArrayList<>();
+        //speeding = false;
 
         roadHashMap = new HashMap<>();
-
+        isRunning = false;
         intialMovement = true;
-       test = new Location("location test");
+        test = new Location("location test");
 
         mThreadPool = Executors.newSingleThreadExecutor();
 
@@ -191,13 +270,15 @@ public class TrackSpeedActivity extends Activity implements
         provider = new CognitoUserPoolsSignInProvider(context);
         queue = Volley.newRequestQueue(context);
 
+//        Intent i = new Intent(context, SpeedCheckService.class);
+//        bindService(i, speedCheckConnection, Context.BIND_AUTO_CREATE);
+
         //roads = new ArrayList<>();
         speedSearch = new SpeedSearch(-99);
         final SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         // cameras = new HashSet<>();
         Button clickButton = (Button) findViewById(R.id.addSpeedCamera);
         clickButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 String time = ft.format(dNow);
@@ -219,7 +300,7 @@ public class TrackSpeedActivity extends Activity implements
 //        imageView80 = (ImageView) findViewById(R.id.speed80km);
 //        imageView100 = (ImageView) findViewById(R.id.speed100km);
 //FirebaseDatabase
-       // FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        // FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         FirebaseApp.initializeApp(context);
         //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         database = FirebaseDatabase.getInstance();
@@ -245,7 +326,7 @@ public class TrackSpeedActivity extends Activity implements
                 //System.out.println(dataSnapshot.getKey()+" KEY");
                 //Road road = new Road(Integer.parseInt(dataSnapshot.getKey()), record);
                 //roads.add(new Road(Integer.parseInt(dataSnapshot.getKey()), record));
-                roadHashMap.put(Integer.parseInt(dataSnapshot.getKey()),record);
+                roadHashMap.put(Integer.parseInt(dataSnapshot.getKey()), record);
                 // System.out.println(r.getLatitude());
 //                HashMap<String, String> reports = (HashMap<String, String>) dataSnapshot.getChildren();
 //                if(reports!=null) {
@@ -431,7 +512,7 @@ public class TrackSpeedActivity extends Activity implements
                         }
 
                         journeyList.add(new JourneyFragment(journey.getLatitude(), journey.getLongitude(), journey.getCurrentSpeed(), String.valueOf(limit), dNow, journey.getJourneyID(), provider.getUserName()));
-                        if(journeyList.size() == 50){
+                        if (journeyList.size() == 50) {
                             JourneyFragment.AddJourneyFragments(queue, journeyList, journey.getJourneyID());
                             journeyList.clear();
                         }
@@ -524,8 +605,6 @@ public class TrackSpeedActivity extends Activity implements
         mThreadPool.execute(new Runnable() {
             @Override
             public void run() {
-                // Perform your long-running tasks here.
-                //...
                 try {
                     //trackSpeedLocation = location;
                     journey.setLatitude(String.valueOf(location.getLatitude()));
@@ -544,30 +623,37 @@ public class TrackSpeedActivity extends Activity implements
 
                     }
 
+//                    if (nearSpeedCamera(location)){
+//
+//                    }
+
                     if (intialMovement == true) {
-                        journey.addJourneyDB(context, provider.getUserName(), "insert");
+                        journey.addJourneyDB(queue, provider.getUserName(), "insert");
                         intialMovement = false;
                     }
-//        if (nearSpeedCamera(location)) {
-////            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-////                 v.vibrate(1000);
-//        }
+
                     speedSearch.setLocation(location);
 
 
                     try {
-                        if (Integer.parseInt(journey.getCurrentSpeed()) > limit) {
+                        if (Integer.parseInt(journey.getCurrentSpeed()) > limit && limit != 0) {
+                            //speeding = true;
+                            if(!isRunning)
+                            {
+                                setOverSpeedLimit();
+                            }
+                            //speedCheckService.wait10Seconds();
+
                             //currentSpeedTextView.setText(jID);
 //                    OverSpeedLimit o = new OverSpeedLimit(journey.getLatitude(), journey.getLongitude(), String.valueOf(journey.getCurrentSpeed()), String.valueOf(limit));
 //                    o.InsertOverLimitDB(queue, journey.getJourneyID(), provider.getUserName());
-                            overSpeedLimits.add(new OverSpeedLimit(journey.getLatitude(), journey.getLongitude(), String.valueOf(journey.getCurrentSpeed()), String.valueOf(limit), dNow, provider.getUserName(), journey.getJourneyID()));
+                            // overSpeedLimits.add(new OverSpeedLimit(journey.getLatitude(), journey.getLongitude(), String.valueOf(journey.getCurrentSpeed()), String.valueOf(limit), dNow, provider.getUserName(), journey.getJourneyID()));
                         }
 
                     } catch (Exception e) {
                         Log.i("Except", e.getMessage());
                     }
-                }
-                catch(Exception e){
+                } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
             }
@@ -606,6 +692,11 @@ public class TrackSpeedActivity extends Activity implements
             }
         }
     }
+//    @Override
+//    protected void onDestroy() {
+//        this.unbindService(SpeedCheckService);
+//        super.onDestroy();
+//    }
 
 
     public void showImage(ImageView view) {
@@ -617,11 +708,10 @@ public class TrackSpeedActivity extends Activity implements
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                //journey.addJourneyDB(context, provider.getUserName(), "update");
-                //JourneyFragment.AddJourneyFragments(queue, journeyList, journey.getJourneyID());
-                OverSpeedLimit.addOverSpeedLimits(queue, context , overSpeedLimits, journey.getJourneyID(), provider.getUserName());
+                journey.addJourneyDB(queue, provider.getUserName(), "update");
+                JourneyFragment.AddJourneyFragments(queue, journeyList, journey.getJourneyID());
+                OverSpeedLimit.addOverSpeedLimits(queue, context, overSpeedLimits, journey.getJourneyID(), provider.getUserName());
                 updateHandler.sendEmptyMessage(0);
-                //updateHandler.sendEmptyMessage(0);
             }
         };
 
@@ -652,7 +742,13 @@ public class TrackSpeedActivity extends Activity implements
             ArrayList<Location> cameraLocations = s.getCameraLocations();
             for (int i = 0; i < cameraLocations.size(); i++) {
                 if (location.distanceTo(cameraLocations.get(i)) / 1000 < 0.1) {
-                    displaySpeedVanInfo(s);
+                    //displaySpeedVanInfo(s);
+                    Message message = new Message();
+                    Bundle b = new Bundle();
+                    b.putSerializable("SpeedCamera",s);
+                    message.setData(b);
+                    message.arg1 = 0;
+                    speedVanHandler.sendMessage(message);
                     System.out.println(cameraLocations.get(i).getLatitude() + " _ _ _ " + cameraLocations.get(i).getLongitude());
                     return true;
                 }
@@ -663,60 +759,91 @@ public class TrackSpeedActivity extends Activity implements
             cameraLocation.setLatitude(t.getLatitude());
             cameraLocation.setLongitude(t.getLongitude());
             if ((location.distanceTo(cameraLocation) / 1000) < 1.0) {
-                //System.out.println("TEMPORARY SPEED CAMERA NEAR");
-                displaySpeedCameraInfo(t);
+                System.out.println("TEMPORARY SPEED CAMERA NEAR");
+                //displaySpeedCameraInfo(t);
+                Message message = new Message();
+                Bundle b = new Bundle();
+                b.putSerializable("TemporarySpeedCamera",t);
+                message.setData(b);
+                message.arg1 = 0;
+                speedCameraHandler.sendMessage(message);
                 return true;
             }
         }
         return false;
     }
 
-    public void displaySpeedVanInfo(SpeedCamera s) {
+    public void displaySpeedVanInfo(final SpeedCamera s) {
 
-        LayoutInflater inflater = getLayoutInflater();
-        View layout = inflater.inflate(R.layout.speed_camera_toast,
-                (ViewGroup) findViewById(R.id.custom_toast_container));
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.speed_camera_toast,
+                        (ViewGroup) findViewById(R.id.custom_toast_container));
 
-        TextView text = (TextView) layout.findViewById(R.id.speedVanLocation);
-        text.setText(SpeedCamera.getSpeedCameraAddress(context, s.getStartLatitude(), s.getEndLongitude()));
+                TextView text = (TextView) layout.findViewById(R.id.speedVanLocation);
+                text.setText(SpeedCamera.getSpeedCameraAddress(context, s.getStartLatitude(), s.getEndLongitude()));
 
-        TextView lastLocated = (TextView) layout.findViewById(R.id.lastSpotted);
-        if (s.getReportedTimes().size() != 0) {
-            lastLocated.setText(s.getReportedTimes().get(s.getReportedTimes().size() - 1));
-        }
-        TextView header = (TextView) layout.findViewById(R.id.speedToastHeader);
-        header.setText("Speed Van Nearby");
+                TextView lastLocated = (TextView) layout.findViewById(R.id.lastSpotted);
+                if (s.getReportedTimes().size() != 0) {
+                    lastLocated.setText(s.getReportedTimes().get(s.getReportedTimes().size() - 1));
+                }
+                TextView header = (TextView) layout.findViewById(R.id.speedToastHeader);
+                header.setText("Speed Van Nearby");
 
-        Toast toast = new Toast(context);
-        toast.setGravity(Gravity.DISPLAY_CLIP_VERTICAL, 0, 0);
-        toast.setDuration(Toast.LENGTH_SHORT);
-        toast.setView(layout);
-        toast.show();
+                Toast toast = new Toast(context);
+                toast.setGravity(Gravity.DISPLAY_CLIP_VERTICAL, 0, 0);
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.setView(layout);
+                toast.show();
+
+
     }
 
-    public void displaySpeedCameraInfo(TemporarySpeedCamera t) {
-        LayoutInflater inflater = getLayoutInflater();
-        View layout = inflater.inflate(R.layout.speed_camera_toast,
-                (ViewGroup) findViewById(R.id.custom_toast_container));
-        TextView header = (TextView) layout.findViewById(R.id.speedToastHeader);
-        header.setText("Speed Camera Nearby");
-
-
-        TextView text = (TextView) layout.findViewById(R.id.speedVanLocation);
-        text.setText(SpeedCamera.getSpeedCameraAddress(context, t.getLatitude(), t.getLongitude()));
-
-
-        TextView lastLocated = (TextView) layout.findViewById(R.id.lastSpotted);
-
-        lastLocated.setText(t.getTime());
-
-
-        Toast toast = new Toast(context);
-        toast.setGravity(Gravity.DISPLAY_CLIP_VERTICAL, 0, 0);
-        toast.setDuration(Toast.LENGTH_SHORT);
-        toast.setView(layout);
-        toast.show();
-    }
+//    public void displaySpeedCameraInfo(final TemporarySpeedCamera t) {
+//
+//                LayoutInflater inflater = getLayoutInflater();
+//                View layout = inflater.inflate(R.layout.speed_camera_toast,
+//                        (ViewGroup) findViewById(R.id.custom_toast_container));
+//                TextView header = (TextView) layout.findViewById(R.id.speedToastHeader);
+//                header.setText("Speed Camera Nearby");
+//
+//
+//                TextView text = (TextView) layout.findViewById(R.id.speedVanLocation);
+//                text.setText(SpeedCamera.getSpeedCameraAddress(context, t.getLatitude(), t.getLongitude()));
+//
+//
+//                TextView lastLocated = (TextView) layout.findViewById(R.id.lastSpotted);
+//
+//                lastLocated.setText(t.getTime());
+//
+//
+//                Toast toast = new Toast(context);
+//                toast.setGravity(Gravity.DISPLAY_CLIP_VERTICAL, 0, 0);
+//                toast.setDuration(Toast.LENGTH_SHORT);
+//                toast.setView(layout);
+//                toast.show();
+//
+////        LayoutInflater inflater = getLayoutInflater();
+////        View layout = inflater.inflate(R.layout.speed_camera_toast,
+////                (ViewGroup) findViewById(R.id.custom_toast_container));
+////        TextView header = (TextView) layout.findViewById(R.id.speedToastHeader);
+////        header.setText("Speed Camera Nearby");
+////
+////
+////        TextView text = (TextView) layout.findViewById(R.id.speedVanLocation);
+////        text.setText(SpeedCamera.getSpeedCameraAddress(context, t.getLatitude(), t.getLongitude()));
+////
+////
+////        TextView lastLocated = (TextView) layout.findViewById(R.id.lastSpotted);
+////
+////        lastLocated.setText(t.getTime());
+////
+////
+////        Toast toast = new Toast(context);
+////        toast.setGravity(Gravity.DISPLAY_CLIP_VERTICAL, 0, 0);
+////        toast.setDuration(Toast.LENGTH_SHORT);
+////        toast.setView(layout);
+////        toast.show();
+//    }
 
 //    public void createNotification() {
 //        // Prepare intent which is triggered if the
@@ -738,9 +865,6 @@ public class TrackSpeedActivity extends Activity implements
 //    }
 
 
-    public void updateSpeedCamera(String id) {
-
-    }
 
     AlertDialog alertDialog;
 
@@ -770,42 +894,88 @@ public class TrackSpeedActivity extends Activity implements
     }
 
     public void nearKnownSpeedLimit(final SpeedSearch speedSearch) {
-                if(roadHashMap.containsKey(speedSearch.getOsm_id())) {
-                    for (RoadRecord r : roadHashMap.get(speedSearch.getOsm_id())) {
-                        test.setLatitude(Double.parseDouble(r.getLatitude()));
-                        test.setLongitude(Double.parseDouble(r.getLongitude()));
-                        if (speedSearch.getLocation().distanceTo(test) / 1000 <= 0.015) {
-                            Log.i("speed Test log 1", "near");
-                            // speedLimit =  roadRecords.get(i).getSpeedLimit();
-                            journey.setSpeedLimit(String.valueOf(r.getSpeedLimit()));
-                            speedLimitTextView.setText(journey.getSpeedLimit() + " km/h");
-                            //handler.sendEmptyMessage(0);
-                            return;
+        try {
+            if (roadHashMap.containsKey(speedSearch.getOsm_id())) {
+                for (RoadRecord r : roadHashMap.get(speedSearch.getOsm_id())) {
+                    test.setLatitude(Double.parseDouble(r.getLatitude()));
+                    test.setLongitude(Double.parseDouble(r.getLongitude()));
+                    if (speedSearch.getLocation().distanceTo(test) / 1000 <= 0.015) {
+                        Log.i("speed Test log 1", "near");
+                        // speedLimit =  roadRecords.get(i).getSpeedLimit();
+                        journey.setSpeedLimit(String.valueOf(r.getSpeedLimit()));
+                        speedLimitTextView.setText(journey.getSpeedLimit() + " km/h");
+                        //handler.sendEmptyMessage(0);
+                        return;
+                    }
+                }
+            }
+
+            for (Map.Entry<Integer, ArrayList<RoadRecord>> entry : roadHashMap.entrySet()) {
+                for (RoadRecord r : entry.getValue()) {
+                    test.setLatitude(Double.parseDouble(r.getLatitude()));
+                    test.setLongitude(Double.parseDouble(r.getLongitude()));
+                    if (speedSearch.getLocation().distanceTo(test) / 1000 <= 0.015) {
+                        Log.i("speed Test log 2", "near");
+                        // speedLimit =  roadRecords.get(i).getSpeedLimit();
+                        speedSearch.setOsm_id(entry.getKey());
+                        journey.setSpeedLimit(String.valueOf(r.getSpeedLimit()));
+                        speedLimitTextView.setText(journey.getSpeedLimit() + " km/h");
+                        //handler.sendEmptyMessage(0);
+                        return;
+                    }
+                }
+                // System.out.println(entry.getKey() + "/" + entry.getValue());
+            }
+            //handler.sendEmptyMessage(0);
+            journey.getSpeedFromLambda(database, queue, speedSearch);
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+//    private ServiceConnection speedCheckConnection = new ServiceConnection() {
+//        @Override
+//        public void onServiceConnected(ComponentName componentName, IBinder service) {
+//            SpeedCheckService.SpeedLocalBinder binder = (SpeedCheckService.SpeedLocalBinder) service;
+//            speedCheckService = binder.getService();
+//            isBound = true;
+//        }
+//
+//        @Override
+//        public void onServiceDisconnected(ComponentName componentName) {
+//            isBound = false;
+//        }
+//    };
+
+    public void setOverSpeedLimit() {
+        System.out.println("iss run cal");
+        isRunning = true;
+            Runnable r = new Runnable() {
+                @Override
+                public void run() {
+                    long futureTime = System.currentTimeMillis() + 5000;
+                    while (System.currentTimeMillis() < futureTime) {
+                        synchronized (this) {
+                            try {
+                                wait(futureTime - System.currentTimeMillis());
+                            }
+                            catch (Exception e) {
+
+                            }
                         }
                     }
+                    overSpeedHandler.sendEmptyMessage(0);
+                    isRunning = false;
                 }
 
-                for (Map.Entry<Integer, ArrayList<RoadRecord>> entry : roadHashMap.entrySet())
-                {
-                    for(RoadRecord r : entry.getValue()){
-                        test.setLatitude(Double.parseDouble(r.getLatitude()));
-                        test.setLongitude(Double.parseDouble(r.getLongitude()));
-                        if (speedSearch.getLocation().distanceTo(test) / 1000 <= 0.015) {
-                            Log.i("speed Test log 2", "near");
-                            // speedLimit =  roadRecords.get(i).getSpeedLimit();
-                            speedSearch.setOsm_id(entry.getKey());
-                            journey.setSpeedLimit(String.valueOf(r.getSpeedLimit()));
-                            speedLimitTextView.setText(journey.getSpeedLimit() + " km/h");
-                            //handler.sendEmptyMessage(0);
-                            return;
-                        }
-                    }
-                    // System.out.println(entry.getKey() + "/" + entry.getValue());
-                }
-                //handler.sendEmptyMessage(0);
-                journey.getSpeedFromLambda(database, queue);
-            }
+            };
+            Thread t = new Thread(r);
+            t.start();
+
     }
+}
 
 
 

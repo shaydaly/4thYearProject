@@ -33,10 +33,9 @@ import java.util.List;
 
 public class OverSpeedLimit implements Serializable{
 
-    private String longitude, latitude, speedLimit;
-    private String currentSpeed;
+    private String longitude, latitude, speedLimit, journeyid, username, currentSpeed;
+    int roadId;
     private Date currentTime;
-    private String journeyid, username;
 
     public OverSpeedLimit(String latitude,String longitude, String currentSpeed, String speedLimit) {
         this.latitude = latitude;
@@ -53,7 +52,7 @@ public class OverSpeedLimit implements Serializable{
         this.currentTime = currentTime;
     }
 
-    public OverSpeedLimit(String latitude,String longitude, String currentSpeed, String speedLimit, Date currentTime, String username, String journeyid) {
+    public OverSpeedLimit(String latitude,String longitude, String currentSpeed, String speedLimit, Date currentTime, String username, String journeyid, int roadId) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.currentSpeed = currentSpeed;
@@ -61,6 +60,7 @@ public class OverSpeedLimit implements Serializable{
         this.currentTime = currentTime;
         this.username = username;
         this.journeyid = journeyid;
+        this.roadId = roadId;
     }
 
     public String getJourneyid() {
@@ -103,7 +103,15 @@ public class OverSpeedLimit implements Serializable{
         this.speedLimit = speedLimit;
     }
 
-    public void InsertOverLimitDB(RequestQueue queue , String journeyID,  String user){
+    public int getRoadId() {
+        return roadId;
+    }
+
+    public void setRoadId(int roadId) {
+        this.roadId = roadId;
+    }
+
+    public void InsertOverLimitDB(RequestQueue queue , String journeyID, String user){
         try {
             String URL = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/createoverspeedobject";
 //            DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
@@ -174,6 +182,7 @@ public class OverSpeedLimit implements Serializable{
 
     public static void addOverSpeedLimits(RequestQueue queue,Context context,  List<OverSpeedLimit> overSpeedLimits, String journeyID, String user) {
 
+        Log.i("over speed size ",String.valueOf(overSpeedLimits.size()));
         for(OverSpeedLimit o : overSpeedLimits){
             if(o.getJourneyid().equals("")){
                 o.setJourneyid(journeyID);

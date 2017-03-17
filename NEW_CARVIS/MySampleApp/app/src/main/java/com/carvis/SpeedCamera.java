@@ -21,6 +21,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,7 +36,7 @@ import java.util.Locale;
  * Created by Seamus on 22/02/2017.
  */
 
-public class SpeedCamera {
+public class SpeedCamera implements Serializable {
 
     private int id;
     private double startLatitude, startLongitude, endLatitude, endLongitude, midLatitude, midLongitude;
@@ -224,6 +225,8 @@ public class SpeedCamera {
     }
 
 
+
+
     public static void addSpeedVanLocatedRecord(FirebaseDatabase database, String vanID) {
         DatabaseReference myRef = database.getReference("speedVans");
         SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -310,7 +313,25 @@ public class SpeedCamera {
         return midPointLocation;
     }
 
+    public Location getStartLocation() {
+        return startLocation;
+    }
 
+    public Location getEndLocation() {
+        return endLocation;
+    }
+
+    public Location getMiddleLocation() {
+        return middleLocation;
+    }
+
+    public Location getLocation1() {
+        return location1;
+    }
+
+    public Location getLocation4() {
+        return location4;
+    }
 //    public void  midPoint(){
 //
 //        double dLon = Math.toRadians(endLongitude - startLongitude);

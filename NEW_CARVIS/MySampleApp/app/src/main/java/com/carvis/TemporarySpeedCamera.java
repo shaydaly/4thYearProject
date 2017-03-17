@@ -10,6 +10,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,7 +20,7 @@ import java.util.LinkedHashSet;
  * Created by Seamus on 26/02/2017.
  */
 
-public class TemporarySpeedCamera {
+public class TemporarySpeedCamera implements Serializable{
     private double latitude, longitude;
     private String time;
     static LinkedHashSet<TemporarySpeedCamera> temporarySpeedCameras = new LinkedHashSet<>();

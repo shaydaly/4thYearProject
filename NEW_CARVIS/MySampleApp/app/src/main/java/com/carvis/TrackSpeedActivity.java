@@ -125,6 +125,7 @@ public class TrackSpeedActivity extends Activity implements
     int speed;
     private RequestQueue queue;
 
+    VolleyService volleyService;
 
     private Location test;
     //private Timer timer , timer2;
@@ -263,6 +264,8 @@ public class TrackSpeedActivity extends Activity implements
 
         mThreadPool = Executors.newSingleThreadExecutor();
 
+
+
 //        timer = new Timer();
 //        timer2 = new Timer();
 
@@ -270,8 +273,7 @@ public class TrackSpeedActivity extends Activity implements
         provider = new CognitoUserPoolsSignInProvider(context);
         queue = Volley.newRequestQueue(context);
 
-//        Intent i = new Intent(context, SpeedCheckService.class);
-//        bindService(i, speedCheckConnection, Context.BIND_AUTO_CREATE);
+        volleyService = new VolleyService(context);
 
         //roads = new ArrayList<>();
         speedSearch = new SpeedSearch(-99);
@@ -513,7 +515,8 @@ public class TrackSpeedActivity extends Activity implements
 
                         journeyList.add(new JourneyFragment(journey.getLatitude(), journey.getLongitude(), journey.getCurrentSpeed(), String.valueOf(limit), dNow, journey.getJourneyID(), provider.getUserName()));
                         if (journeyList.size() == 50) {
-                            JourneyFragment.AddJourneyFragments(queue, journeyList, journey.getJourneyID());
+//                            JourneyFragment.AddJourneyFragments(queue, journeyList, journey.getJourneyID());
+                            volleyService.addJourneyFragments(journeyList,journey.getJourneyID());
                             journeyList.clear();
                         }
                         //System.out.println(cameras.size());
@@ -628,7 +631,8 @@ public class TrackSpeedActivity extends Activity implements
 //                    }
 
                     if (intialMovement == true) {
-                        journey.addJourneyDB(queue, provider.getUserName(), "insert");
+                        //journey.addJourneyDB(queue, provider.getUserName(), "insert");
+                        volleyService.addJourneyDB(journey, provider.getUserName(),"insert");
                         intialMovement = false;
                     }
 
@@ -708,8 +712,10 @@ public class TrackSpeedActivity extends Activity implements
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                journey.addJourneyDB(queue, provider.getUserName(), "update");
-                JourneyFragment.AddJourneyFragments(queue, journeyList, journey.getJourneyID());
+                //journey.addJourneyDB(queue, provider.getUserName(), "update");
+                volleyService.addJourneyDB(journey, provider.getUserName(),"update");
+//                JourneyFragment.AddJourneyFragments(queue, journeyList, journey.getJourneyID());
+                volleyService.addJourneyFragments(journeyList, journey.getJourneyID());
                 OverSpeedLimit.addOverSpeedLimits(queue, context, overSpeedLimits, journey.getJourneyID(), provider.getUserName());
                 updateHandler.sendEmptyMessage(0);
             }
@@ -927,7 +933,8 @@ public class TrackSpeedActivity extends Activity implements
                 // System.out.println(entry.getKey() + "/" + entry.getValue());
             }
             //handler.sendEmptyMessage(0);
-            journey.getSpeedFromLambda(database, queue, speedSearch);
+            //journey.getSpeedFromLambda(database, queue, speedSearch);
+            volleyService.getSpeedFromLambda(database,speedSearch,journey.getLatitude(),journey.getLongitude());
         }
         catch(Exception e){
             System.out.println(e.getMessage());
@@ -950,7 +957,6 @@ public class TrackSpeedActivity extends Activity implements
 //    };
 
     public void setOverSpeedLimit() {
-        System.out.println("iss run cal");
         isRunning = true;
             Runnable r = new Runnable() {
                 @Override

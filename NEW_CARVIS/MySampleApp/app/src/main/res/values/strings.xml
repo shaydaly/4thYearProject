@@ -105,5 +105,6 @@
     <string name="title_activity_maps">Map</string>
     <string name="map">Map</string>
     <string name="title_activity_speed_camera_map">Map</string>
+    <string name="userStatistics">User Statistics</string>
 
 </resources>

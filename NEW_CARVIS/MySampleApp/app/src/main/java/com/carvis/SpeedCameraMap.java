@@ -238,7 +238,13 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
 //
 //
 //                    }
-                     PolylineOptions rectOptions = new PolylineOptions().width(15).geodesic(true).color(Color.RED);
+                     PolylineOptions rectOptions = new PolylineOptions()
+                                        .width(10)
+                                        .geodesic(true)
+                                        .jointType(JointType.BEVEL)
+                                        .endCap(new RoundCap())
+                                        .startCap(new RoundCap())
+                                        .color(Color.RED);
                     for (DataSnapshot snapshot : dataSnapshot.child("latLngs").getChildren()) {
                         rectOptions.add(new LatLng(Double.parseDouble(String.valueOf(snapshot.child("latitude").getValue())), Double.parseDouble(String.valueOf(snapshot.child("longitude").getValue()))));
 //                        mMap.addPolyline(new PolylineOptions()

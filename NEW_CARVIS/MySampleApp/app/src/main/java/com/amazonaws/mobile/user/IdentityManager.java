@@ -530,4 +530,6 @@ public class IdentityManager {
     public String getUserName() {
         return currentIdentityProvider == null ? null : currentIdentityProvider.getUserName();
     }
+
+
 }

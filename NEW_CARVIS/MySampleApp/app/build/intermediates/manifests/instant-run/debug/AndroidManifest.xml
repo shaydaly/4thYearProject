@@ -156,6 +156,8 @@
             android:name="com.carvis.SpeedCheckService"
             android:enabled="true"
             android:exported="true" />
+
+        <activity android:name="com.carvis.UserStatistics" />
         <!-- Include the AdActivity and InAppPurchaseActivity configChanges and themes. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"

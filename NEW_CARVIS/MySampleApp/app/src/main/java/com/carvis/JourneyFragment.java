@@ -164,91 +164,91 @@ public class JourneyFragment implements Serializable{
         this.username = username;
     }
 
-    public static void AddJourneyFragments(RequestQueue queue, List<JourneyFragment> journies, String journeyID){
-        try {
-            for(JourneyFragment j : journies){
-                if(j.getJourneyID().equals("")){
-                    j.setJourneyID(journeyID);
-                }
-            }
-            System.out.println("AddJourneyFragments called");
-            Gson gson = new Gson();
-            String json = gson.toJson(journies);
-            System.out.println(json);
-            try {
-                //RequestQueue requestQueue = Volley.newRequestQueue(c);
-                String URL = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/journeyfragment";
-                final String requestBody = json;
-
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        //result = response;
-                        Log.i("AddJourneyFragments", response);
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.i("Volley Error1 ",error.toString());
-                    }
-                }) {
-                    @Override
-                    public String getBodyContentType() {
-                        return "application/json; charset=utf-8";
-                    }
-
-                    @Override
-                    public byte[] getBody() throws AuthFailureError {
-                        try {
-                            return requestBody == null ? null : requestBody.getBytes("utf-8");
-
-                        } catch (UnsupportedEncodingException uee) {
-                            // result = uee.toString();
-                            VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
-                            return null;
-                        }
-                    }
-
-                    @Override
-                    protected Response<String> parseNetworkResponse(NetworkResponse response) {
-
-                        String responseString = "";
-//                        if (response != null) {
-//                            responseString = String.valueOf(response.statusCode);
-//                            // can get more details such as response.headers
-//                            //result = (response.toString());
+//    public static void AddJourneyFragments(RequestQueue queue, List<JourneyFragment> journies, String journeyID){
+//        try {
+//            for(JourneyFragment j : journies){
+//                if(j.getJourneyID().equals("")){
+//                    j.setJourneyID(journeyID);
+//                }
+//            }
+//            System.out.println("AddJourneyFragments called");
+//            Gson gson = new Gson();
+//            String json = gson.toJson(journies);
+//            System.out.println(json);
+//            try {
+//                //RequestQueue requestQueue = Volley.newRequestQueue(c);
+//                String URL = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/journeyfragment";
+//                final String requestBody = json;
 //
-////                            try {
-////                                String str = new String(response.data, "UTF-8");
-////                                //journeyID = jID;
-////                                //System.out.println(str+"______________!!");
-////                            }
-////                            catch(UnsupportedEncodingException e){
-////                                System.out.println(e.getMessage());
-////                            }
+//                StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        //result = response;
+//                        Log.i("AddJourneyFragments", response);
+//                    }
+//                }, new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        Log.i("Volley Error1 ",error.toString());
+//                    }
+//                }) {
+//                    @Override
+//                    public String getBodyContentType() {
+//                        return "application/json; charset=utf-8";
+//                    }
 //
+//                    @Override
+//                    public byte[] getBody() throws AuthFailureError {
+//                        try {
+//                            return requestBody == null ? null : requestBody.getBytes("utf-8");
 //
+//                        } catch (UnsupportedEncodingException uee) {
+//                            // result = uee.toString();
+//                            VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+//                            return null;
 //                        }
-                        return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
-                    }
-                };
-
-                queue.add(stringRequest);
-            } catch (Exception e) {
-                e.printStackTrace();
-                //result = e.toString();
-            }
-
-
-
-        }
-
-        catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-
-
-    }
+//                    }
+//
+//                    @Override
+//                    protected Response<String> parseNetworkResponse(NetworkResponse response) {
+//
+//                        String responseString = "";
+////                        if (response != null) {
+////                            responseString = String.valueOf(response.statusCode);
+////                            // can get more details such as response.headers
+////                            //result = (response.toString());
+////
+//////                            try {
+//////                                String str = new String(response.data, "UTF-8");
+//////                                //journeyID = jID;
+//////                                //System.out.println(str+"______________!!");
+//////                            }
+//////                            catch(UnsupportedEncodingException e){
+//////                                System.out.println(e.getMessage());
+//////                            }
+////
+////
+////                        }
+//                        return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+//                    }
+//                };
+//
+//                queue.add(stringRequest);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                //result = e.toString();
+//            }
+//
+//
+//
+//        }
+//
+//        catch(Exception e){
+//            System.out.println(e.getMessage());
+//        }
+//
+//
+//    }
 
 
 }

@@ -33,6 +33,7 @@ import com.carvis.ListJourney;
 import com.carvis.MapsActivity;
 import com.carvis.SpeedCameraMap;
 import com.carvis.TrackSpeedActivity;
+import com.carvis.UserStatistics;
 import com.mysampleapp.R;
 import com.mysampleapp.demo.DemoConfiguration;
 import com.mysampleapp.demo.DemoInstructionFragment;
@@ -119,6 +120,11 @@ public class NavigationDrawer {
 
                 if(position ==3){
                     goToSpeedCameraMap();
+                    return;
+                }
+
+                if(position ==4){
+                    goToUserStatistics();
                     return;
                 }
 
@@ -256,6 +262,12 @@ public class NavigationDrawer {
 
     public void goToSpeedCameraMap(){
         Intent myIntent = new Intent(this.containingActivity, SpeedCameraMap.class);
+        myIntent.putExtra("key", value); //Optional parameters
+        this.containingActivity.startActivity(myIntent);
+    }
+
+    public void goToUserStatistics(){
+        Intent myIntent = new Intent(this.containingActivity, UserStatistics.class);
         myIntent.putExtra("key", value); //Optional parameters
         this.containingActivity.startActivity(myIntent);
     }

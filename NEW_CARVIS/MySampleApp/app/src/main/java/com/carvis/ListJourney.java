@@ -52,8 +52,6 @@ import static android.R.attr.value;
 
 public class ListJourney extends ListActivity {
 
-
-
     Context context;
     CognitoUserPoolsSignInProvider provider;
     Journey journey;
@@ -61,13 +59,23 @@ public class ListJourney extends ListActivity {
     ArrayList<String> journeyIDs;
     ArrayList<String> timestamps;
     ArrayList<String> durations;
+    VolleyService volleyService;
 
     ProgressBar pBar;
 
     Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            setListAdapter(new MobileArrayAdapter(context, journeyIDs, timestamps, durations));
+            try {
+                setListAdapter(new MobileArrayAdapter(context, journeyIDs, timestamps, durations));
+            }
+            catch(NullPointerException e){
+
+            }
+            catch(Exception ex){
+
+            }
+
         }
     };
 
@@ -101,7 +109,7 @@ public class ListJourney extends ListActivity {
         journey = new Journey();
         context = getApplicationContext();
         provider = new CognitoUserPoolsSignInProvider(context);
-
+        volleyService = new VolleyService(context);
 
         pBar = (ProgressBar) findViewById(R.id.listProgressBar);
 
@@ -121,12 +129,12 @@ public class ListJourney extends ListActivity {
 
     }
 
-    public void getFragments(String selectedValue){
-        final String val = selectedValue;
+    public void getFragments(final String selectedValue){
         Runnable r = new Runnable() {
             @Override
             public void run() {
-                journey.getJourneyFragments(context, provider.getUserName(), val);
+                //journey.getJourneyFragments(context, provider.getUserName(), selectedValue);
+                volleyService.getJourneyFragments(provider.getUserName(), selectedValue, journey);
 //                long futureTme = System.currentTimeMillis()+3000;
 //                while (System.currentTimeMillis()< futureTme){
 //                    synchronized (this){
@@ -139,9 +147,9 @@ public class ListJourney extends ListActivity {
 //                    }
 //                }
                 //call function
-                journeyFragments = journey.getListOfJourneyFragments(context);
+                journeyFragments = journey.getListOfJourneyFragments();
                 while(journeyFragments.size()==0){
-                    journeyFragments = journey.getListOfJourneyFragments(context);
+                    journeyFragments = journey.getListOfJourneyFragments();
                 }
                 fragmentHandler.sendEmptyMessage(0);
             }
@@ -159,7 +167,6 @@ public class ListJourney extends ListActivity {
 //            addyExtras.add (fragments.get(i));
 //
 //        //myIntent.putExtra ("mylist", addyExtras);
-
         myIntent.putExtra("journeyFragments", fragments); //Optional parameters
 
         this.startActivity(myIntent);
@@ -179,19 +186,12 @@ public class ListJourney extends ListActivity {
         Runnable r = new Runnable() {
             @Override
             public void run() {
-                journey.getUsersJourneys(context, provider.getUserName());
-                long futureTme = System.currentTimeMillis()+3000;
-//                while (System.currentTimeMillis()< futureTme){
-//                    synchronized (this){
-//                        try{
-//                            wait(futureTme-System.currentTimeMillis());
-//                        }
-//                        catch(Exception e){
-//
-//                        }
-//                    }
-//                }
+                try{
+                    volleyService.getUsersJourneys(provider.getUserName(),journey);
                 userJourneyHandler.sendEmptyMessage(0);
+            }catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
             }
         };
         Thread userJourneys = new Thread(r);
@@ -203,14 +203,15 @@ public class ListJourney extends ListActivity {
             @Override
             public void run() {
                 try {
-                    ArrayList<Journey> js = journey.getListOfJourneys(context);
+                    ArrayList<Journey> js = journey.getListOfJourneys();
                     while(js.size()==0) {
-                        //pBar.setVisibility(View.VISIBLE);
-                        js = journey.getListOfJourneys(context);
+                       // pBar.setVisibility(View.VISIBLE);
+                        js = journey.getListOfJourneys();
                     }
-                    journeyIDs = new ArrayList<String>();
-                    timestamps = new ArrayList<String>();
-                    durations = new ArrayList<String>();
+
+                    journeyIDs = new ArrayList<>();
+                    timestamps = new ArrayList<>();
+                    durations = new ArrayList<>();
                     for (int i = 0; i < js.size(); i++) {
                         journeyIDs.add(js.get(i).getJourneyID());
                         timestamps.add(js.get(i).getStart());

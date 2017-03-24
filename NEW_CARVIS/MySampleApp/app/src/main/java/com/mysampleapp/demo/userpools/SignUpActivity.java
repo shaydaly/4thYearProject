@@ -61,12 +61,12 @@ public class SignUpActivity extends Activity {
         intent.putExtra(CognitoUserPoolsSignInProvider.AttributeKeys.PHONE_NUMBER, phone);
 
         setResult(RESULT_OK, intent);
-        Customer c = new Customer(givenName,username,email,phone);
-        c.AddCustomerToDB(context);
+        //Customer c = new Customer(givenName,username,email,phone);
+       // c.AddCustomerToDB(context);
 
-        Intent i = new Intent();
-        //i.putExtra("CustomerBundle", c);
-        intent.putExtra("CustomerBundle", (Parcelable) c);
+////        Intent i = new Intent();
+////        //i.putExtra("CustomerBundle", c);
+//        intent.putExtra("CustomerBundle", (Parcelable) c);
 
         finish();
     }

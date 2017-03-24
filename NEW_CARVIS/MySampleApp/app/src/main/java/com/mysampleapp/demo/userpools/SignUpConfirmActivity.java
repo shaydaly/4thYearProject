@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
+import com.carvis.Customer;
 import com.mysampleapp.R;
 import com.mysampleapp.util.ViewHelper;
 
@@ -48,7 +49,10 @@ public class SignUpConfirmActivity extends Activity {
         intent.putExtra(CognitoUserPoolsSignInProvider.AttributeKeys.USERNAME, username);
         intent.putExtra(CognitoUserPoolsSignInProvider.AttributeKeys.VERIFICATION_CODE, verificationCode);
 
+        System.out.println("confirm activity");
+
         setResult(RESULT_OK, intent);
+
 
         finish();
     }

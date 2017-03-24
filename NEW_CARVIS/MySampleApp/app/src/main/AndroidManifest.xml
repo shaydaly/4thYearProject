@@ -132,7 +132,9 @@
         <service
             android:name="com.carvis.SpeedCheckService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity android:name="com.carvis.UserStatistics"></activity>
     </application>
 
 </manifest>

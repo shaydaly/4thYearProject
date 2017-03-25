@@ -157,6 +157,7 @@
             android:exported="true" />
 
         <activity android:name="com.carvis.UserStatistics" />
+        <activity android:name="com.carvis.UserStatActivity" />
         <!-- Include the AdActivity and InAppPurchaseActivity configChanges and themes. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"

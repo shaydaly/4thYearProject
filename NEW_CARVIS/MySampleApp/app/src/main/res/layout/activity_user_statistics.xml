@@ -11,25 +11,36 @@
     tools:context="com.carvis.UserStatistics">
 
 
-    <TextView
-        android:text="TextView"
-        android:layout_width="match_parent"
+    <!--<TextView-->
+        <!--android:text="TextView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_marginLeft="22dp"-->
+        <!--android:layout_marginStart="22dp"-->
+        <!--android:layout_marginTop="17dp"-->
+        <!--android:id="@+id/numJourneys" />-->
+
+    <!--<TextView-->
+        <!--android:text="TextView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/numJourneys"-->
+        <!--android:layout_marginTop="107dp"-->
+        <!--android:id="@+id/numOverSpeedJourneys"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true" />-->
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="22dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="17dp"
-        android:id="@+id/numJourneys" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/numJourneys"
-        android:layout_marginTop="107dp"
-        android:id="@+id/numOverSpeedJourneys"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_marginLeft="121dp"
+        android:layout_marginStart="121dp"
+        android:layout_marginTop="103dp"
+        android:id="@+id/progressBar2" />
 </RelativeLayout>

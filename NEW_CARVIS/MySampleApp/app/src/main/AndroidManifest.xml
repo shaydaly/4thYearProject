@@ -134,7 +134,8 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name="com.carvis.UserStatistics"></activity>
+        <activity android:name="com.carvis.UserStatistics" />
+        <activity android:name="com.carvis.UserStatActivity"></activity>
     </application>
 
 </manifest>

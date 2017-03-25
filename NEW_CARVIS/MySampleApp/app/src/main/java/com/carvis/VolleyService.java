@@ -1,6 +1,7 @@
 package com.carvis;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -19,14 +20,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static android.R.attr.value;
 
 /**
  * Created by Seamus on 23/03/2017.
@@ -334,6 +341,8 @@ public class VolleyService {
     }
 
     public void getUserStatistics(String username){
+        final DateTimeFormatter format = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+        final DateTimeFormatter format2 = DateTimeFormat.forPattern("yyyy-MM-dd");
         url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/getuserstatistics?username="+username;
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -341,15 +350,34 @@ public class VolleyService {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+                            ArrayList<JourneyDate> journeyDates = new ArrayList<>();
+                            ArrayList<DateTime> dates = new ArrayList<>();
                             JSONObject jsonObject = new JSONObject(response.toString());
-                            String numJourneys = jsonObject.get("numJourneys").toString();
-                            String journeysWithOverSpeed = jsonObject.get("journeysWithOverSpeed").toString();
-                            System.out.println(numJourneys+" num journeys\n"+journeysWithOverSpeed+"journeys");
+                            int numJourneys = Integer.parseInt(jsonObject.get("numJourneys").toString());
+                            int journeysWithOverSpeed = Integer.parseInt(jsonObject.get("journeysWithOverSpeed").toString());
+                            String overSpeedRoad = jsonObject.get("overSpeedRoad").toString();
+                            //System.out.println(numJourneys+" num journeys\n"+journeysWithOverSpeed+"journeys");
+                            JSONArray jsonArray = jsonObject.getJSONArray("journeyTimes");
+                            for(int i = 0; i < jsonArray.length(); i++){
+                                String endTime = String.valueOf(jsonArray.getJSONObject(i).get("endTime"));
+                                String startTime = String.valueOf(jsonArray.getJSONObject(i).get("startTime"));
+                                journeyDates.add(new JourneyDate(format.parseDateTime(startTime), format.parseDateTime(endTime)));
+                            }
+                            JSONArray overSpeedDates = jsonObject.getJSONArray("overSpeedDates");
+                            for(int i = 0; i < overSpeedDates.length(); i++){
+                                String date = String.valueOf(overSpeedDates.getJSONObject(i).get("overSpeedDate"));
+                                dates.add(format2.parseDateTime(date));
+                            }
+                            UserStat userStat = new UserStat(overSpeedRoad,journeyDates,journeysWithOverSpeed,numJourneys,dates);
+                            Intent myIntent = new Intent(context, UserStatActivity.class);
+                            myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            myIntent.putExtra("userStat", userStat); //Optional parameters
+                            context.startActivity(myIntent);
                         } catch (JSONException e) {
-                            Log.i("GET SPEED EXCEPTIOM ", e.getMessage());
+                            Log.i("user stat  ", e.getMessage());
                         }
                         catch(Exception e){
-                            Log.i("sp ex ", "speed lambda exception");
+                            Log.i("sp ex ", e.getMessage());
                         }
                     }
                 }, new Response.ErrorListener() {

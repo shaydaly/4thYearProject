@@ -1,15 +1,25 @@
 package com.carvis;
 
+import android.location.Location;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.google.android.gms.maps.model.LatLng;
+
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.apache.commons.lang3.time.DateUtils.round;
 
 /**
  * Created by Seamus on 24/03/2017.
@@ -18,26 +28,36 @@ import java.util.Map;
 public class UserStat implements Serializable {
    // private String username;
     private String overSpeedRoad;
-    private ArrayList<JourneyDate> journeyDates;
-    int journeysWithOverSpeed;
+    private ArrayList<JourneyInfo> journeyInfos;
+    private int journeysWithOverSpeed;
     int numJourneys;
+    private DateTime memberSince;
     private ArrayList<DateTime> overSpeedDates;
 
 
-    public UserStat(String overSpeedRoad, ArrayList<JourneyDate> journeyDates, int journeysWithOverSpeed, int numJourneys, ArrayList<DateTime> overSpeedDates) {
+    public UserStat(String overSpeedRoad, ArrayList<JourneyInfo> journeyInfos, int journeysWithOverSpeed, int numJourneys, ArrayList<DateTime> overSpeedDates, DateTime memberSince) {
         //this.username = username;
         this.overSpeedRoad = overSpeedRoad;
-        this.journeyDates = journeyDates;
+        this.journeyInfos = journeyInfos;
         this.journeysWithOverSpeed = journeysWithOverSpeed;
         this.numJourneys = numJourneys;
         this.overSpeedDates = overSpeedDates;
+        this.memberSince = memberSince;
     }
 
     public UserStat() {
         overSpeedDates = new ArrayList<>();
     }
 
-//    public String getUsername() {
+    public DateTime getMemberSince() {
+        return memberSince;
+    }
+
+    public void setMemberSince(DateTime memberSince) {
+        this.memberSince = memberSince;
+    }
+
+    //    public String getUsername() {
 //        return username;
 //    }
 //
@@ -53,12 +73,12 @@ public class UserStat implements Serializable {
         this.overSpeedRoad = overSpeedRoad;
     }
 
-    public ArrayList<JourneyDate> getJourneyDates() {
-        return journeyDates;
+    public ArrayList<JourneyInfo> getJourneyDates() {
+        return journeyInfos;
     }
 
-    public void setJourneyDates(ArrayList<JourneyDate> journeyDates) {
-        this.journeyDates = journeyDates;
+    public void setJourneyDates(ArrayList<JourneyInfo> journeyInfos) {
+        this.journeyInfos = journeyInfos;
     }
 
     public int getJourneysWithOverSpeed() {
@@ -89,8 +109,12 @@ public class UserStat implements Serializable {
         overSpeedDates.add(date);
     }
 
-    public void addJourneyDate(JourneyDate journeyDate){
-        journeyDates.add(journeyDate);
+    public int getNumOverSpeed(){
+        return overSpeedDates.size();
+    }
+
+    public void addJourneyDate(JourneyInfo journeyDate){
+        journeyInfos.add(journeyDate);
     }
 
     public String getDayOfWeek(DateTime dateTime){
@@ -124,17 +148,43 @@ public class UserStat implements Serializable {
     }
 
     public String getOverSpeedPercentage(){
-        return String.valueOf((overSpeedDates.size() / journeyDates.size()) * 100)+"%";
+        double percentage = ((double)overSpeedDates.size() / journeyInfos.size()) * 100;
+        return String.valueOf(getRoundedValue(percentage,2))+"%";
     }
 
     public double getAverageJourneyTime(){
         double total = 0;
-        for(JourneyDate journeyDate : journeyDates){
+        for(JourneyInfo journeyDate : journeyInfos){
             total += getJourneyDuration(journeyDate.getStartTime(), journeyDate.getEndTime());
         }
 
-        return total / journeyDates.size();
+        double value = (total / journeyInfos.size());
+        return getRoundedValue(value, 2);
     }
+
+    public double getKilomsTravelled(){
+        double total = 0;
+        Location start =new Location("start");
+        Location end =new Location("end");
+        for(JourneyInfo journeyInfo : journeyInfos){
+            start.setLatitude(journeyInfo.getStartLatitude());
+            start.setLongitude(journeyInfo.getStartLongitude());
+            end.setLatitude(journeyInfo.getEndLatitude());
+            end.setLongitude(journeyInfo.getEndLongitude());
+            total += getDistance(start, end);
+        }
+        return getRoundedValue(total, 2);
+    }
+
+    public double getAverageJourneyKiloms(){
+        return getRoundedValue(getKilomsTravelled() / journeyInfos.size(), 2);
+    }
+
+    public double getDistance(Location start, Location end){
+        return (start.distanceTo(end)) / 1000;
+    }
+
+
 
     public double  getJourneyDuration(DateTime start, DateTime end){
 
@@ -148,14 +198,32 @@ public class UserStat implements Serializable {
             return 0;
         }
     }
+    public  double getRoundedValue(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
 }
 
 
- class JourneyDate implements Serializable{
+ class JourneyInfo implements  Serializable{
      DateTime startTime;
      DateTime endTime;
+     double startLatitude, startLongitude, endLatitude, endLongitude;
 
-     JourneyDate(DateTime startTime, DateTime endTime){
+
+     JourneyInfo(DateTime startTime, DateTime endTime, double startLatitude, double startLongitude, double endLatitude, double endLongitude){
+         this.startTime = startTime;
+         this.endTime = endTime;
+         this.startLatitude = startLatitude;
+         this.startLongitude = startLongitude;
+         this.endLatitude  = endLatitude;
+         this.endLongitude = endLongitude;
+     }
+
+     JourneyInfo(DateTime startTime, DateTime endTime){
          this.startTime = startTime;
          this.endTime = endTime;
      }
@@ -175,6 +243,64 @@ public class UserStat implements Serializable {
      public void setEndTime(DateTime endTime) {
          this.endTime = endTime;
      }
+
+     public double getStartLatitude() {
+         return startLatitude;
+     }
+
+     public void setStartLatitude(double startLatitude) {
+         this.startLatitude = startLatitude;
+     }
+
+     public double getStartLongitude() {
+         return startLongitude;
+     }
+
+     public void setStartLongitude(double startLongitude) {
+         this.startLongitude = startLongitude;
+     }
+
+     public double getEndLatitude() {
+         return endLatitude;
+     }
+
+     public void setEndLatitude(double endLatitude) {
+         this.endLatitude = endLatitude;
+     }
+
+     public double getEndLongitude() {
+         return endLongitude;
+     }
+
+     public void setEndLongitude(double endLongitude) {
+         this.endLongitude = endLongitude;
+     }
+
+//     public int describeContents() {
+//         return 0;
+//     }
+//
+//     public void writeToParcel(Parcel out, int flags) {
+//         out.wr;
+//         out.writeValue(startLocation);
+//         out.writeValue(endLocation);
+//     }
+//
+//     public static final Parcelable.Creator<JourneyInfo> CREATOR
+//             = new Parcelable.Creator<JourneyInfo>() {
+//         public JourneyInfo createFromParcel(Parcel in) {
+//             return new JourneyInfo(in);
+//         }
+//
+//         public JourneyInfo[] newArray(int size) {
+//             return new JourneyInfo[size];
+//         }
+//     };
+//
+//     private JourneyInfo(Parcel in) {
+////         startLocation = in.readBundle();
+////     }
+//     }
  }
 
 

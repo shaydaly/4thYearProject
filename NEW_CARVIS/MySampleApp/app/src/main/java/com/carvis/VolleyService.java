@@ -2,6 +2,7 @@ package com.carvis;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -16,6 +17,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
@@ -341,8 +343,8 @@ public class VolleyService {
     }
 
     public void getUserStatistics(String username){
-        final DateTimeFormatter format = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
-        final DateTimeFormatter format2 = DateTimeFormat.forPattern("yyyy-MM-dd");
+        final DateTimeFormatter dateWithTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+        final DateTimeFormatter dateFormatter = DateTimeFormat.forPattern("yyyy-MM-dd");
         url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/getuserstatistics?username="+username;
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -350,34 +352,52 @@ public class VolleyService {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            ArrayList<JourneyDate> journeyDates = new ArrayList<>();
+                            ArrayList<JourneyInfo> journeys = new ArrayList<>();
                             ArrayList<DateTime> dates = new ArrayList<>();
                             JSONObject jsonObject = new JSONObject(response.toString());
                             int numJourneys = Integer.parseInt(jsonObject.get("numJourneys").toString());
                             int journeysWithOverSpeed = Integer.parseInt(jsonObject.get("journeysWithOverSpeed").toString());
                             String overSpeedRoad = jsonObject.get("overSpeedRoad").toString();
                             //System.out.println(numJourneys+" num journeys\n"+journeysWithOverSpeed+"journeys");
-                            JSONArray jsonArray = jsonObject.getJSONArray("journeyTimes");
+                            JSONArray jsonArray = jsonObject.getJSONArray("journeys");
                             for(int i = 0; i < jsonArray.length(); i++){
                                 String endTime = String.valueOf(jsonArray.getJSONObject(i).get("endTime"));
                                 String startTime = String.valueOf(jsonArray.getJSONObject(i).get("startTime"));
-                                journeyDates.add(new JourneyDate(format.parseDateTime(startTime), format.parseDateTime(endTime)));
+                                double startLatitude =  Double.parseDouble(String.valueOf(jsonArray.getJSONObject(i).get("startLatitude")));
+                                double startLongitude =  Double.parseDouble(String.valueOf(jsonArray.getJSONObject(i).get("startLongitude")));
+                                double endLatitude =  Double.parseDouble(String.valueOf(jsonArray.getJSONObject(i).get("endLatitude")));
+                                double endLongitude =  Double.parseDouble(String.valueOf(jsonArray.getJSONObject(i).get("endLongitude")));
+
+//                                Location start = new Location("start");
+//                                start.setLatitude(Double.parseDouble(startLatitude));
+//                                start.setLongitude(Double.parseDouble(startLongitude));
+//                                System.out.println(start.getLatitude()+" _ _ _ "+start.getLongitude());
+//                                Location end = new Location("end");
+//                                end.setLatitude(Double.parseDouble(endLatitude));
+//                                end.setLongitude(Double.parseDouble(endLongitude));
+                                journeys.add(new JourneyInfo(dateWithTimeFormatter.parseDateTime(startTime), dateWithTimeFormatter.parseDateTime(endTime), startLatitude, startLongitude, endLatitude, endLongitude));
                             }
                             JSONArray overSpeedDates = jsonObject.getJSONArray("overSpeedDates");
                             for(int i = 0; i < overSpeedDates.length(); i++){
                                 String date = String.valueOf(overSpeedDates.getJSONObject(i).get("overSpeedDate"));
-                                dates.add(format2.parseDateTime(date));
+                                dates.add(dateFormatter.parseDateTime(date));
                             }
-                            UserStat userStat = new UserStat(overSpeedRoad,journeyDates,journeysWithOverSpeed,numJourneys,dates);
+
+                            String date = String.valueOf(jsonObject.get("memberSince"));
+                            DateTime memberSince = dateWithTimeFormatter.parseDateTime(date);
+
+
+
+                            UserStat userStat = new UserStat(overSpeedRoad,journeys,journeysWithOverSpeed,numJourneys,dates, memberSince);
                             Intent myIntent = new Intent(context, UserStatActivity.class);
                             myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             myIntent.putExtra("userStat", userStat); //Optional parameters
                             context.startActivity(myIntent);
                         } catch (JSONException e) {
-                            Log.i("user stat  ", e.getMessage());
+                            Log.i("user stat", e.getMessage());
                         }
                         catch(Exception e){
-                            Log.i("sp ex ", e.getMessage());
+                            Log.i("user stat", e.getMessage());
                         }
                     }
                 }, new Response.ErrorListener() {

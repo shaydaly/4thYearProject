@@ -320,12 +320,12 @@
         "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.0.0\\res\\layout\\abc_action_bar_title_item.xml"
     },
     {
-        "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_demo_home.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\src\\main\\res\\layout\\fragment_demo_home.xml"
-    },
-    {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_user_stat.xml",
         "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\src\\main\\res\\layout\\activity_user_stat.xml"
+    },
+    {
+        "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_demo_home.xml",
+        "source": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\src\\main\\res\\layout\\fragment_demo_home.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\amu_text_bubble.xml",

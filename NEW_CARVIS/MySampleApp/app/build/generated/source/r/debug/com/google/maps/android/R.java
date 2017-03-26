@@ -39,12 +39,12 @@ public final class R {
 		public static final int zOrderOnTop = 0x7f01010f;
 	}
 	public static final class color {
-		public static final int common_google_signin_btn_text_dark = 0x7f0d008a;
+		public static final int common_google_signin_btn_text_dark = 0x7f0d008b;
 		public static final int common_google_signin_btn_text_dark_default = 0x7f0d002b;
 		public static final int common_google_signin_btn_text_dark_disabled = 0x7f0d002c;
 		public static final int common_google_signin_btn_text_dark_focused = 0x7f0d002d;
 		public static final int common_google_signin_btn_text_dark_pressed = 0x7f0d002e;
-		public static final int common_google_signin_btn_text_light = 0x7f0d008b;
+		public static final int common_google_signin_btn_text_light = 0x7f0d008c;
 		public static final int common_google_signin_btn_text_light_default = 0x7f0d002f;
 		public static final int common_google_signin_btn_text_light_disabled = 0x7f0d0030;
 		public static final int common_google_signin_btn_text_light_focused = 0x7f0d0031;
@@ -81,9 +81,9 @@ public final class R {
 		public static final int satellite = 0x7f0e003f;
 		public static final int standard = 0x7f0e0052;
 		public static final int terrain = 0x7f0e0040;
-		public static final int webview = 0x7f0e00fc;
+		public static final int webview = 0x7f0e0104;
 		public static final int wide = 0x7f0e0053;
-		public static final int window = 0x7f0e00fb;
+		public static final int window = 0x7f0e0103;
 	}
 	public static final class integer {
 		public static final int google_play_services_version = 0x7f0f0004;

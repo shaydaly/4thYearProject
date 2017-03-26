@@ -106,5 +106,13 @@
     <string name="map">Map</string>
     <string name="title_activity_speed_camera_map">Map</string>
     <string name="userStatistics">User Statistics</string>
-
+    <string name="averageJourneyTime">Avg. Journey Time (mins)</string>
+    <string name="numJourneys">No. of Journeys</string>
+    <string name="numOverSpeeds">No. of Journeys with Speeding Incident</string>
+    <string name="dayWithMostOverSpeed">Day Most Likely to Speed</string>
+    <string name="mostOverSpeedRoad">Road with most Speeding Incidents</string>
+    <string name="memberSince">Member Since</string>
+    <string name="percentageOverSpeed">% of Journeys with Speed Incident</string>
+    <string name="kmTravelled">Kiloms Travelled</string>
+    <string name="avgJourneyKM">Average Journey Distance</string>
 </resources>

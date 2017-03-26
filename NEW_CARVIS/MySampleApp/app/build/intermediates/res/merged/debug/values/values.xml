@@ -141,6 +141,7 @@
     <color name="secondary_text_disabled_material_dark">#36ffffff</color>
     <color name="secondary_text_disabled_material_light">#24000000</color>
     <color name="sign_in_separator_color">#ffffff</color>
+    <color name="silver">#948f8f</color>
     <color name="splash_background">#C0C0C0</color>
     <color name="splash_text">#bf000000</color>
     <color name="switch_thumb_disabled_material_dark">#ff616161</color>
@@ -721,6 +722,8 @@
     <string name="action_sign_in_short">Sign in</string>
     <string name="addCamera">Add Speed Camera</string>
     <string name="app_name">CARVIS</string>
+    <string name="averageJourneyTime">Avg. Journey Time (mins)</string>
+    <string name="avgJourneyKM">Average Journey Distance</string>
     <string name="button_text_sign_in">SIGN IN</string>
     <string name="button_text_sign_out">SIGN OUT</string>
     <string name="cast_ad_label">Ad</string>
@@ -799,6 +802,7 @@
     <string name="common_signin_button_text_long">Sign in with Google</string>
     <string name="create_calendar_message">Allow Ad to create a calendar event?</string>
     <string name="create_calendar_title">Create calendar event</string>
+    <string name="dayWithMostOverSpeed">Day Most Likely to Speed</string>
     <string name="debug_menu_ad_information">Ad Information</string>
     <string name="debug_menu_creative_preview">Creative Preview</string>
     <string name="debug_menu_title">Select a Debug Mode</string>
@@ -844,6 +848,7 @@
     <string name="identity_demo_unknown_identity_text">&lt;UNKNOWN IDENTITY></string>
     <string name="initialSpeed">0 km/h</string>
     <string name="journeys">Journeys</string>
+    <string name="kmTravelled">Kiloms Travelled</string>
     <string name="login">Login</string>
     <string name="login_failed">Login failed.</string>
     <string name="login_success">Login succeeded.</string>
@@ -852,9 +857,11 @@
     <string name="main_nav_menu_default_user_text">\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020</string>
     <string name="main_nav_menu_item_home">Home</string>
     <string name="map">Map</string>
+    <string name="memberSince">Member Since</string>
     <string name="messenger_send_button_text">Send</string>
     <string name="mfa_code_sent_message">Code sent.</string>
     <string name="mfa_header">MFA verification is required to authenticate.</string>
+    <string name="mostOverSpeedRoad">Road with most Speeding Incidents</string>
     <string name="mr_button_content_description">Cast button</string>
     <string name="mr_chooser_searching">Finding devices</string>
     <string name="mr_chooser_title">Cast to</string>
@@ -871,9 +878,12 @@
     <string name="mr_controller_stop">Stop casting</string>
     <string name="mr_system_route_name">System</string>
     <string name="mr_user_route_category_name">Devices</string>
+    <string name="numJourneys">No. of Journeys</string>
+    <string name="numOverSpeeds">No. of Journeys with Speeding Incident</string>
     <string name="password">Password</string>
     <string name="password_change_failed">Password change failed.</string>
     <string name="password_change_success">Password change succeeded.</string>
+    <string name="percentageOverSpeed">% of Journeys with Speed Incident</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>

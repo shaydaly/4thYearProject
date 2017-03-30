@@ -30,27 +30,101 @@
         app:contentInsetStart="0dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <Button
-        android:text="@string/addCamera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/addSpeedCamera"
-        android:layout_marginBottom="19dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+    <!--<Button-->
+        <!--android:text="@string/addCamera"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/addSpeedCamera"-->
+        <!--android:layout_marginBottom="19dp"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentEnd="true" />-->
 
-    <Button
-        android:text="query DB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/queryDB"
-        android:layout_alignBaseline="@+id/addSpeedCamera"
-        android:layout_alignBottom="@+id/addSpeedCamera"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginStart="15dp" />
+    <!--<Button-->
+        <!--android:text="query DB"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/queryDB"-->
+        <!--android:layout_alignBaseline="@+id/addSpeedCamera"-->
+        <!--android:layout_alignBottom="@+id/addSpeedCamera"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_marginLeft="15dp"-->
+        <!--android:layout_marginStart="15dp" />--><![CDATA[
+
+
+
+    //android:layout_alignLeft="@+id/addSpeedCamera"
+        //android:layout_alignStart="@+id/addSpeedCamera" />
+
+
+
+
+
+    ]]><!--<FrameLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+    <!--</FrameLayout>-->
+
+    <ImageView
+    android:layout_width="200dp"
+    android:layout_height="200dp"
+    android:src="@drawable/speed50km"
+    android:id="@+id/speed50km"
+    android:scaleType="fitXY"
+    android:adjustViewBounds="true"
+    android:contentDescription="asdassad"
+    android:scaleX="0.75"
+    android:scaleY="0.75"
+    android:visibility="invisible" android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"/>
+
+    <ImageView
+    android:layout_width="200dp"
+    android:layout_height="200dp"
+    android:src="@drawable/speed60km"
+    android:id="@+id/speed60km"
+    android:scaleType="fitXY"
+    android:adjustViewBounds="true"
+    android:contentDescription="asdassad"
+    android:scaleX="0.75"
+    android:scaleY="0.75"
+    android:visibility="invisible"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp" />
+
+    <ImageView
+    android:layout_width="200dp"
+    android:layout_height="200dp"
+    android:src="@drawable/speed80km"
+    android:id="@+id/speed80km"
+    android:scaleType="fitXY"
+    android:adjustViewBounds="true"
+    android:contentDescription="asdassad"
+    android:scaleX="0.75"
+    android:scaleY="0.75"
+    android:visibility="invisible"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp" />
+
+    <ImageView
+    android:layout_width="200dp"
+    android:layout_height="200dp"
+    android:src="@drawable/speed100km"
+    android:id="@+id/speed100km"
+        android:scaleType="fitXY"
+    android:adjustViewBounds="true"
+    android:contentDescription="asdassad"
+    android:scaleX="0.75"
+    android:scaleY="0.75"
+        android:visibility="invisible"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp" />
 
     <TextView
         android:text="@string/initialSpeed"
@@ -61,97 +135,24 @@
         android:textStyle="bold"
         android:textColor="@color/white"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="80dp"
-        android:layout_marginEnd="80dp" />
+        android:layout_alignLeft="@+id/speed50km"
+        android:layout_alignStart="@+id/speed50km"
+        android:layout_marginLeft="27dp"
+        android:layout_marginStart="27dp" />
 
-    <TextView
-        android:text="@string/speedLimit"
-        android:layout_width="290dp"
-        android:layout_height="150dp"
-        android:textSize="30sp"
-        android:id="@+id/speedLimit"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/addSpeedCamera"
-        android:layout_alignStart="@+id/addSpeedCamera" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/currentSpeed"
-        android:layout_marginTop="65dp"
-        android:id="@+id/queryresult"
-        android:layout_alignRight="@+id/currentSpeed"
-        android:layout_alignEnd="@+id/currentSpeed" />
-
-    <!--<FrameLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
-
-    <!--</FrameLayout>-->
-
-    <!--<ImageView-->
-    <!--android:layout_width="200dp"-->
-    <!--android:layout_height="200dp"-->
-    <!--android:src="@drawable/speed50km"-->
-    <!--android:id="@+id/speed50km"-->
-    <!--android:scaleType="fitXY"-->
-    <!--android:adjustViewBounds="true"-->
-    <!--android:contentDescription="asdassad"-->
-    <!--android:scaleX="0.75"-->
-    <!--android:scaleY="0.75"-->
-    <!--android:visibility="invisible" android:layout_centerVertical="true"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_marginTop="24dp"/>-->
-
-    <!--<ImageView-->
-    <!--android:layout_width="200dp"-->
-    <!--android:layout_height="200dp"-->
-    <!--android:src="@drawable/speed60km"-->
-    <!--android:id="@+id/speed60km"-->
-    <!--android:scaleType="fitXY"-->
-    <!--android:adjustViewBounds="true"-->
-    <!--android:contentDescription="asdassad"-->
-    <!--android:scaleX="0.75"-->
-    <!--android:scaleY="0.75"-->
-    <!--android:visibility="invisible"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_marginTop="24dp" />-->
-
-    <!--<ImageView-->
-    <!--android:layout_width="200dp"-->
-    <!--android:layout_height="200dp"-->
-    <!--android:src="@drawable/speed80km"-->
-    <!--android:id="@+id/speed80km"-->
-    <!--android:scaleType="fitXY"-->
-    <!--android:adjustViewBounds="true"-->
-    <!--android:contentDescription="asdassad"-->
-    <!--android:scaleX="0.75"-->
-    <!--android:scaleY="0.75"-->
-    <!--android:visibility="invisible"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_marginTop="24dp" />-->
-
-    <!--<ImageView-->
-    <!--android:layout_width="200dp"-->
-    <!--android:layout_height="200dp"-->
-    <!--android:src="@drawable/speed100km"-->
-    <!--android:id="@+id/speed100km"-->
-        <!--android:scaleType="fitXY"-->
-    <!--android:adjustViewBounds="true"-->
-    <!--android:contentDescription="asdassad"-->
-    <!--android:scaleX="0.75"-->
-    <!--android:scaleY="0.75"-->
-        <!--android:visibility="invisible"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_marginTop="24dp" />-->
+    <!--<TextView-->
+        <!--android:text="@string/speedLimit"-->
+        <!--android:layout_width="290dp"-->
+        <!--android:layout_height="150dp"-->
+        <!--android:textSize="30sp"-->
+        <!--android:id="@+id/speedLimit"-->
+        <!--android:textStyle="bold"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:layout_marginLeft="78dp"-->
+        <!--android:layout_marginStart="78dp"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignLeft="@+id/speed50km"-->
+        <!--android:layout_alignStart="@+id/speed50km" />-->
 
 </RelativeLayout>
 </android.support.v4.widget.DrawerLayout>

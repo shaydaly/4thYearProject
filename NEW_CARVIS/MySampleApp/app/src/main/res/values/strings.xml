@@ -15,7 +15,7 @@
     <string name="button_text_sign_in">SIGN IN</string>
     <string name="button_text_sign_out">SIGN OUT</string>
     <string name="sign_in_email">Email</string>
-    <string name="sign_in_username">Username/Phone Number (+3530871234567)</string>
+    <string name="sign_in_username">Username/Phone Number (0871234567)</string>
     <string name="sign_in_password">Password</string>
     <string name="sign_in_new_account">Create New Account</string>
     <string name="sign_in_forgot_password">Forgot Your Password?</string>
@@ -35,7 +35,7 @@
     <string name="username_text">Username</string>
     <string name="given_name_text">Given name</string>
     <string name="email_address_text">Email address</string>
-    <string name="phone_number_text">Phone number (+3530851234567)</string>
+    <string name="phone_number_text">Phone number (0851234567)</string>
     <string name="sign_up_header">Enter the following information to sign up.</string>
     <string name="sign_up_confirm_code">Confirmation code</string>
     <string name="sign_up_confirm_text">Confirm</string>
@@ -83,11 +83,11 @@
     <string name="phoneNumber">Phone Number</string>
     <string name="email">Email</string>
     <string name="signIn">Sign In</string>
-    <string name="trackSpeed">Track Speed</string>
+    <string name="startJourney">Start Journey</string>
     <string name="initialSpeed">0 km/h</string>
     <string name="speedLimit">0 k/m</string>
     <string name="speedMetric">km/h</string>
-    <string name="journeys">Journeys</string>
+    <string name="journeys">Previous Journeys</string>
     <string name="addCamera">Add Speed Camera</string>
     <string name="speedCameraMap">Speed Camera Map</string>
     <!-- Strings related to login -->
@@ -107,12 +107,17 @@
     <string name="title_activity_speed_camera_map">Map</string>
     <string name="userStatistics">User Statistics</string>
     <string name="averageJourneyTime">Avg. Journey Time (mins)</string>
-    <string name="numJourneys">No. of Journeys</string>
-    <string name="numOverSpeeds">No. of Journeys with Speeding Incident</string>
+    <string name="numJourneys">Journeys</string>
+    <string name="numOverSpeeds">Over Speed Journeys</string>
     <string name="dayWithMostOverSpeed">Day Most Likely to Speed</string>
-    <string name="mostOverSpeedRoad">Road with most Speeding Incidents</string>
+    <string name="mostOverSpeedRoad">Most Over Limit Road</string>
     <string name="memberSince">Member Since</string>
-    <string name="percentageOverSpeed">% of Journeys with Speed Incident</string>
-    <string name="kmTravelled">Kiloms Travelled</string>
-    <string name="avgJourneyKM">Average Journey Distance</string>
+    <string name="percentageOverSpeed">% Speeding Journeys</string>
+    <string name="kmTravelled">Distance Travelled(km)</string>
+    <string name="avgJourneyKM">Avg. Journey Distance(KM)</string>
+    <string name="journeyHistory">Journey History</string>
+    <string name="daysSinceLastOverSpeed1">It has been </string>
+    <string name="daysSinceLastOverSpeed2"> days since your last Speeding incident </string>
+    <string name="wellDone">Well Done !</string>
+    <string name="slowingDown">Maybe consider slowing down?</string>
 </resources>

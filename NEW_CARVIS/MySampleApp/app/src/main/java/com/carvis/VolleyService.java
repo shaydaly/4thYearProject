@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -21,6 +23,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
+import com.mysampleapp.R;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -128,6 +131,8 @@ public class VolleyService {
         }
     }
 
+
+
     public void getSpeedFromLambda(FirebaseDatabase database, final SpeedSearch speedSearch, final String latitude,final  String longitude) {
         final DatabaseReference myRef = database.getReference("speedLimits");
         System.out.println("GET SPEED CALLED");
@@ -147,10 +152,8 @@ public class VolleyService {
 //                            Location l = new Location("location");
 //                            l.setLatitude(Double.parseDouble(latitude));
 //                            l.setLongitude(Double.parseDouble(longitude));
-                            String speedLimit = String.valueOf("speed");
-                            //myRef.push().setValue(new Road(Integer.parseInt(String.valueOf(obj.get("osm_id"))), Integer.parseInt(speedLimit), l));
-                            myRef.child(String.valueOf(obj.get("osm_id"))).push().setValue(new RoadRecord(latitude,longitude, Integer.parseInt(speedLimit)));
-                            //myRef.child(String.valueOf(obj.get("osm_id"))).child("location").child("speedLimit").push().setValue(speedLimit);
+                            int speedLimit = obj.getInt("speed");
+                            //myRef.child(String.valueOf(obj.get("osm_id"))).push().setValue(new RoadRecord(latitude,longitude, speedLimit));
                             speedSearch.setOsm_id(obj.getInt("osm_id"));
                         } catch (JSONException e) {
                             Log.i("GET SPEED EXCEPTIOM ", e.getMessage());
@@ -181,12 +184,12 @@ public class VolleyService {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                                 //AddToJourneyList(jsonObject.toString());
                                 //journeys.add((jsonObject.get("starttime").toString()));
-                                String journeyFragID = jsonObject.get("journeyFragID").toString();
-                                String longitude =  jsonObject.get("longitude").toString();
-                                String latitude =  jsonObject.get("latitude").toString();
-                                String time =  jsonObject.get("time").toString();
-                                String speedLimit =  jsonObject.get("speedLimit").toString();
-                                String currentSpeed =  jsonObject.get("currentSpeed").toString();
+                                String journeyFragID = jsonObject.getString("journeyFragID");
+                                String longitude =  jsonObject.getString("longitude");
+                                String latitude =  jsonObject.getString("latitude");
+                                String time =  jsonObject.getString("time");
+                                int speedLimit =  jsonObject.getInt("speedLimit");
+                                int currentSpeed =  jsonObject.getInt("currentSpeed");
 
                                 JourneyFragment j = new JourneyFragment(journeyFragID,latitude,longitude,currentSpeed,speedLimit,time);
                                 //System.out.println(j.getCurrentSpeed());
@@ -356,8 +359,9 @@ public class VolleyService {
                             ArrayList<DateTime> dates = new ArrayList<>();
                             JSONObject jsonObject = new JSONObject(response.toString());
                             int numJourneys = Integer.parseInt(jsonObject.get("numJourneys").toString());
-                            int journeysWithOverSpeed = Integer.parseInt(jsonObject.get("journeysWithOverSpeed").toString());
-                            String overSpeedRoad = jsonObject.get("overSpeedRoad").toString();
+                            int journeysWithOverSpeed = jsonObject.getInt("journeysWithOverSpeed");
+                            String overSpeedRoad = jsonObject.getString("overSpeedRoad");
+                            String roadAddress = jsonObject.getString("roadAddress");
                             //System.out.println(numJourneys+" num journeys\n"+journeysWithOverSpeed+"journeys");
                             JSONArray jsonArray = jsonObject.getJSONArray("journeys");
                             for(int i = 0; i < jsonArray.length(); i++){
@@ -384,11 +388,11 @@ public class VolleyService {
                             }
 
                             String date = String.valueOf(jsonObject.get("memberSince"));
-                            DateTime memberSince = dateWithTimeFormatter.parseDateTime(date);
+                            DateTime memberSince = dateFormatter.parseDateTime(date);
 
 
 
-                            UserStat userStat = new UserStat(overSpeedRoad,journeys,journeysWithOverSpeed,numJourneys,dates, memberSince);
+                            UserStat userStat = new UserStat(overSpeedRoad,journeys,journeysWithOverSpeed,numJourneys,dates, memberSince, roadAddress);
                             Intent myIntent = new Intent(context, UserStatActivity.class);
                             myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             myIntent.putExtra("userStat", userStat); //Optional parameters
@@ -405,6 +409,118 @@ public class VolleyService {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.i("Speed Lambda","ERROR");
+                    }
+                });
+        queue.add(jsObjRequest);
+    }
+
+
+    public  void addOverSpeedLimits(List<OverSpeedLimit> overSpeedLimits, String journeyID, String user) {
+
+        Log.i("over speed size ",String.valueOf(overSpeedLimits.size()));
+        for(OverSpeedLimit o : overSpeedLimits){
+            if(o.getJourneyid().equals("")){
+                o.setJourneyid(journeyID);
+            }
+        }
+
+
+        System.out.println("oversped called");
+        Gson gson = new Gson();
+        String json = gson.toJson(overSpeedLimits);
+
+
+        System.out.println(json);
+
+        try {
+            String URL = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/createoverspeedobject";
+            final String requestBody = json;
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    //result = response;
+                    Log.i("overspeed  VOLLEY", response.toString());
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //result = error.toString();
+                    Log.i("overspeed  VOLLEY", error.toString());
+                }
+            }) {
+                @Override
+                public String getBodyContentType() {
+                    return "application/json; charset=utf-8";
+                }
+
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    try {
+                        return requestBody == null ? null : requestBody.getBytes("utf-8");
+
+                    } catch (UnsupportedEncodingException uee) {
+                        // result = uee.toString();
+                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                        return null;
+                    }
+                }
+
+                @Override
+                protected Response<String> parseNetworkResponse(NetworkResponse response) {
+
+                    String responseString = "";
+                    if (response != null) {
+                        responseString = String.valueOf(response.statusCode);
+                        // can get more details such as response.headers
+                        //result = (response.toString());
+                        try {
+                            String str = new String(response.data, "UTF-8");
+                            //System.out.println("overspeed "+ str);
+                        }
+                        catch(UnsupportedEncodingException e){
+
+                        }
+                    }
+                    return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+                }
+            };
+
+            queue.add(stringRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+            //result = e.toString();
+        }
+    }
+
+
+    public void getDaysSinceLastOverSpeed(final UserStat  u) {
+
+        url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/daysinceoverspeed?username="+u.getUsername();
+        //final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            Log.i("days", response.toString());
+                            JSONObject obj = new JSONObject(response.toString());
+                            int daysSinceOverSpeed = obj.getInt("daysOverSpeed");
+                            u.setDaysSinceOverSpeed(daysSinceOverSpeed);
+
+                        } catch (JSONException e) {
+                            Log.i("days", e.getMessage());
+                        }
+                        catch(Exception e){
+                            Log.i("days ", e.getMessage());
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i("Sdays","ERROR");
                     }
                 });
         queue.add(jsObjRequest);

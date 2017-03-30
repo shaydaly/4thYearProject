@@ -26,6 +26,7 @@
     <uses-permission android:name="android.permission.ACCESS_COURSE_LOCATION" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:name=".Application"
@@ -129,13 +130,15 @@
             android:name="com.carvis.SpeedCameraMap"
             android:label="@string/title_activity_speed_camera_map" />
 
-        <service
-            android:name="com.carvis.SpeedCheckService"
-            android:enabled="true"
-            android:exported="true" />
+        <!-- <service -->
+        <!-- android:name="com.carvis.SpeedCheckService" -->
+        <!-- android:enabled="true" -->
+        <!-- android:exported="true" /> -->
 
         <activity android:name="com.carvis.UserStatistics" />
-        <activity android:name="com.carvis.UserStatActivity"></activity>
+        <activity android:name="com.carvis.UserStatActivity" />
+        <activity android:name="com.carvis.BarChart" />
+        <activity android:name="com.carvis.UserSettings"></activity>
     </application>
 
 </manifest>

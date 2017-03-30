@@ -26,16 +26,18 @@ import static org.apache.commons.lang3.time.DateUtils.round;
  */
 
 public class UserStat implements Serializable {
-   // private String username;
+    private String username;
     private String overSpeedRoad;
     private ArrayList<JourneyInfo> journeyInfos;
     private int journeysWithOverSpeed;
-    int numJourneys;
+    private int numJourneys;
     private DateTime memberSince;
     private ArrayList<DateTime> overSpeedDates;
+    private String roadAddress;
+    int daysSinceOverSpeed;
 
 
-    public UserStat(String overSpeedRoad, ArrayList<JourneyInfo> journeyInfos, int journeysWithOverSpeed, int numJourneys, ArrayList<DateTime> overSpeedDates, DateTime memberSince) {
+    public UserStat(String overSpeedRoad, ArrayList<JourneyInfo> journeyInfos, int journeysWithOverSpeed, int numJourneys, ArrayList<DateTime> overSpeedDates, DateTime memberSince, String roadAddress) {
         //this.username = username;
         this.overSpeedRoad = overSpeedRoad;
         this.journeyInfos = journeyInfos;
@@ -43,10 +45,34 @@ public class UserStat implements Serializable {
         this.numJourneys = numJourneys;
         this.overSpeedDates = overSpeedDates;
         this.memberSince = memberSince;
+        this.roadAddress = roadAddress;
     }
+
+
 
     public UserStat() {
         overSpeedDates = new ArrayList<>();
+    }
+
+    public UserStat(String username){
+        this.username = username;
+        daysSinceOverSpeed = 0;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setDaysSinceOverSpeed(int daysSinceOverSpeed) {
+        this.daysSinceOverSpeed = daysSinceOverSpeed;
+    }
+
+    public int getDaysSinceOverSpeed() {
+        return daysSinceOverSpeed;
     }
 
     public DateTime getMemberSince() {
@@ -110,11 +136,27 @@ public class UserStat implements Serializable {
     }
 
     public int getNumOverSpeed(){
-        return overSpeedDates.size();
+        return journeysWithOverSpeed;
     }
 
     public void addJourneyDate(JourneyInfo journeyDate){
         journeyInfos.add(journeyDate);
+    }
+
+    public ArrayList<JourneyInfo> getJourneyInfos() {
+        return journeyInfos;
+    }
+
+    public void setJourneyInfos(ArrayList<JourneyInfo> journeyInfos) {
+        this.journeyInfos = journeyInfos;
+    }
+
+    public String getRoadAddress() {
+        return roadAddress;
+    }
+
+    public void setRoadAddress(String roadAddress) {
+        this.roadAddress = roadAddress;
     }
 
     public String getDayOfWeek(DateTime dateTime){
@@ -125,59 +167,95 @@ public class UserStat implements Serializable {
 
 
     public String getOverSpeedDay(){
-        ArrayList<String> days = new ArrayList<>();
-        for(DateTime dateTime : overSpeedDates){
-            days.add(getDayOfWeek(dateTime));
-        }
-        Map<String, Integer> mostCommon = new HashMap<>();
-        String maxWord = null;
-        Integer maxCount = -1;
-        for (String day : days) {
-            if (!mostCommon.containsKey(day)) {
-                mostCommon.put(day, 0);
+        if(overSpeedDates.size()!= 0) {
+            ArrayList<String> days = new ArrayList<>();
+            for (DateTime dateTime : overSpeedDates) {
+                days.add(getDayOfWeek(dateTime));
             }
-            int count = mostCommon.get(day) + 1;
-            if (count > maxCount) {
-                maxWord = day;
-                maxCount = count;
+            Map<String, Integer> mostCommon = new HashMap<>();
+            String maxWord = null;
+            Integer maxCount = -1;
+            for (String day : days) {
+                if (!mostCommon.containsKey(day)) {
+                    mostCommon.put(day, 0);
+                }
+                int count = mostCommon.get(day) + 1;
+                if (count > maxCount) {
+                    maxWord = day;
+                    maxCount = count;
+                }
+                mostCommon.put(day, count);
             }
-            mostCommon.put(day, count);
+            return maxWord;
         }
-
-        return maxWord;
+        else{
+            return "NA";
+        }
     }
 
     public String getOverSpeedPercentage(){
-        double percentage = ((double)overSpeedDates.size() / journeyInfos.size()) * 100;
-        return String.valueOf(getRoundedValue(percentage,2))+"%";
+        if(journeyInfos.size()!=0) {
+            double percentage = ((double) journeysWithOverSpeed / journeyInfos.size()) * 100;
+            System.out.println(overSpeedDates.size() + "\t" + journeyInfos.size() + "\t" + percentage);
+            return String.valueOf(getRoundedValue(percentage,2))+"%";
+        }
+        return String.valueOf(0.0)+"%";
+
     }
 
-    public double getAverageJourneyTime(){
-        double total = 0;
-        for(JourneyInfo journeyDate : journeyInfos){
-            total += getJourneyDuration(journeyDate.getStartTime(), journeyDate.getEndTime());
-        }
+    public double getAverageJourneyTime() {
+            double total =0.0;
+        System.out.println("journey size\t\t\t"+journeyInfos.size());
+            if (journeyInfos.size() != 0) {
+                for (JourneyInfo journeyDate : journeyInfos) {
+                    System.out.println("running total "+total);
+                    System.out.println("JD "+getJourneyDuration(journeyDate.getStartTime(), journeyDate.getEndTime()));
+                    total += getJourneyDuration(journeyDate.getStartTime(), journeyDate.getEndTime());
+                }
+                System.out.println(total+" total");
+                double value  = getRoundedValue((total / journeyInfos.size()), 5);
+                System.out.println(value+" value");
+                total = value;
+            }
+            else {
+                total =  0.0;
+            }
 
-        double value = (total / journeyInfos.size());
-        return getRoundedValue(value, 2);
+        if(total!= 0){
+            return getRoundedValue(total,2);
+        }
+        return total;
     }
 
     public double getKilomsTravelled(){
         double total = 0;
         Location start =new Location("start");
         Location end =new Location("end");
-        for(JourneyInfo journeyInfo : journeyInfos){
-            start.setLatitude(journeyInfo.getStartLatitude());
-            start.setLongitude(journeyInfo.getStartLongitude());
-            end.setLatitude(journeyInfo.getEndLatitude());
-            end.setLongitude(journeyInfo.getEndLongitude());
-            total += getDistance(start, end);
+        if(journeyInfos.size()!= 0) {
+            for (JourneyInfo journeyInfo : journeyInfos) {
+                start.setLatitude(journeyInfo.getStartLatitude());
+                start.setLongitude(journeyInfo.getStartLongitude());
+                end.setLatitude(journeyInfo.getEndLatitude());
+                end.setLongitude(journeyInfo.getEndLongitude());
+                total += getDistance(start, end);
+            }
         }
-        return getRoundedValue(total, 2);
+        else{
+            total = 0;
+        }
+        //return getRoundedValue(total, 2);
+
+        if(total!= 0){
+            return getRoundedValue(total,2);
+        }
+        return total;
     }
 
     public double getAverageJourneyKiloms(){
-        return getRoundedValue(getKilomsTravelled() / journeyInfos.size(), 2);
+        if(journeyInfos.size()!= 0) {
+            return getRoundedValue(getKilomsTravelled() / journeyInfos.size(), 2);
+        }
+        return 0.0;
     }
 
     public double getDistance(Location start, Location end){

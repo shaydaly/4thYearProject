@@ -26,7 +26,7 @@ public class UserStatActivity extends AppCompatActivity {
         // Set up the activity to use this toolbar. As a side effect this sets the Toolbar's title
         // to the activity's title.
         toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.setTitle("User Stats");
+        toolbar.setTitle(R.string.userStatistics);
 
 
         Bundle b = getIntent().getExtras();
@@ -41,19 +41,19 @@ public class UserStatActivity extends AppCompatActivity {
         final TextView kilomTravelled= (TextView) findViewById(R.id.kilomTravelled);
         final TextView avgJourneykilom= (TextView) findViewById(R.id.avgJourneykilom);
         try {
-
-            memberSince.setText(String.valueOf(userStat.getMemberSince().toLocalDate()));
-            averageJourneyTime.setText(String.valueOf(userStat.getAverageJourneyTime()));
-            numberOfJourneys.setText(String.valueOf(userStat.getNumJourneys()));
-            numberOfOverSpeeds.setText(String.valueOf(userStat.getNumOverSpeed()));
-            overSpeedPercentage.setText(String.valueOf(userStat.getOverSpeedPercentage()));
-            overSpeedDay.setText(String.valueOf(userStat.getOverSpeedDay()));
-            overSpeedRoad.setText(String.valueOf(userStat.getOverSpeedRoad()));
-            kilomTravelled.setText(String.valueOf(userStat.getKilomsTravelled()));
-            avgJourneykilom.setText(String.valueOf(userStat.getAverageJourneyKiloms() ));
+            memberSince.setText(getString(R.string.memberSince)+"\n"+"\n"+"\n"+String.valueOf(userStat.getMemberSince().toLocalDate()));
+            averageJourneyTime.setText(getString(R.string.averageJourneyTime)+"\n"+"\n"+String.valueOf(userStat.getAverageJourneyTime()));
+            numberOfJourneys.setText(getString(R.string.numJourneys)+"\n"+"\n"+String.valueOf(userStat.getNumJourneys()));
+            numberOfOverSpeeds.setText(getString(R.string.numOverSpeeds)+"\n"+"\n"+String.valueOf(userStat.getNumOverSpeed()));
+            overSpeedPercentage.setText(getString(R.string.percentageOverSpeed)+"\n"+"\n"+String.valueOf(userStat.getOverSpeedPercentage()));
+            overSpeedDay.setText(getString(R.string.dayWithMostOverSpeed)+"\n"+"\n"+String.valueOf(userStat.getOverSpeedDay()));
+            overSpeedRoad.setText(getString(R.string.mostOverSpeedRoad)+"\n"+"\n"+String.valueOf(userStat.getRoadAddress()));
+            kilomTravelled.setText(getString(R.string.kmTravelled)+"\n"+"\n"+String.valueOf(userStat.getKilomsTravelled()));
+            avgJourneykilom.setText(getString(R.string.avgJourneyKM)+"\n"+"\n"+String.valueOf(userStat.getAverageJourneyKiloms() ));
         }
         catch(Exception e){
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }
 
     }

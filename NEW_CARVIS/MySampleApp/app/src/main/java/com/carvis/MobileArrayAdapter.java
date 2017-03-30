@@ -31,6 +31,9 @@ public class MobileArrayAdapter extends  ArrayAdapter<String> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
+
+
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -43,12 +46,11 @@ public class MobileArrayAdapter extends  ArrayAdapter<String> {
         TextView timestampView = (TextView) rowView.findViewById(R.id.timestamp);
         //ImageView imageView = (ImageView) rowView.findViewById(R.id.logo);
         timestampView.setText(timestamps.get(position));
-        timestampView.setTextColor(Color.RED);
+
 
         TextView durationsView = (TextView) rowView.findViewById(R.id.duration);
         //ImageView imageView = (ImageView) rowView.findViewById(R.id.logo);
         durationsView.setText(durations.get(position));
-        durationsView.setTextColor(Color.BLUE);
 
         // Change icon based on name
 //        String s = values.get(position);

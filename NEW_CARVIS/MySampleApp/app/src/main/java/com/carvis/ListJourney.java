@@ -30,9 +30,11 @@ import com.mysampleapp.R;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.Toolbar;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -106,12 +108,13 @@ public class ListJourney extends ListActivity {
         super.onCreate(savedInstanceState);
  //setListAdapter(new MobileArrayAdapter(this, MOBILE_OS));
 
+
         journey = new Journey();
         context = getApplicationContext();
         provider = new CognitoUserPoolsSignInProvider(context);
         volleyService = new VolleyService(context);
 
-        pBar = (ProgressBar) findViewById(R.id.listProgressBar);
+
 
         getUserJourneys();
 

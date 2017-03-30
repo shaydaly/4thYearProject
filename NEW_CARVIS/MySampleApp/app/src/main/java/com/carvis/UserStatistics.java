@@ -1,7 +1,6 @@
 package com.carvis;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -19,7 +18,6 @@ public class UserStatistics extends AppCompatActivity {
         System.out.println("user statistics called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_statistics);
-
         goToUserStats();
     }
 //    @Override
@@ -57,4 +55,6 @@ public class UserStatistics extends AppCompatActivity {
         volleyService.getUserStatistics(provider.getUserName());
         super.onStop();
     }
+
+
 }

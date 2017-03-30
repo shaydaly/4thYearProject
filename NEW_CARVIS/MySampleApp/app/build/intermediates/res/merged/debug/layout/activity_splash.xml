@@ -14,18 +14,18 @@
         android:gravity="center"
         >
 
-    <ImageView
-        android:id="@+id/splashImage"
-        android:scaleType="fitCenter"
-        android:src="@mipmap/splash_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal"
-        android:layout_marginBottom="30dp"
-        >
+    <!--<ImageView-->
+        <!--android:id="@+id/splashImage"-->
+        <!--android:scaleType="fitCenter"-->
+        <!--android:src="@mipmap/splash_icon"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:layout_marginBottom="30dp"-->
+        <!--&gt;-->
 
-    </ImageView>
+    <!--</ImageView>-->
 
     <TextView
         android:id="@+id/splashText"

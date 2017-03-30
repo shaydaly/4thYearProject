@@ -14,36 +14,40 @@ import urllib2
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
+lambda_client = boto3.client('lambda')
 
 
-
-#try:
-#    conn = pymysql.connect(rds_host, user=name, passwd=password, db=db_name, connect_timeout=5)
-#except Exception as e:
-#    logger.error("ERROR: Unexpected error: Could not connect to MySql instance.")
-#    print str(e)
-#    sys.exit()
-
-#logger.info("SUCCESS: Connection to RDS mysql instance succeeded")
 def handler(event, context):
     """
     This function fetches content from mysql RDS instance
     """
     longitude = event["longitude"]
     latitude = event["latitude"]
-    
     try:
         #content = urllib2.urlopen("http://nominatim.openstreetmap.org/reverse?format=json&osm_type=W&lat="+latitude+"&lon="+longitude+"&zoom=16").read()
-        content = urllib2.urlopen("http://open.mapquestapi.com/nominatim/v1/reverse.php?key=SloiHBpLJDvIOPDkBAWjbansNvWLPnQU&format=json&lat="+latitude+"&lon="+longitude+"&zoom=16").read()
-        text = json.loads(content)
-        osm_id = text["osm_id"]
+        #content = urllib2.urlopen("http://open.mapquestapi.com/nominatim/v1/reverse.php?key=1TGjV92dKzvrvSbIqHmVxsn0hvRWACF0&format=json&lat="+latitude+"&lon="+longitude+"&zoom=16").read()
+        #text = json.loads(content)
+        #osm_id = text["osm_id"]
+        #content2 = urllib2.urlopen("http://overpass-api.de/api/interpreter?data=[out:json];way("+osm_id+");out;").read()
+        #nodeInfo = json.loads(content2)
+        #speed = nodeInfo["elements"][0]["tags"]["maxspeed"]
         
-        content2 = urllib2.urlopen("http://overpass-api.de/api/interpreter?data=[out:json];way("+osm_id+");out;").read()
-        nodeInfo = json.loads(content2)
-        speed = nodeInfo["elements"][0]["tags"]["maxspeed"]
+        content = urllib2.urlopen("http://overpass-api.de/api/interpreter?data=[out:json];way(around:10,"+latitude+","+longitude+")[maxspeed];out;").read()
+        text = json.loads(content)
+        print text
+        osm_id = text["elements"][0]["id"]
+        speed = text["elements"][0]["tags"]["maxspeed"]
+        #print speed
+        x = {"osm_id" : osm_id,"latitude" : latitude, "longitude" : longitude, "speed" : speed }
+        #print x
+        #print str(x)
+        #invoke_response = lambda_client.invoke(FunctionName="CreateSpeedLimits", InvocationType='Event', Payload=json.dumps(x))
         
         data = {}
         data['speed'] = speed
+        data['latitude'] = latitude
+        data['longitude'] = longitude
+        data['osm_id'] = osm_id
         json_data = json.dumps(data)
         jsonlist = json.loads(json_data)
         return jsonlist
@@ -53,7 +57,12 @@ def handler(event, context):
         #else:
          #   return speed
     except Exception as e:
-        return "NA!"
+        print str(e)
+        data = {}
+        data['speed'] = -99
+        json_data = json.dumps(data)
+        jsonlist = json.loads(json_data)
+        return jsonlist
     #return latitude+"_"+longitude
 
     #item_count = 0

@@ -96,4 +96,7 @@ latitude numeric,
 speedLimit numeric
 );
 
-commit
+Create table road (
+roadid numeric primary key,
+address varchar
+);

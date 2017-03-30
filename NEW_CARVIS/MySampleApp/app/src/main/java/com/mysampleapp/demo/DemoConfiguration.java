@@ -16,11 +16,11 @@ public class DemoConfiguration {
     private static final List<DemoFeature> demoFeatures = new ArrayList<DemoFeature>();
 
     static {
-        addDemoFeature("user_identity", R.mipmap.user_identity, R.string.feature_sign_in_title,
-                R.string.feature_sign_in_subtitle, R.string.feature_sign_in_overview,
-                R.string.feature_sign_in_description, R.string.feature_sign_in_powered_by,
-                new DemoItem(R.string.main_fragment_title_user_identity, R.mipmap.user_identity,
-                        R.string.feature_sign_in_demo_button, IdentityDemoFragment.class));
+//        addDemoFeature("user_identity", R.mipmap.user_identity, R.string.feature_sign_in_title,
+//                R.string.feature_sign_in_subtitle, R.string.feature_sign_in_overview,
+//                R.string.feature_sign_in_description, R.string.feature_sign_in_powered_by,
+//                new DemoItem(R.string.main_fragment_title_user_identity, R.mipmap.user_identity,
+//                        R.string.feature_sign_in_demo_button, IdentityDemoFragment.class));
     }
 
     public static List<DemoFeature> getDemoFeatureList() {

@@ -33,6 +33,7 @@ import com.mysampleapp.demo.DemoConfiguration;
 import com.mysampleapp.demo.HomeDemoFragment;
 import com.mysampleapp.navigation.NavigationDrawer;
 
+
 import static com.mysampleapp.R.id.button;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -112,8 +113,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         navigationDrawer.addDemoFeatureToMenu(home);
 
         DemoConfiguration.DemoFeature TrackSpeed = new DemoConfiguration.DemoFeature();
-        TrackSpeed.iconResId = R.mipmap.icon_home;
-        TrackSpeed.titleResId = R.string.trackSpeed;
+        TrackSpeed.iconResId = R.drawable.speed50km;
+        TrackSpeed.titleResId = R.string.startJourney;
         navigationDrawer.addDemoFeatureToMenu(TrackSpeed);
 
         DemoConfiguration.DemoFeature JourneyList = new DemoConfiguration.DemoFeature();
@@ -122,14 +123,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         navigationDrawer.addDemoFeatureToMenu(JourneyList);
 
         DemoConfiguration.DemoFeature CameraMap = new DemoConfiguration.DemoFeature();
-        CameraMap.iconResId = R.mipmap.icon_home;
+        CameraMap.iconResId = R.drawable.speedcamera;
         CameraMap.titleResId = R.string.speedCameraMap;
         navigationDrawer.addDemoFeatureToMenu(CameraMap);
 
-        DemoConfiguration.DemoFeature UserStatisics = new DemoConfiguration.DemoFeature();
-        UserStatisics.iconResId = R.mipmap.icon_home;
-        UserStatisics.titleResId = R.string.userStatistics;
-        navigationDrawer.addDemoFeatureToMenu(UserStatisics);
+        DemoConfiguration.DemoFeature UserStatistics = new DemoConfiguration.DemoFeature();
+        UserStatistics.iconResId = R.mipmap.icon_home;
+        UserStatistics.titleResId = R.string.userStatistics;
+        navigationDrawer.addDemoFeatureToMenu(UserStatistics);
 
 //        DemoConfiguration.DemoFeature Map = new DemoConfiguration.DemoFeature();
 //        JourneyList.iconResId = R.mipmap.icon_home;

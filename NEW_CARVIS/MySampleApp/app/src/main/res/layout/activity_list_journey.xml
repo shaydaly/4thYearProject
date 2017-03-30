@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:padding="5dp" >
+    android:background="@color/dashBackground"
+    android:orientation="vertical"
+    >
+
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/my_toolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="?attr/actionBarSize"-->
+        <!--android:background="?attr/colorPrimary"-->
+        <!--android:elevation="4dp"-->
+        <!--android:theme="@style/ThemeOverlay.AppCompat.ActionBar"-->
+<!--/>-->
+
 
     <!--<ImageView-->
         <!--android:id="@+id/logo"-->
@@ -13,43 +25,62 @@
         <!--android:layout_marginTop="5px"-->
         <!--android:src="@drawable/i" >-->
     <!--</ImageView>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_weight="1" >
 
-    <TextView
-        android:id="@+id/journeyID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@+id/label"
-        android:layout_weight="3"
-        android:visibility="gone">
-    </TextView>
-    <TextView
-        android:id="@+id/timestamp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@+id/label"
-        android:layout_weight="3">
-    </TextView>
+        <!--<Button-->
+        <!--android:layout_width="0dip"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:background="@drawable/shape"/>-->
+        <TextView
+            android:id="@+id/journeyID"
+            android:text="@+id/label"
+            android:layout_weight="2"
+            android:visibility="gone"
+            android:gravity="center"
+            android:padding="3dip"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            android:background="@drawable/shape"/>
 
-    <TextView
-        android:id="@+id/spacebar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:layout_weight="3">
-    </TextView>
-    <TextView
-        android:id="@+id/duration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@+id/label"
-        android:layout_weight="1">
-    </TextView>
-        <ProgressBar
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/listProgressBar"
-            android:layout_weight="305.50"
-            android:visibility="invisible"/>
+        <TextView
+            android:id="@+id/timestamp"
+            android:gravity="center"
+            android:padding="3dip"
+            android:text=""
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="normal">
+        </TextView>
+        <TextView
+            android:id="@+id/duration"
+            android:gravity="center"
+            android:padding="3dip"
+            android:text=""
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="normal"/>
+
+    </LinearLayout>
+
+
+
   </LinearLayout>
 

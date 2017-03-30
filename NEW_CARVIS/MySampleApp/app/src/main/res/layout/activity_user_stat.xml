@@ -1,163 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:stretchColumns="1">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/darkDash">
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/dark"
+        android:background="@color/dashBackground"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:orientation="horizontal"
+        android:layout_weight="1" >
 
-        <TableRow>
-
-            <TextView
-                android:padding="3dip"
-                android:text="@string/memberSince" />
-
-            <TextView
-                android:id="@+id/memberSince"
-                android:gravity="right"
-                android:padding="3dip"
-                android:text="" />
-        </TableRow>
-
-    <TableRow>
-
+        <!--<Button-->
+            <!--android:layout_width="0dip"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:background="@drawable/shape"/>-->
         <TextView
+            android:id="@+id/memberSince"
+            android:gravity="center"
             android:padding="3dip"
-            android:text="@string/kmTravelled" />
-
+            android:text="123"
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            android:background="@drawable/shape"
+            />
         <TextView
             android:id="@+id/kilomTravelled"
-            android:gravity="right"
+            android:gravity="center"
             android:padding="3dip"
-            android:text="" />
-    </TableRow>
+            android:text="213"
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            android:background="@drawable/shape"
+            />
+        <TextView
+            android:id="@+id/overSpeedDay"
+            android:gravity="center"
+            android:padding="3dip"
+            android:text=""
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="normal"/>
 
-    <TableRow>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        >
+        <TextView
+            android:id="@+id/numberOfUserJourneys"
+            android:gravity="center"
+            android:padding="3dip"
+            android:text=""
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="normal"/>
+
+
 
         <TextView
+            android:id="@+id/numberOfOverSpeedJourneys"
+            android:gravity="center"
             android:padding="3dip"
-            android:text="@string/avgJourneyKM" />
+            android:text=""
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            android:background="@drawable/shape"
+            />
+        <TextView
+            android:background="@drawable/shape"
+
+            android:id="@+id/overSpeedPercentage"
+            android:gravity="center"
+            android:padding="3dip"
+            android:text=""
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="normal"/>
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:orientation="horizontal"
+        android:layout_weight="1" >
+        <TextView
+            android:id="@+id/averageJourneyTime"
+            android:gravity="center"
+            android:padding="3dip"
+            android:text=""
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="normal"/>
 
         <TextView
             android:id="@+id/avgJourneykilom"
-            android:gravity="right"
+            android:gravity="center"
             android:padding="3dip"
-            android:text="" />
-    </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:padding="3dip"
-                android:text="@string/averageJourneyTime" />
-
-            <TextView
-                android:id="@+id/averageJourneyTime"
-                android:gravity="right"
-                android:padding="3dip"
-                android:text="" />
-        </TableRow>
+            android:text="234"
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            android:background="@drawable/shape"
+            />
 
 
-        <TableRow>
+        <TextView
+            android:id="@+id/overSpeedRoad"
+            android:gravity="center"
+            android:padding="3dip"
+            android:text=""
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            android:background="@drawable/shape"
+            />
+    </LinearLayout>
 
-            <TextView
-                android:padding="3dip"
-                android:text="@string/numJourneys" />
-
-            <TextView
-
-                android:id="@+id/numberOfUserJourneys"
-                android:gravity="right"
-                android:padding="3dip"
-                android:text="" />
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:padding="3dip"
-                android:text="@string/numOverSpeeds"
-                android:layout_width="match_parent" />
-
-            <TextView
-                android:id="@+id/numberOfOverSpeedJourneys"
-                android:gravity="right"
-                android:padding="3dip"
-                android:text="" />
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:padding="3dip"
-                android:text="@string/percentageOverSpeed" />
-
-            <TextView
-                android:id="@+id/overSpeedPercentage"
-                android:gravity="right"
-                android:padding="3dip"
-                android:text="" />
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:padding="3dip"
-                android:text="@string/dayWithMostOverSpeed" />
-
-            <TextView
-                android:id="@+id/overSpeedDay"
-                android:gravity="right"
-                android:padding="3dip"
-                android:text="" />
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:padding="3dip"
-                android:text="@string/mostOverSpeedRoad" />
-
-            <TextView
-                android:id="@+id/overSpeedRoad"
-                android:gravity="right"
-                android:padding="3dip"
-                android:text="" />
-        </TableRow>
-
-    </TableLayout>
-    <!--<GridLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:background="@color/red"-->
-    <!--android:layout_alignParentTop="true"-->
-    <!--android:layout_alignParentLeft="true"-->
-    <!--android:layout_alignParentStart="true">-->
-
-    <!--<ImageButton-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:id="@+id/imageButton3" />-->
-
-    <!--<ImageButton-->
-    <!--android:layout_width="103dp"-->
-    <!--android:layout_height="72dp"-->
-    <!--android:id="@+id/imageButton2"-->
-    <!--android:layout_row="1"-->
-    <!--android:layout_column="0" />-->
-
-    <!--<ImageButton-->
-    <!--android:layout_width="73dp"-->
-    <!--android:layout_height="78dp"-->
-    <!--android:id="@+id/imageButton"-->
-    <!--android:layout_row="1"-->
-    <!--android:layout_column="2" />-->
-    <!--</GridLayout>-->
+</LinearLayout>

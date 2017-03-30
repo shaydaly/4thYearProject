@@ -15,14 +15,17 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.carvis.TemporarySpeedCamera;
 import com.mysampleapp.R;
 
 public class HomeDemoFragment extends DemoFragmentBase {
 
+
+
+
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              final Bundle savedInstanceState) {
-
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_demo_home, container, false);
     }

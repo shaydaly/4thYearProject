@@ -98,7 +98,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 options.title("Speed: "+listOfJourneys.get(i).getFragmentSpeed());
                 options.snippet("Limit:"+listOfJourneys.get(i).getSpeedLimit());//
                 if(i+1 < listOfJourneys.size()) {
-                    if(Integer.parseInt(listOfJourneys.get(i).getSpeedLimit())==0){
+                    if((listOfJourneys.get(i).getSpeedLimit())==0){
                         options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
                         options.flat(true);
                         options.position(latLng);
@@ -112,7 +112,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 .color(Color.BLUE));
                     }
 
-                    else if (Double.parseDouble(listOfJourneys.get(i).getFragmentSpeed()) > Double.parseDouble(listOfJourneys.get(i).getSpeedLimit())) {
+                    else if (listOfJourneys.get(i).getFragmentSpeed() > listOfJourneys.get(i).getSpeedLimit()) {
                         options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                         options.flat(true);
                         options.position(latLng);
@@ -142,7 +142,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         //Polyline p = mMap.ge
                     }
                 }
-                googleMap.addMarker(options).setAlpha(0.0f);
+                if (options!= null) {
+                    googleMap.addMarker(options).setAlpha(0.0f);
+                }
                 //options.rotation(90f);
             }
 

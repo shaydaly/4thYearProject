@@ -46,7 +46,8 @@ public class SignUpActivity extends Activity {
         final String password = ViewHelper.getStringValue(this, R.id.signup_password);
         final String givenName = ViewHelper.getStringValue(this, R.id.signup_given_name);
         final String email = ViewHelper.getStringValue(this, R.id.signup_email);
-        final String phone = ViewHelper.getStringValue(this, R.id.signup_phone);
+        final String phone = "+353"+ViewHelper.getStringValue(this, R.id.signup_phone);
+
 
         Log.d(LOG_TAG, "username = " + username);
         Log.d(LOG_TAG, "given_name = " + givenName);

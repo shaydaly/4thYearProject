@@ -34,9 +34,9 @@
     <uses-permission android:name="android.permission.ACCESS_COURSE_LOCATION" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-    <!-- Optional permission for Analytics to run. -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Permissions required for GCM -->
+    <!-- Permissions required for GCM -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <uses-feature
@@ -152,13 +152,14 @@
             android:name="com.carvis.SpeedCameraMap"
             android:label="@string/title_activity_speed_camera_map" />
 
-        <service
-            android:name="com.carvis.SpeedCheckService"
-            android:enabled="true"
-            android:exported="true" />
+        <!-- <service -->
+        <!-- android:name="com.carvis.SpeedCheckService" -->
+        <!-- android:enabled="true" -->
+        <!-- android:exported="true" /> -->
 
         <activity android:name="com.carvis.UserStatistics" />
         <activity android:name="com.carvis.UserStatActivity" />
+        <activity android:name="com.carvis.BarChart" />
         <!-- Include the AdActivity and InAppPurchaseActivity configChanges and themes. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"

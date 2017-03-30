@@ -44,12 +44,12 @@ public class JourneyFragment implements Serializable{
 
 
     private Date time;
-    private String latitude, longitude, speedLimit, journeyID, username;
-    String speed;
-    String currentSpeed;
+    private String latitude, longitude, journeyID, username;
+    int speed;
+    int currentSpeed, speedLimit;
     String timeString;
 
-    JourneyFragment(String lat, String lon,  String sp, String sl,Date d, String jID, String u){
+    JourneyFragment(String lat, String lon,  int sp, int sl,Date d, String jID, String u){
  //       super(lat,lon,speed,speedLimit);
         latitude = lat;
         longitude = lon;
@@ -60,7 +60,7 @@ public class JourneyFragment implements Serializable{
         username = u;
     }
 
-    JourneyFragment(String jid, String latitude,String lon, String currentSpeed, String speedLimit, String time ){
+    JourneyFragment(String jid, String latitude,String lon, int currentSpeed, int speedLimit, String time ){
         this.latitude = latitude;
         longitude = lon;
         this.currentSpeed = currentSpeed;
@@ -93,7 +93,7 @@ public class JourneyFragment implements Serializable{
         return timeString;
     }
 
-    public String getCurrentSpeed(){
+    public int getCurrentSpeed(){
         return speed;
     }
     public void setTime(Date time) {
@@ -111,11 +111,11 @@ public class JourneyFragment implements Serializable{
     }
 
 
-    public void setSpeedLimit(String speedLimit) {
+    public void setSpeedLimit(int speedLimit) {
         this.speedLimit = speedLimit;
     }
 
-    public void setSpeed(String speed) {
+    public void setSpeed(int speed) {
         this.speed = speed;
     }
 
@@ -129,7 +129,7 @@ public class JourneyFragment implements Serializable{
     }
 
 
-    public String getSpeedLimit() {
+    public int getSpeedLimit() {
         return speedLimit;
     }
 
@@ -138,11 +138,11 @@ public class JourneyFragment implements Serializable{
         return longitude;
     }
 
-    public String getSpeed() {
+    public int getSpeed() {
         return speed;
     }
 
-    public String getFragmentSpeed(){
+    public int getFragmentSpeed(){
         return currentSpeed;
     }
 

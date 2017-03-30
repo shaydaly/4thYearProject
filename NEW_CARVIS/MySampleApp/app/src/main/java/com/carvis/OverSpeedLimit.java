@@ -17,6 +17,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.json.JSONObject;
 
 import java.io.Serializable;
@@ -33,18 +35,19 @@ import java.util.List;
 
 public class OverSpeedLimit implements Serializable{
 
-    private String longitude, latitude, speedLimit, journeyid, username, currentSpeed;
-    int roadId;
+    private String longitude, latitude, journeyid, username;
+    private int roadId;
     private Date currentTime;
+    private int currentSpeed, speedLimit;
 
-    public OverSpeedLimit(String latitude,String longitude, String currentSpeed, String speedLimit) {
+    public OverSpeedLimit(String latitude,String longitude, int currentSpeed, int speedLimit) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.currentSpeed = currentSpeed;
         this.speedLimit = speedLimit;
     }
 
-    public OverSpeedLimit(String latitude,String longitude, String currentSpeed, String speedLimit, Date currentTime) {
+    public OverSpeedLimit(String latitude,String longitude, int currentSpeed, int speedLimit, Date currentTime) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.currentSpeed = currentSpeed;
@@ -52,7 +55,7 @@ public class OverSpeedLimit implements Serializable{
         this.currentTime = currentTime;
     }
 
-    public OverSpeedLimit(String latitude,String longitude, String currentSpeed, String speedLimit, Date currentTime, String username, String journeyid, int roadId) {
+    public OverSpeedLimit(String latitude,String longitude, int currentSpeed, int speedLimit, Date currentTime, String username, String journeyid, int roadId) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.currentSpeed = currentSpeed;
@@ -79,11 +82,11 @@ public class OverSpeedLimit implements Serializable{
         return latitude;
     }
 
-    public String getCurrentSpeed() {
+    public int getCurrentSpeed() {
         return currentSpeed;
     }
 
-    public String getSpeedLimit() {
+    public int getSpeedLimit() {
         return speedLimit;
     }
 
@@ -95,11 +98,11 @@ public class OverSpeedLimit implements Serializable{
         this.latitude = latitude;
     }
 
-    public void setCurrentSpeed(String currentSpeed) {
+    public void setCurrentSpeed(int currentSpeed) {
         this.currentSpeed = currentSpeed;
     }
 
-    public void setSpeedLimit(String speedLimit) {
+    public void setSpeedLimit(int speedLimit) {
         this.speedLimit = speedLimit;
     }
 
@@ -180,96 +183,120 @@ public class OverSpeedLimit implements Serializable{
         }
     }
 
-    public static void addOverSpeedLimits(RequestQueue queue,Context context,  List<OverSpeedLimit> overSpeedLimits, String journeyID, String user) {
 
-        Log.i("over speed size ",String.valueOf(overSpeedLimits.size()));
-        for(OverSpeedLimit o : overSpeedLimits){
-            if(o.getJourneyid().equals("")){
-                o.setJourneyid(journeyID);
-            }
-        }
-
-
-                System.out.println("oversped called");
-                Gson gson = new Gson();
-                String json = gson.toJson(overSpeedLimits);
-
-////        JsonObject journeyid = new JsonObject();
-////        journeyid.addProperty("journeyid",journeyID);
-////
-////        JsonObject username = new JsonObject();
-////        username.addProperty("username",user);
-//
-////        HashMap<String, String> details = new HashMap<String, String>();
-////        details.put("journeyid",journeyID);
-////        details.put("username",user);
-////        String json2 = gson.toJson(details);
-//        String username = "\"username\" : \""+user+"\"";
-//        String journey = ",\"journeyid\" : \""+journeyID+"\"";
-//        json += ","+username+journey;
-
-        System.out.println(json);
-
-        try {
-            String URL = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/createoverspeedobject";
-            final String requestBody = json;
-
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    //result = response;
-                    Log.i("overspeed  VOLLEY", response.toString());
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    //result = error.toString();
-                    Log.i("overspeed  VOLLEY", error.toString());
-                }
-            }) {
-                @Override
-                public String getBodyContentType() {
-                    return "application/json; charset=utf-8";
-                }
-
-                @Override
-                public byte[] getBody() throws AuthFailureError {
-                    try {
-                        return requestBody == null ? null : requestBody.getBytes("utf-8");
-
-                    } catch (UnsupportedEncodingException uee) {
-                        // result = uee.toString();
-                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
-                        return null;
-                    }
-                }
-
-                @Override
-                protected Response<String> parseNetworkResponse(NetworkResponse response) {
-
-                    String responseString = "";
-                    if (response != null) {
-                        responseString = String.valueOf(response.statusCode);
-                        // can get more details such as response.headers
-                        //result = (response.toString());
-                        try {
-                            String str = new String(response.data, "UTF-8");
-                            //System.out.println("overspeed "+ str);
-                        }
-                        catch(UnsupportedEncodingException e){
-
-                        }
-                    }
-                    return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
-                }
-            };
-
-            queue.add(stringRequest);
-        } catch (Exception e) {
-            e.printStackTrace();
-            //result = e.toString();
-        }
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 31). // two randomly chosen prime numbers
+                // if deriving: appendSuper(super.hashCode()).
+                        append(currentTime).
+                        toHashCode();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof OverSpeedLimit))
+            return false;
+        if (obj == this)
+            return true;
+
+        OverSpeedLimit rhs = (OverSpeedLimit) obj;
+        return new EqualsBuilder().
+                // if deriving: appendSuper(super.equals(obj)).
+                        append(currentTime, rhs.currentTime).
+                        append(journeyid, rhs.journeyid).
+                        isEquals();
+    }
+
+//    public static void addOverSpeedLimits(RequestQueue queue,Context context,  List<OverSpeedLimit> overSpeedLimits, String journeyID, String user) {
+//
+//        Log.i("over speed size ",String.valueOf(overSpeedLimits.size()));
+//        for(OverSpeedLimit o : overSpeedLimits){
+//            if(o.getJourneyid().equals("")){
+//                o.setJourneyid(journeyID);
+//            }
+//        }
+//
+//
+//                System.out.println("oversped called");
+//                Gson gson = new Gson();
+//                String json = gson.toJson(overSpeedLimits);
+//
+//////        JsonObject journeyid = new JsonObject();
+//////        journeyid.addProperty("journeyid",journeyID);
+//////
+//////        JsonObject username = new JsonObject();
+//////        username.addProperty("username",user);
+////
+//////        HashMap<String, String> details = new HashMap<String, String>();
+//////        details.put("journeyid",journeyID);
+//////        details.put("username",user);
+//////        String json2 = gson.toJson(details);
+////        String username = "\"username\" : \""+user+"\"";
+////        String journey = ",\"journeyid\" : \""+journeyID+"\"";
+////        json += ","+username+journey;
+//
+//        System.out.println(json);
+//
+//        try {
+//            String URL = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/createoverspeedobject";
+//            final String requestBody = json;
+//
+//            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+//                @Override
+//                public void onResponse(String response) {
+//                    //result = response;
+//                    Log.i("overspeed  VOLLEY", response.toString());
+//                }
+//            }, new Response.ErrorListener() {
+//                @Override
+//                public void onErrorResponse(VolleyError error) {
+//                    //result = error.toString();
+//                    Log.i("overspeed  VOLLEY", error.toString());
+//                }
+//            }) {
+//                @Override
+//                public String getBodyContentType() {
+//                    return "application/json; charset=utf-8";
+//                }
+//
+//                @Override
+//                public byte[] getBody() throws AuthFailureError {
+//                    try {
+//                        return requestBody == null ? null : requestBody.getBytes("utf-8");
+//
+//                    } catch (UnsupportedEncodingException uee) {
+//                        // result = uee.toString();
+//                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+//                        return null;
+//                    }
+//                }
+//
+//                @Override
+//                protected Response<String> parseNetworkResponse(NetworkResponse response) {
+//
+//                    String responseString = "";
+//                    if (response != null) {
+//                        responseString = String.valueOf(response.statusCode);
+//                        // can get more details such as response.headers
+//                        //result = (response.toString());
+//                        try {
+//                            String str = new String(response.data, "UTF-8");
+//                            //System.out.println("overspeed "+ str);
+//                        }
+//                        catch(UnsupportedEncodingException e){
+//
+//                        }
+//                    }
+//                    return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+//                }
+//            };
+//
+//            queue.add(stringRequest);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            //result = e.toString();
+//        }
+//    }
 
 
     }

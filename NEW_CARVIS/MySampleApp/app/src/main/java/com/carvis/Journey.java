@@ -41,8 +41,8 @@ public class Journey extends Activity {
     private String journeyID, journeyFragmentID;
     private String longitude , endLongitude;
     private String latitude, endLatitude;
-    private String  currentSpeed;
-    private String speedLimit;
+    private int  currentSpeed;
+    private int speedLimit;
     private Date startTime;
     private Date endTime;
     private String start, end, time;
@@ -50,7 +50,7 @@ public class Journey extends Activity {
     private ArrayList<Journey> journeys;
     private ArrayList<JourneyFragment> journeyFragments;
 
-    public Journey(String latitude, String longitude, String currentSpeed, String speedLimit, Date start, Date end) {
+    public Journey(String latitude, String longitude, int currentSpeed, int speedLimit, Date start, Date end) {
         this.latitude = latitude;
         this.currentSpeed = currentSpeed;
         this.speedLimit = speedLimit;
@@ -80,7 +80,7 @@ public class Journey extends Activity {
         return time;
     }
 
-    public Journey(String latitude, String longitude, String currentSpeed, String speedLimit) {
+    public Journey(String latitude, String longitude, int currentSpeed, int speedLimit) {
         journeyID="";
         this.latitude = latitude;
         this.currentSpeed = currentSpeed;
@@ -91,7 +91,7 @@ public class Journey extends Activity {
         journeyFragments = new ArrayList<>();
     }
 
-    public Journey(String jfid, String latitude, String longitude, String currentSpeed, String speedLimit, String time){
+    public Journey(String jfid, String latitude, String longitude, int currentSpeed, int speedLimit, String time){
         journeyFragmentID = jfid;
         this.latitude =latitude;
         this.longitude = longitude;
@@ -105,8 +105,8 @@ public class Journey extends Activity {
         journeyID="";
         longitude="";
         latitude="";
-        currentSpeed="";
-        speedLimit="";
+        currentSpeed=0;
+        speedLimit=0;
         journeys = new ArrayList<>();
         journeyFragments = new ArrayList<>();
     }
@@ -145,20 +145,20 @@ public class Journey extends Activity {
         this.latitude = latitude;
     }
 
-    public void setCurrentSpeed(String currentSpeed) {
+    public void setCurrentSpeed(int currentSpeed) {
         this.currentSpeed = currentSpeed;
     }
 
-    public void setSpeedLimit(String speedLimit) {
+    public void setSpeedLimit(int speedLimit) {
         this.speedLimit = speedLimit;
     }
 
 
-    public String getSpeedLimit() {
+    public int getSpeedLimit() {
         return speedLimit;
     }
 
-    public String getCurrentSpeed() {
+    public int getCurrentSpeed() {
         return currentSpeed;
     }
 

@@ -132,6 +132,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         UserStatistics.titleResId = R.string.userStatistics;
         navigationDrawer.addDemoFeatureToMenu(UserStatistics);
 
+        DemoConfiguration.DemoFeature UserSettings = new DemoConfiguration.DemoFeature();
+        UserSettings.iconResId = R.mipmap.icon_home;
+        UserSettings.titleResId = R.string.settings;
+        navigationDrawer.addDemoFeatureToMenu(UserSettings);
+
 //        DemoConfiguration.DemoFeature Map = new DemoConfiguration.DemoFeature();
 //        JourneyList.iconResId = R.mipmap.icon_home;
 //        JourneyList.titleResId = R.string.map;

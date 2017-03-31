@@ -120,4 +120,14 @@
     <string name="daysSinceLastOverSpeed2"> days since your last Speeding incident </string>
     <string name="wellDone">Well Done !</string>
     <string name="slowingDown">Maybe consider slowing down?</string>
+    <string name="locale">Locale</string>
+    <string name="settings">Settings</string>
+
+
+    <string-array name="counties">
+        <item>ALL</item>
+        <item>Cork</item>
+        <item>Dublin</item>
+        <item>Galway</item>
+    </string-array>
 </resources>

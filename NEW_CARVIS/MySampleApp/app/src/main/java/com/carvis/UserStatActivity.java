@@ -3,6 +3,7 @@ package com.carvis;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -27,6 +28,8 @@ public class UserStatActivity extends AppCompatActivity {
         // to the activity's title.
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setTitle(R.string.userStatistics);
+
+        System.out.println("LOCALE\t\t"+PreferenceManager.getDefaultSharedPreferences(context).getString("locale", null));
 
 
         Bundle b = getIntent().getExtras();

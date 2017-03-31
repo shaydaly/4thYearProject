@@ -196,7 +196,6 @@ public class UserStat implements Serializable {
     public String getOverSpeedPercentage(){
         if(journeyInfos.size()!=0) {
             double percentage = ((double) journeysWithOverSpeed / journeyInfos.size()) * 100;
-            System.out.println(overSpeedDates.size() + "\t" + journeyInfos.size() + "\t" + percentage);
             return String.valueOf(getRoundedValue(percentage,2))+"%";
         }
         return String.valueOf(0.0)+"%";
@@ -205,11 +204,8 @@ public class UserStat implements Serializable {
 
     public double getAverageJourneyTime() {
             double total =0.0;
-        System.out.println("journey size\t\t\t"+journeyInfos.size());
             if (journeyInfos.size() != 0) {
                 for (JourneyInfo journeyDate : journeyInfos) {
-                    System.out.println("running total "+total);
-                    System.out.println("JD "+getJourneyDuration(journeyDate.getStartTime(), journeyDate.getEndTime()));
                     total += getJourneyDuration(journeyDate.getStartTime(), journeyDate.getEndTime());
                 }
                 System.out.println(total+" total");

@@ -20,15 +20,7 @@
     tools:context="com.carvis.TrackSpeedActivity"
     android:background="@color/dark">
 
-    <android.support.v7.widget.Toolbar
-        xmlns:app="http://schemas.Android.com/apk/res-auto"
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/top_bar_background"
-        app:contentInsetEnd="0dp"
-        app:contentInsetStart="0dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
 
     <!--<Button-->
         <!--android:text="@string/addCamera"-->
@@ -138,7 +130,8 @@
         android:layout_alignLeft="@+id/speed50km"
         android:layout_alignStart="@+id/speed50km"
         android:layout_marginLeft="27dp"
-        android:layout_marginStart="27dp" />
+        android:layout_marginStart="27dp"
+        android:background="@color/dark"/>
 
     <!--<TextView-->
         <!--android:text="@string/speedLimit"-->
@@ -155,4 +148,27 @@
         <!--android:layout_alignStart="@+id/speed50km" />-->
 
 </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:gravity="center|bottom">
+
+        <Button
+        android:text="@string/addCamera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addSpeedCamera"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+            android:layout_weight="1"
+            android:background="@color/silver"/>
+
+
+
+
+
+    </LinearLayout>
 </android.support.v4.widget.DrawerLayout>

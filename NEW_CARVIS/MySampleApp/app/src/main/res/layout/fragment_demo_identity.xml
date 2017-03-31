@@ -26,13 +26,14 @@
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/textView_demoIdentityUserName"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="10dp"
-          android:text="@string/unknown_user"
-          android:contentDescription="@string/identity_demo_textview_username_description"
-          android:gravity="center"
-          android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/unknown_user"
+        android:contentDescription="@string/identity_demo_textview_username_description"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         />
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"

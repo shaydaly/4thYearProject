@@ -160,6 +160,7 @@
         <activity android:name="com.carvis.UserStatistics" />
         <activity android:name="com.carvis.UserStatActivity" />
         <activity android:name="com.carvis.BarChart" />
+        <activity android:name="com.carvis.UserSettings" />
         <!-- Include the AdActivity and InAppPurchaseActivity configChanges and themes. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"

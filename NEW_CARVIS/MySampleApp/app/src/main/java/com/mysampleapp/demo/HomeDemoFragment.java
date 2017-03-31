@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,18 +16,34 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.carvis.TemporarySpeedCamera;
+import com.carvis.UserStat;
 import com.mysampleapp.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class HomeDemoFragment extends DemoFragmentBase {
 
 
+    CognitoUserPoolsSignInProvider provider;
 
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              final Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+       provider = new CognitoUserPoolsSignInProvider(getActivity().getApplicationContext());
+        getDaysSinceLastOverSpeed(provider.getUserName());
+
         return inflater.inflate(R.layout.fragment_demo_home, container, false);
     }
 
@@ -36,6 +53,9 @@ public class HomeDemoFragment extends DemoFragmentBase {
 
         final DemoListAdapter adapter = new DemoListAdapter(getActivity());
         adapter.addAll(DemoConfiguration.getDemoFeatureList());
+        TextView textView = (TextView) view.findViewById(R.id.daysSinceOverSpeed);
+        textView.setText("Hi "+provider.getUserName());
+
 
         ListView listView = (ListView) view.findViewById(android.R.id.list);
         listView.setAdapter(adapter);
@@ -101,5 +121,40 @@ public class HomeDemoFragment extends DemoFragmentBase {
         ImageView iconImageView;
         TextView titleTextView;
         TextView subtitleTextView;
+    }
+
+    public void getDaysSinceLastOverSpeed(String username) {
+        RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
+        String url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/daysinceoverspeed?username="+username;
+        //final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            Log.i("days", response.toString());
+                            JSONObject obj = new JSONObject(response.toString());
+                            int daysSinceOverSpeed = obj.getInt("daysOverSpeed");
+                            //u.setDaysSinceOverSpeed(daysSinceOverSpeed);
+                            TextView textView = (TextView) getActivity().findViewById(R.id.daysSinceOverSpeed);
+                            textView.setText("Hi "+provider.getUserName()+" its been "+daysSinceOverSpeed+" days since last overspeed ");
+
+
+                        } catch (JSONException e) {
+                            Log.i("days", e.getMessage());
+                        }
+                        catch(Exception e){
+                            Log.i("days ", e.getMessage());
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i("Sdays","ERROR");
+                    }
+                });
+        queue.add(jsObjRequest);
     }
 }

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -12,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -81,6 +83,7 @@ public class TrackSpeedActivity extends Activity implements
     private LocationRequest mLocationRequest;
 
     SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    String locale ;
 
 
     private List<JourneyFragment> journeyList;
@@ -262,6 +265,8 @@ public class TrackSpeedActivity extends Activity implements
         provider = new CognitoUserPoolsSignInProvider(context);
         queue = Volley.newRequestQueue(context);
 
+        locale = PreferenceManager.getDefaultSharedPreferences(context).getString("locale", null);
+
 
         Uri myUri = Uri.fromFile(new File("raw/speedlimitpolly.mp3"));
 
@@ -307,7 +312,7 @@ public class TrackSpeedActivity extends Activity implements
         vanRef.keepSynced(true);
         cameraRef = database.getReference("reportedSpeedCameras");
         cameraRef.keepSynced(true);
-        speedref = database.getReference("speedLimits");
+        speedref = database.getReference("speedLimits").child(locale);
         speedref.keepSynced(true);
 
         speedref.addChildEventListener(new ChildEventListener() {
@@ -316,6 +321,7 @@ public class TrackSpeedActivity extends Activity implements
 
                 record = new ArrayList<>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    System.out.println(postSnapshot.child("latitude").getValue());
                     RoadRecord r = new RoadRecord(
                             String.valueOf(postSnapshot.child("latitude").getValue()),
                             String.valueOf(postSnapshot.child("longitude").getValue()),

@@ -76,18 +76,6 @@
             android:background="@drawable/shape"
             />
 
-        <Button
-            android:text="start service"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/startService"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_weight="1"
-            android:background="@color/red"/>
-
-
     </LinearLayout>
 
 </LinearLayout>

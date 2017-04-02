@@ -34,7 +34,7 @@ public class UserSettings extends AppCompatActivity {
     EditText editText ;
     SharedPreferences prefs;
 
-    boolean isBound = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,18 +66,6 @@ public class UserSettings extends AppCompatActivity {
 
         editText.setText(emergencyContact);
 
-
-        final Button startServiceButton = (Button) findViewById(R.id.startService);
-        startServiceButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                System.out.println("button clicked");
-                Intent i = new Intent(context, MyLocationService.class);
-                startService(i);
-
-            }
-        });
 
 
         Resources res = getResources();

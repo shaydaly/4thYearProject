@@ -138,7 +138,7 @@ public class VolleyService extends Activity {
     }
 
 
-    public void getSpeedFromLambda(final TrackSpeedActivity t, final SpeedSearch speedSearch, final String latitude, final String longitude) {
+    public void getSpeedFromLambda(final MyLocationService t, final SpeedSearch speedSearch, final String latitude, final String longitude) {
         System.out.println("GET SPEED CALLED");
         url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/QuerySpeed/callqueryspeed?latitude=" + latitude + "&longitude=" + longitude;
         //final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
@@ -173,7 +173,7 @@ public class VolleyService extends Activity {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.i("Speed Lambda", error.getMessage());
+                       //Log.i("Speed Lambda", error.getMessage());
                     }
                 });
         queue.add(jsObjRequest);

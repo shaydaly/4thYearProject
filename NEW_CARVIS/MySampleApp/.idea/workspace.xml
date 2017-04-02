@@ -6,7 +6,6 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="shay" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="BookmarkManager">
@@ -38,61 +37,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="UserSettings.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/UserSettings.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="70" column="26" selection-start-line="70" selection-start-column="26" selection-end-line="70" selection-end-column="26" />
-              <folding>
-                <element signature="class#3003:3466" expanded="false" />
-                <element signature="method#getCityAddress#0;class#UserSettings#0" expanded="false" />
-                <element signature="method#getPosition#0;class#UserSettings#0" expanded="false" />
-                <element signature="method#onBackPressed#0;class#UserSettings#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="MyLocationService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/MyLocationService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="901">
-              <caret line="73" column="25" selection-start-line="73" selection-start-column="25" selection-end-line="73" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="activity_user_settings.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_user_settings.xml">
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="1479">
-              <caret line="87" column="42" selection-start-line="87" selection-start-column="42" selection-end-line="87" selection-end-column="42" />
-              <folding />
-            </state>
-          </provider>
-          <provider selected="true" editor-type-id="android-designer2">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SplashActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mysampleapp/SplashActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="33" column="38" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SpeedCheckService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/SpeedCheckService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="70" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
+            <state relative-caret-position="107">
+              <caret line="262" column="0" selection-start-line="262" selection-start-column="0" selection-end-line="262" selection-end-column="0" />
               <folding>
-                <element signature="e#0#1949#0" expanded="true" />
+                <element signature="e#3432#3674#0" expanded="true" />
+                <element signature="e#3673#3674#0" expanded="true" />
+                <element signature="method#onConnected#0;class#MyLocationService#0" expanded="false" />
+                <element signature="method#nearSpeedCamera#0;class#MyLocationService#0" expanded="false" />
+                <element signature="e#15714#15715#0" expanded="true" />
+                <element signature="e#15760#15761#0" expanded="true" />
+                <element signature="method#createSpeedVanReference#0;class#MyLocationService#0" expanded="false" />
+                <element signature="method#createSpeedCameraReference#0;class#MyLocationService#0" expanded="false" />
+                <element signature="method#createSpeedLimitReference#0;class#MyLocationService#0" expanded="false" />
+                <element signature="e#28422#28423#0" expanded="true" />
+                <element signature="e#28451#28452#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -101,18 +62,24 @@
       <file leaf-file-name="TrackSpeedActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/TrackSpeedActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-119">
-              <caret line="84" column="4" selection-start-line="84" selection-start-column="4" selection-end-line="84" selection-end-column="45" />
+            <state relative-caret-position="112">
+              <caret line="238" column="25" selection-start-line="238" selection-start-column="25" selection-end-line="238" selection-end-column="25" />
               <folding>
-                <element signature="method#onStart#0;class#TrackSpeedActivity#0" expanded="false" />
-                <element signature="method#onStop#0;class#TrackSpeedActivity#0" expanded="false" />
-                <element signature="method#onConnected#0;class#TrackSpeedActivity#0" expanded="false" />
-                <element signature="method#onLocationChanged#0;class#TrackSpeedActivity#0" expanded="false" />
-                <element signature="method#setOverSpeedLimit#0;class#TrackSpeedActivity#0" expanded="false" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#7212#8290#0" expanded="true" />
+                <element signature="e#8289#8290#0" expanded="true" />
+                <element signature="method#nearSpeedCamera#0;class#TrackSpeedActivity#0" expanded="false" />
+                <element signature="method#displaySpeedVanInfo#0;class#TrackSpeedActivity#0" expanded="false" />
+                <element signature="method#displaySpeedCameraInfo#0;class#TrackSpeedActivity#0" expanded="false" />
+                <element signature="e#13170#13250#0" expanded="false" />
+                <element signature="method#chooseSpeedImage#0;class#TrackSpeedActivity#0" expanded="false" />
+                <element signature="method#showImage#0;class#TrackSpeedActivity#0" expanded="false" />
+                <element signature="method#showSnackBarSpeedCamera#0;class#TrackSpeedActivity#0" expanded="false" />
                 <element signature="method#showSnackBarSpeedVan#0;class#TrackSpeedActivity#0" expanded="false" />
-                <element signature="method#playVoice#0;class#TrackSpeedActivity#0" expanded="false" />
-                <element signature="method#createSpeedVanReference#0;class#TrackSpeedActivity#0" expanded="false" />
-                <element signature="method#createSpeedCameraReference#0;class#TrackSpeedActivity#0" expanded="false" />
+                <element signature="e#18336#18396#0" expanded="false" />
+                <element signature="e#19923#19968#0" expanded="false" />
+                <marker date="1491173196827" expanded="false" signature="5838:5886" ph="&quot;I have been in a motor accident. My co-ordinates are:&quot;" />
+                <marker date="1491173196827" expanded="false" signature="21174:21182" ph="&lt;~&gt;" />
               </folding>
             </state>
           </provider>
@@ -2471,7 +2438,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_demo_home.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/mysampleapp/Application.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/VolleyService.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/UserStatActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/mysampleapp/SplashActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/mysampleapp/MainActivity.java" />
@@ -2479,14 +2445,15 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/UserStatistics.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/mysampleapp/demo/HomeDemoFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/SpeedCheckService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/TrackSpeedActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_track_speed.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_user_settings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/LocationService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/UserSettings.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/MyService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_user_settings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/UserSettings.java" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/VolleyService.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/MyLocationService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/TrackSpeedActivity.java" />
       </list>
     </option>
   </component>
@@ -2538,6 +2505,10 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -2592,6 +2563,20 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="carvis" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MySampleApp" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="manifests" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidManifestsGroupNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -2918,39 +2903,39 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.67918086" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.78327644" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.52730376" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24205749" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21633889" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.334471" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -3001,7 +2986,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <option name="time" value="5" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -3011,7 +2996,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="class#3003:3466" expanded="false" />
+            <element signature="class#2563:3026" expanded="false" />
             <element signature="method#getCityAddress#0;class#UserSettings#0" expanded="false" />
             <element signature="method#getPosition#0;class#UserSettings#0" expanded="false" />
             <element signature="method#onBackPressed#0;class#UserSettings#0" expanded="false" />
@@ -3023,7 +3008,19 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
           <caret line="39" column="43" selection-start-line="39" selection-start-column="43" selection-end-line="39" selection-end-column="43" />
-          <folding />
+          <folding>
+            <element signature="e#3432#3674#0" expanded="true" />
+            <element signature="e#3673#3674#0" expanded="true" />
+            <element signature="method#onConnected#0;class#MyLocationService#0" expanded="false" />
+            <element signature="method#nearSpeedCamera#0;class#MyLocationService#0" expanded="false" />
+            <element signature="e#15714#15715#0" expanded="true" />
+            <element signature="e#15760#15761#0" expanded="true" />
+            <element signature="method#createSpeedVanReference#0;class#MyLocationService#0" expanded="false" />
+            <element signature="method#createSpeedCameraReference#0;class#MyLocationService#0" expanded="false" />
+            <element signature="method#createSpeedLimitReference#0;class#MyLocationService#0" expanded="false" />
+            <element signature="e#28422#28423#0" expanded="true" />
+            <element signature="e#28451#28452#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -3032,15 +3029,21 @@
         <state relative-caret-position="442">
           <caret line="84" column="4" selection-start-line="84" selection-start-column="4" selection-end-line="84" selection-end-column="45" />
           <folding>
-            <element signature="method#onStart#0;class#TrackSpeedActivity#0" expanded="false" />
-            <element signature="method#onStop#0;class#TrackSpeedActivity#0" expanded="false" />
-            <element signature="method#onConnected#0;class#TrackSpeedActivity#0" expanded="false" />
-            <element signature="method#onLocationChanged#0;class#TrackSpeedActivity#0" expanded="false" />
-            <element signature="method#setOverSpeedLimit#0;class#TrackSpeedActivity#0" expanded="false" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#7212#8290#0" expanded="true" />
+            <element signature="e#8289#8290#0" expanded="true" />
+            <element signature="method#nearSpeedCamera#0;class#TrackSpeedActivity#0" expanded="false" />
+            <element signature="method#displaySpeedVanInfo#0;class#TrackSpeedActivity#0" expanded="false" />
+            <element signature="method#displaySpeedCameraInfo#0;class#TrackSpeedActivity#0" expanded="false" />
+            <element signature="e#13170#13250#0" expanded="false" />
+            <element signature="method#chooseSpeedImage#0;class#TrackSpeedActivity#0" expanded="false" />
+            <element signature="method#showImage#0;class#TrackSpeedActivity#0" expanded="false" />
+            <element signature="method#showSnackBarSpeedCamera#0;class#TrackSpeedActivity#0" expanded="false" />
             <element signature="method#showSnackBarSpeedVan#0;class#TrackSpeedActivity#0" expanded="false" />
-            <element signature="method#playVoice#0;class#TrackSpeedActivity#0" expanded="false" />
-            <element signature="method#createSpeedVanReference#0;class#TrackSpeedActivity#0" expanded="false" />
-            <element signature="method#createSpeedCameraReference#0;class#TrackSpeedActivity#0" expanded="false" />
+            <element signature="e#18336#18396#0" expanded="false" />
+            <element signature="e#19923#19968#0" expanded="false" />
+            <marker date="1491173196827" expanded="false" signature="5838:5886" ph="&quot;I have been in a motor accident. My co-ordinates are:&quot;" />
+            <marker date="1491173196827" expanded="false" signature="21174:21182" ph="&lt;~&gt;" />
           </folding>
         </state>
       </provider>
@@ -3069,7 +3072,7 @@
         <state relative-caret-position="17">
           <caret line="70" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
           <folding>
-            <element signature="e#0#1949#0" expanded="true" />
+            <element signature="e#0#1949#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3078,6 +3081,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="23" column="26" selection-start-line="23" selection-start-column="26" selection-end-line="23" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
@@ -3088,6 +3092,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="269">
           <caret line="39" column="30" selection-start-line="39" selection-start-column="30" selection-end-line="39" selection-end-column="30" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3095,6 +3100,7 @@
       <provider editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="53" selection-end-column="14" />
+          <folding />
         </state>
       </provider>
       <provider selected="true" editor-type-id="android-designer2">
@@ -3113,6 +3119,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="235">
           <caret line="71" column="5" selection-start-line="71" selection-start-column="5" selection-end-line="71" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3139,14 +3146,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/VolleyService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="383" column="0" selection-start-line="383" selection-start-column="0" selection-end-line="383" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/UserStatistics.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="308">
@@ -3159,6 +3158,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
           <caret line="60" column="26" selection-start-line="57" selection-start-column="5" selection-end-line="60" selection-end-column="26" />
+          <folding>
+            <element signature="e#2636#2694#0" expanded="false" />
+            <element signature="e#2723#2781#0" expanded="false" />
+            <element signature="e#2964#3010#0" expanded="false" />
+            <element signature="e#3099#3142#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -3167,7 +3172,7 @@
         <state relative-caret-position="17">
           <caret line="70" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
           <folding>
-            <element signature="e#0#1949#0" expanded="true" />
+            <element signature="e#0#1949#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3183,50 +3188,43 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="139" column="63" selection-start-line="139" selection-start-column="63" selection-end-line="139" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_user_settings.xml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="1479">
-          <caret line="87" column="42" selection-start-line="87" selection-start-column="42" selection-end-line="87" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/MyLocationService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1717">
           <caret line="114" column="8" selection-start-line="114" selection-start-column="8" selection-end-line="114" selection-end-column="8" />
-          <folding />
+          <folding>
+            <element signature="e#3432#3674#0" expanded="true" />
+            <element signature="e#3673#3674#0" expanded="true" />
+            <element signature="method#onConnected#0;class#MyLocationService#0" expanded="false" />
+            <element signature="method#nearSpeedCamera#0;class#MyLocationService#0" expanded="false" />
+            <element signature="e#15714#15715#0" expanded="true" />
+            <element signature="e#15760#15761#0" expanded="true" />
+            <element signature="method#createSpeedVanReference#0;class#MyLocationService#0" expanded="false" />
+            <element signature="method#createSpeedCameraReference#0;class#MyLocationService#0" expanded="false" />
+            <element signature="method#createSpeedLimitReference#0;class#MyLocationService#0" expanded="false" />
+            <element signature="e#28422#28423#0" expanded="true" />
+            <element signature="e#28451#28452#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/MyLocationService.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_user_settings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="901">
-          <caret line="73" column="25" selection-start-line="73" selection-start-column="25" selection-end-line="73" selection-end-column="25" />
+        <state relative-caret-position="230">
+          <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/UserSettings.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="70" column="26" selection-start-line="70" selection-start-column="26" selection-end-line="70" selection-end-column="26" />
+        <state relative-caret-position="146">
+          <caret line="97" column="5" selection-start-line="97" selection-start-column="5" selection-end-line="97" selection-end-column="5" />
           <folding>
-            <element signature="class#3003:3466" expanded="false" />
+            <element signature="class#2563:3026" expanded="false" />
             <element signature="method#getCityAddress#0;class#UserSettings#0" expanded="false" />
             <element signature="method#getPosition#0;class#UserSettings#0" expanded="false" />
             <element signature="method#onBackPressed#0;class#UserSettings#0" expanded="false" />
@@ -3234,20 +3232,72 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="145" column="46" selection-start-line="145" selection-start-column="46" selection-end-line="145" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/VolleyService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="158" column="67" selection-start-line="158" selection-start-column="67" selection-end-line="158" selection-end-column="67" />
+          <folding>
+            <element signature="method#getJourneyFragments#0;class#VolleyService#0" expanded="false" />
+            <element signature="method#getUsersJourneys#0;class#VolleyService#0" expanded="false" />
+            <element signature="method#addJourneyFragments#0;class#VolleyService#0" expanded="false" />
+            <element signature="method#getUserStatistics#0;class#VolleyService#0" expanded="false" />
+            <element signature="method#addOverSpeedLimits#0;class#VolleyService#0" expanded="false" />
+            <element signature="method#getDaysSinceLastOverSpeed#0;class#VolleyService#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/MyLocationService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="107">
+          <caret line="262" column="0" selection-start-line="262" selection-start-column="0" selection-end-line="262" selection-end-column="0" />
+          <folding>
+            <element signature="e#3432#3674#0" expanded="true" />
+            <element signature="e#3673#3674#0" expanded="true" />
+            <element signature="method#onConnected#0;class#MyLocationService#0" expanded="false" />
+            <element signature="method#nearSpeedCamera#0;class#MyLocationService#0" expanded="false" />
+            <element signature="e#15714#15715#0" expanded="true" />
+            <element signature="e#15760#15761#0" expanded="true" />
+            <element signature="method#createSpeedVanReference#0;class#MyLocationService#0" expanded="false" />
+            <element signature="method#createSpeedCameraReference#0;class#MyLocationService#0" expanded="false" />
+            <element signature="method#createSpeedLimitReference#0;class#MyLocationService#0" expanded="false" />
+            <element signature="e#28422#28423#0" expanded="true" />
+            <element signature="e#28451#28452#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/TrackSpeedActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-119">
-          <caret line="84" column="4" selection-start-line="84" selection-start-column="4" selection-end-line="84" selection-end-column="45" />
+        <state relative-caret-position="112">
+          <caret line="238" column="25" selection-start-line="238" selection-start-column="25" selection-end-line="238" selection-end-column="25" />
           <folding>
-            <element signature="method#onStart#0;class#TrackSpeedActivity#0" expanded="false" />
-            <element signature="method#onStop#0;class#TrackSpeedActivity#0" expanded="false" />
-            <element signature="method#onConnected#0;class#TrackSpeedActivity#0" expanded="false" />
-            <element signature="method#onLocationChanged#0;class#TrackSpeedActivity#0" expanded="false" />
-            <element signature="method#setOverSpeedLimit#0;class#TrackSpeedActivity#0" expanded="false" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#7212#8290#0" expanded="true" />
+            <element signature="e#8289#8290#0" expanded="true" />
+            <element signature="method#nearSpeedCamera#0;class#TrackSpeedActivity#0" expanded="false" />
+            <element signature="method#displaySpeedVanInfo#0;class#TrackSpeedActivity#0" expanded="false" />
+            <element signature="method#displaySpeedCameraInfo#0;class#TrackSpeedActivity#0" expanded="false" />
+            <element signature="e#13170#13250#0" expanded="false" />
+            <element signature="method#chooseSpeedImage#0;class#TrackSpeedActivity#0" expanded="false" />
+            <element signature="method#showImage#0;class#TrackSpeedActivity#0" expanded="false" />
+            <element signature="method#showSnackBarSpeedCamera#0;class#TrackSpeedActivity#0" expanded="false" />
             <element signature="method#showSnackBarSpeedVan#0;class#TrackSpeedActivity#0" expanded="false" />
-            <element signature="method#playVoice#0;class#TrackSpeedActivity#0" expanded="false" />
-            <element signature="method#createSpeedVanReference#0;class#TrackSpeedActivity#0" expanded="false" />
-            <element signature="method#createSpeedCameraReference#0;class#TrackSpeedActivity#0" expanded="false" />
+            <element signature="e#18336#18396#0" expanded="false" />
+            <element signature="e#19923#19968#0" expanded="false" />
+            <marker date="1491173196827" expanded="false" signature="5838:5886" ph="&quot;I have been in a motor accident. My co-ordinates are:&quot;" />
+            <marker date="1491173196827" expanded="false" signature="21174:21182" ph="&lt;~&gt;" />
           </folding>
         </state>
       </provider>

@@ -27,6 +27,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
         android:name=".Application"
@@ -137,8 +138,12 @@
 
         <activity android:name="com.carvis.UserStatistics" />
         <activity android:name="com.carvis.UserStatActivity" />
-        <activity android:name="com.carvis.BarChart" />
-        <activity android:name="com.carvis.UserSettings"></activity>
+        <activity android:name="com.carvis.UserSettings" />
+
+        <service
+            android:name="com.carvis.MyLocationService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

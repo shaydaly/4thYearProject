@@ -31,6 +31,7 @@ public class SplashActivity extends Activity {
     private static final String LOG_TAG = SplashActivity.class.getSimpleName();
     private final CountDownLatch timeoutLatch = new CountDownLatch(1);
     private SignInManager signInManager;
+    public static boolean justSignedin;
 
     /**
      * SignInResultsHandler handles the results from sign-in for a previously signed in user.
@@ -43,6 +44,7 @@ public class SplashActivity extends Activity {
          */
         @Override
         public void onSuccess(final IdentityProvider provider) {
+            justSignedin = true;
             Log.d(LOG_TAG, String.format("User sign-in with previous %s provider succeeded",
                 provider.getDisplayName()));
 

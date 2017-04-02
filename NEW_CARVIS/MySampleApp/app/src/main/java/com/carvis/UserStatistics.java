@@ -31,15 +31,16 @@ public class UserStatistics extends AppCompatActivity {
 //    protected void onStop(){
 //        super.onStop();
 //    }
-//    @Override
-//    protected void onResume(){
-//        super.onResume();
-//        //goToUserStats();
-//        //super.onStop();
-//    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        //goToUserStats();
+        //super.onStop();
+    }
 //
     @Override
     protected void onPause(){
+        System.out.println("on pause called");
         super.onStop();
     }
 //
@@ -49,11 +50,11 @@ public class UserStatistics extends AppCompatActivity {
 //    }
 
     public void goToUserStats(){
+        super.onStop();
         context = getApplicationContext();
         provider = new CognitoUserPoolsSignInProvider(context);
         volleyService = new VolleyService(context);
         volleyService.getUserStatistics(provider.getUserName());
-        super.onStop();
     }
 
 

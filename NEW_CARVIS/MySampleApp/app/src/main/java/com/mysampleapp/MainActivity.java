@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     DemoConfiguration.DemoFeature df;
 
 
-
     /**
      * Initializes the Toolbar for use with the activity.
      */
@@ -158,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
+        Log.i("SD", "ON CREATE CALLED");
         super.onCreate(savedInstanceState);
 
         // Obtain a reference to the mobile client. It is created in the Application class,
@@ -175,12 +175,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setupToolbar(savedInstanceState);
 
         setupNavigationMenu(savedInstanceState);
+
+
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
+        Log.i("SD", "ON Resume CALLED");
         if (!AWSMobileClient.defaultMobileClient().getIdentityManager().isUserSignedIn()) {
             // In the case that the activity is restarted by the OS after the application
             // is killed we must redirect to the splash activity to handle the sign-in flow.
@@ -277,4 +280,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public Bundle getFragmentBundle() {
         return this.fragmentBundle;
     }
+
+
 }

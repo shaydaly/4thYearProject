@@ -15,6 +15,7 @@
 //    FirebaseDatabase database;
 //    DatabaseReference vanRef;
 //    DatabaseReference cameraRef;
+//    DatabaseReference cameraRef;
 //    Context context;
 //
 //

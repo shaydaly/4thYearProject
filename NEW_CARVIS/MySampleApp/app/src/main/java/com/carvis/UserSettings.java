@@ -1,6 +1,7 @@
 package com.carvis;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -13,13 +14,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.mysampleapp.R;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -29,14 +30,19 @@ public class UserSettings extends AppCompatActivity {
     Spinner spinner;
 
     String[] counties;
+    String emergencyContact;
+    EditText editText ;
+    SharedPreferences prefs;
+
+    boolean isBound = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_settings);
         context = getApplicationContext();
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        //getCityAddress(53.353964, -6.364627);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.settingsToolbar);
 
@@ -55,6 +61,23 @@ public class UserSettings extends AppCompatActivity {
 // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
 
+        emergencyContact = PreferenceManager.getDefaultSharedPreferences(context).getString("emergencyContact", null);
+        editText = (EditText)findViewById(R.id.emergencyContact);
+
+        editText.setText(emergencyContact);
+
+
+        final Button startServiceButton = (Button) findViewById(R.id.startService);
+        startServiceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                System.out.println("button clicked");
+                Intent i = new Intent(context, MyLocationService.class);
+                startService(i);
+
+            }
+        });
 
 
         Resources res = getResources();
@@ -69,7 +92,7 @@ public class UserSettings extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
                 System.out.println(counties[position]);
-                saveSharedPreferences(counties[position]);
+                saveLocaleSharedPreferences(counties[position]);
             }
 
             @Override
@@ -80,8 +103,7 @@ public class UserSettings extends AppCompatActivity {
         });
 
     }
-    public void saveSharedPreferences(String locale){
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+    public void saveLocaleSharedPreferences(String locale){
         prefs.edit()
         .putString("locale", locale)
         .commit();
@@ -102,20 +124,33 @@ public class UserSettings extends AppCompatActivity {
         }
     }
 
+
+
     public int getPosition(String[]counties) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         int position = 0;
         if(prefs.contains("locale")) {
             String locale = PreferenceManager.getDefaultSharedPreferences(context).getString("locale", null);
-            System.out.println("locale  " + locale);
             for (int i = 0; i < counties.length; i++) {
                 if (counties[i].equals(locale)) {
-                    System.out.println("found " + i);
                     return i;
                 }
             }
         }
         return position;
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onStop();
+        System.out.println("back called");
+        super.onBackPressed();
+
+        String emergencyContact = String.valueOf(editText.getText());
+
+        prefs.edit()
+                .putString("emergencyContact", emergencyContact)
+                .commit();
+        super.onStop();
     }
 
 

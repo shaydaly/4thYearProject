@@ -119,13 +119,13 @@
     <string name="daysSinceLastOverSpeed1">It has been </string>
     <string name="daysSinceLastOverSpeed2"> days since your last Speeding incident </string>
     <string name="wellDone">Well Done !</string>
-    <string name="slowingDown">Maybe consider slowing down?</string>
+    <string name="slowingDown">Maybe consider slowing down???</string>
     <string name="locale">Locale</string>
     <string name="settings">Settings</string>
-
-
+    <string name="emergencySMS">EMERGENCY SMS</string>
+    <string name="emergencyText">I have been in a motor accident. My co-ordinates are: </string>
+    <string name="emergencyContact">Emergency Contact</string>
     <string-array name="counties">
-        <item>ALL</item>
         <item>Cork</item>
         <item>Dublin</item>
         <item>Galway</item>

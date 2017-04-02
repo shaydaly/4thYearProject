@@ -1,9 +1,13 @@
 package com.carvis;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
+import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
@@ -24,6 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.mysampleapp.R;
+import com.mysampleapp.demo.HomeDemoFragment;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -44,32 +49,34 @@ import static android.R.attr.value;
  * Created by Seamus on 23/03/2017.
  */
 
-public class VolleyService {
+public class VolleyService extends Activity {
 
     private RequestQueue queue;
     private Context context;
     String url;
+    View view;
 
-    VolleyService(Context context){
+    public VolleyService(Context context) {
         this.context = context;
         queue = Volley.newRequestQueue(context);
         url = "";
+        view = new View(context);
     }
 
-    public  void addJourneyDB(final Journey journey, String username,String updateType){
+    public void addJourneyDB(final Journey journey, String username, String updateType) {
         try {
             System.out.println("Add journey called");
             url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/createjourneyobject";
             Date dNow = new Date();
-            SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("longitude", journey.getLongitude());
             jsonBody.put("latitude", journey.getLatitude());
-            jsonBody.put("startTime",dNow);
-            jsonBody.put("endTime",dNow);
+            jsonBody.put("startTime", dNow);
+            jsonBody.put("endTime", dNow);
             jsonBody.put("username", username);
-            jsonBody.put("sqlType",updateType);
-            jsonBody.put("journeyID",journey.getJourneyID());
+            jsonBody.put("sqlType", updateType);
+            jsonBody.put("journeyID", journey.getJourneyID());
             final String requestBody = jsonBody.toString();
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -114,9 +121,8 @@ public class VolleyService {
                             String str = new String(response.data, "UTF-8");
                             String jID = str.replaceAll("[^\\d.]", "");
                             journey.setJourneyID(jID);
-                            System.out.println("JOURNEYID: "+journey.getJourneyID());
-                        }
-                        catch(UnsupportedEncodingException e){
+                            System.out.println("JOURNEYID: " + journey.getJourneyID());
+                        } catch (UnsupportedEncodingException e) {
 
                         }
                     }
@@ -132,9 +138,7 @@ public class VolleyService {
     }
 
 
-
-    public void getSpeedFromLambda(FirebaseDatabase database, final SpeedSearch speedSearch, final String latitude,final  String longitude) {
-        final DatabaseReference myRef = database.getReference("speedLimits");
+    public void getSpeedFromLambda(final TrackSpeedActivity t, final SpeedSearch speedSearch, final String latitude, final String longitude) {
         System.out.println("GET SPEED CALLED");
         url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/QuerySpeed/callqueryspeed?latitude=" + latitude + "&longitude=" + longitude;
         //final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
@@ -152,13 +156,16 @@ public class VolleyService {
 //                            Location l = new Location("location");
 //                            l.setLatitude(Double.parseDouble(latitude));
 //                            l.setLongitude(Double.parseDouble(longitude));
-                            int speedLimit = obj.getInt("speed");
+//                            int speedLimit = obj.getInt("speed");
+                            String city = obj.getString("locale");
+                            if(!t.getLocale().equals(city)) {
+                                t.createSpeedLimitReference(city);
+                            }
                             //myRef.child(String.valueOf(obj.get("osm_id"))).push().setValue(new RoadRecord(latitude,longitude, speedLimit));
                             speedSearch.setOsm_id(obj.getInt("osm_id"));
                         } catch (JSONException e) {
                             Log.i("GET SPEED EXCEPTIOM ", e.getMessage());
-                        }
-                        catch(Exception e){
+                        } catch (Exception e) {
                             Log.i("sp ex ", "speed lambda exception");
                         }
                     }
@@ -166,38 +173,37 @@ public class VolleyService {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.i("Speed Lambda","ERROR");
+                        Log.i("Speed Lambda", error.getMessage());
                     }
                 });
         queue.add(jsObjRequest);
     }
 
-    public void getJourneyFragments(String username,String journeyID, final Journey journey){
-        url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/journeyfragment?username="+username+"&journeyID="+journeyID;
+    public void getJourneyFragments(String username, String journeyID, final Journey journey) {
+        url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/journeyfragment?username=" + username + "&journeyID=" + journeyID;
         //JsonArrayRequest jsObjRequest = new JsonArrayRequest
         JsonArrayRequest request = new JsonArrayRequest(url,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray jsonArray) {
-                        for(int i = 0; i < jsonArray.length(); i++) {
+                        for (int i = 0; i < jsonArray.length(); i++) {
                             try {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                                 //AddToJourneyList(jsonObject.toString());
                                 //journeys.add((jsonObject.get("starttime").toString()));
                                 String journeyFragID = jsonObject.getString("journeyFragID");
-                                String longitude =  jsonObject.getString("longitude");
-                                String latitude =  jsonObject.getString("latitude");
-                                String time =  jsonObject.getString("time");
-                                int speedLimit =  jsonObject.getInt("speedLimit");
-                                int currentSpeed =  jsonObject.getInt("currentSpeed");
+                                String longitude = jsonObject.getString("longitude");
+                                String latitude = jsonObject.getString("latitude");
+                                String time = jsonObject.getString("time");
+                                int speedLimit = jsonObject.getInt("speedLimit");
+                                int currentSpeed = jsonObject.getInt("currentSpeed");
 
-                                JourneyFragment j = new JourneyFragment(journeyFragID,latitude,longitude,currentSpeed,speedLimit,time);
+                                JourneyFragment j = new JourneyFragment(journeyFragID, latitude, longitude, currentSpeed, speedLimit, time);
                                 //System.out.println(j.getCurrentSpeed());
                                 //journeyFragments.add(j);
                                 journey.addToJourneyFragments(j);
                                 //jarr.put(jsonObject);
-                            }
-                            catch(JSONException e) {
+                            } catch (JSONException e) {
                                 //j.add("Error: " + e.getLocalizedMessage());
                             }
 //                            catch(ParseException e) {
@@ -216,30 +222,29 @@ public class VolleyService {
         queue.add(request);
     }
 
-    public void getUsersJourneys(String username, final Journey journey){
-        url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/retrieveuserjourneys?username="+username;
+    public void getUsersJourneys(String username, final Journey journey) {
+        url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/retrieveuserjourneys?username=" + username;
         //JsonArrayRequest jsObjRequest = new JsonArrayRequest
         JsonArrayRequest request = new JsonArrayRequest(url,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray jsonArray) {
-                        for(int i = 0; i < jsonArray.length(); i++) {
+                        for (int i = 0; i < jsonArray.length(); i++) {
                             try {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                                 String startTime = jsonObject.get("starttime").toString();
-                                String endTime =  jsonObject.get("endtime").toString();
-                                String startLon =  jsonObject.get("startLon").toString();
-                                String startLat =  jsonObject.get("startLat").toString();
-                                String journeyID =  jsonObject.get("journeyID").toString();
-                                String endLon =  jsonObject.get("endLon").toString();
-                                String endLat =  jsonObject.get("endLat").toString();
+                                String endTime = jsonObject.get("endtime").toString();
+                                String startLon = jsonObject.get("startLon").toString();
+                                String startLat = jsonObject.get("startLat").toString();
+                                String journeyID = jsonObject.get("journeyID").toString();
+                                String endLon = jsonObject.get("endLon").toString();
+                                String endLat = jsonObject.get("endLat").toString();
 
-                                Journey j = new Journey(journeyID,startLat,startLon,endLat,endLon,startTime,endTime);
+                                Journey j = new Journey(journeyID, startLat, startLon, endLat, endLon, startTime, endTime);
                                 //journeys.add(j);
                                 journey.addToJourneys(j);
-                            }
-                            catch(JSONException e) {
-                                System.out.println(e.getMessage()+"----");
+                            } catch (JSONException e) {
+                                System.out.println(e.getMessage() + "----");
                             }
 //                            catch(ParseException e) {
 //                                //j.add("Error: " + e.getLocalizedMessage());
@@ -251,7 +256,7 @@ public class VolleyService {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-                        System.out.println("volley error in USe JouRS "+volleyError.toString());
+                        System.out.println("volley error in USe JouRS " + volleyError.toString());
                         //Toast.makeText(MainActivity.this, "Unable to fetch data: " + volleyError.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -259,10 +264,10 @@ public class VolleyService {
         queue.add(request);
     }
 
-    public  void addJourneyFragments(List<JourneyFragment> journies, String journeyID){
+    public void addJourneyFragments(List<JourneyFragment> journies, String journeyID) {
         try {
-            for(JourneyFragment j : journies){
-                if(j.getJourneyID().equals("")){
+            for (JourneyFragment j : journies) {
+                if (j.getJourneyID().equals("")) {
                     j.setJourneyID(journeyID);
                 }
             }
@@ -284,7 +289,7 @@ public class VolleyService {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.i("Volley Error1 ",error.toString());
+                        Log.i("Volley Error1 ", error.toString());
                     }
                 }) {
                     @Override
@@ -335,20 +340,17 @@ public class VolleyService {
             }
 
 
-
-        }
-
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
 
     }
 
-    public void getUserStatistics(String username){
+    public void getUserStatistics(String username) {
         final DateTimeFormatter dateWithTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
         final DateTimeFormatter dateFormatter = DateTimeFormat.forPattern("yyyy-MM-dd");
-        url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/getuserstatistics?username="+username;
+        url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/getuserstatistics?username=" + username;
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -364,13 +366,13 @@ public class VolleyService {
                             String roadAddress = jsonObject.getString("roadAddress");
                             //System.out.println(numJourneys+" num journeys\n"+journeysWithOverSpeed+"journeys");
                             JSONArray jsonArray = jsonObject.getJSONArray("journeys");
-                            for(int i = 0; i < jsonArray.length(); i++){
+                            for (int i = 0; i < jsonArray.length(); i++) {
                                 String endTime = String.valueOf(jsonArray.getJSONObject(i).get("endTime"));
                                 String startTime = String.valueOf(jsonArray.getJSONObject(i).get("startTime"));
-                                double startLatitude =  Double.parseDouble(String.valueOf(jsonArray.getJSONObject(i).get("startLatitude")));
-                                double startLongitude =  Double.parseDouble(String.valueOf(jsonArray.getJSONObject(i).get("startLongitude")));
-                                double endLatitude =  Double.parseDouble(String.valueOf(jsonArray.getJSONObject(i).get("endLatitude")));
-                                double endLongitude =  Double.parseDouble(String.valueOf(jsonArray.getJSONObject(i).get("endLongitude")));
+                                double startLatitude = Double.parseDouble(String.valueOf(jsonArray.getJSONObject(i).get("startLatitude")));
+                                double startLongitude = Double.parseDouble(String.valueOf(jsonArray.getJSONObject(i).get("startLongitude")));
+                                double endLatitude = Double.parseDouble(String.valueOf(jsonArray.getJSONObject(i).get("endLatitude")));
+                                double endLongitude = Double.parseDouble(String.valueOf(jsonArray.getJSONObject(i).get("endLongitude")));
 
 //                                Location start = new Location("start");
 //                                start.setLatitude(Double.parseDouble(startLatitude));
@@ -382,7 +384,7 @@ public class VolleyService {
                                 journeys.add(new JourneyInfo(dateWithTimeFormatter.parseDateTime(startTime), dateWithTimeFormatter.parseDateTime(endTime), startLatitude, startLongitude, endLatitude, endLongitude));
                             }
                             JSONArray overSpeedDates = jsonObject.getJSONArray("overSpeedDates");
-                            for(int i = 0; i < overSpeedDates.length(); i++){
+                            for (int i = 0; i < overSpeedDates.length(); i++) {
                                 String date = String.valueOf(overSpeedDates.getJSONObject(i).get("overSpeedDate"));
                                 dates.add(dateFormatter.parseDateTime(date));
                             }
@@ -391,35 +393,35 @@ public class VolleyService {
                             DateTime memberSince = dateFormatter.parseDateTime(date);
 
 
-
-                            UserStat userStat = new UserStat(overSpeedRoad,journeys,journeysWithOverSpeed,numJourneys,dates, memberSince, roadAddress);
+                            UserStat userStat = new UserStat(overSpeedRoad, journeys, journeysWithOverSpeed, numJourneys, dates, memberSince, roadAddress);
                             Intent myIntent = new Intent(context, UserStatActivity.class);
                             myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             myIntent.putExtra("userStat", userStat); //Optional parameters
                             context.startActivity(myIntent);
                         } catch (JSONException e) {
                             Log.i("user stat", e.getMessage());
-                        }
-                        catch(Exception e){
+                            e.printStackTrace();
+                        } catch (Exception e) {
                             Log.i("user stat", e.getMessage());
+                            e.printStackTrace();
                         }
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.i("Speed Lambda","ERROR");
+                        Log.i("Speed Lambda", "ERROR");
                     }
                 });
         queue.add(jsObjRequest);
     }
 
 
-    public  void addOverSpeedLimits(List<OverSpeedLimit> overSpeedLimits, String journeyID, String user) {
+    public void addOverSpeedLimits(List<OverSpeedLimit> overSpeedLimits, String journeyID, String user) {
 
-        Log.i("over speed size ",String.valueOf(overSpeedLimits.size()));
-        for(OverSpeedLimit o : overSpeedLimits){
-            if(o.getJourneyid().equals("")){
+        Log.i("over speed size ", String.valueOf(overSpeedLimits.size()));
+        for (OverSpeedLimit o : overSpeedLimits) {
+            if (o.getJourneyid().equals("")) {
                 o.setJourneyid(journeyID);
             }
         }
@@ -477,8 +479,7 @@ public class VolleyService {
                         try {
                             String str = new String(response.data, "UTF-8");
                             //System.out.println("overspeed "+ str);
-                        }
-                        catch(UnsupportedEncodingException e){
+                        } catch (UnsupportedEncodingException e) {
 
                         }
                     }
@@ -494,9 +495,8 @@ public class VolleyService {
     }
 
 
-    public void getDaysSinceLastOverSpeed(final UserStat  u) {
-
-        url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/daysinceoverspeed?username="+u.getUsername();
+    public void getDaysSinceLastOverSpeed(final String username) {
+        url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/daysinceoverspeed?username=" + username;
         //final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -507,12 +507,19 @@ public class VolleyService {
                             Log.i("days", response.toString());
                             JSONObject obj = new JSONObject(response.toString());
                             int daysSinceOverSpeed = obj.getInt("daysOverSpeed");
-                            u.setDaysSinceOverSpeed(daysSinceOverSpeed);
+                            //u.setDaysSinceOverSpeed(daysSinceOverSpeed);
+                            System.out.println("Hi " + username + " its been " + daysSinceOverSpeed + " days since last overspeed ");
+
+
+                            //HomeDemoFragment.textViewObj.setText("Hi " + username + " its been " + daysSinceOverSpeed + " days since last overspeed ");
+                            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+                            prefs.edit()
+                                    .putInt("daysSinceOverSpeed", daysSinceOverSpeed)
+                                    .commit();
 
                         } catch (JSONException e) {
                             Log.i("days", e.getMessage());
-                        }
-                        catch(Exception e){
+                        } catch (Exception e) {
                             Log.i("days ", e.getMessage());
                         }
                     }
@@ -520,9 +527,12 @@ public class VolleyService {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.i("Sdays","ERROR");
+                        Log.i("Sdays", "ERROR");
                     }
                 });
         queue.add(jsObjRequest);
     }
+
+
+
 }

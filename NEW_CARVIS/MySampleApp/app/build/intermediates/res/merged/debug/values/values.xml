@@ -10,7 +10,6 @@
 <item>@id/cast_button_type_play_pause_toggle</item>
 </array>
     <string-array name="counties">
-        <item>ALL</item>
         <item>Cork</item>
         <item>Dublin</item>
         <item>Galway</item>
@@ -888,6 +887,9 @@
     <string name="default_web_client_id" translatable="false">54865169501-uhq8n32kas19q6h0i2ms6hnmm29468k4.apps.googleusercontent.com</string>
     <string name="email">Email</string>
     <string name="email_address_text">Email address</string>
+    <string name="emergencyContact">Emergency Contact</string>
+    <string name="emergencySMS">EMERGENCY SMS</string>
+    <string name="emergencyText">I have been in a motor accident. My co-ordinates are: </string>
     <string name="error_field_required">This field is required</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_invalid_email">This email address is invalid</string>
@@ -991,7 +993,7 @@
     <string name="sign_up_failed">Sign up failed.</string>
     <string name="sign_up_header">Enter the following information to sign up.</string>
     <string name="sign_up_success">Sign up succeeded.</string>
-    <string name="slowingDown">Maybe consider slowing down?</string>
+    <string name="slowingDown">Maybe consider slowing down???</string>
     <string name="speedCameraMap">Speed Camera Map</string>
     <string name="speedLimit">0 k/m</string>
     <string name="speedMetric">km/h</string>

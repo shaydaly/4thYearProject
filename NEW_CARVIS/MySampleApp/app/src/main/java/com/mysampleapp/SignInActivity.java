@@ -27,6 +27,9 @@ public class SignInActivity extends Activity {
     /** Permission Request Code (Must be < 256). */
     private static final int GET_ACCOUNTS_PERMISSION_REQUEST_CODE = 93;
 
+
+
+
     /** The Google OnClick listener, since we must override it to get permissions on Marshmallow and above. */
     private View.OnClickListener googleOnClickListener;
 
@@ -49,6 +52,7 @@ public class SignInActivity extends Activity {
 
             //Toast.makeText(SignInActivity.this, String.format("Sign-in with %s succeeded.",
               //  provider.getDisplayName()), Toast.LENGTH_LONG).show();
+
 
             // Load user name and image.
             AWSMobileClient.defaultMobileClient()

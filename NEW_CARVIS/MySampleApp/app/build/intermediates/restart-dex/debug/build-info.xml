@@ -5,54 +5,33 @@
     density="xxhdpi"
     format="8"
     plugin-version="2.2.3"
-    timestamp="41775805412629"
+    timestamp="184268187427647"
     token="4545831529975899506"
-    verifier="COMPATIBLE" >
+    verifier="MANIFEST_FILE_CHANGE" >
 
     <task
         name="javac"
-        duration="806" />
+        duration="2021" />
     <task
         name="instant-run-dex"
-        duration="14" />
+        duration="0" />
     <task
         name="instant-run-transform"
-        duration="47" />
+        duration="61" />
     <task
         name="verifier"
-        duration="8" />
+        duration="9" />
 
     <artifact
-        location="C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\reload-dex\debug\classes.dex"
-        type="RELOAD_DEX" />
+        location="C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\outputs\apk\app-debug.apk"
+        type="MAIN" />
 
     <build
-        timestamp="39874950860230"
-        verifier="FULL_BUILD_REQUESTED" >
+        timestamp="184268187427647"
+        verifier="MANIFEST_FILE_CHANGE" >
         <artifact
             location="C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\outputs\apk\app-debug.apk"
             type="MAIN" />
-    </build>
-    <build
-        timestamp="41659567852337"
-        verifier="CLASS_ADDED" >
-        <artifact
-            location="C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_3\classes.dex"
-            type="DEX" />
-    </build>
-    <build
-        timestamp="41715197301842"
-        verifier="COMPATIBLE" >
-        <artifact
-            location="C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\builds\debug\41715197301842\classes.dex"
-            type="RELOAD_DEX" />
-    </build>
-    <build
-        timestamp="41775805412629"
-        verifier="COMPATIBLE" >
-        <artifact
-            location="C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\reload-dex\debug\classes.dex"
-            type="RELOAD_DEX" />
     </build>
 
 </instant-run>

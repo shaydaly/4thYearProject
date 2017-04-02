@@ -21,7 +21,7 @@
             android:id="@+id/daysSinceOverSpeed"
             android:gravity="left"
             android:padding="3dip"
-            android:text="10101010"
+            android:text=""
             android:layout_weight="1"
             android:layout_width="0dip"
             android:layout_height="wrap_content"

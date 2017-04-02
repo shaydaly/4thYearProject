@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -17,11 +18,13 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -83,7 +86,7 @@ public class TrackSpeedActivity extends Activity implements
     private LocationRequest mLocationRequest;
 
     SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    String locale ;
+    private  String locale ;
 
 
     private List<JourneyFragment> journeyList;
@@ -150,72 +153,6 @@ public class TrackSpeedActivity extends Activity implements
     };
 
 
-    Handler speedVanHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            Bundle summaryBundle = msg.getData();
-            SpeedCamera s = (SpeedCamera) summaryBundle.get("SpeedCamera");
-
-            LayoutInflater inflater = getLayoutInflater();
-            View layout = inflater.inflate(R.layout.speed_camera_toast,
-                    (ViewGroup) findViewById(R.id.custom_toast_container));
-
-            TextView text = (TextView) layout.findViewById(R.id.speedVanLocation);
-            text.setText(SpeedCamera.getSpeedCameraAddress(context, s.getStartLatitude(), s.getEndLongitude()));
-
-            TextView lastLocated = (TextView) layout.findViewById(R.id.lastSpotted);
-            if (s.getReportedTimes().size() != 0) {
-                lastLocated.setText(s.getReportedTimes().get(s.getReportedTimes().size() - 1));
-            }
-            TextView header = (TextView) layout.findViewById(R.id.speedToastHeader);
-            header.setText("Speed Van Nearby");
-
-            Toast toast = new Toast(context);
-            toast.setGravity(Gravity.DISPLAY_CLIP_VERTICAL, 0, 0);
-            toast.setDuration(Toast.LENGTH_SHORT);
-            toast.setView(layout);
-            toast.show();
-        }
-    };
-
-
-    Handler speedCameraHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            Bundle summaryBundle = msg.getData();
-            TemporarySpeedCamera t = (TemporarySpeedCamera) summaryBundle.get("TemporarySpeedCamera");
-
-            LayoutInflater inflater = getLayoutInflater();
-            View layout = inflater.inflate(R.layout.speed_camera_toast,
-                    (ViewGroup) findViewById(R.id.custom_toast_container));
-            TextView header = (TextView) layout.findViewById(R.id.speedToastHeader);
-            header.setText("Speed Camera Nearby");
-
-
-            TextView text = (TextView) layout.findViewById(R.id.speedVanLocation);
-            text.setText(SpeedCamera.getSpeedCameraAddress(context, t.getLatitude(), t.getLongitude()));
-
-
-            TextView lastLocated = (TextView) layout.findViewById(R.id.lastSpotted);
-
-            lastLocated.setText(t.getTime());
-
-
-            Toast toast = new Toast(context);
-            toast.setGravity(Gravity.DISPLAY_CLIP_VERTICAL, 0, 0);
-            toast.setDuration(Toast.LENGTH_SHORT);
-            toast.setView(layout);
-            toast.show();
-        }
-    };
-
-    Handler firebaseSpeedHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-        }
-    };
-
     Handler overSpeedHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -267,7 +204,6 @@ public class TrackSpeedActivity extends Activity implements
 
         locale = PreferenceManager.getDefaultSharedPreferences(context).getString("locale", null);
 
-
         Uri myUri = Uri.fromFile(new File("raw/speedlimitpolly.mp3"));
 
 //        mediaPlayer = MediaPlayer.create(this, R.raw.speedlimitpolly);
@@ -281,14 +217,32 @@ public class TrackSpeedActivity extends Activity implements
         speedSearch = new SpeedSearch(-99);
         final SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         // cameras = new HashSet<>();
-//        Button clickButton = (Button) findViewById(R.id.addSpeedCamera);
-//        clickButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String time = ft.format(dNow);
-//                TemporarySpeedCamera.addTemporaryCamera(journey.getLatitude(), journey.getLongitude(), time, context);
-//            }
-//        });
+
+        Button addSpeedCameraButton = (Button) findViewById(R.id.addSpeedCamera);
+        addSpeedCameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String time = ft.format(dNow);
+                TemporarySpeedCamera.addTemporaryCamera(journey.getLatitude(), journey.getLongitude(), time, context);
+            }
+        });
+
+
+
+
+        Button emergencySMSButton = (Button) findViewById(R.id.sendEmergencySMS);
+        emergencySMSButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String emergencyContact = PreferenceManager.getDefaultSharedPreferences(context).getString("emergencyContact", null);
+                if(emergencyContact.equals("")){
+                    emergencyContact = "0851329485";
+                }
+                SmsManager smsManager = SmsManager.getDefault();
+                String messageBody = getResources().getString(R.string.emergencyText)+" "+journey.getLatitude()+","+journey.getLongitude()+"\n\nhttp://www.google.com/maps/place/"+journey.getLatitude()+","+journey.getLongitude();
+                smsManager.sendTextMessage(emergencyContact, null, messageBody, null, null);
+            }
+        });
 
 //        Button speedVan = (Button) findViewById(R.id.speedvan);
 //        speedVan.setOnClickListener(new View.OnClickListener() {
@@ -303,181 +257,20 @@ public class TrackSpeedActivity extends Activity implements
         imageView60 = (ImageView) findViewById(R.id.speed60km);
         imageView80 = (ImageView) findViewById(R.id.speed80km);
         imageView100 = (ImageView) findViewById(R.id.speed100km);
-//FirebaseDatabase
         // FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         FirebaseApp.initializeApp(context);
         //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         database = FirebaseDatabase.getInstance();
-        vanRef = database.getReference("speedVans");
-        vanRef.keepSynced(true);
-        cameraRef = database.getReference("reportedSpeedCameras");
-        cameraRef.keepSynced(true);
-        speedref = database.getReference("speedLimits").child(locale);
-        speedref.keepSynced(true);
-
-        speedref.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-
-                record = new ArrayList<>();
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    System.out.println(postSnapshot.child("latitude").getValue());
-                    RoadRecord r = new RoadRecord(
-                            String.valueOf(postSnapshot.child("latitude").getValue()),
-                            String.valueOf(postSnapshot.child("longitude").getValue()),
-                            Integer.parseInt(String.valueOf(postSnapshot.child("speedLimit").getValue())));
-                    record.add(r);
-                }
-                //System.out.println(dataSnapshot.getKey()+" KEY");
-                //Road road = new Road(Integer.parseInt(dataSnapshot.getKey()), record);
-                //roads.add(new Road(Integer.parseInt(dataSnapshot.getKey()), record));
-                roadHashMap.put(Integer.parseInt(dataSnapshot.getKey()), record);
-                // System.out.println(r.getLatitude());
-//                HashMap<String, String> reports = (HashMap<String, String>) dataSnapshot.getChildren();
-//                if(reports!=null) {
-//                    Iterator it = reports.entrySet().iterator();
-//                    while (it.hasNext()) {
-//                        Map.Entry pair = (Map.Entry) it.next();
-//                        System.out.println(pair.getKey()+" _ "+pair.getValue());
-//                        it.remove(); // avoids a ConcurrentModificationException
-//                    }
-//                }
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
 
 
-////                cameras.remove(dataSnapshot.getKey());
-////                System.out.println(cameras.size());
-//
-//                int id = Integer.parseInt(String.valueOf(dataSnapshot.getKey()));
-//                double startLat = Double.parseDouble(String.valueOf(dataSnapshot.child("startLatitude").getValue()));
-//                double startLong = Double.parseDouble(String.valueOf(dataSnapshot.child("startLongitude").getValue()));
-//                double endLat = Double.parseDouble(String.valueOf(dataSnapshot.child("endLatitude").getValue()));
-//                double endLong = Double.parseDouble(String.valueOf(dataSnapshot.child("endLongitude").getValue()));
-//                //cameras.add(new SpeedCamera(id, startLat, startLong, endLat, endLong));
-//
-//                System.out.println(SpeedCamera.cameras.size());
-            }
 
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-//                //cameras.remove(dataSnapshot.getKey());
-//                SpeedCamera.removeSpeedCamera(Integer.parseInt(dataSnapshot.getKey()));
-//                System.out.println("camera size : "+SpeedCamera.cameras.size());
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-
-        vanRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                //System.out.println(dataSnapshot.child("startLatitude").getValue());
-                int id = Integer.parseInt(String.valueOf(dataSnapshot.getKey()));
-                double startLat = Double.parseDouble(String.valueOf(dataSnapshot.child("startLatitude").getValue()));
-                double startLong = Double.parseDouble(String.valueOf(dataSnapshot.child("startLongitude").getValue()));
-                double endLat = Double.parseDouble(String.valueOf(dataSnapshot.child("endLatitude").getValue()));
-                double endLong = Double.parseDouble(String.valueOf(dataSnapshot.child("endLongitude").getValue()));
-                //System.out.println(String.valueOf(dataSnapshot.child("reportedTimes").getValue()));
-                HashMap<String, String> reports = (HashMap<String, String>) dataSnapshot.child("Reported Times").getValue();
-                ArrayList<String> dates = new ArrayList<String>();
-                if (reports != null) {
-                    Iterator it = reports.entrySet().iterator();
-                    while (it.hasNext()) {
-                        Map.Entry pair = (Map.Entry) it.next();
-                        dates.add(String.valueOf(pair.getValue()));
-                        it.remove(); // avoids a ConcurrentModificationException
-                    }
-                }
-                SpeedCamera.addSpeedCamera(new SpeedCamera(id, startLat, startLong, endLat, endLong, dates));
-                //cameras.add(new SpeedCamera(id, startLat, startLong, endLat, endLong));
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
+        createSpeedVanReference();
+        createSpeedLimitReference(locale);
+        createSpeedCameraReference();
 
 
-//                cameras.remove(dataSnapshot.getKey());
-//                System.out.println(cameras.size());
-
-                int id = Integer.parseInt(String.valueOf(dataSnapshot.getKey()));
-                double startLat = Double.parseDouble(String.valueOf(dataSnapshot.child("startLatitude").getValue()));
-                double startLong = Double.parseDouble(String.valueOf(dataSnapshot.child("startLongitude").getValue()));
-                double endLat = Double.parseDouble(String.valueOf(dataSnapshot.child("endLatitude").getValue()));
-                double endLong = Double.parseDouble(String.valueOf(dataSnapshot.child("endLongitude").getValue()));
-                //cameras.add(new SpeedCamera(id, startLat, startLong, endLat, endLong));
-
-                //System.out.println(SpeedCamera.getCameras().size());
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                //cameras.remove(dataSnapshot.getKey());
-                SpeedCamera.removeSpeedCamera(Integer.parseInt(dataSnapshot.getKey()));
-                // System.out.println("camera size : "+SpeedCamera.getCameras().size());
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-
-        cameraRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                double latitude = Double.parseDouble(String.valueOf(dataSnapshot.child("latitude").getValue()));
-                double longitude = Double.parseDouble(String.valueOf(dataSnapshot.child("longitude").getValue()));
-                String time = String.valueOf(dataSnapshot.child("time").getValue());
-
-                TemporarySpeedCamera.addTemporaryCamera(new TemporarySpeedCamera(latitude, longitude, time));
-                //cameras.add(new SpeedCamera(id, startLat, startLong, endLat, endLong));
-                //System.out.println(TemporarySpeedCamera.temporarySpeedCameras.size()+" is the temp size");
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
 
 
-////                cameras.remove(dataSnapshot.getKey());
-////                System.out.println(cameras.size());
-//
-//                int id = Integer.parseInt(String.valueOf(dataSnapshot.getKey()));
-//                double startLat = Double.parseDouble(String.valueOf(dataSnapshot.child("startLatitude").getValue()));
-//                double startLong = Double.parseDouble(String.valueOf(dataSnapshot.child("startLongitude").getValue()));
-//                double endLat = Double.parseDouble(String.valueOf(dataSnapshot.child("endLatitude").getValue()));
-//                double endLong = Double.parseDouble(String.valueOf(dataSnapshot.child("endLongitude").getValue()));
-//                //cameras.add(new SpeedCamera(id, startLat, startLong, endLat, endLong));
-//
-//                System.out.println(SpeedCamera.cameras.size());
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-//                //cameras.remove(dataSnapshot.getKey());
-//                SpeedCamera.removeSpeedCamera(Integer.parseInt(dataSnapshot.getKey()));
-//                System.out.println("camera size : "+SpeedCamera.cameras.size());
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
 
         currentSpeedTextView = (TextView) findViewById(R.id.currentSpeed);
         //speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
@@ -583,6 +376,25 @@ public class TrackSpeedActivity extends Activity implements
                             new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
                 }
             }
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.SEND_SMS)
+                    != PackageManager.PERMISSION_GRANTED) {
+//                ActivityCompat.requestPermissions(this,
+//                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+//                        1);
+                // Should we show an explanation?
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        Manifest.permission.SEND_SMS)) {
+                    // Show an explanation to the user *asynchronously* -- don't block
+                    // this thread waiting for the user's response! After the user
+                    // sees the explanation, try again to request the permission.
+                } else {
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.SEND_SMS}, MY_PERMISSIONS_REQUEST_LOCATION);
+                }
+            }
+
+
 
             mLocationRequest = LocationRequest.create();
             mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -830,74 +642,7 @@ public class TrackSpeedActivity extends Activity implements
         toast.setView(layout);
         toast.show();
 
-//        LayoutInflater inflater = getLayoutInflater();
-//        View layout = inflater.inflate(R.layout.speed_camera_toast,
-//                (ViewGroup) findViewById(R.id.custom_toast_container));
-//        TextView header = (TextView) layout.findViewById(R.id.speedToastHeader);
-//        header.setText("Speed Camera Nearby");
-//
-//
-//        TextView text = (TextView) layout.findViewById(R.id.speedVanLocation);
-//        text.setText(SpeedCamera.getSpeedCameraAddress(context, t.getLatitude(), t.getLongitude()));
-//
-//
-//        TextView lastLocated = (TextView) layout.findViewById(R.id.lastSpotted);
-//
-//        lastLocated.setText(t.getTime());
-//
-//
-//        Toast toast = new Toast(context);
-//        toast.setGravity(Gravity.DISPLAY_CLIP_VERTICAL, 0, 0);
-//        toast.setDuration(Toast.LENGTH_SHORT);
-//        toast.setView(layout);
-//        toast.show();
-    }
 
-//    public void createNotification() {
-//        // Prepare intent which is triggered if the
-//        // notification is selected
-//        Intent intent = new Intent(this, NotificationActivityReceiver.class);
-//        PendingIntent pIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), intent, 0);
-//
-//        // Build notification
-//        // Actions are just fake
-//        Notification noti = new Notification.Builder(this)
-//                .setContentTitle("New mail from " + "test@gmail.com")
-//                .setSmallIcon(R.drawable.com_facebook_button_icon)
-//                .setContentIntent(pIntent).build();
-//        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//        // hide the notification after its selected
-//        noti.flags |= Notification.FLAG_AUTO_CANCEL;
-//
-//        notificationManager.notify(0, noti);
-//    }
-
-
-    AlertDialog alertDialog;
-
-    public void showAlertDialog(final String id) {
-
-//            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this)
-//                    .setTitle("Speed Van Location")
-//                    .setMessage("Is there a speed Van in location?")
-//                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            SpeedCamera.addSpeedVanLocatedRecord(database, id);
-//                        }
-//                    })
-//                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            // do nothing
-//                        }
-//                    })
-//                    .setIcon(android.R.drawable.ic_dialog_alert);
-//
-//            alertDialog = dialogBuilder.create();
-//            alertDialog.show();
-
-//        if(!alertDialog.isShowing()){
-//            alertDialog.show();
-//        }
     }
 
     public void nearKnownSpeedLimit(final SpeedSearch speedSearch) {
@@ -941,7 +686,7 @@ public class TrackSpeedActivity extends Activity implements
             }
             //handler.sendEmptyMessage(0);
             //journey.getSpeedFromLambda(database, queue, speedSearch);
-            volleyService.getSpeedFromLambda(database, speedSearch, journey.getLatitude(), journey.getLongitude());
+            volleyService.getSpeedFromLambda(this, speedSearch, journey.getLatitude(), journey.getLongitude());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -1095,31 +840,6 @@ public class TrackSpeedActivity extends Activity implements
 
         }
 
-
-//
-//        if (!mediaPlayer.isPlaying()) {
-//            Runnable runnable = new Runnable() {
-//                @Override
-//                public void run() {
-//                    try {
-//                        System.out.println("play voice called");
-//                }
-////        catch (IOException e){
-////            System.out.println(e.getMessage());
-////        }
-//                catch(
-//                Exception e
-//                )
-//
-//                {
-//                    System.out.println(e.getMessage());
-//                }
-//            }
-//        } ;
-//        Thread voiceThread = new Thread(runnable);
-//        voiceThread.start();
-
-
     public void stopVoice() {
         if (mediaPlayer != null) {
             mediaPlayer.pause();
@@ -1127,6 +847,165 @@ public class TrackSpeedActivity extends Activity implements
             mediaPlayer = null;
         }
     }
+
+    public  void createSpeedLimitReference(String locale){
+        speedref =null;
+        System.out.println("LOCALE : : "+(locale));
+        speedref = database.getReference("speedLimits").child(locale);
+        speedref.keepSynced(true);
+
+        speedref.addChildEventListener(new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+
+                record = new ArrayList<>();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    RoadRecord r = new RoadRecord(
+                            String.valueOf(postSnapshot.child("latitude").getValue()),
+                            String.valueOf(postSnapshot.child("longitude").getValue()),
+                            Integer.parseInt(String.valueOf(postSnapshot.child("speedLimit").getValue())));
+                    record.add(r);
+                }
+                roadHashMap.put(Integer.parseInt(dataSnapshot.getKey()), record);
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    private void createSpeedVanReference(){
+        vanRef = database.getReference("speedVans");
+        vanRef.keepSynced(true);
+        vanRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+                //System.out.println(dataSnapshot.child("startLatitude").getValue());
+                int id = Integer.parseInt(String.valueOf(dataSnapshot.getKey()));
+                double startLat = Double.parseDouble(String.valueOf(dataSnapshot.child("startLatitude").getValue()));
+                double startLong = Double.parseDouble(String.valueOf(dataSnapshot.child("startLongitude").getValue()));
+                double endLat = Double.parseDouble(String.valueOf(dataSnapshot.child("endLatitude").getValue()));
+                double endLong = Double.parseDouble(String.valueOf(dataSnapshot.child("endLongitude").getValue()));
+                //System.out.println(String.valueOf(dataSnapshot.child("reportedTimes").getValue()));
+                HashMap<String, String> reports = (HashMap<String, String>) dataSnapshot.child("Reported Times").getValue();
+                ArrayList<String> dates = new ArrayList<String>();
+                if (reports != null) {
+                    Iterator it = reports.entrySet().iterator();
+                    while (it.hasNext()) {
+                        Map.Entry pair = (Map.Entry) it.next();
+                        dates.add(String.valueOf(pair.getValue()));
+                        it.remove(); // avoids a ConcurrentModificationException
+                    }
+                }
+                SpeedCamera.addSpeedCamera(new SpeedCamera(id, startLat, startLong, endLat, endLong, dates));
+                //cameras.add(new SpeedCamera(id, startLat, startLong, endLat, endLong));
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
+
+
+//                cameras.remove(dataSnapshot.getKey());
+//                System.out.println(cameras.size());
+
+                int id = Integer.parseInt(String.valueOf(dataSnapshot.getKey()));
+                double startLat = Double.parseDouble(String.valueOf(dataSnapshot.child("startLatitude").getValue()));
+                double startLong = Double.parseDouble(String.valueOf(dataSnapshot.child("startLongitude").getValue()));
+                double endLat = Double.parseDouble(String.valueOf(dataSnapshot.child("endLatitude").getValue()));
+                double endLong = Double.parseDouble(String.valueOf(dataSnapshot.child("endLongitude").getValue()));
+                //cameras.add(new SpeedCamera(id, startLat, startLong, endLat, endLong));
+
+                //System.out.println(SpeedCamera.getCameras().size());
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                //cameras.remove(dataSnapshot.getKey());
+                SpeedCamera.removeSpeedCamera(Integer.parseInt(dataSnapshot.getKey()));
+                // System.out.println("camera size : "+SpeedCamera.getCameras().size());
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    private void createSpeedCameraReference(){
+        cameraRef = database.getReference("reportedSpeedCameras");
+        cameraRef.keepSynced(true);
+        cameraRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+                double latitude = Double.parseDouble(String.valueOf(dataSnapshot.child("latitude").getValue()));
+                double longitude = Double.parseDouble(String.valueOf(dataSnapshot.child("longitude").getValue()));
+                String time = String.valueOf(dataSnapshot.child("time").getValue());
+
+                TemporarySpeedCamera.addTemporaryCamera(new TemporarySpeedCamera(latitude, longitude, time));
+                //cameras.add(new SpeedCamera(id, startLat, startLong, endLat, endLong));
+                //System.out.println(TemporarySpeedCamera.temporarySpeedCameras.size()+" is the temp size");
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
+
+
+////                cameras.remove(dataSnapshot.getKey());
+////                System.out.println(cameras.size());
+//
+//                int id = Integer.parseInt(String.valueOf(dataSnapshot.getKey()));
+//                double startLat = Double.parseDouble(String.valueOf(dataSnapshot.child("startLatitude").getValue()));
+//                double startLong = Double.parseDouble(String.valueOf(dataSnapshot.child("startLongitude").getValue()));
+//                double endLat = Double.parseDouble(String.valueOf(dataSnapshot.child("endLatitude").getValue()));
+//                double endLong = Double.parseDouble(String.valueOf(dataSnapshot.child("endLongitude").getValue()));
+//                //cameras.add(new SpeedCamera(id, startLat, startLong, endLat, endLong));
+//
+//                System.out.println(SpeedCamera.cameras.size());
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+//                //cameras.remove(dataSnapshot.getKey());
+//                SpeedCamera.removeSpeedCamera(Integer.parseInt(dataSnapshot.getKey()));
+//                System.out.println("camera size : "+SpeedCamera.cameras.size());
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+    }
+
+    public String getLocale(){
+        return locale;
+    }
+
+
 
 
 }

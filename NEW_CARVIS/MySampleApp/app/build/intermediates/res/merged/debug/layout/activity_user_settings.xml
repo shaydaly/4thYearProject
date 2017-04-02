@@ -13,6 +13,42 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         android:titleTextColor="@color/white"
         />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/emergencyContactLabel"
+            android:gravity="left"
+            android:padding="3dip"
+            android:text="@string/emergencyContact"
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            android:background="@drawable/shape"
+            />
+        <EditText
+            android:id="@+id/emergencyContact"
+            android:gravity="center"
+            android:padding="3dip"
+            android:text=""
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            android:background="@drawable/shape"
+            />
+
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
@@ -20,7 +56,7 @@
         android:layout_weight="1" >
 
         <TextView
-            android:id="@+id/memberSince"
+            android:id="@+id/locale"
             android:gravity="left"
             android:text="@string/locale"
             android:layout_weight="1"
@@ -40,9 +76,19 @@
             android:background="@drawable/shape"
             />
 
+        <Button
+            android:text="start service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/startService"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_weight="1"
+            android:background="@color/red"/>
+
 
     </LinearLayout>
-
 
 </LinearLayout>
 

@@ -1,8 +1,11 @@
 package com.carvis;
 
+import android.Manifest;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -49,6 +52,13 @@ public class MyLocationService extends Service implements
     Date dNow;
     private Location test;
 
+    public static final String SPEED_MESSAGE = "SPEED";
+    public static final String LIMIT_MESSAGE = "LIMIT";
+    public static final String PLAY_SPEED_MESSAGE = "PLAYVOICE";
+    public static final String STOP_SPEED_MESSAGE = "STOPVOICE";
+    public static final String PLAY_CAMERA_MESSAGE = "PLAYCAMERA";
+    public static final String STOP_CAMERA_MESSAGE = "STOPCAMERA";
+    public static final String UPDATE_LOCATION = "UPDATELOCATION";
 
     private LocationRequest mLocationRequest;
     private GoogleApiClient mGoogleApiClient;
@@ -59,11 +69,13 @@ public class MyLocationService extends Service implements
     Context context;
     ExecutorService mThreadPool;
     private Journey journey;
-    Intent currentSpeedIntent, speedLimitIntent ;
+    Intent currentSpeedIntent, speedLimitIntent, playVoiceIntent, stopVoiceIntent ;
     VolleyService volleyService;
     CognitoUserPoolsSignInProvider provider;
     private SpeedSearch speedSearch;
     ScheduledExecutorService ses;
+
+    BroadcastReceiver serviceBroadcastReceiver;
 
 
     private List<JourneyFragment> journeyList;
@@ -143,7 +155,11 @@ public class MyLocationService extends Service implements
         speedSearch = new SpeedSearch(-99);
         isPlayingVoice = false;
         final SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        locale = PreferenceManager.getDefaultSharedPreferences(context).getString("locale", null);
+        locale = PreferenceManager.getDefaultSharedPreferences(context).getString("locale", "");
+        if(locale.equals("")){
+            locale ="Dublin";
+        }
+
 
         journey = new Journey();
         overSpeedLimits = new ArrayList<>();
@@ -163,8 +179,13 @@ public class MyLocationService extends Service implements
                 .addOnConnectionFailedListener(this)
                 .build();
         mGoogleApiClient.connect();
+
+
         currentSpeedIntent = new Intent();
         speedLimitIntent = new Intent();
+        playVoiceIntent = new Intent();
+        stopVoiceIntent = new Intent();
+
 
         ses = Executors.newScheduledThreadPool(10);
         ses.scheduleAtFixedRate(new Runnable() {
@@ -174,11 +195,12 @@ public class MyLocationService extends Service implements
 
                 try {
                     nearKnownSpeedLimit(speedSearch);
+                    limit = journey.getSpeedLimit();
                 } catch (Exception e) {
                     Log.i("Get Limit Exception", e.getMessage());
                 }
             }
-        }, 0, 5, TimeUnit.SECONDS);  // execute every x seconds
+        }, 0, 3, TimeUnit.SECONDS);  // execute every x seconds
 
         ses.scheduleAtFixedRate(new Runnable() {
             @Override
@@ -191,7 +213,7 @@ public class MyLocationService extends Service implements
 //                        } else {
 //                            limit = 0;
 //                        }
-                        limit = journey.getSpeedLimit();
+//                        limit = journey.getSpeedLimit();
                         if (limit != 0) {
                             journeyList.add(new JourneyFragment(journey.getLatitude(), journey.getLongitude(), journey.getCurrentSpeed(), limit, dNow, journey.getJourneyID(), provider.getUserName()));
                         }
@@ -209,6 +231,45 @@ public class MyLocationService extends Service implements
                 }
             }
         }, 0, 15, TimeUnit.SECONDS);  // execute every x seconds
+
+
+
+//        serviceBroadcastReceiver = new BroadcastReceiver() {
+//            @Override
+//            public void onReceive(Context context, Intent intent) {
+//                try {
+//
+//                    Log.i("hala", "hal");
+//                    if(intent.getAction().equals(UPDATE_LOCATION)){
+//                        setLocationSettings();
+//                        Bundle bundle = new Bundle();
+//                        onConnected(bundle);
+//                    }
+//                }
+//                catch(Exception e){
+//                    System.out.println(e.getMessage());
+//                }
+//
+//            }
+//        };
+//        IntentFilter filter = new IntentFilter("SEAMUS");
+//        registerReceiver(serviceBroadcastReceiver, filter);
+    }
+
+    public void setLocationSettings(){
+        try {
+            mLocationRequest = LocationRequest.create();
+            mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+            mLocationRequest.setInterval(1000); // Update location every second
+            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
+                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+            }
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+        }
+        catch(Exception e){
+            Log.e("setLocation", e.getMessage());
+        }
     }
 
     @Override
@@ -224,26 +285,52 @@ public class MyLocationService extends Service implements
 
     @Override
     public void onConnected(Bundle bundle) {
-
+        try {
         mLocationRequest = LocationRequest.create();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         mLocationRequest.setInterval(1000); // Update location every second
 
-        try {
+
             if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED) {
 
                 LocationServices.FusedLocationApi.requestLocationUpdates(
                         mGoogleApiClient, mLocationRequest, this);
             }
-        }
-        catch(Exception e){
-
-        }
 
         LocationServices.FusedLocationApi.requestLocationUpdates(
                 mGoogleApiClient, mLocationRequest, this);
+        }
+        catch(Exception e){
+            Log.e("onConnected", e.getMessage());
+            e.printStackTrace();
+        }
+//        serviceBroadcastReceiver = new BroadcastReceiver() {
+//            @Override
+//            public void onReceive(Context context, Intent intent) {
+//                try {
+//
+//                    Log.i("hala", "hal");
+//                    if(intent.getAction().equals(UPDATE_LOCATION)){
+//                        setLocationSettings();
+//                    }
+//                }
+//                catch(Exception e){
+//                    System.out.println(e.getMessage());
+//                }
+//
+//            }
+//        };
+//        IntentFilter filter = new IntentFilter("SEAMUS");
+//        registerReceiver(serviceBroadcastReceiver, filter);
     }
+
+
+//    public static boolean checkPermission(final Context context) {
+//        return ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+//                && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+//    }
+
 
     @Override
     public void onConnectionSuspended(int i) {
@@ -278,11 +365,12 @@ public class MyLocationService extends Service implements
 
                         currentSpeedIntent = new Intent();
                         // sets keyword to listen out for for this broadcast
-                        currentSpeedIntent.setAction("com.carvis");
+                        currentSpeedIntent.setAction(SPEED_MESSAGE);
                         currentSpeedIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                         currentSpeedIntent.setPackage(context.getPackageName());
                         currentSpeedIntent.putExtra("speed", speed);
-
+                        currentSpeedIntent.putExtra("latitude", location.getLatitude());
+                        currentSpeedIntent.putExtra("longitude", location.getLongitude());
                         //Sends out broadcast
                         sendBroadcast(currentSpeedIntent);
 
@@ -309,15 +397,13 @@ public class MyLocationService extends Service implements
                     try {
                         if (journey.getCurrentSpeed() > limit && limit != 0) {
                             if (!isPlayingVoice) {
-                                Intent intent = new Intent();
+                                playVoiceIntent = new Intent();
                                 // sets keyword to listen out for for this broadcast
-                                intent.setAction("com.carvis");
-                                intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                                intent.setPackage(context.getPackageName());
-                                intent.putExtra("playVoice", "");
-
+                                playVoiceIntent.setAction(PLAY_SPEED_MESSAGE);
+                                playVoiceIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                                playVoiceIntent.setPackage(context.getPackageName());
                                 //Sends out broadcast
-                                sendBroadcast(intent);
+                                sendBroadcast(playVoiceIntent);
                             }
                             //speeding = true;
                             if (!isRunning) {
@@ -332,14 +418,13 @@ public class MyLocationService extends Service implements
                         } else {
 //                            Intent intent = new Intent();
                             // sets keyword to listen out for for this broadcast
-                            Intent intent = new Intent();
-                            intent.setAction("com.carvis");
-                            intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                            intent.setPackage(context.getPackageName());
-                            intent.putExtra("stopVoice", "");
+                            stopVoiceIntent = new Intent();
+                            stopVoiceIntent.setAction(STOP_SPEED_MESSAGE);
+                            stopVoiceIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                            stopVoiceIntent.setPackage(context.getPackageName());
 
                             //Sends out broadcast
-                            sendBroadcast(intent);
+                            sendBroadcast(stopVoiceIntent);
                         }
 
                     } catch (Exception e) {
@@ -450,14 +535,10 @@ public class MyLocationService extends Service implements
                         Log.i("speed Test log 1", "near" + r.getSpeedLimit());
                         // speedLimit =  roadRecords.get(i).getSpeedLimit();
                         journey.setSpeedLimit(r.getSpeedLimit());
-                        //speedLimitTextView.setText(journey.getSpeedLimit() + " km/h");
-//                        chooseSpeedImage(r.getSpeedLimit());
-                        Message alertMessage = new Message();
-                        alertMessage.what = r.getSpeedLimit();
 
                         speedLimitIntent = new Intent();
                         // sets keyword to listen out for for this broadcast
-                        speedLimitIntent.setAction("com.carvis");
+                        speedLimitIntent.setAction(LIMIT_MESSAGE);
                         speedLimitIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                         speedLimitIntent.setPackage(context.getPackageName());
                         speedLimitIntent.putExtra("speedLimit", r.getSpeedLimit());
@@ -480,17 +561,13 @@ public class MyLocationService extends Service implements
                         // speedLimit =  roadRecords.get(i).getSpeedLimit();
                         speedSearch.setOsm_id(entry.getKey());
                         journey.setSpeedLimit(r.getSpeedLimit());
-                        //speedLimitTextView.setText(journey.getSpeedLimit() + " km/h");
-                        Message alertMessage = new Message();
-                        alertMessage.what = r.getSpeedLimit();
-                        //speedHandler.sendMessage(alertMessage);
-                        //handler.sendEmptyMessage(0);
                         speedLimitIntent = new Intent();
                         // sets keyword to listen out for for this broadcast
-                        speedLimitIntent.setAction("com.carvis");
+                        speedLimitIntent.setAction(LIMIT_MESSAGE);
                         speedLimitIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                         speedLimitIntent.setPackage(context.getPackageName());
                         speedLimitIntent.putExtra("speedLimit", r.getSpeedLimit());
+                        sendBroadcast(speedLimitIntent);
                         return;
                     }
                 }
@@ -503,6 +580,8 @@ public class MyLocationService extends Service implements
             System.out.println(e.getMessage());
         }
     }
+
+
 
 
     public void endJourneys() {

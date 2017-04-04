@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         navigationDrawer.addDemoFeatureToMenu(UserStatistics);
 
         DemoConfiguration.DemoFeature UserSettings = new DemoConfiguration.DemoFeature();
-        UserSettings.iconResId = R.mipmap.icon_home;
+        UserSettings.iconResId = R.mipmap.settings;
         UserSettings.titleResId = R.string.settings;
         navigationDrawer.addDemoFeatureToMenu(UserSettings);
 
@@ -157,7 +157,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        Log.i("SD", "ON CREATE CALLED");
         super.onCreate(savedInstanceState);
 
         // Obtain a reference to the mobile client. It is created in the Application class,
@@ -183,7 +182,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i("SD", "ON Resume CALLED");
         if (!AWSMobileClient.defaultMobileClient().getIdentityManager().isUserSignedIn()) {
             // In the case that the activity is restarted by the OS after the application
             // is killed we must redirect to the splash activity to handle the sign-in flow.

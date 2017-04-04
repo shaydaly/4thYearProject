@@ -40,12 +40,12 @@
         "source": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.maps.android\\android-maps-utils\\0.5\\res\\layout\\amu_info_window.xml"
     },
     {
-        "merged": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\place_autocomplete_fragment.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-places\\10.2.0\\res\\layout\\place_autocomplete_fragment.xml"
-    },
-    {
         "merged": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_popup_menu_header_item_layout.xml",
         "source": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.0.0\\res\\layout\\abc_popup_menu_header_item_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\place_autocomplete_fragment.xml",
+        "source": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-places\\10.2.0\\res\\layout\\place_autocomplete_fragment.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\messenger_button_send_white_round.xml",
@@ -100,12 +100,12 @@
         "source": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.0.0\\res\\layout\\abc_action_bar_view_list_nav_layout.xml"
     },
     {
-        "merged": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_demo_identity.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\src\\main\\res\\layout\\fragment_demo_identity.xml"
-    },
-    {
         "merged": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_select_dialog_material.xml",
         "source": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.0.0\\res\\layout\\abc_select_dialog_material.xml"
+    },
+    {
+        "merged": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_demo_identity.xml",
+        "source": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\src\\main\\res\\layout\\fragment_demo_identity.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_menu_item.xml",

@@ -7,9 +7,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dip"
+        android:layout_height="100dp"
         android:orientation="horizontal"
-        android:layout_weight="1" >
+        android:layout_weight="1"
+        android:background="@color/silver">
 
         <!--<Button-->
         <!--android:layout_width="0dip"-->
@@ -25,14 +26,141 @@
             android:layout_weight="1"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:textColor="@color/black_overlay"
+            android:textColor="@color/white"
             android:textAlignment="center"
             android:textSize="12sp"
             android:textStyle="normal"
+            android:background="@color/dark"
             />
 
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:background="@color/dark">
+
+        <!--<Button-->
+        <!--android:layout_width="0dip"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:background="@drawable/shape"/>-->
+
+        <Button
+            android:drawableLeft="@drawable/cast_ic_mini_controller_play"
+            android:gravity="left|center_vertical"
+            android:id="@+id/startJourney"
+            android:padding="3dip"
+            android:text="@string/startJourney"
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            android:background="@drawable/shape2"/>
+
+        <Button
+
+            android:drawableLeft="@drawable/cast_ic_mini_controller_play"
+            android:gravity="left|center_vertical"
+            android:id="@+id/prevJourney"
+            android:padding="3dip"
+            android:text="@string/journeys"
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            android:background="@drawable/shape2"
+            />
+        <Button
+            android:drawableLeft="@drawable/cast_ic_mini_controller_play"
+            android:gravity="left|center_vertical"
+            android:id="@+id/speedCameraMap"
+            android:padding="3dip"
+            android:text="@string/speedCameraMap"
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            android:background="@drawable/shape2"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:background="@color/dark">
+
+        <!--<Button-->
+        <!--android:layout_width="0dip"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:background="@drawable/shape"/>-->
+        <Button
+            android:drawableLeft="@drawable/cast_ic_mini_controller_play"
+            android:gravity="left|center_vertical"
+            android:id="@+id/ww"
+            android:padding="3dip"
+            android:text="Button1"
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            android:background="@drawable/shape2"/>
+
+        <Button
+
+            android:drawableLeft="@drawable/cast_ic_mini_controller_play"
+            android:gravity="left|center_vertical"
+            android:id="@+id/ee"
+            android:padding="3dip"
+            android:text="Button1"
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            android:background="@drawable/shape2"/>
+        <Button
+            android:drawableLeft="@drawable/cast_ic_mini_controller_play"
+            android:gravity="center_vertical"
+            android:id="@+id/rr"
+            android:padding="3dip"
+            android:text="Button1"
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:textColor="@color/white"
+            android:textAlignment="gravity"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            android:background="@drawable/shape2"/>
+
+    </LinearLayout>
+
+
+
+
+
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

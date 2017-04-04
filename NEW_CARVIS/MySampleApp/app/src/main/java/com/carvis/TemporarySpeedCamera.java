@@ -61,7 +61,7 @@ public class TemporarySpeedCamera implements Serializable{
         this.longitude = longitude;
     }
 
-    public static void addTemporaryCamera(String latitude, String longitude, String date, Context context){
+    public static void addTemporaryCamera(double latitude, double longitude, String date, Context context){
         FirebaseApp.initializeApp(context);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("reportedSpeedCameras");
@@ -77,10 +77,13 @@ public class TemporarySpeedCamera implements Serializable{
 //        //myRef.push().setValue(map1);
 
         Location cameraLocation = new Location("New Location");
-        cameraLocation.setLatitude(Double.parseDouble(latitude));
-        cameraLocation.setLongitude(Double.parseDouble(longitude));
+        cameraLocation.setLatitude(latitude);
+        cameraLocation.setLongitude(longitude);
         if(!checkCameraDistance(cameraLocation)) {
-            myRef.push().setValue(new TemporarySpeedCamera(Double.parseDouble(latitude), Double.parseDouble(longitude), date));
+            myRef.push().setValue(new TemporarySpeedCamera(latitude, longitude, date));
+        }
+        else{
+
         }
     }
 

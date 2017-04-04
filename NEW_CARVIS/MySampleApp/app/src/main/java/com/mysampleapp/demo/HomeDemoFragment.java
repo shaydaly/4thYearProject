@@ -1,10 +1,15 @@
 package com.mysampleapp.demo;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -53,6 +58,58 @@ public class HomeDemoFragment extends DemoFragmentBase {
        provider = new CognitoUserPoolsSignInProvider(context);
 //        v = new VolleyService(context);
 //        v.getDaysSinceLastOverSpeed(provider.getUserName());
+
+        if (ContextCompat.checkSelfPermission(context,
+                Manifest.permission.SEND_SMS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.SEND_SMS)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.SEND_SMS},
+                        1);
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.SEND_SMS},
+                        1);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        }
+        if (ContextCompat.checkSelfPermission(context,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        1);
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        1);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        }
 
         return inflater.inflate(R.layout.fragment_demo_home, container, false);
     }
@@ -167,37 +224,16 @@ public class HomeDemoFragment extends DemoFragmentBase {
         TextView subtitleTextView;
     }
 
-//    public void getDaysSinceLastOverSpeed(String username) {
-//        RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
-//        String url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/daysinceoverspeed?username="+username;
-//        //final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
-//        JsonObjectRequest jsObjRequest = new JsonObjectRequest
-//                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-//
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        try {
-//                            Log.i("days", response.toString());
-//                            JSONObject obj = new JSONObject(response.toString());
-//                            int daysSinceOverSpeed = obj.getInt("daysOverSpeed");
-//                            //u.setDaysSinceOverSpeed(daysSinceOverSpeed);
-//                            TextView textView = (TextView) getActivity().findViewById(R.id.daysSinceOverSpeed);
-//                            textView.setText("Hi "+provider.getUserName()+" its been "+daysSinceOverSpeed+" days since last overspeed ");
-//
-//                        } catch (JSONException e) {
-//                            Log.i("days", e.getMessage());
-//                        }
-//                        catch(Exception e){
-//                            Log.i("days ", e.getMessage());
-//                        }
-//                    }
-//                }, new Response.ErrorListener() {
-//
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        Log.i("Sdays","ERROR");
-//                    }
-//                });
-//        queue.add(jsObjRequest);
-//    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        // If request is cancelled, the result arrays are empty.
+        if (grantResults.length > 0
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+
+        }
+    }
 }

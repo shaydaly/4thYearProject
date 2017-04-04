@@ -58,16 +58,18 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.mysampleapp.R;
+import com.mysampleapp.*;
+import com.mysampleapp.MainActivity;
 
 import static com.google.android.gms.plus.PlusOneDummyView.TAG;
 
-public class TrackSpeedActivity extends Activity  {
+public class TrackSpeedActivity extends Activity   {
 
 
     private static final String[] INITIAL_PERMS = {
             Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.SEND_SMS
     };
 
     //  SpeedCheckService speedCheckService;
@@ -80,8 +82,8 @@ public class TrackSpeedActivity extends Activity  {
 
 
     SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-
+    private LocationRequest mLocationRequest;
+    private GoogleApiClient mGoogleApiClient;
 
 
 
@@ -98,6 +100,7 @@ public class TrackSpeedActivity extends Activity  {
     int limit;
     private Date dNow;
     int speed;
+    double latitude, longitude;
     private RequestQueue queue;
 
     VolleyService volleyService;
@@ -163,6 +166,11 @@ public class TrackSpeedActivity extends Activity  {
 //        timer2 = new Timer();
 
         context = getApplicationContext();
+        //showPermissionDialog();
+
+
+
+
 
         serviceIntent = new Intent(context, MyLocationService.class);
         startService(serviceIntent);
@@ -171,96 +179,59 @@ public class TrackSpeedActivity extends Activity  {
 
         Uri myUri = Uri.fromFile(new File("raw/speedlimitpolly.mp3"));
 
-//        mediaPlayer = MediaPlayer.create(this, R.raw.speedlimitpolly);
-//            mediaPlayer = MediaPlayer.create(context, myUri);
-//        mediaPlayer.setLooping(false);
-//            mediaPlayer.setDataSource(context, myUri);
-
-
-
-        //roads = new ArrayList<>();
-
-        // cameras = new HashSet<>();
-
-//        Button addSpeedCameraButton = (Button) findViewById(R.id.addSpeedCamera);
-//        addSpeedCameraButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String time = ft.format(dNow);
-//                TemporarySpeedCamera.addTemporaryCamera(journey.getLatitude(), journey.getLongitude(), time, context);
-//            }
-//        });
-
-
-
-
-//        Button emergencySMSButton = (Button) findViewById(R.id.sendEmergencySMS);
-//        emergencySMSButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String emergencyContact = PreferenceManager.getDefaultSharedPreferences(context).getString("emergencyContact", null);
-//                if(emergencyContact.equals("")){
-//                    emergencyContact = "0851329485";
-//                }
-//                SmsManager smsManager = SmsManager.getDefault();
-//                String messageBody = getResources().getString(R.string.emergencyText)+" "+journey.getLatitude()+","+journey.getLongitude()+"\n\nhttp://www.google.com/maps/place/"+journey.getLatitude()+","+journey.getLongitude();
-//                smsManager.sendTextMessage(emergencyContact, null, messageBody, null, null);
-//            }
-//        });
-
-//        Button speedVan = (Button) findViewById(R.id.speedvan);
-//        speedVan.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                SpeedCamera.addSpeedVanLocatedRecord(database);
-//            }
-//        });
-
         imageView50 = (ImageView) findViewById(R.id.speed50km);
         imageView60 = (ImageView) findViewById(R.id.speed60km);
         imageView80 = (ImageView) findViewById(R.id.speed80km);
         imageView100 = (ImageView) findViewById(R.id.speed100km);
         // FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        FirebaseApp.initializeApp(context);
-        //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        database = FirebaseDatabase.getInstance();
+//        FirebaseApp.initializeApp(context);
+//        //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+//        database = FirebaseDatabase.getInstance();
 
         currentSpeedTextView = (TextView) findViewById(R.id.currentSpeed);
         //speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
 
 
-
-
     }
+
 
     @Override
     protected  void onResume(){
         super.onResume();
+        latitude = 0.0;
+        longitude = 0.0;
         mBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 try {
-
-
-                    speed = intent.getIntExtra("speed",0);
-                    //limit = Integer.parseInt(intent.getStringExtra("speedLimit"));
-
-                    //chooseSpeedImage(limit);
-                    if(speed!=0) {
+                    if(intent.getAction().equals(MyLocationService.SPEED_MESSAGE)){
+                        speed = intent.getIntExtra("speed", 0);
                         currentSpeedTextView.setText(String.valueOf(speed) + " km/h");
+                        latitude = intent.getDoubleExtra("latitude",0);
+                        longitude = intent.getDoubleExtra("longitude",0);
                     }
-
-                    limit = intent.getIntExtra("speedLimit",0);
-                    if(limit!= 0) {
-                        chooseSpeedImage(limit);
+                    if(intent.getAction().equals(MyLocationService.LIMIT_MESSAGE)){
+                        Log.i("speeeeeeedd", String.valueOf(intent.getIntExtra("speedLimit",0)));
+                        limit = intent.getIntExtra("speedLimit", 0);
+                        if (limit != 0) {
+                            chooseSpeedImage(limit);
+                        }
                     }
-                    if((intent.getExtras().containsKey("playVoice")) && !isPlayingVoice ){
-                        playVoice();
+                    if(intent.getAction().equals(MyLocationService.PLAY_SPEED_MESSAGE ) && !isPlayingVoice){
+                        Log.i("VOICEEEE", "PLAY VOICE RECEIVED");
+                        playSpeedPolly();
                     }
-                    if(intent.getExtras().containsKey("stopVoice")){
+                    if(intent.getAction().equals(MyLocationService.STOP_SPEED_MESSAGE)){
+                        Log.i("VOICEEEE", "STOP VOICE RECEIVED");
                         stopVoice();
                     }
+
+                    if(intent.getAction().equals("REQUESTLOCATION")){
+
+                    }
+
+
+
                 }
                 catch(Exception e){
                     System.out.println(e.getMessage());
@@ -269,7 +240,38 @@ public class TrackSpeedActivity extends Activity  {
             }
         };
 
-        IntentFilter filter = new IntentFilter("com.carvis");
+                Button emergencySMSButton = (Button) findViewById(R.id.sendEmergencySMS);
+        emergencySMSButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String emergencyContact = PreferenceManager.getDefaultSharedPreferences(context).getString("emergencyContact", "");
+                if(emergencyContact.equals("")){
+                    System.out.println("emergeency contact emtpy");
+                    emergencyContact = "0851329485";
+                }
+                SmsManager smsManager = SmsManager.getDefault();
+                String messageBody = getResources().getString(R.string.emergencyText)+" "+latitude+","+longitude+"\n\nhttp://www.google.com/maps/place/"+latitude+","+longitude;
+                smsManager.sendTextMessage(emergencyContact, null, messageBody, null, null);
+                Toast.makeText(context, "MESSAGE SENT", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Button addSpeedCameraButton = (Button) findViewById(R.id.addSpeedCamera);
+        addSpeedCameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dNow = new Date();
+                String time = ft.format(dNow);
+                TemporarySpeedCamera.addTemporaryCamera(latitude, longitude, time, context);
+            }
+        });
+
+
+
+        IntentFilter filter = new IntentFilter(MyLocationService.SPEED_MESSAGE);
+        filter.addAction(MyLocationService.LIMIT_MESSAGE);
+        filter.addAction(MyLocationService.PLAY_SPEED_MESSAGE);
+        filter.addAction(MyLocationService.STOP_SPEED_MESSAGE);
         registerReceiver(mBroadcastReceiver, filter);
     }
 
@@ -278,13 +280,15 @@ public class TrackSpeedActivity extends Activity  {
         super.onStart();
         // Connect the client.
         //mGoogleApiClient.connect();
+
+
     }
 
     @Override
     protected void onStop() {
         // Disconnecting the client invalidates it.
         super.onStop();
-        //unregisterReceiver(mBroadcastReceiver);
+        unregisterReceiver(mBroadcastReceiver);
     }
 
 
@@ -294,7 +298,6 @@ public class TrackSpeedActivity extends Activity  {
         context.stopService(serviceIntent);
 
     }
-
 
 
 
@@ -466,27 +469,27 @@ public class TrackSpeedActivity extends Activity  {
     }
 
     public void showSnackBarSpeedCamera(TemporarySpeedCamera t) {
-        snackBackShown = true;
-//        Snackbar snackbar = Snackbar
-//                .make(findViewById(R.id.activity_track_speed), "Speed Van Nearby", Snackbar.LENGTH_LONG).setDuration(5000)
-//                .setAction(SpeedCamera.getSpeedCameraAddress(context, t.getLatitude(), t.getLongitude()), new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//
-//                    }
-//                });
-//
-//// Changing message text color
-//        snackbar.setActionTextColor(Color.RED);
-//
-//// Changing action button text color
-//        View sbView = snackbar.getView();
-//        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
-//        textView.setTextColor(Color.RED);
-//        if(!snackbar.isShown()) {
-//            snackbar.show();
-//        }
-        snackBackShown = false;
+//        snackBackShown = true;
+////        Snackbar snackbar = Snackbar
+////                .make(findViewById(R.id.activity_track_speed), "Speed Van Nearby", Snackbar.LENGTH_LONG)
+////                .setAction(SpeedCamera.getSpeedCameraAddress(context, t.getLatitude(), t.getLongitude()), new View.OnClickListener() {
+////                    @Override
+////                    public void onClick(View view) {
+////
+////                    }
+////                });
+////
+////// Changing message text color
+////        snackbar.setActionTextColor(Color.RED);
+////
+////// Changing action button text color
+////        View sbView = snackbar.getView();
+////        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+////        textView.setTextColor(Color.RED);
+////        if(!snackbar.isShown()) {
+////            snackbar.show();
+////        }
+//        snackBackShown = false;
     }
 
     public void showSnackBarSpeedVan(SpeedCamera s) {
@@ -512,7 +515,8 @@ public class TrackSpeedActivity extends Activity  {
         snackBackShown = false;
     }
 
-    public void playVoice() {
+    public void playSpeedPolly() {
+        Log.i("playSpeedPolly", "plzy");
         Runnable r = new Runnable() {
             @Override
             public void run() {
@@ -523,7 +527,7 @@ public class TrackSpeedActivity extends Activity  {
                     mediaPlayer.start();
 
                 } catch (Exception e) {
-
+                    System.out.println( e.getMessage());
                 }
                 long futureTime = System.currentTimeMillis() + 5000;
                 while (System.currentTimeMillis() < futureTime) {
@@ -549,6 +553,68 @@ public class TrackSpeedActivity extends Activity  {
 //        player.start();
 
 
+    }
+
+    public void playSpeedCameraPolly() {
+        Log.i("playSpeedCameraPolly", "plzy");
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                isPlayingVoice = true;
+                try {
+                    stopVoice();
+                    mediaPlayer = MediaPlayer.create(TrackSpeedActivity.this, R.raw.speedcamerapolly);
+                    mediaPlayer.start();
+
+                } catch (Exception e) {
+
+                }
+                long futureTime = System.currentTimeMillis() + 5000;
+                while (System.currentTimeMillis() < futureTime) {
+                    synchronized (this) {
+                        try {
+                            wait(futureTime - System.currentTimeMillis());
+                        } catch (Exception e) {
+
+                        }
+                    }
+                }
+                isPlayingVoice = false;
+            }
+        };
+        Thread t = new Thread(r);
+        t.start();
+    }
+
+    public void playSpeedVanPolly() {
+        Log.i("playSpeedVanPolly", "plzy");
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                isPlayingVoice = true;
+                try {
+                    stopVoice();
+                    mediaPlayer = MediaPlayer.create(TrackSpeedActivity.this, R.raw.speedvanpolly);
+                    mediaPlayer.start();
+
+                } catch (Exception e) {
+
+                }
+                long futureTime = System.currentTimeMillis() + 5000;
+                while (System.currentTimeMillis() < futureTime) {
+                    synchronized (this) {
+                        try {
+                            wait(futureTime - System.currentTimeMillis());
+                        } catch (Exception e) {
+
+                        }
+                    }
+                }
+                isPlayingVoice = false;
+            }
+        };
+        Thread t = new Thread(r);
+        t.start();
     }
 
     public void stopVoice() {
@@ -713,10 +779,39 @@ public class TrackSpeedActivity extends Activity  {
 //    }
 
 
+//    private void showPermissionDialog() {
+//        if (!MyLocationService.checkPermission(this)) {
+//            ActivityCompat.requestPermissions(
+//                    this,
+//                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
+//                    1);
+//        }
+//    }
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode,
+//                                           String permissions[], int[] grantResults) {
+//                // If request is cancelled, the result arrays are empty.
+//                if (grantResults.length > 0
+//                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//                        return;
+//                    }
+//
+//                    Intent intent = new Intent();
+//                    // sets keyword to listen out for for this broadcast
+//                    intent.setAction("SEAMUS");
+//                    intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+//                    intent.setPackage(context.getPackageName());
+//                    //Sends out broadcast
+//                    sendBroadcast(intent);
+//
+//                return;
+//            }
+//        }
+    }
 
 
 
-}
 
 
 

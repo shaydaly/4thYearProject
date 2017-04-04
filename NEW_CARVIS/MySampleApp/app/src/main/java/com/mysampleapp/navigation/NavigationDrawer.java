@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
@@ -199,6 +200,7 @@ public class NavigationDrawer {
 
         if (userName != null) {
             userNameView.setText(userName);
+            userNameView.setTextColor(Color.WHITE);
             userNameView.setBackgroundColor(
                     activity.getResources().getColor(R.color.nav_drawer_top_background));
         }

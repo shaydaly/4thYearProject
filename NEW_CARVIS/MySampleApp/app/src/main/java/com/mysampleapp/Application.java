@@ -16,6 +16,8 @@ import com.amazonaws.mobile.AWSMobileClient;
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
 import com.carvis.VolleyService;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 /**
  * Application class responsible for initializing singletons and other common components.
  */
@@ -39,6 +41,7 @@ public class Application extends MultiDexApplication {
 
 //        justSignedin = true;
     }
+
 
     private void initializeApplication() {
         AWSMobileClient.initializeMobileClientIfNecessary(getApplicationContext());

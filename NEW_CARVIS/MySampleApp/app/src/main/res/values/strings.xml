@@ -126,8 +126,8 @@
     <string name="emergencyText">I have been in a motor accident. My co-ordinates are: </string>
     <string name="emergencyContact">Emergency Contact</string>
     <string-array name="counties">
-        <item>Cork</item>
         <item>Dublin</item>
+        <item>Cork</item>
         <item>Galway</item>
     </string-array>
 </resources>

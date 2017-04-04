@@ -8,6 +8,10 @@
         "source": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\src\\main\\res\\mipmap-hdpi\\splash_icon.png"
     },
     {
+        "merged": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\settings.png",
+        "source": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\src\\main\\res\\mipmap-hdpi\\settings.png"
+    },
+    {
         "merged": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\ic_launcher2.png",
         "source": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher2.png"
     },

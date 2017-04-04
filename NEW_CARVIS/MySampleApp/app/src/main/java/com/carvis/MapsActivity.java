@@ -38,6 +38,7 @@ import java.util.Locale;
 
 import android.location.Address;
 import android.location.Geocoder;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -65,6 +66,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         context = getApplicationContext();
+
+//
 
     }
 

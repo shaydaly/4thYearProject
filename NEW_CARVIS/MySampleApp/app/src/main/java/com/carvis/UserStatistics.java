@@ -3,6 +3,7 @@ package com.carvis;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
 import com.mysampleapp.R;
@@ -18,7 +19,7 @@ public class UserStatistics extends AppCompatActivity {
         System.out.println("user statistics called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_statistics);
-        goToUserStats();
+
     }
 //    @Override
 //    public void onBackPressed() {
@@ -34,14 +35,29 @@ public class UserStatistics extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
+        goToUserStats();
+        Log.i("shay", "on resume called");
         //goToUserStats();
         //super.onStop();
     }
 //
     @Override
     protected void onPause(){
-        System.out.println("on pause called");
+        super.onPause();
+        finish();
+        Log.i("shay", "on pause called");
+    }
+
+    @Override
+    protected void onStop(){
         super.onStop();
+        Log.i("shay", "on stop called");
+    }
+
+    @Override
+    protected  void onDestroy(){
+        super.onDestroy();
+        Log.i("shay", "on destroy called");
     }
 //
 //    @Override

@@ -1,6 +1,8 @@
 package com.carvis;
+import android.animation.LayoutTransition;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,13 +31,15 @@ public class MobileArrayAdapter extends  ArrayAdapter<String> {
         this.durations = durations;
     }
 
+
+
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
-
-
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+
 
         View rowView = inflater.inflate(R.layout.activity_list_journey, parent, false);
         TextView journeyIDtextView = (TextView) rowView.findViewById(R.id.journeyID);
@@ -51,22 +55,6 @@ public class MobileArrayAdapter extends  ArrayAdapter<String> {
         TextView durationsView = (TextView) rowView.findViewById(R.id.duration);
         //ImageView imageView = (ImageView) rowView.findViewById(R.id.logo);
         durationsView.setText(durations.get(position));
-
-        // Change icon based on name
-//        String s = values.get(position);
-//
-//        System.out.println(s);
-
-//        if (s.equals("WindowsMobile")) {
-//            imageView.setImageResource(R.drawable.windowsmobile_logo);
-//        } else if (s.equals("iOS")) {
-//            imageView.setImageResource(R.drawable.ios_logo);
-//        } else if (s.equals("Blackberry")) {
-//            imageView.setImageResource(R.drawable.blackberry_logo);
-//        } else {
-//            imageView.setImageResource(R.drawable.android_logo);
-//        }
-
         return rowView;
     }
 }

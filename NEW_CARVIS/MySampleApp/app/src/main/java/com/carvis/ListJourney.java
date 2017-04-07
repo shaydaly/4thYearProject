@@ -35,6 +35,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -71,11 +72,8 @@ public class ListJourney extends ListActivity {
             try {
                 setListAdapter(new MobileArrayAdapter(context, journeyIDs, timestamps, durations));
             }
-            catch(NullPointerException e){
-
-            }
             catch(Exception ex){
-
+                Log.e("shay",ex.getMessage());
             }
 
         }
@@ -113,7 +111,6 @@ public class ListJourney extends ListActivity {
         context = getApplicationContext();
         provider = new CognitoUserPoolsSignInProvider(context);
         volleyService = new VolleyService(context);
-
 
 
         getUserJourneys();

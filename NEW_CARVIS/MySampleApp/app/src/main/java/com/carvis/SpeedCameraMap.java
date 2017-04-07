@@ -7,7 +7,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -20,6 +22,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.JointType;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Polyline;
@@ -49,11 +53,25 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
     Context mContext;
     RequestQueue queue;
 
+    FirebaseDatabase database;
+    DatabaseReference vanRef,cameraRef, trafficIncidentsRef;
+
 
     Handler polyLineHandler;
     ArrayList<LatLng> lats = new ArrayList<>();
     ArrayList<SpeedCamera> cameras = new ArrayList<>();
+    ArrayList<Circle> circles;
 
+
+    Handler trafficUpdateHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            Log.i("shay", "handle message caalled");
+//            for(TrafficUpdate trafficUpdate : TrafficUpdate.trafficUpdates){
+//
+//            }
+        }
+    };
 
 
     @Override
@@ -61,6 +79,8 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
         super.onCreate(savedInstanceState);
         mContext = getApplicationContext();
 
+
+        circles = new ArrayList<>();
 
 
 
@@ -70,6 +90,7 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
 
 
 
@@ -111,13 +132,13 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        final FirebaseDatabase database;
-        DatabaseReference vanRef;
-        DatabaseReference cameraRef;
-        FirebaseApp.initializeApp(getApplicationContext());
+        FirebaseApp.initializeApp(mContext);
         database = FirebaseDatabase.getInstance();
+
+
         cameraRef = database.getReference("reportedSpeedCameras");
         vanRef = database.getReference("speedVanDecodedLocation");
+        trafficIncidentsRef = database.getReference("reportedTrafficIncident");
         mMap = googleMap;
         LatLng dublin = new LatLng(53.348778, -6.270933);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(dublin,11.0f));
@@ -133,7 +154,9 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
                 //cameras.add(new SpeedCamera(id, startLat, startLong, endLat, endLong));
                 System.out.println(TemporarySpeedCamera.temporarySpeedCameras.size()+" is the temp size");
                 LatLng latLng = new LatLng(latitude, longitude);
-                mMap.addMarker(new MarkerOptions().position(latLng).title(time).icon(BitmapDescriptorFactory.fromResource(R.drawable.speedcamera)).flat(true));
+                mMap.addMarker(new MarkerOptions().position(latLng).title(time).icon(BitmapDescriptorFactory.fromResource(R.drawable.new_speed_amera)));
+
+
 
             }
             @Override
@@ -169,66 +192,8 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
             }
         });
 
-        int i = 0;
-//        vanRef.addChildEventListener(new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-//                int id = Integer.parseInt(dataSnapshot.getKey());
-//                double startLatitude = Double.parseDouble(String.valueOf(dataSnapshot.child("startLatitude").getValue()));
-//                double startLongitude = Double.parseDouble(String.valueOf(dataSnapshot.child("startLongitude").getValue()));
-//                double endLatitude = Double.parseDouble(String.valueOf(dataSnapshot.child("endLatitude").getValue()));
-//                double endLongitude = Double.parseDouble(String.valueOf(dataSnapshot.child("endLongitude").getValue()));
-//
-//                try {
-//                    SpeedCamera s = new SpeedCamera(id, startLatitude, startLongitude, endLatitude, endLongitude);
-//
-//                //getSnapToRoadsPoints(getApplicationContext(), s);
-//                }
-//                catch(Exception e){
-//                    System.out.println(e.getMessage());
-//                }
-//
-//                mMap.addPolyline(new PolylineOptions()
-//                        .add(new LatLng(startLatitude, startLongitude), new LatLng(endLatitude, endLongitude))
-//                        .width(10)
-//                        .geodesic(true)
-//                        .jointType(JointType.BEVEL)
-//                        .endCap(new RoundCap())
-//                        .startCap(new RoundCap())
-//                        .color(Color.RED)).isClickable();
-//            }
-//            @Override
-//            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
-//
-//
-//////                cameras.remove(dataSnapshot.getKey());
-//////                System.out.println(cameras.size());
-////
-////                int id = Integer.parseInt(String.valueOf(dataSnapshot.getKey()));
-////                double startLat = Double.parseDouble(String.valueOf(dataSnapshot.child("startLatitude").getValue()));
-////                double startLong = Double.parseDouble(String.valueOf(dataSnapshot.child("startLongitude").getValue()));
-////                double endLat = Double.parseDouble(String.valueOf(dataSnapshot.child("endLatitude").getValue()));
-////                double endLong = Double.parseDouble(String.valueOf(dataSnapshot.child("endLongitude").getValue()));
-////                //cameras.add(new SpeedCamera(id, startLat, startLong, endLat, endLong));
-////
-////                System.out.println(SpeedCamera.cameras.size());
-//            }
-//
-//            @Override
-//            public void onChildRemoved(DataSnapshot dataSnapshot) {
-////                //cameras.remove(dataSnapshot.getKey());
-////                SpeedCamera.removeSpeedCamera(Integer.parseInt(dataSnapshot.getKey()));
-////                System.out.println("camera size : "+SpeedCamera.cameras.size());
-//            }
-//
-//            @Override
-//            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//            }
-//        });
+        createSpeedCameraReference();
+
 
 
         vanRef.addChildEventListener(new ChildEventListener() {
@@ -247,7 +212,7 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
                                         .jointType(JointType.BEVEL)
                                         .endCap(new RoundCap())
                                         .startCap(new RoundCap())
-                                        .color(Color.RED);
+                                        .color(getResources().getColor(R.color.vanMapColor));
                     for (DataSnapshot snapshot : dataSnapshot.child("latLngs").getChildren()) {
                         rectOptions.add(new LatLng(Double.parseDouble(String.valueOf(snapshot.child("latitude").getValue())), Double.parseDouble(String.valueOf(snapshot.child("longitude").getValue()))));
 //                        mMap.addPolyline(new PolylineOptions()
@@ -260,7 +225,6 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
 //                                .color(Color.RED)).isClickable();
                     }
                     mMap.addPolyline(rectOptions);
-
 
                 }
                 catch(Exception e){
@@ -318,12 +282,6 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
 //            latlngs.add(latLng);
 //            mMap.addMarker(new MarkerOptions().position(latLng).title(t.getTime()).icon(BitmapDescriptorFactory.fromResource(R.drawable.speedcamera)));
 //        }
-
-       // mMap = googleMap;
-        // Add a marker in Sydney and move the camera
-//        LatLng sydney = new LatLng(-34, 151);
-//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
     public void getSnapToRoadsPoints(Context c, final SpeedCamera speedCamera){
         //String url = "https://roads.googleapis.com/v1/snapToRoads?path="+startLatitude+","+ startLongitude+"|"+endLatitude+","+endLongitude+"&interpolate=true&key=AIzaSyANu-d2RqCWLTyyZoh3s9lL0_PurPTNlIQ";
@@ -530,6 +488,63 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
 //        mMap.addMarker(new MarkerOptions().position(poly.get(0)).title(String.valueOf(poly.get(0).latitude+","+poly.get(0).longitude)));
 //        mMap.addMarker(new MarkerOptions().position(poly.get(poly.size()-1)).title(String.valueOf(poly.get(poly.size()-1).latitude+","+poly.get(poly.size()-1).longitude)));
         return poly;
+    }
+
+
+    private void createSpeedCameraReference(){
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                trafficIncidentsRef.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+                        double latitude = Double.parseDouble(String.valueOf(dataSnapshot.child("latitude").getValue()));
+                        double longitude = Double.parseDouble(String.valueOf(dataSnapshot.child("longitude").getValue()));
+                        String time = String.valueOf(dataSnapshot.child("time").getValue());
+                        Log.i("shay", "child added");
+                        Circle circle = mMap.addCircle(new CircleOptions()
+                                .center(new LatLng(latitude, longitude))
+                                .radius(250)
+                                .strokeColor(ContextCompat.getColor(mContext, R.color.redTransparent))
+                                .fillColor(ContextCompat.getColor(mContext, R.color.redTransparent)));
+
+                        mMap.addMarker(new MarkerOptions().position(new LatLng(latitude,longitude)).title("bad traffic reported\t "+time).alpha(0.00f));
+
+                        Log.i("shay", latitude+"\t"+longitude+"\t"+time);
+                        //TrafficUpdate.addTrafficUpdateToList(new TrafficUpdate(latitude,longitude, time));
+                    }
+
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+                trafficUpdateHandler.sendEmptyMessage(0);
+            }
+        };
+        Thread thread = new Thread(r);
+        thread.start();
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onStop();
+        System.out.println("back called");
+        super.onBackPressed();
+        super.onStop();
     }
 
 }

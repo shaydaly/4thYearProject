@@ -12,7 +12,7 @@
         <!--android:layout_height="?attr/actionBarSize"-->
         <!--android:background="?attr/colorPrimary"-->
         <!--android:elevation="4dp"-->
-        <!--android:theme="@style/ThemeOverlay.AppCompat.ActionBar"-->
+        <!--android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />-->
 <!--/>-->
 
 
@@ -57,7 +57,7 @@
             android:gravity="center"
             android:padding="3dip"
             android:text=""
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:background="@drawable/shape"
@@ -70,17 +70,32 @@
             android:gravity="center"
             android:padding="3dip"
             android:text=""
+            android:layout_weight="2"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="normal" />
+
+        <ImageView
+            android:id="@+id/googlemapImage"
+            android:src="@mipmap/googlemap"
+            android:gravity="right"
+            android:padding="3dip"
+            android:text=""
             android:layout_weight="1"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:background="@drawable/shape"
             android:textColor="@color/white"
             android:textSize="12sp"
-            android:textStyle="normal"/>
+            android:textStyle="normal" />
 
     </LinearLayout>
 
 
 
   </LinearLayout>
+
 

@@ -69,14 +69,11 @@ public class MyLocationService extends Service implements
     Context context;
     ExecutorService mThreadPool;
     private Journey journey;
-    Intent currentSpeedIntent, speedLimitIntent, playVoiceIntent, stopVoiceIntent ;
+    Intent currentSpeedIntent, speedLimitIntent, playVoiceIntent, stopVoiceIntent, playSpeedCameraIntent, playSpeedVanIntent ;
     VolleyService volleyService;
     CognitoUserPoolsSignInProvider provider;
     private SpeedSearch speedSearch;
     ScheduledExecutorService ses;
-
-    BroadcastReceiver serviceBroadcastReceiver;
-
 
     private List<JourneyFragment> journeyList;
     ArrayList<OverSpeedLimit> overSpeedLimits;
@@ -185,6 +182,8 @@ public class MyLocationService extends Service implements
         speedLimitIntent = new Intent();
         playVoiceIntent = new Intent();
         stopVoiceIntent = new Intent();
+        playSpeedVanIntent = new Intent();
+        playSpeedCameraIntent = new Intent();
 
 
         ses = Executors.newScheduledThreadPool(10);
@@ -347,7 +346,7 @@ public class MyLocationService extends Service implements
         mThreadPool.execute(new Runnable() {
             @Override
             public void run() {
-                Log.i(TAG, String.valueOf(location.getLatitude()));
+//                Log.i(TAG, String.valueOf(location.getLatitude()));
                 //Data within intent to send in a broadcast.
                 //  Intent intent = new Intent(HuhConnectionService.NEW_MESSAGE);
 
@@ -384,6 +383,8 @@ public class MyLocationService extends Service implements
 
                     }
 
+                    nearSpeedCamera(location);
+
 
                     if (intialMovement == true) {
                         //journey.addJourneyDB(queue, provider.getUserName(), "insert");
@@ -395,7 +396,7 @@ public class MyLocationService extends Service implements
 
 
                     try {
-                        if (journey.getCurrentSpeed() > limit && limit != 0) {
+                        if (speed > limit && limit != 0) {
                             if (!isPlayingVoice) {
                                 playVoiceIntent = new Intent();
                                 // sets keyword to listen out for for this broadcast
@@ -444,17 +445,7 @@ public class MyLocationService extends Service implements
 //        Location cameraMiddle;
         Location cameraLocation;
 
-
-//        Iterator<SpeedCamera> iterator = SpeedCamera.getCameras().iterator();
-//        SpeedCamera min = (SpeedCamera) iterator.next();
-//        SpeedCamera test;
-//        while(iterator.hasNext()){
-//            Iterator<Location> locations = iterator.next().getCameraLocations().iterator();
-//            while(locations.hasNext()){
-//                if(locations.next().distanceTo(location))
-//            }
-//        }
-
+        Log.i("shay", "speed sixe"+String.valueOf(SpeedCamera.getCameras().size()));
         for (SpeedCamera s : SpeedCamera.getCameras()) {
             ArrayList<Location> cameraLocations = s.getCameraLocations();
             for (int i = 0; i < cameraLocations.size(); i++) {
@@ -466,6 +457,12 @@ public class MyLocationService extends Service implements
 //                    message.setData(b);
 //                    message.arg1 = 0;
 //                    speedVanHandler.sendMessage(message);
+                    playSpeedVanIntent = new Intent();
+                    // sets keyword to listen out for for this broadcast
+                    playSpeedVanIntent.setAction(PLAY_CAMERA_MESSAGE);
+                    playSpeedVanIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                    playSpeedVanIntent.setPackage(context.getPackageName());
+                    sendBroadcast(playSpeedVanIntent);
                     Log.i(TAG,"near speed van");
                     //System.out.println(cameraLocations.get(i).getLatitude() + " _ _ _ " + cameraLocations.get(i).getLongitude());
                     return true;
@@ -485,6 +482,12 @@ public class MyLocationService extends Service implements
 //                message.setData(b);
 //                message.arg1 = 0;
 //                speedCameraHandler.sendMessage(message);
+                playSpeedCameraIntent = new Intent();
+                // sets keyword to listen out for for this broadcast
+                playSpeedCameraIntent.setAction(PLAY_CAMERA_MESSAGE);
+                playSpeedCameraIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                playSpeedCameraIntent.setPackage(context.getPackageName());
+                sendBroadcast(playSpeedCameraIntent);
                 Log.i(TAG,"near speed camera");
                 return true;
             }

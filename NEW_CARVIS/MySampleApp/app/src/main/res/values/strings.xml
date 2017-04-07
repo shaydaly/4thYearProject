@@ -125,6 +125,7 @@
     <string name="emergencySMS">EMERGENCY SMS</string>
     <string name="emergencyText">I have been in a motor accident. My co-ordinates are: </string>
     <string name="emergencyContact">Emergency Contact</string>
+    <string name="addTrafficIndicator">Bad Traffic</string>
     <string-array name="counties">
         <item>Dublin</item>
         <item>Cork</item>

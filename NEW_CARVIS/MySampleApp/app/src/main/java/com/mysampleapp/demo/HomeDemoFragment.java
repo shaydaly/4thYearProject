@@ -12,15 +12,18 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
 import com.android.volley.Request;
@@ -29,9 +32,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.carvis.ListJourney;
 import com.carvis.MainActivity;
+import com.carvis.SpeedCameraMap;
 import com.carvis.TemporarySpeedCamera;
+import com.carvis.TrackSpeedActivity;
 import com.carvis.UserStat;
+import com.carvis.UserStatistics;
 import com.carvis.VolleyService;
 import com.mysampleapp.Application;
 import com.mysampleapp.R;
@@ -40,6 +47,8 @@ import com.mysampleapp.SplashActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import static android.R.attr.value;
 
 public class HomeDemoFragment extends DemoFragmentBase {
 
@@ -142,6 +151,44 @@ public class HomeDemoFragment extends DemoFragmentBase {
             textView.setText(displayMessage);
         }
         SplashActivity.justSignedin = false;
+
+        Button startJourney = (Button) getActivity().findViewById(R.id.startJourney);
+        startJourney.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getActivity(), TrackSpeedActivity.class);
+                getActivity().startActivity(myIntent);
+            }
+        });
+        Button prevJourneys = (Button) getActivity().findViewById(R.id.prevJourney);
+        prevJourneys.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getActivity(), ListJourney.class);
+                getActivity().startActivity(myIntent);
+            }
+        });
+
+        Button speedCameraMap = (Button) getActivity().findViewById(R.id.speedCameraMap);
+        speedCameraMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getActivity(), SpeedCameraMap.class);
+                getActivity().startActivity(myIntent);
+            }
+        });
+
+        Button userSettings = (Button) getActivity().findViewById(R.id.statistics);
+        userSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getActivity(), UserStatistics.class);
+                getActivity().startActivity(myIntent);
+            }
+        });
+
+
+
     }
 
 

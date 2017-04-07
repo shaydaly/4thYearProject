@@ -36,7 +36,8 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.carvis.TrackSpeedActivity"
+        <activity
+            android:name="com.carvis.TrackSpeedActivity"
             android:screenOrientation="portrait">
 
             <!-- <intent-filter> -->
@@ -144,7 +145,8 @@
         <service
             android:name="com.carvis.MyLocationService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
     </application>
 
 </manifest>

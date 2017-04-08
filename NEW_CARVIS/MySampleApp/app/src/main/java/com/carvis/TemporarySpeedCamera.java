@@ -2,6 +2,7 @@ package com.carvis;
 
 import android.content.Context;
 import android.location.Location;
+import android.util.Log;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
@@ -53,6 +54,17 @@ public class TemporarySpeedCamera implements Serializable{
 
     public static void addTemporaryCamera(TemporarySpeedCamera t){
         temporarySpeedCameras.add(t);
+    }
+
+    public static void deleteTemporaryCamera(TemporarySpeedCamera t){
+        try {
+            if(temporarySpeedCameras.contains(t)) {
+                temporarySpeedCameras.remove(t);
+            }
+        }
+        catch(Exception e){
+
+        }
     }
 
 

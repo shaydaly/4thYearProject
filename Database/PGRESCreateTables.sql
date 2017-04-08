@@ -100,3 +100,9 @@ Create table road (
 roadid numeric primary key,
 address varchar
 );
+
+create table trafficincidents(
+incidentid numeric,
+roadid numeric references road(roadid) on delete set null,
+incidentdate timestamp
+);

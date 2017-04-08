@@ -38,10 +38,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import static android.R.attr.value;
 
@@ -51,6 +53,9 @@ import static android.R.attr.value;
 
 public class VolleyService extends Activity {
 
+    public static  String DAYS_OVER_SPEED ="DAYS_OVER_SPEED";
+    public static  String OVERSPEEDDAY ="OVER_SPEED_DAY";
+    public static  String NUMTRAFFICINCIDENTS ="NUMTRAFFICINCIDENTS";
     private RequestQueue queue;
     private Context context;
     String url;
@@ -122,6 +127,81 @@ public class VolleyService extends Activity {
                             String jID = str.replaceAll("[^\\d.]", "");
                             journey.setJourneyID(jID);
                             System.out.println("JOURNEYID: " + journey.getJourneyID());
+                        } catch (UnsupportedEncodingException e) {
+
+                        }
+                    }
+                    return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+                }
+            };
+
+            queue.add(stringRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+            //result = e.toString();
+        }
+    }
+
+
+    public void createTrafficIncident(int roadid, String date, String username) {
+        try {
+            System.out.println("Add journey called");
+            url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/createTrafficIncident";
+            Date dNow = new Date();
+            SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("roadid", roadid);
+            jsonBody.put("timeofincident", date);
+            jsonBody.put("username", username);
+
+            final String requestBody = jsonBody.toString();
+
+            Log.wtf("volley", requestBody);
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    //result = response;
+                    Log.i("create traffic", response.toString());
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //result = error.toString();
+                    Log.i("create traffic", error.toString());
+                }
+            }) {
+                @Override
+                public String getBodyContentType() {
+                    return "application/json; charset=utf-8";
+                }
+
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    try {
+                        return requestBody == null ? null : requestBody.getBytes("utf-8");
+
+                    } catch (UnsupportedEncodingException uee) {
+                        // result = uee.toString();
+                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                        return null;
+                    }
+                }
+
+                @Override
+                protected Response<String> parseNetworkResponse(NetworkResponse response) {
+
+                    String responseString = "";
+                    if (response != null) {
+                        responseString = String.valueOf(response.statusCode);
+                        // can get more details such as response.headers
+                        //result = (response.toString());
+                        try {
+                            String str = new String(response.data, "UTF-8");
+                            Log.i("volleyResponse", str);
+
+                            String jID = str.replaceAll("[^\\d.]", "");
+                            Log.wtf("volleResponse", jID);
                         } catch (UnsupportedEncodingException e) {
 
                         }
@@ -495,7 +575,10 @@ public class VolleyService extends Activity {
     }
 
 
-    public void getDaysSinceLastOverSpeed(final String username) {
+    public void getDaysSinceLastOverSpeed(final String username, final Context contextIn) {
+        Log.i("getDaysincespeed", " called");
+        final DateTimeFormatter dateFormatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+
         url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/daysinceoverspeed?username=" + username;
         //final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
@@ -504,18 +587,50 @@ public class VolleyService extends Activity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            Log.i("days", response.toString());
-                            JSONObject obj = new JSONObject(response.toString());
-                            int daysSinceOverSpeed = obj.getInt("daysOverSpeed");
-                            //u.setDaysSinceOverSpeed(daysSinceOverSpeed);
-                            System.out.println("Hi " + username + " its been " + daysSinceOverSpeed + " days since last overspeed ");
-
-
-                            //HomeDemoFragment.textViewObj.setText("Hi " + username + " its been " + daysSinceOverSpeed + " days since last overspeed ");
+                            Random random = new Random();
                             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-                            prefs.edit()
-                                    .putInt("daysSinceOverSpeed", daysSinceOverSpeed)
-                                    .commit();
+                            Intent intent = new Intent();
+                            int randomNumber = random.nextInt(3 + 1);
+                            Log.i("randomNum", String.valueOf(randomNumber));
+                            if(randomNumber == 1) {
+
+                                Log.i("days", response.toString());
+                                JSONObject obj = new JSONObject(response.toString());
+                                int daysSinceOverSpeed = obj.getInt("daysOverSpeed");
+
+                                prefs.edit()
+                                        .putInt("daysSinceOverSpeed", daysSinceOverSpeed)
+                                        .commit();
+
+                                //intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                                intent.setAction(DAYS_OVER_SPEED);
+                                intent.putExtra("hello", "shaymus");
+                            }
+                            else if(randomNumber == 2) {
+                                intent.setAction(OVERSPEEDDAY);
+                                UserStat userStat = new UserStat();
+                                JSONArray overSpeedDates = response.getJSONArray("overSpeedDates");
+                                for (int i = 0; i < overSpeedDates.length(); i++) {
+                                    String date = String.valueOf(overSpeedDates.getJSONObject(i).get("overSpeedDate"));
+                                    userStat.addOverSpeedDate(dateFormatter.parseDateTime(date));
+                                    //dates.add(dateFormatter.parseDateTime(date));
+                                }
+
+                                prefs.edit()
+                                        .putString("overSpeedDate", userStat.getOverSpeedDay())
+                                        .commit();
+                            }
+
+                            else{
+                                intent.setAction(NUMTRAFFICINCIDENTS);
+                                int numTrafficIncidentsReported = response.getInt("numTrafficIncidentsReported");
+                                prefs.edit()
+                                        .putInt("numTrafficIncidentsReported", numTrafficIncidentsReported)
+                                        .commit();
+                            }
+                            contextIn.sendBroadcast(intent);
+                            //final Intent intent = new Intent();
+                            // sets keyword to listen out for for this broadcast
 
                         } catch (JSONException e) {
                             Log.i("days", e.getMessage());
@@ -534,5 +649,10 @@ public class VolleyService extends Activity {
     }
 
 
+    private void sendBroadcastMessage(WeakReference<Context> weakContext, String intentFilterName) {
+        Intent intent = new Intent(intentFilterName);
+        intent.putExtra("response", "hello");
+        weakContext.get().sendBroadcast(intent);
+    }
 
 }

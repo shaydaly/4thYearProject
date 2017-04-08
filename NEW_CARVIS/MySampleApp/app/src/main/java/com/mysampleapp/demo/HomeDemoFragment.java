@@ -1,8 +1,10 @@
 package com.mysampleapp.demo;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -34,6 +36,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.carvis.ListJourney;
 import com.carvis.MainActivity;
+import com.carvis.MyLocationService;
 import com.carvis.SpeedCameraMap;
 import com.carvis.TemporarySpeedCamera;
 import com.carvis.TrackSpeedActivity;
@@ -48,6 +51,8 @@ import com.mysampleapp.SplashActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Random;
+
 import static android.R.attr.value;
 
 public class HomeDemoFragment extends DemoFragmentBase {
@@ -58,67 +63,22 @@ public class HomeDemoFragment extends DemoFragmentBase {
     Context context;
     public static TextView textViewObj;
     TextView textView ;
-
+    BroadcastReceiver mBroadcastReceiver;
+    Random random ;
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              final Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         context = getActivity().getApplicationContext();
        provider = new CognitoUserPoolsSignInProvider(context);
-//        v = new VolleyService(context);
-//        v.getDaysSinceLastOverSpeed(provider.getUserName());
 
-        if (ContextCompat.checkSelfPermission(context,
-                Manifest.permission.SEND_SMS)
-                != PackageManager.PERMISSION_GRANTED) {
 
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                    Manifest.permission.SEND_SMS)) {
 
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[]{Manifest.permission.SEND_SMS},
-                        1);
-            } else {
 
-                // No explanation needed, we can request the permission.
 
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[]{Manifest.permission.SEND_SMS},
-                        1);
+        getPermissions();
 
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
-            }
-        }
-        if (ContextCompat.checkSelfPermission(context,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
 
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        1);
-
-            } else {
-
-                // No explanation needed, we can request the permission.
-
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        1);
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
-            }
-        }
 
         return inflater.inflate(R.layout.fragment_demo_home, container, false);
     }
@@ -130,65 +90,96 @@ public class HomeDemoFragment extends DemoFragmentBase {
         if(textView!= null){
             textView.setText("");
         }
+        getActivity().unregisterReceiver(mBroadcastReceiver);
     }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+//        context.unregisterReceiver(mBroadcastReceiver);
+    }
+
 
     @Override
     public void onResume(){
         super.onResume();
+
+       random = new Random();
         //textView = (TextView) getActivity().findViewById(R.id.daysSinceOverSpeed);
-        int days = PreferenceManager.getDefaultSharedPreferences(context).getInt("daysSinceOverSpeed", 0);
+
         if(SplashActivity.justSignedin) {
-            textView = (TextView) getActivity().findViewById(R.id.daysSinceOverSpeed);
-            String over1 = getResources().getString(R.string.daysSinceLastOverSpeed1);
-            String over2 = getResources().getString(R.string.daysSinceLastOverSpeed2);
-            String displayMessage = "Hi " + provider.getUserName()+" \n" +over1+" "+days+" "+over2;
-            if(days < 3){
-                displayMessage = displayMessage+  "\n"+getResources().getString(R.string.slowingDown);
-            }
-            else{
-                displayMessage = displayMessage+"\n"+  getResources().getString(R.string.wellDone);
-            }
-            textView.setText(displayMessage);
+            v = new VolleyService(context);
+            v.getDaysSinceLastOverSpeed(provider.getUserName(), context);
+
+
         }
         SplashActivity.justSignedin = false;
 
-        Button startJourney = (Button) getActivity().findViewById(R.id.startJourney);
-        startJourney.setOnClickListener(new View.OnClickListener() {
+        registerButtons();
+
+
+        mBroadcastReceiver = new BroadcastReceiver() {
             @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(getActivity(), TrackSpeedActivity.class);
-                getActivity().startActivity(myIntent);
+            public void onReceive(Context context, Intent intent) {
+                Log.i("volley received","");
+                textView = (TextView) getActivity().findViewById(R.id.daysSinceOverSpeed);
+                String greeting  = "Hi " + provider.getUserName();
+                try {
+                    if (intent.getAction().equals(VolleyService.DAYS_OVER_SPEED)) {
+                        int days = PreferenceManager.getDefaultSharedPreferences(context).getInt("daysSinceOverSpeed", 0);
+                        String over1 = getString(R.string.daysSinceLastOverSpeed1);
+                        String over2 = getString(R.string.daysSinceLastOverSpeed2);
+                        String displayMessage = greeting+". "+over1+" "+days+" "+over2+". ";
+                        if(days < 3){
+                            displayMessage = displayMessage+getString(R.string.slowingDown);
+                        }
+                        else{
+                            displayMessage = displayMessage+"\n"+  getString(R.string.wellDone);
+                        }
+                        textView.setText(displayMessage);
+                    }
+
+                    else if(intent.getAction().equals(VolleyService.OVERSPEEDDAY)){
+                        String overSpeedDay =  PreferenceManager.getDefaultSharedPreferences(context).getString("overSpeedDate", "");
+                        String textOutput=greeting+". "+getString(R.string.overSpeedDay)
+                                +" "+overSpeedDay+". "+getString(R.string.alternativeRoute);
+                        textView.setText(textOutput);
+                    }
+
+                    else if(intent.getAction().equals(VolleyService.NUMTRAFFICINCIDENTS)){
+                        int numTrafficIncidentsReported = PreferenceManager.getDefaultSharedPreferences(context).getInt("numTrafficIncidentsReported", 0);
+                        String output = greeting+". "+numTrafficIncidentsReported+" "+getString(R.string.numTrafficIncidents);
+                        if(numTrafficIncidentsReported > 0){
+                            output+=". "+getString(R.string.thanks);
+                        }
+                        else{
+                            output+=". "+getString(R.string.promtTraffic);
+                        }
+                        textView.setText(output);
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
             }
-        });
-        Button prevJourneys = (Button) getActivity().findViewById(R.id.prevJourney);
-        prevJourneys.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(getActivity(), ListJourney.class);
-                getActivity().startActivity(myIntent);
-            }
-        });
+        };
 
-        Button speedCameraMap = (Button) getActivity().findViewById(R.id.speedCameraMap);
-        speedCameraMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(getActivity(), SpeedCameraMap.class);
-                getActivity().startActivity(myIntent);
-            }
-        });
+        IntentFilter filter = new IntentFilter(VolleyService.DAYS_OVER_SPEED);
+        filter.addAction(VolleyService.OVERSPEEDDAY);
+        filter.addAction(VolleyService.NUMTRAFFICINCIDENTS);
+        getActivity().registerReceiver(mBroadcastReceiver, filter);
 
-        Button userSettings = (Button) getActivity().findViewById(R.id.statistics);
-        userSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(getActivity(), UserStatistics.class);
-                getActivity().startActivity(myIntent);
-            }
-        });
+    }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
 
-
+        Log.i(data.getStringExtra("hello"), " has been passed");
+//        if(resultCode == RESULT_CANCELED){
+            Toast.makeText(getActivity()     , "El Bluetooth debe estar activado para continuar", Toast.LENGTH_SHORT).show();
+//            getActivity().finish();
+//        }
     }
 
 
@@ -281,6 +272,98 @@ public class HomeDemoFragment extends DemoFragmentBase {
                 return;
             }
 
+        }
+    }
+
+
+    public void registerButtons(){
+        Button startJourney = (Button) getActivity().findViewById(R.id.startJourney);
+        startJourney.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getActivity(), TrackSpeedActivity.class);
+                getActivity().startActivity(myIntent);
+            }
+        });
+        Button prevJourneys = (Button) getActivity().findViewById(R.id.prevJourney);
+        prevJourneys.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getActivity(), ListJourney.class);
+                getActivity().startActivity(myIntent);
+            }
+        });
+
+        Button speedCameraMap = (Button) getActivity().findViewById(R.id.speedCameraMap);
+        speedCameraMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getActivity(), SpeedCameraMap.class);
+                getActivity().startActivity(myIntent);
+            }
+        });
+
+        Button userSettings = (Button) getActivity().findViewById(R.id.statistics);
+        userSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getActivity(), UserStatistics.class);
+                getActivity().startActivity(myIntent);
+            }
+        });
+    }
+
+    private void getPermissions(){
+        if (ContextCompat.checkSelfPermission(context,
+                Manifest.permission.SEND_SMS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.SEND_SMS)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.SEND_SMS},
+                        1);
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.SEND_SMS},
+                        1);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        }
+        if (ContextCompat.checkSelfPermission(context,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        1);
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        1);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
         }
     }
 }

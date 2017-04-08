@@ -93,6 +93,7 @@ public class TrackSpeedActivity extends Activity {
 
     TextView currentSpeedTextView;
     TextView speedLimitTextView;
+    CognitoUserPoolsSignInProvider provider;
 
     MediaPlayer mediaPlayer;
 
@@ -153,6 +154,7 @@ public class TrackSpeedActivity extends Activity {
         mediaPlayer = new MediaPlayer();
 
 
+
         //speeding = false;
 
         isRunning = false;
@@ -161,9 +163,13 @@ public class TrackSpeedActivity extends Activity {
         limit = 0;
         snackBackShown = false;
 
+        speedSearch = new SpeedSearch(-99);
+
 
 
         context = getApplicationContext();
+        provider = new CognitoUserPoolsSignInProvider(context);
+        volleyService = new VolleyService(context);
         //showPermissionDialog();
 
 
@@ -209,6 +215,10 @@ public class TrackSpeedActivity extends Activity {
                         if (limit != 0) {
                             chooseSpeedImage(limit);
                         }
+
+                        speedSearch.setOsm_id(intent.getIntExtra("osmID",0));
+                        Log.wtf("osmID", String.valueOf(speedSearch.getOsm_id()));
+
                     }
                     if (intent.getAction().equals(MyLocationService.PLAY_SPEED_MESSAGE) && !isPlayingVoice) {
                         Log.i("VOICEEEE", "PLAY VOICE RECEIVED");
@@ -273,10 +283,18 @@ public class TrackSpeedActivity extends Activity {
         addTrafficIndicator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dNow = new Date();
-                String time = ft.format(dNow);
-                TrafficUpdate.AddTrafficUpdate(latitude,longitude, time, context);
-                Toast.makeText(context, "Bad traffic added", Toast.LENGTH_SHORT).show();
+                try {
+                    dNow = new Date();
+                    String time = ft.format(dNow);
+                    TrafficUpdate.AddTrafficUpdate(latitude, longitude, time, context);
+                    if(speedSearch.getOsm_id()!= -99) {
+                        volleyService.createTrafficIncident(speedSearch.getOsm_id(), time, provider.getUserName());
+                    }
+                    Toast.makeText(context, "Bad traffic added", Toast.LENGTH_SHORT).show();
+                }
+                catch(Exception e){
+
+                }
             }
         });
 

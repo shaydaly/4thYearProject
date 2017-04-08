@@ -142,135 +142,14 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
         mMap = googleMap;
         LatLng dublin = new LatLng(53.348778, -6.270933);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(dublin,11.0f));
-        cameraRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                System.out.println("child added");
-                double latitude = Double.parseDouble(String.valueOf(dataSnapshot.child("latitude").getValue()));
-                double longitude = Double.parseDouble(String.valueOf(dataSnapshot.child("longitude").getValue()));
-                String time = String.valueOf(dataSnapshot.child("time").getValue());
 
-                TemporarySpeedCamera.addTemporaryCamera(new TemporarySpeedCamera(latitude, longitude,time));
-                //cameras.add(new SpeedCamera(id, startLat, startLong, endLat, endLong));
-                System.out.println(TemporarySpeedCamera.temporarySpeedCameras.size()+" is the temp size");
-                LatLng latLng = new LatLng(latitude, longitude);
-                mMap.addMarker(new MarkerOptions().position(latLng).title(time).icon(BitmapDescriptorFactory.fromResource(R.drawable.new_speed_amera)));
+
+        createCameraReference();
+        createTrafficReference();
+        createVanReference();
 
 
 
-            }
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
-
-
-////                cameras.remove(dataSnapshot.getKey());
-////                System.out.println(cameras.size());
-//
-//                int id = Integer.parseInt(String.valueOf(dataSnapshot.getKey()));
-//                double startLat = Double.parseDouble(String.valueOf(dataSnapshot.child("startLatitude").getValue()));
-//                double startLong = Double.parseDouble(String.valueOf(dataSnapshot.child("startLongitude").getValue()));
-//                double endLat = Double.parseDouble(String.valueOf(dataSnapshot.child("endLatitude").getValue()));
-//                double endLong = Double.parseDouble(String.valueOf(dataSnapshot.child("endLongitude").getValue()));
-//                //cameras.add(new SpeedCamera(id, startLat, startLong, endLat, endLong));
-//
-//                System.out.println(SpeedCamera.cameras.size());
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-//                //cameras.remove(dataSnapshot.getKey());
-//                SpeedCamera.removeSpeedCamera(Integer.parseInt(dataSnapshot.getKey()));
-//                System.out.println("camera size : "+SpeedCamera.cameras.size());
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-
-        createSpeedCameraReference();
-
-
-
-        vanRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                try {
-
-//                    for (DataSnapshot snapshot : dataSnapshot.child("latLngs").getChildren()) {
-//                        System.out.println(snapshot.child("latitude").getValue());
-//
-//
-//                    }
-                     PolylineOptions rectOptions = new PolylineOptions()
-                                        .width(10)
-                                        .geodesic(true)
-                                        .jointType(JointType.BEVEL)
-                                        .endCap(new RoundCap())
-                                        .startCap(new RoundCap())
-                                        .color(getResources().getColor(R.color.vanMapColor));
-                    for (DataSnapshot snapshot : dataSnapshot.child("latLngs").getChildren()) {
-                        rectOptions.add(new LatLng(Double.parseDouble(String.valueOf(snapshot.child("latitude").getValue())), Double.parseDouble(String.valueOf(snapshot.child("longitude").getValue()))));
-//                        mMap.addPolyline(new PolylineOptions()
-//                                .add(new LatLng(Double.parseDouble(String.valueOf(snapshot.child("latitude").getValue())), Double.parseDouble(String.valueOf(snapshot.child("longitude").getValue()))))
-//                                .width(10)
-//                                .geodesic(true)
-//                                .jointType(JointType.BEVEL)
-//                                .endCap(new RoundCap())
-//                                .startCap(new RoundCap())
-//                                .color(Color.RED)).isClickable();
-                    }
-                    mMap.addPolyline(rectOptions);
-
-                }
-                catch(Exception e){
-                    System.out.println(e.getMessage());
-                }
-//                mMap.addPolyline(new PolylineOptions()
-//                        .add(new LatLng(startLatitude, startLongitude), new LatLng(endLatitude, endLongitude))
-//                        .width(10)
-//                        .geodesic(true)
-//                        .jointType(JointType.BEVEL)
-//                        .endCap(new RoundCap())
-//                        .startCap(new RoundCap())
-//                        .color(Color.RED)).isClickable();
-            }
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
-
-
-////                cameras.remove(dataSnapshot.getKey());
-////                System.out.println(cameras.size());
-//
-//                int id = Integer.parseInt(String.valueOf(dataSnapshot.getKey()));
-//                double startLat = Double.parseDouble(String.valueOf(dataSnapshot.child("startLatitude").getValue()));
-//                double startLong = Double.parseDouble(String.valueOf(dataSnapshot.child("startLongitude").getValue()));
-//                double endLat = Double.parseDouble(String.valueOf(dataSnapshot.child("endLatitude").getValue()));
-//                double endLong = Double.parseDouble(String.valueOf(dataSnapshot.child("endLongitude").getValue()));
-//                //cameras.add(new SpeedCamera(id, startLat, startLong, endLat, endLong));
-//
-//                System.out.println(SpeedCamera.cameras.size());
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-//                //cameras.remove(dataSnapshot.getKey());
-//                SpeedCamera.removeSpeedCamera(Integer.parseInt(dataSnapshot.getKey()));
-//                System.out.println("camera size : "+SpeedCamera.cameras.size());
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
 
         //getSnapToRoadsPoints(getApplicationContext(), 53.416, -6.178, 53.4511,-6.1508, mMap);
         //mMap = googleMap;
@@ -491,7 +370,7 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
     }
 
 
-    private void createSpeedCameraReference(){
+    private void createTrafficReference(){
         Runnable r = new Runnable() {
             @Override
             public void run() {
@@ -538,6 +417,145 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
         Thread thread = new Thread(r);
         thread.start();
     }
+
+    private void createCameraReference(){
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+        cameraRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+                System.out.println("child added");
+                double latitude = Double.parseDouble(String.valueOf(dataSnapshot.child("latitude").getValue()));
+                double longitude = Double.parseDouble(String.valueOf(dataSnapshot.child("longitude").getValue()));
+                String time = String.valueOf(dataSnapshot.child("time").getValue());
+
+                TemporarySpeedCamera.addTemporaryCamera(new TemporarySpeedCamera(latitude, longitude,time));
+                //cameras.add(new SpeedCamera(id, startLat, startLong, endLat, endLong));
+                LatLng latLng = new LatLng(latitude, longitude);
+                mMap.addMarker(new MarkerOptions().position(latLng).title(time).icon(BitmapDescriptorFactory.fromResource(R.drawable.new_speed_amera)));
+
+
+
+            }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                double latitude = Double.parseDouble(String.valueOf(dataSnapshot.child("latitude").getValue()));
+                double longitude = Double.parseDouble(String.valueOf(dataSnapshot.child("longitude").getValue()));
+                String time = String.valueOf(dataSnapshot.child("time").getValue());
+                TemporarySpeedCamera.deleteTemporaryCamera(new TemporarySpeedCamera(latitude, longitude, time));
+//                //cameras.remove(dataSnapshot.getKey());
+//                SpeedCamera.removeSpeedCamera(Integer.parseInt(dataSnapshot.getKey()));
+//                System.out.println("camera size : "+SpeedCamera.cameras.size());
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
+                trafficUpdateHandler.sendEmptyMessage(0);
+            }
+        };
+        Thread thread = new Thread(r);
+        thread.start();
+    }
+
+    private void createVanReference(){
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                vanRef.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+                        try {
+
+//                    for (DataSnapshot snapshot : dataSnapshot.child("latLngs").getChildren()) {
+//                        System.out.println(snapshot.child("latitude").getValue());
+//
+//
+//                    }
+                            PolylineOptions rectOptions = new PolylineOptions()
+                                    .width(10)
+                                    .geodesic(true)
+                                    .jointType(JointType.BEVEL)
+                                    .endCap(new RoundCap())
+                                    .startCap(new RoundCap())
+                                    .color(getResources().getColor(R.color.vanMapColor));
+                            for (DataSnapshot snapshot : dataSnapshot.child("latLngs").getChildren()) {
+                                rectOptions.add(new LatLng(Double.parseDouble(String.valueOf(snapshot.child("latitude").getValue())), Double.parseDouble(String.valueOf(snapshot.child("longitude").getValue()))));
+//                        mMap.addPolyline(new PolylineOptions()
+//                                .add(new LatLng(Double.parseDouble(String.valueOf(snapshot.child("latitude").getValue())), Double.parseDouble(String.valueOf(snapshot.child("longitude").getValue()))))
+//                                .width(10)
+//                                .geodesic(true)
+//                                .jointType(JointType.BEVEL)
+//                                .endCap(new RoundCap())
+//                                .startCap(new RoundCap())
+//                                .color(Color.RED)).isClickable();
+                            }
+                            mMap.addPolyline(rectOptions);
+
+                        }
+                        catch(Exception e){
+                            System.out.println(e.getMessage());
+                        }
+//                mMap.addPolyline(new PolylineOptions()
+//                        .add(new LatLng(startLatitude, startLongitude), new LatLng(endLatitude, endLongitude))
+//                        .width(10)
+//                        .geodesic(true)
+//                        .jointType(JointType.BEVEL)
+//                        .endCap(new RoundCap())
+//                        .startCap(new RoundCap())
+//                        .color(Color.RED)).isClickable();
+                    }
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
+
+
+////                cameras.remove(dataSnapshot.getKey());
+////                System.out.println(cameras.size());
+//
+//                int id = Integer.parseInt(String.valueOf(dataSnapshot.getKey()));
+//                double startLat = Double.parseDouble(String.valueOf(dataSnapshot.child("startLatitude").getValue()));
+//                double startLong = Double.parseDouble(String.valueOf(dataSnapshot.child("startLongitude").getValue()));
+//                double endLat = Double.parseDouble(String.valueOf(dataSnapshot.child("endLatitude").getValue()));
+//                double endLong = Double.parseDouble(String.valueOf(dataSnapshot.child("endLongitude").getValue()));
+//                //cameras.add(new SpeedCamera(id, startLat, startLong, endLat, endLong));
+//
+//                System.out.println(SpeedCamera.cameras.size());
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+//                //cameras.remove(dataSnapshot.getKey());
+//                SpeedCamera.removeSpeedCamera(Integer.parseInt(dataSnapshot.getKey()));
+//                System.out.println("camera size : "+SpeedCamera.cameras.size());
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+                trafficUpdateHandler.sendEmptyMessage(0);
+            }
+        };
+        Thread thread = new Thread(r);
+        thread.start();
+    }
+
 
     @Override
     public void onBackPressed() {

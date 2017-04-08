@@ -46,10 +46,10 @@ public class JourneyFragment implements Serializable{
     private Date time;
     private String latitude, longitude, journeyID, username;
     int speed;
-    int currentSpeed, speedLimit;
+    int currentSpeed, speedLimit, osmID;
     String timeString;
 
-    JourneyFragment(String lat, String lon,  int sp, int sl,Date d, String jID, String u){
+    JourneyFragment(String lat, String lon,  int sp, int sl,Date d, String jID, String u, int osmID){
  //       super(lat,lon,speed,speedLimit);
         latitude = lat;
         longitude = lon;
@@ -58,6 +58,7 @@ public class JourneyFragment implements Serializable{
         time = d;
         journeyID = jID;
         username = u;
+        this.osmID = osmID;
     }
 
     JourneyFragment(String jid, String latitude,String lon, int currentSpeed, int speedLimit, String time ){
@@ -146,8 +147,11 @@ public class JourneyFragment implements Serializable{
         return currentSpeed;
     }
 
+    public int getOsmID() {
+        return osmID;
+    }
 
-//    public void setTime(Date time) {
+    //    public void setTime(Date time) {
 //        this.time = time;
 //    }
 //

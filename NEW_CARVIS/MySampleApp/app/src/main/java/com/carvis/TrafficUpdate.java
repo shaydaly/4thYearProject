@@ -2,6 +2,7 @@ package com.carvis;
 
 import android.content.Context;
 import android.location.Location;
+import android.util.Log;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
@@ -53,6 +54,7 @@ public class TrafficUpdate {
 //        myRef.push().setValue(new TrafficUpdate(latitude, longitude, date));
         if(!checkTrafficDistance(updateLocation)) {
             myRef.push().setValue(new TrafficUpdate(latitude, longitude, date));
+            addTrafficUpdateToList(new TrafficUpdate(latitude, longitude, date));
         }
         else{
 
@@ -66,10 +68,11 @@ public class TrafficUpdate {
             cameraLocation.setLatitude(t.getLatitude());
             cameraLocation.setLongitude(t.getLongitude());
 
-            if ((location.distanceTo(cameraLocation) / 1000) < 0.5) {
+            if ((location.distanceTo(cameraLocation) / 1000) < 1.0) {
                 return true;
             }
         }
+        Log.i("daly", "true");
         return false;
     }
 

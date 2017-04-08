@@ -20,8 +20,8 @@
         <!--android:background="@drawable/shape"/>-->
         <TextView
             android:id="@+id/daysSinceOverSpeed"
-            android:gravity="left"
-            android:padding="3dip"
+            android:gravity="center"
+            android:padding="50dp"
             android:text=""
             android:layout_weight="1"
             android:layout_width="0dip"
@@ -101,7 +101,7 @@
             android:gravity="left|center_vertical"
             android:id="@+id/speedCameraMap"
             android:padding="3dip"
-            android:text="@string/speedCameraMap"
+            android:text="@string/roadMap"
             android:layout_weight="1"
             android:layout_width="0dip"
             android:layout_height="match_parent"
@@ -135,10 +135,10 @@
 
 
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@android:id/list"/>
+    <!--<ListView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@android:id/list"/>-->
 
     <!--<TextView-->
         <!--android:layout_width="match_parent"-->

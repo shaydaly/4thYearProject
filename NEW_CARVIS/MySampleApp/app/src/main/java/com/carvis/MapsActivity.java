@@ -39,6 +39,7 @@ import java.util.Locale;
 import android.location.Address;
 import android.location.Geocoder;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -86,86 +87,86 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // getSnapToRoadsPoints(context);
         mMap = googleMap;
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            ArrayList<JourneyFragment> listOfJourneys = (ArrayList<JourneyFragment>) extras.get("journeyFragments");
+        try {
+            Bundle extras = getIntent().getExtras();
+            if (extras != null) {
+                ArrayList<JourneyFragment> listOfJourneys = (ArrayList<JourneyFragment>) extras.get("journeyFragments");
 
 
-            for (int i = 0; i < listOfJourneys.size(); i++) {
-                LatLng latLng = new LatLng(Double.parseDouble(listOfJourneys.get(i).getLatitude()), Double.parseDouble(listOfJourneys.get(i).getLongitude()));
-                latlngs.add(latLng);
-                //rectOptions.add(latLng);
-                //rectOptions.color(Color.RED);
-                //options.position(latLng);
-                //options.title(listOfJourneys.get(i).getLatitude()+"_"+listOfJourneys.get(i).getLongitude());
-                options.title("Speed: "+listOfJourneys.get(i).getFragmentSpeed());
-                options.snippet("Limit:"+listOfJourneys.get(i).getSpeedLimit());//
-                if(i+1 < listOfJourneys.size()) {
-                    if((listOfJourneys.get(i).getSpeedLimit())==0){
-                        options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-                        options.flat(true);
-                        options.position(latLng);
-                        mMap.addPolyline(new PolylineOptions()
-                                .add(new LatLng(Double.parseDouble(listOfJourneys.get(i).getLatitude()), Double.parseDouble(listOfJourneys.get(i).getLongitude())), new LatLng(Double.parseDouble(listOfJourneys.get(i + 1).getLatitude()), Double.parseDouble(listOfJourneys.get(i + 1).getLongitude())))
-                                .width(20)
-                                .geodesic(true)
-                                .jointType(JointType.BEVEL)
-                                .endCap(new RoundCap())
-                                .startCap(new RoundCap())
-                                .color(Color.BLUE));
+                for (int i = 0; i < listOfJourneys.size(); i++) {
+                    LatLng latLng = new LatLng(Double.parseDouble(listOfJourneys.get(i).getLatitude()), Double.parseDouble(listOfJourneys.get(i).getLongitude()));
+                    latlngs.add(latLng);
+                    //rectOptions.add(latLng);
+                    //rectOptions.color(Color.RED);
+                    //options.position(latLng);
+                    //options.title(listOfJourneys.get(i).getLatitude()+"_"+listOfJourneys.get(i).getLongitude());
+                    options.title("Speed: " + listOfJourneys.get(i).getFragmentSpeed());
+                    options.snippet("Limit:" + listOfJourneys.get(i).getSpeedLimit());//
+                    if (i + 1 < listOfJourneys.size()) {
+                        if ((listOfJourneys.get(i).getSpeedLimit()) == 0) {
+                            options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+                            options.flat(true);
+                            options.position(latLng);
+                            mMap.addPolyline(new PolylineOptions()
+                                    .add(new LatLng(Double.parseDouble(listOfJourneys.get(i).getLatitude()), Double.parseDouble(listOfJourneys.get(i).getLongitude())), new LatLng(Double.parseDouble(listOfJourneys.get(i + 1).getLatitude()), Double.parseDouble(listOfJourneys.get(i + 1).getLongitude())))
+                                    .width(20)
+                                    .geodesic(true)
+                                    .jointType(JointType.BEVEL)
+                                    .endCap(new RoundCap())
+                                    .startCap(new RoundCap())
+                                    .color(Color.BLUE));
+                        } else if (listOfJourneys.get(i).getFragmentSpeed() > listOfJourneys.get(i).getSpeedLimit()) {
+                            options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                            options.flat(true);
+                            options.position(latLng);
+                            //rectOptions.add(latLng).color(Color.RED);
+                            mMap.addPolyline(new PolylineOptions()
+                                    .add(new LatLng(Double.parseDouble(listOfJourneys.get(i).getLatitude()), Double.parseDouble(listOfJourneys.get(i).getLongitude())), new LatLng(Double.parseDouble(listOfJourneys.get(i + 1).getLatitude()), Double.parseDouble(listOfJourneys.get(i + 1).getLongitude())))
+                                    .width(20)
+                                    .geodesic(true)
+                                    .jointType(JointType.BEVEL)
+                                    .endCap(new RoundCap())
+                                    .startCap(new RoundCap())
+                                    .color(Color.RED));
+                        } else {
+                            options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                            options.flat(true);
+                            options.position(latLng);
+                            //rectOptions.add(latLng).color(Color.GREEN);
+                            mMap.addPolyline(new PolylineOptions()
+                                    .add(new LatLng(Double.parseDouble(listOfJourneys.get(i).getLatitude()), Double.parseDouble(listOfJourneys.get(i).getLongitude())), new LatLng(Double.parseDouble(listOfJourneys.get(i + 1).getLatitude()), Double.parseDouble(listOfJourneys.get(i + 1).getLongitude())))
+                                    .width(20)
+                                    .color(Color.GREEN)
+                                    .jointType(JointType.BEVEL)
+                                    .endCap(new RoundCap())
+                                    .startCap(new RoundCap())
+                                    .geodesic(true));
+                            //Polyline p = mMap.ge
+                        }
                     }
-
-                    else if (listOfJourneys.get(i).getFragmentSpeed() > listOfJourneys.get(i).getSpeedLimit()) {
-                        options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                        options.flat(true);
-                        options.position(latLng);
-                        //rectOptions.add(latLng).color(Color.RED);
-                        mMap.addPolyline(new PolylineOptions()
-                                .add(new LatLng(Double.parseDouble(listOfJourneys.get(i).getLatitude()), Double.parseDouble(listOfJourneys.get(i).getLongitude())), new LatLng(Double.parseDouble(listOfJourneys.get(i + 1).getLatitude()), Double.parseDouble(listOfJourneys.get(i + 1).getLongitude())))
-                                .width(20)
-                                .geodesic(true)
-                                .jointType(JointType.BEVEL)
-                                .endCap(new RoundCap())
-                                .startCap(new RoundCap())
-                                .color(Color.RED));
+                    if (options != null) {
+                        googleMap.addMarker(options).setAlpha(0.0f);
                     }
-                    else {
-                        options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-                        options.flat(true);
-                        options.position(latLng);
-                        //rectOptions.add(latLng).color(Color.GREEN);
-                        mMap.addPolyline(new PolylineOptions()
-                                .add(new LatLng(Double.parseDouble(listOfJourneys.get(i).getLatitude()), Double.parseDouble(listOfJourneys.get(i).getLongitude())), new LatLng(Double.parseDouble(listOfJourneys.get(i + 1).getLatitude()), Double.parseDouble(listOfJourneys.get(i + 1).getLongitude())))
-                                .width(20)
-                                .color(Color.GREEN)
-                                .jointType(JointType.BEVEL)
-                                .endCap(new RoundCap())
-                                .startCap(new RoundCap())
-                                .geodesic(true));
-                        //Polyline p = mMap.ge
-                    }
+                    //options.rotation(90f);
                 }
-                if (options!= null) {
-                    googleMap.addMarker(options).setAlpha(0.0f);
+
+                if (latlngs.size() != 0) {
+                    Marker origin = mMap.addMarker(new MarkerOptions().position(latlngs.get(0)).title(getAddressFromLocation(0)).visible(true));
+                    Marker destination = mMap.addMarker(new MarkerOptions().position(latlngs.get(latlngs.size() - 1)).title(getAddressFromLocation(latlngs.size() - 1)).visible(true));
+
+                    origin.showInfoWindow();
+                    destination.showInfoWindow();
+                    origin.setZIndex(1);
+                    destination.setZIndex(1);
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlngs.get(latlngs.size() - 1), 13.0f));
+
                 }
-                //options.rotation(90f);
+            } else {
+                LatLng home = new LatLng(53.3514105, -6.3803316);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(home, 13.0f));
             }
-
-            if(latlngs.size()!= 0) {
-                Marker origin = mMap.addMarker(new MarkerOptions().position(latlngs.get(0)).title(getAddressFromLocation(0)).visible(true));
-                Marker destination = mMap.addMarker(new MarkerOptions().position(latlngs.get(latlngs.size()-1)).title(getAddressFromLocation(latlngs.size()-1)).visible(true));
-
-                origin.showInfoWindow();
-                destination.showInfoWindow();
-                origin.setZIndex(1);
-                destination.setZIndex(1);
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlngs.get(latlngs.size()-1),13.0f));
-
-            }
-        }
-        else{
-            LatLng home = new LatLng(53.3514105, -6.3803316);
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(home,13.0f));
+        }catch (Exception e){
+            Log.e("mapException", e.getMessage());
         }
     }
 

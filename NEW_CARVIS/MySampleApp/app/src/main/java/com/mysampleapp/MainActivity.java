@@ -112,22 +112,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         navigationDrawer.addDemoFeatureToMenu(home);
 
         DemoConfiguration.DemoFeature TrackSpeed = new DemoConfiguration.DemoFeature();
-        TrackSpeed.iconResId = R.drawable.speed50km;
+        TrackSpeed.iconResId = R.mipmap.speedlimit60;
         TrackSpeed.titleResId = R.string.startJourney;
         navigationDrawer.addDemoFeatureToMenu(TrackSpeed);
 
         DemoConfiguration.DemoFeature JourneyList = new DemoConfiguration.DemoFeature();
-        JourneyList.iconResId = R.mipmap.icon_home;
+        JourneyList.iconResId = R.mipmap.journey;
         JourneyList.titleResId = R.string.journeys;
         navigationDrawer.addDemoFeatureToMenu(JourneyList);
 
         DemoConfiguration.DemoFeature CameraMap = new DemoConfiguration.DemoFeature();
-        CameraMap.iconResId = R.drawable.speedcamera;
-        CameraMap.titleResId = R.string.speedCameraMap;
+        CameraMap.iconResId = R.drawable.new_speed_amera;
+        CameraMap.titleResId = R.string.roadMap;
         navigationDrawer.addDemoFeatureToMenu(CameraMap);
 
         DemoConfiguration.DemoFeature UserStatistics = new DemoConfiguration.DemoFeature();
-        UserStatistics.iconResId = R.mipmap.icon_home;
+        UserStatistics.iconResId = R.mipmap.statistics;
         UserStatistics.titleResId = R.string.userStatistics;
         navigationDrawer.addDemoFeatureToMenu(UserStatistics);
 

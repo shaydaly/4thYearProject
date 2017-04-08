@@ -193,8 +193,10 @@ public class MyLocationService extends Service implements
                 // do some work
 
                 try {
-                    nearKnownSpeedLimit(speedSearch);
-                    limit = journey.getSpeedLimit();
+                    if(!intialMovement) {
+                        nearKnownSpeedLimit(speedSearch);
+                        limit = journey.getSpeedLimit();
+                    }
                 } catch (Exception e) {
                     Log.i("Get Limit Exception", e.getMessage());
                 }
@@ -214,7 +216,7 @@ public class MyLocationService extends Service implements
 //                        }
 //                        limit = journey.getSpeedLimit();
                         if (limit != 0) {
-                            journeyList.add(new JourneyFragment(journey.getLatitude(), journey.getLongitude(), journey.getCurrentSpeed(), limit, dNow, journey.getJourneyID(), provider.getUserName()));
+                            journeyList.add(new JourneyFragment(journey.getLatitude(), journey.getLongitude(), journey.getCurrentSpeed(), limit, dNow, journey.getJourneyID(), provider.getUserName(), speedSearch.getOsm_id()));
                         }
                         if (journeyList.size() == 50) {
 //                            JourneyFragment.AddJourneyFragments(queue, journeyList, journey.getJourneyID());
@@ -386,15 +388,13 @@ public class MyLocationService extends Service implements
                     nearSpeedCamera(location);
 
 
-                    if (intialMovement == true) {
+                    if (intialMovement) {
                         //journey.addJourneyDB(queue, provider.getUserName(), "insert");
                         volleyService.addJourneyDB(journey, provider.getUserName(), "insert");
                         intialMovement = false;
                     }
 
                     speedSearch.setLocation(location);
-
-
                     try {
                         if (speed > limit && limit != 0) {
                             if (!isPlayingVoice) {
@@ -444,8 +444,6 @@ public class MyLocationService extends Service implements
 //        Location cameraEnd;
 //        Location cameraMiddle;
         Location cameraLocation;
-
-        Log.i("shay", "speed sixe"+String.valueOf(SpeedCamera.getCameras().size()));
         for (SpeedCamera s : SpeedCamera.getCameras()) {
             ArrayList<Location> cameraLocations = s.getCameraLocations();
             for (int i = 0; i < cameraLocations.size(); i++) {
@@ -545,7 +543,7 @@ public class MyLocationService extends Service implements
                         speedLimitIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                         speedLimitIntent.setPackage(context.getPackageName());
                         speedLimitIntent.putExtra("speedLimit", r.getSpeedLimit());
-
+                        speedLimitIntent.putExtra("osmID", speedSearch.getOsm_id());
                         sendBroadcast(speedLimitIntent);
 
 
@@ -563,6 +561,7 @@ public class MyLocationService extends Service implements
                         Log.i("speed Test log 2", "near" + r.getSpeedLimit());
                         // speedLimit =  roadRecords.get(i).getSpeedLimit();
                         speedSearch.setOsm_id(entry.getKey());
+                        Log.wtf("osmIDDI", String.valueOf(entry.getKey()));
                         journey.setSpeedLimit(r.getSpeedLimit());
                         speedLimitIntent = new Intent();
                         // sets keyword to listen out for for this broadcast
@@ -570,6 +569,7 @@ public class MyLocationService extends Service implements
                         speedLimitIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                         speedLimitIntent.setPackage(context.getPackageName());
                         speedLimitIntent.putExtra("speedLimit", r.getSpeedLimit());
+                        speedLimitIntent.putExtra("osmID", entry.getKey());
                         sendBroadcast(speedLimitIntent);
                         return;
                     }
@@ -699,6 +699,11 @@ public class MyLocationService extends Service implements
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Log.wtf("CAMERA_REMOVED", dataSnapshot.getKey());
+                double latitude = Double.parseDouble(String.valueOf(dataSnapshot.child("latitude").getValue()));
+                double longitude = Double.parseDouble(String.valueOf(dataSnapshot.child("longitude").getValue()));
+                String time = String.valueOf(dataSnapshot.child("time").getValue());
+                TemporarySpeedCamera.deleteTemporaryCamera(new TemporarySpeedCamera(latitude, longitude, time));
 //                //cameras.remove(dataSnapshot.getKey());
 //                SpeedCamera.removeSpeedCamera(Integer.parseInt(dataSnapshot.getKey()));
 //                System.out.println("camera size : "+SpeedCamera.cameras.size());

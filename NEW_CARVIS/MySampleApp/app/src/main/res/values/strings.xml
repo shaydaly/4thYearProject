@@ -89,7 +89,7 @@
     <string name="speedMetric">km/h</string>
     <string name="journeys">Previous Journeys</string>
     <string name="addCamera">Add Speed Camera</string>
-    <string name="speedCameraMap">Speed Camera Map</string>
+    <string name="roadMap">Road Map</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
@@ -119,13 +119,18 @@
     <string name="daysSinceLastOverSpeed1">It has been </string>
     <string name="daysSinceLastOverSpeed2"> days since your last Speeding incident </string>
     <string name="wellDone">Well Done !</string>
-    <string name="slowingDown">Maybe consider slowing down???</string>
+    <string name="slowingDown">It may be advisable to consider slowing down</string>
     <string name="locale">Locale</string>
     <string name="settings">Settings</string>
     <string name="emergencySMS">EMERGENCY SMS</string>
     <string name="emergencyText">I have been in a motor accident. My co-ordinates are: </string>
     <string name="emergencyContact">Emergency Contact</string>
     <string name="addTrafficIndicator">Bad Traffic</string>
+    <string name="overSpeedDay">The day you tend to overspeed on is </string>
+    <string name="alternativeRoute">Perhaps taking an alternative route may be advisable on this particular day</string>
+    <string name="thanks">Thanks for helping CARVIS help promote safe driving :)</string>
+    <string name="numTrafficIncidents"> times you have indicated heavy traffic</string>
+    <string name="promtTraffic">It would help CARVIS better promote safe driving if you could indicate heavy Traffic. Thanks again</string>
     <string-array name="counties">
         <item>Dublin</item>
         <item>Cork</item>

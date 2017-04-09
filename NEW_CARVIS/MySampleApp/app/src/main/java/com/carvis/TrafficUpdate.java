@@ -68,7 +68,7 @@ public class TrafficUpdate {
             cameraLocation.setLatitude(t.getLatitude());
             cameraLocation.setLongitude(t.getLongitude());
 
-            if ((location.distanceTo(cameraLocation) / 1000) < 1.0) {
+            if ((location.distanceTo(cameraLocation) / 1000) < 1.5) {
                 return true;
             }
         }

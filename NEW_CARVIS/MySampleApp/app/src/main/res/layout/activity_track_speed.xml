@@ -133,6 +133,23 @@
         android:layout_marginStart="27dp"
         android:background="@color/dark"/>
 
+    <TextView
+        android:gravity="center_vertical"
+        android:layout_below="@id/speed100km"
+        android:text="TextView"
+        android:background="@color/red"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/speedCamera"
+        android:textColor="@color/dark"
+        android:visibility="invisible"
+        android:textStyle="bold"
+        android:layout_marginTop="70dp"
+        android:textAlignment="center"
+        />
+
+
+
     <!--<TextView-->
         <!--android:text="@string/speedLimit"-->
         <!--android:layout_width="290dp"-->

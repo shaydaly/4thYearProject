@@ -131,9 +131,18 @@
     <string name="thanks">Thanks for helping CARVIS help promote safe driving :)</string>
     <string name="numTrafficIncidents"> times you have indicated heavy traffic</string>
     <string name="promtTraffic">It would help CARVIS better promote safe driving if you could indicate heavy Traffic. Thanks again</string>
+    <string name="noOverSpeeds">\"You have yet to overspeed using CARVIS, Congratulations!\"</string>
+    <string name="roadsWithOverspeed">The following roads have experienced heavy traffic today</string>
+    <string name="noRoadsWithOverspeed">No Roads have been indicated having heavy today.</string>
+    <string name="voiceUpdate">Voice Updates</string>
+
     <string-array name="counties">
         <item>Dublin</item>
         <item>Cork</item>
         <item>Galway</item>
+    </string-array>
+    <string-array name="voiceUpdateChoices">
+        <item>YES</item>
+        <item>NO</item>
     </string-array>
 </resources>

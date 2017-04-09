@@ -27,7 +27,7 @@
             android:text="@string/emergencyContact"
             android:layout_weight="1"
             android:layout_width="0dip"
-            android:layout_height="30dp"
+            android:layout_height="72dp"
             android:textColor="@color/white"
             android:textAlignment="center"
             android:textSize="15sp"
@@ -50,12 +50,13 @@
             />
 
     </LinearLayout>
+
     <LinearLayout
         android:paddingTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:orientation="horizontal"
-        android:layout_weight="1" >
+        android:layout_weight="0.20" >
 
         <TextView
             android:id="@+id/locale"
@@ -79,6 +80,35 @@
             />
 
     </LinearLayout>
-z
+
+    <LinearLayout
+        android:paddingTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:orientation="horizontal"
+        android:layout_weight="1.01" >
+
+        <TextView
+            android:id="@+id/voiceUpdate"
+            android:gravity="left"
+            android:text="@string/voiceUpdate"
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:layout_height="30dp"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textAlignment="center"
+            android:textStyle="normal"
+            />
+
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:id="@+id/voiceUpdateSpinner"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:entries="@array/voiceUpdateChoices"
+            />
+    </LinearLayout>
 </LinearLayout>
 

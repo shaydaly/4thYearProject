@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
@@ -51,6 +52,7 @@ import com.mysampleapp.SplashActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import static android.R.attr.value;
@@ -141,8 +143,14 @@ public class HomeDemoFragment extends DemoFragmentBase {
 
                     else if(intent.getAction().equals(VolleyService.OVERSPEEDDAY)){
                         String overSpeedDay =  PreferenceManager.getDefaultSharedPreferences(context).getString("overSpeedDate", "");
-                        String textOutput=greeting+". "+getString(R.string.overSpeedDay)
-                                +" "+overSpeedDay+". "+getString(R.string.alternativeRoute);
+                        String textOutput ="";
+                        if(!overSpeedDay.equals("NA")) {
+                             textOutput = greeting + ". " + getString(R.string.overSpeedDay)
+                                    + " " + overSpeedDay + ". " + getString(R.string.alternativeRoute);
+                        }
+                        else{
+                            textOutput = greeting + getString(R.string.noOverSpeeds);
+                        }
                         textView.setText(textOutput);
                     }
 
@@ -157,6 +165,25 @@ public class HomeDemoFragment extends DemoFragmentBase {
                         }
                         textView.setText(output);
                     }
+
+                    else if(intent.getAction().equals(VolleyService.ROADSWITHINCIDENTS)){
+                        ArrayList<String> addresses = intent.getStringArrayListExtra("addresses");
+                        String output ="";
+                        if(addresses.size()!= 0) {
+                            output += getString(R.string.roadsWithOverspeed) + "\n";
+                            for (String a : addresses) {
+                                output += a + "\n";
+                            }
+                        }
+                        else{
+                            output+= getString(R.string.noRoadsWithOverspeed);
+                        }
+//                        Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
+//
+//                        textView.setTypeface(boldTypeface);
+//
+                        textView.setText(greeting+"\n"+output);
+                    }
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
@@ -166,6 +193,7 @@ public class HomeDemoFragment extends DemoFragmentBase {
         IntentFilter filter = new IntentFilter(VolleyService.DAYS_OVER_SPEED);
         filter.addAction(VolleyService.OVERSPEEDDAY);
         filter.addAction(VolleyService.NUMTRAFFICINCIDENTS);
+        filter.addAction(VolleyService.ROADSWITHINCIDENTS);
         getActivity().registerReceiver(mBroadcastReceiver, filter);
 
     }

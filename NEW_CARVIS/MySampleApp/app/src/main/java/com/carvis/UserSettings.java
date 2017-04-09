@@ -11,6 +11,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -27,7 +28,7 @@ import java.util.Locale;
 public class UserSettings extends AppCompatActivity {
 
     Context context;
-    Spinner spinner;
+    Spinner spinner , voiceSpinner;
 
     String[] counties;
     String emergencyContact;
@@ -52,6 +53,7 @@ public class UserSettings extends AppCompatActivity {
         toolbar.setTitle(R.string.settings);
 
         spinner  = (Spinner) findViewById(R.id.localeSpinner);
+        voiceSpinner = (Spinner)findViewById(R.id.voiceUpdateSpinner);
         spinner.setBackgroundColor(Color.WHITE);
 // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -70,9 +72,12 @@ public class UserSettings extends AppCompatActivity {
 
         Resources res = getResources();
         final String[] counties = res.getStringArray(R.array.counties);
+        final String[] playVoiceArray = res.getStringArray(R.array.voiceUpdateChoices);
         int position = getPosition(counties);
+        int postionOfPlayVoicePosition = getPositionOfPlayVoice(playVoiceArray);
 
         spinner.setSelection(position);
+        voiceSpinner.setSelection(postionOfPlayVoicePosition);
 
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -81,6 +86,23 @@ public class UserSettings extends AppCompatActivity {
 
                 System.out.println(counties[position]);
                 saveLocaleSharedPreferences(counties[position]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
+        voiceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+
+                Log.wtf("spnner   ",String.valueOf(voiceSpinner.getSelectedItem()));
+                prefs.edit()
+                        .putString("playVoiceUpdate", String.valueOf(voiceSpinner.getSelectedItem()))
+                        .commit();
             }
 
             @Override
@@ -126,6 +148,20 @@ public class UserSettings extends AppCompatActivity {
         }
         return position;
     }
+
+    public int getPositionOfPlayVoice(String[]playVoiceChoices) {
+        int position = 0;
+        if(prefs.contains("playVoiceUpdate")) {
+            String locale = PreferenceManager.getDefaultSharedPreferences(context).getString("playVoiceUpdate", null);
+            for (int i = 0; i < playVoiceChoices.length; i++) {
+                if (playVoiceChoices[i].equals(locale)) {
+                    return i;
+                }
+            }
+        }
+        return position;
+    }
+
 
     @Override
     public void onBackPressed() {

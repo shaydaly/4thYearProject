@@ -5,37 +5,37 @@
     density="xxhdpi"
     format="8"
     plugin-version="2.2.3"
-    timestamp="136375283542316"
+    timestamp="223956587910764"
     token="4545831529975899506"
-    verifier="METHOD_ADDED" >
+    verifier="IMPLEMENTED_INTERFACES_CHANGE" >
 
     <task
         name="javac"
-        duration="1083" />
+        duration="1082" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="85" />
+        duration="108" />
     <task
         name="verifier"
-        duration="14" />
+        duration="20" />
 
     <artifact
         location="C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_1\classes.dex"
         type="DEX" />
 
     <build
-        timestamp="135050062511884"
+        timestamp="222930334859743"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\outputs\apk\app-debug.apk"
             type="MAIN" />
     </build>
     <build
-        timestamp="136375283542316"
-        verifier="METHOD_ADDED" >
+        timestamp="223956587910764"
+        verifier="IMPLEMENTED_INTERFACES_CHANGE" >
         <artifact
             location="C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_1\classes.dex"
             type="DEX" />

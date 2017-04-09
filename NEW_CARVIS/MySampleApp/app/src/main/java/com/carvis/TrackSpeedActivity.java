@@ -26,6 +26,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -73,7 +74,7 @@ public class TrackSpeedActivity extends Activity {
     };
 
     //  SpeedCheckService speedCheckService;
-    boolean isBound = false;
+    boolean isBound = false, speedCameraWarningShowing = false;
     boolean snackBackShown;
 
     private Context context;
@@ -91,8 +92,7 @@ public class TrackSpeedActivity extends Activity {
     ImageView imageView80;
     ImageView imageView100;
 
-    TextView currentSpeedTextView;
-    TextView speedLimitTextView;
+    TextView currentSpeedTextView, speedCameraTextView;
     CognitoUserPoolsSignInProvider provider;
 
     MediaPlayer mediaPlayer;
@@ -123,18 +123,40 @@ public class TrackSpeedActivity extends Activity {
     boolean isPlayingVoice;
     boolean isPlayingCameraVoice;
     SpeedSearch speedSearch;
+    String playVoice;
 
 
 //    View trackSpeedView;
 
-    Handler speedHandler = new Handler() {
+//    Handler speedHandler = new Handler() {
+//        @Override
+//        public void handleMessage(Message msg) {
+//            super.handleMessage(msg);
+//            chooseSpeedImage(msg.what);
+//        }
+//    };
+
+
+    Handler SpeedCameraHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            chooseSpeedImage(msg.what);
+            Bundle summaryBundle = msg.getData();
+            String address = summaryBundle.getString("address");
+            String time = summaryBundle.getString("time");
+            speedCameraTextView.setVisibility(View.VISIBLE);
+            speedCameraTextView.setText(address+"\n"+time);
         }
     };
 
+    Handler SpeedCameraHandler2 = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            speedCameraTextView.setVisibility(View.INVISIBLE);
+            speedCameraWarningShowing = false;
+        }
+    };
 
     BroadcastReceiver mBroadcastReceiver;
 
@@ -150,7 +172,7 @@ public class TrackSpeedActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_track_speed);
-
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         mediaPlayer = new MediaPlayer();
 
 
@@ -171,7 +193,10 @@ public class TrackSpeedActivity extends Activity {
         provider = new CognitoUserPoolsSignInProvider(context);
         volleyService = new VolleyService(context);
         //showPermissionDialog();
-
+        playVoice = PreferenceManager.getDefaultSharedPreferences(context).getString("playVoiceUpdate", "");
+        if(playVoice.equals("")){
+            playVoice="YES";
+        }
 
         serviceIntent = new Intent(context, MyLocationService.class);
         startService(serviceIntent);
@@ -186,6 +211,7 @@ public class TrackSpeedActivity extends Activity {
 
 
         currentSpeedTextView = (TextView) findViewById(R.id.currentSpeed);
+        speedCameraTextView = (TextView)findViewById(R.id.speedCamera);
         //speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
 
 //        trackSpeedView = findViewById(R.id.activity_track_speed);
@@ -231,7 +257,15 @@ public class TrackSpeedActivity extends Activity {
 
                     if (intent.getAction().equals(MyLocationService.PLAY_CAMERA_MESSAGE)) {
                         Log.i("shay", "received play speed camera broadcast");
-                        if (!isPlayingCameraVoice) {
+                        double cameraLatitude = intent.getDoubleExtra("latitude",0);
+                        double cameraLongitude = intent.getDoubleExtra("longitude",0);
+                        String time = intent.getStringExtra("time");
+                                String address = SpeedCamera.getSpeedCameraAddress(context,cameraLatitude, cameraLongitude);
+
+                        if(!speedCameraWarningShowing) {
+                            displaySpeedCameraInfo(address, time);
+                        }
+                        if (!isPlayingCameraVoice && playVoice.equals("YES")) {
 
                             playSpeedCameraPolly();
                         }
@@ -287,6 +321,7 @@ public class TrackSpeedActivity extends Activity {
                     dNow = new Date();
                     String time = ft.format(dNow);
                     TrafficUpdate.AddTrafficUpdate(latitude, longitude, time, context);
+                    Log.wtf("speedSearch ID :::", String.valueOf(speedSearch.getOsm_id()));
                     if(speedSearch.getOsm_id()!= -99) {
                         volleyService.createTrafficIncident(speedSearch.getOsm_id(), time, provider.getUserName());
                     }
@@ -409,30 +444,56 @@ public class TrackSpeedActivity extends Activity {
         toast.show();
     }
 
-    public void displaySpeedCameraInfo(final TemporarySpeedCamera t) {
+    public void displaySpeedCameraInfo(final String address, final String time) {
+        speedCameraWarningShowing = true;
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                Message message = new Message();
+                Bundle b = new Bundle();
+                b.putString("address", address);
+                b.putString("time", time);
+                message.setData(b);
+                message.arg1 = 0;
+                SpeedCameraHandler.sendMessage(message);
+                long futureTime = System.currentTimeMillis() + 5000;
+                while(System.currentTimeMillis() < futureTime){
+                    synchronized (this){
+                        try{
+                            wait(futureTime - System.currentTimeMillis());
+                        }
+                        catch(Exception e){
 
-        LayoutInflater inflater = getLayoutInflater();
-        View layout = inflater.inflate(R.layout.speed_camera_toast,
-                (ViewGroup) findViewById(R.id.custom_toast_container));
-        TextView header = (TextView) layout.findViewById(R.id.speedToastHeader);
-        header.setText("Speed Camera Nearby");
+                        }
+                    }
+                }
 
+                SpeedCameraHandler2.sendEmptyMessage(0);
+            }
+        };
+        Thread thread = new Thread(r);
+        thread.start();
 
-        TextView text = (TextView) layout.findViewById(R.id.speedVanLocation);
-        text.setText(SpeedCamera.getSpeedCameraAddress(context, t.getLatitude(), t.getLongitude()));
-
-
-        TextView lastLocated = (TextView) layout.findViewById(R.id.lastSpotted);
-
-        lastLocated.setText(t.getTime());
-
-        Toast toast = new Toast(context);
-        toast.setGravity(Gravity.DISPLAY_CLIP_VERTICAL, 0, 0);
-        toast.setDuration(Toast.LENGTH_SHORT);
-        toast.setView(layout);
-        toast.show();
-
-
+//        LayoutInflater inflater = getLayoutInflater();
+//        View layout = inflater.inflate(R.layout.speed_camera_toast,
+//                (ViewGroup) findViewById(R.id.custom_toast_container));
+//        TextView header = (TextView) layout.findViewById(R.id.speedToastHeader);
+//        header.setText("Speed Camera Nearby");
+//
+//
+//        TextView text = (TextView) layout.findViewById(R.id.speedVanLocation);
+//        text.setText(address);
+//
+//
+//        TextView lastLocated = (TextView) layout.findViewById(R.id.lastSpotted);
+//
+//        lastLocated.setText(time);
+//
+//        Toast toast = new Toast(context);
+//        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 0);
+//        toast.setDuration(Toast.LENGTH_SHORT);
+//        toast.setView(layout);
+//        toast.show();
     }
 
 

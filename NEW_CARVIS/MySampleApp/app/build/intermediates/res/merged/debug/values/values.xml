@@ -14,6 +14,10 @@
         <item>Cork</item>
         <item>Galway</item>
     </string-array>
+    <string-array name="voiceUpdateChoices">
+        <item>YES</item>
+        <item>NO</item>
+    </string-array>
     <attr format="reference" name="MediaRouteControllerWindowBackground"/>
     <attr format="reference" name="castExpandedControllerToolbarStyle"/>
     <attr format="reference" name="drawerArrowStyle"/>
@@ -963,6 +967,8 @@
     <string name="mr_controller_stop">Stop casting</string>
     <string name="mr_system_route_name">System</string>
     <string name="mr_user_route_category_name">Devices</string>
+    <string name="noOverSpeeds">\"You have yet to overspeed using CARVIS, Congratulations!\"</string>
+    <string name="noRoadsWithOverspeed">No Roads have been indicated having heavy today.</string>
     <string name="numJourneys">Journeys</string>
     <string name="numOverSpeeds">Over Speed Journeys</string>
     <string name="numTrafficIncidents"> times you have indicated heavy traffic</string>
@@ -983,6 +989,7 @@
     <string name="promtTraffic">It would help CARVIS better promote safe driving if you could indicate heavy Traffic. Thanks again</string>
     <string name="register">Register</string>
     <string name="roadMap">Road Map</string>
+    <string name="roadsWithOverspeed">The following roads have experienced heavy traffic today</string>
     <string name="settings">Settings</string>
     <string name="signIn">Sign In</string>
     <string name="sign_in_email">Email</string>
@@ -1030,6 +1037,7 @@
     <string name="username">Username</string>
     <string name="username_text">Username</string>
     <string name="verify_button_text">Verify</string>
+    <string name="voiceUpdate">Voice Updates</string>
     <string name="wallet_buy_button_place_holder">Buy with Google</string>
     <string name="wellDone">Well Done !</string>
     <style name="AlertDialog.AppCompat" parent="Base.AlertDialog.AppCompat"/>

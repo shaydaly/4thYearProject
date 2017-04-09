@@ -102,7 +102,8 @@ address varchar
 );
 
 create table trafficincidents(
-incidentid numeric,
+incidentid numeric primary key,
 roadid numeric references road(roadid) on delete set null,
-incidentdate timestamp
+incidentdate timestamp,
+userid numeric references customer(userid)
 );

@@ -215,10 +215,10 @@ public class MyLocationService extends Service implements
 //                            limit = 0;
 //                        }
 //                        limit = journey.getSpeedLimit();
-                        if (limit != 0) {
+                        if(!intialMovement) {
                             journeyList.add(new JourneyFragment(journey.getLatitude(), journey.getLongitude(), journey.getCurrentSpeed(), limit, dNow, journey.getJourneyID(), provider.getUserName(), speedSearch.getOsm_id()));
                         }
-                        if (journeyList.size() == 50) {
+                            if (journeyList.size() == 50) {
 //                            JourneyFragment.AddJourneyFragments(queue, journeyList, journey.getJourneyID());
                             volleyService.addJourneyFragments(journeyList, journey.getJourneyID());
                             journeyList.clear();
@@ -306,24 +306,6 @@ public class MyLocationService extends Service implements
             Log.e("onConnected", e.getMessage());
             e.printStackTrace();
         }
-//        serviceBroadcastReceiver = new BroadcastReceiver() {
-//            @Override
-//            public void onReceive(Context context, Intent intent) {
-//                try {
-//
-//                    Log.i("hala", "hal");
-//                    if(intent.getAction().equals(UPDATE_LOCATION)){
-//                        setLocationSettings();
-//                    }
-//                }
-//                catch(Exception e){
-//                    System.out.println(e.getMessage());
-//                }
-//
-//            }
-//        };
-//        IntentFilter filter = new IntentFilter("SEAMUS");
-//        registerReceiver(serviceBroadcastReceiver, filter);
     }
 
 
@@ -458,6 +440,8 @@ public class MyLocationService extends Service implements
                     playSpeedVanIntent = new Intent();
                     // sets keyword to listen out for for this broadcast
                     playSpeedVanIntent.setAction(PLAY_CAMERA_MESSAGE);
+                    playSpeedVanIntent.putExtra("latitude", s.getStartLatitude());
+                    playSpeedVanIntent.putExtra("longitude", s.getStartLongitude());
                     playSpeedVanIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                     playSpeedVanIntent.setPackage(context.getPackageName());
                     sendBroadcast(playSpeedVanIntent);
@@ -483,6 +467,9 @@ public class MyLocationService extends Service implements
                 playSpeedCameraIntent = new Intent();
                 // sets keyword to listen out for for this broadcast
                 playSpeedCameraIntent.setAction(PLAY_CAMERA_MESSAGE);
+                playSpeedCameraIntent.putExtra("latitude", cameraLocation.getLatitude());
+                playSpeedCameraIntent.putExtra("longitude", cameraLocation.getLongitude());
+                playSpeedCameraIntent.putExtra("time", t.getTime());
                 playSpeedCameraIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                 playSpeedCameraIntent.setPackage(context.getPackageName());
                 sendBroadcast(playSpeedCameraIntent);

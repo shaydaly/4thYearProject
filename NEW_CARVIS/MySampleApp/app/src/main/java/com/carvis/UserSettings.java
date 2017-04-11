@@ -16,8 +16,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 
 import com.mysampleapp.R;
 
@@ -28,12 +30,14 @@ import java.util.Locale;
 public class UserSettings extends AppCompatActivity {
 
     Context context;
-    Spinner spinner , voiceSpinner;
+    Spinner spinner , voiceSpinner, speedLimitSpinner, blockIncomingCallSpinner;
 
     String[] counties;
     String emergencyContact;
     EditText editText ;
     SharedPreferences prefs;
+
+    Switch blockCallsSwitch, speedCameraSwitch, overLimitSwitch;
 
 
 
@@ -41,6 +45,7 @@ public class UserSettings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_settings);
+
         context = getApplicationContext();
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -53,7 +58,10 @@ public class UserSettings extends AppCompatActivity {
         toolbar.setTitle(R.string.settings);
 
         spinner  = (Spinner) findViewById(R.id.localeSpinner);
-        voiceSpinner = (Spinner)findViewById(R.id.voiceUpdateSpinner);
+        //voiceSpinner = (Spinner)findViewById(R.id.speedCameraVoiceUpdateSpinner);
+        //speedLimitSpinner = (Spinner) findViewById(R.id.speedOverLimitVoiceSpinner);
+        //blockIncomingCallSpinner = (Spinner) findViewById(R.id.blockIncomingSpinner);
+
         spinner.setBackgroundColor(Color.WHITE);
 // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -68,17 +76,112 @@ public class UserSettings extends AppCompatActivity {
 
         editText.setText(emergencyContact);
 
+        blockCallsSwitch = (Switch)findViewById(R.id.blockIncomingCallsSwitch);
+        overLimitSwitch = (Switch)findViewById(R.id.overSpeedLimitSwitch);
+        speedCameraSwitch = (Switch)findViewById(R.id.speedCameraNotificationSwitch);
 
 
         Resources res = getResources();
         final String[] counties = res.getStringArray(R.array.counties);
         final String[] playVoiceArray = res.getStringArray(R.array.voiceUpdateChoices);
         int position = getPosition(counties);
-        int postionOfPlayVoicePosition = getPositionOfPlayVoice(playVoiceArray);
+//        int postionOfPlayVoicePosition = getPositionOfPlayVoice(playVoiceArray);
+//        int speedPos = getSpeedPosition(playVoiceArray);
 
         spinner.setSelection(position);
-        voiceSpinner.setSelection(postionOfPlayVoicePosition);
+        //voiceSpinner.setSelection(postionOfPlayVoicePosition);
 
+        //speedLimitSpinner.setSelection(speedPos);
+
+        if(prefs.contains("playVoiceUpdate")){
+            if(prefs.getBoolean("playVoiceUpdate", false)){
+                Log.wtf("playVoiceUpdate", "0");
+                //voiceSpinner.setSelection(0);
+                speedCameraSwitch.setChecked(true);
+            }
+            else{
+                Log.wtf("playVoiceUpdate", "1");
+                //voiceSpinner.setSelection(1);
+                speedCameraSwitch.setChecked(false);
+            }
+        }
+
+        if(prefs.contains("playSpeedLimit")){
+            if(prefs.getBoolean("playSpeedLimit", false)){
+                Log.wtf("playSpeedLimit", "0");
+                overLimitSwitch.setChecked(true);
+            }
+            else{
+                Log.wtf("playSpeedLimit", "1");
+//                speedLimitSpinner.setSelection(1);
+                overLimitSwitch.setChecked(false);
+            }
+        }
+
+        if(prefs.contains("blockIncomingCalls")){
+            if(prefs.getBoolean("blockIncomingCalls", false)){
+                Log.wtf("blockIncomingCalls", "1");
+                //blockIncomingCallSpinner.setSelection(1);
+                blockCallsSwitch.setChecked(true);
+            }
+            else{
+                Log.wtf("blockIncomingCalls", "1");
+                //blockIncomingCallSpinner.setSelection(0);
+                blockCallsSwitch.setChecked(false);
+            }
+        }
+
+        speedCameraSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // do something, the isChecked will be
+                // true if the switch is in the On position
+                if(speedCameraSwitch.isChecked()){
+                    prefs.edit()
+                            .putBoolean("playVoiceUpdate", true)
+                            .commit();
+                }
+                else{
+                    prefs.edit()
+                            .putBoolean("playVoiceUpdate", false)
+                            .commit();
+                }
+            }
+        });
+
+
+        blockCallsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // do something, the isChecked will be
+                // true if the switch is in the On position
+                if(blockCallsSwitch.isChecked()){
+                    prefs.edit()
+                            .putBoolean("blockIncomingCalls", true)
+                            .commit();
+                }
+                else{
+                    prefs.edit()
+                            .putBoolean("blockIncomingCalls", false)
+                            .commit();
+                }
+            }
+        });
+
+        overLimitSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // do something, the isChecked will be
+                // true if the switch is in the On position
+                if(overLimitSwitch.isChecked()){
+                    prefs.edit()
+                            .putBoolean("playSpeedLimit", true)
+                            .commit();
+                }
+                else{
+                    prefs.edit()
+                            .putBoolean("playSpeedLimit", false)
+                            .commit();
+                }
+            }
+        });
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -94,25 +197,87 @@ public class UserSettings extends AppCompatActivity {
             }
 
         });
+//
+//        voiceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+//
+//                Log.wtf("spnner   ",String.valueOf(voiceSpinner.getSelectedItem()));
+//                if(String.valueOf(voiceSpinner.getSelectedItem()).equals("YES")) {
+//                    prefs.edit()
+//                            .putBoolean("playVoiceUpdate", true)
+//                            .commit();
+//                }
+//                else{
+//                    prefs.edit()
+//                            .putBoolean("playVoiceUpdate", false)
+//                            .commit();
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parentView) {
+//                // your code here
+//            }
+//
+//        });
+//
+//        speedLimitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+//
+//                if(String.valueOf(speedLimitSpinner.getSelectedItem()).equals("YES")){
+//                    prefs.edit()
+//                            .putBoolean("playSpeedLimit", true)
+//                            .commit();
+//                }
+//                else{
+//                    prefs.edit()
+//                            .putBoolean("playSpeedLimit", false)
+//                            .commit();
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parentView) {
+//                // your code here
+//            }
+//
+//        });
 
-        voiceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
-                Log.wtf("spnner   ",String.valueOf(voiceSpinner.getSelectedItem()));
-                prefs.edit()
-                        .putString("playVoiceUpdate", String.valueOf(voiceSpinner.getSelectedItem()))
-                        .commit();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
-            }
-
-        });
+//        blockIncomingCallSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+//
+//                if(String.valueOf(blockIncomingCallSpinner.getSelectedItem()).equals("YES")) {
+//                    prefs.edit()
+//                            .putBoolean("blockIncomingCalls", true)
+//                            .commit();
+//                }
+//                else{
+//                    prefs.edit()
+//                            .putBoolean("blockIncomingCalls", false)
+//                            .commit();
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parentView) {
+//                // your code here
+//            }
+//
+//        });
 
     }
+
+
+
+
+
+
+
     public void saveLocaleSharedPreferences(String locale){
         prefs.edit()
         .putString("locale", locale)
@@ -152,7 +317,20 @@ public class UserSettings extends AppCompatActivity {
     public int getPositionOfPlayVoice(String[]playVoiceChoices) {
         int position = 0;
         if(prefs.contains("playVoiceUpdate")) {
-            String locale = PreferenceManager.getDefaultSharedPreferences(context).getString("playVoiceUpdate", null);
+            boolean locale = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("playVoiceUpdate", false);
+            for (int i = 0; i < playVoiceChoices.length; i++) {
+                if (playVoiceChoices[i].equals(locale)) {
+                    return i;
+                }
+            }
+        }
+        return position;
+    }
+
+    public int getSpeedPosition(String[]playVoiceChoices) {
+        int position = 0;
+        if(prefs.contains("playSpeedLimit")) {
+            boolean locale = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("playSpeedLimit", false);
             for (int i = 0; i < playVoiceChoices.length; i++) {
                 if (playVoiceChoices[i].equals(locale)) {
                     return i;

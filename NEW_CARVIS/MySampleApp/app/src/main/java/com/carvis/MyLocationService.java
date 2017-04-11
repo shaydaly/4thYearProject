@@ -81,6 +81,9 @@ public class MyLocationService extends Service implements
 
     HashMap<Integer, ArrayList<RoadRecord>> roadHashMap;
 
+    BroadcastReceiver mBroadcastReceiver;
+
+
     public MyLocationService() {
     }
 
@@ -99,17 +102,12 @@ public class MyLocationService extends Service implements
         }
     };
 
-
-
-
     Handler updateHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
         }
     };
-
-
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -129,13 +127,10 @@ public class MyLocationService extends Service implements
         return Service.START_STICKY;
     }
 
-
-
     @Override
     public IBinder onBind(Intent intent) {
         return null;
     }
-
 
     @Override
     public void onCreate() {
@@ -143,7 +138,6 @@ public class MyLocationService extends Service implements
         super.onCreate();
         context = getApplicationContext();
         Log.i(TAG, "created");
-
         FirebaseApp.initializeApp(context);
         //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         database = FirebaseDatabase.getInstance();
@@ -156,7 +150,6 @@ public class MyLocationService extends Service implements
         if(locale.equals("")){
             locale ="Dublin";
         }
-
 
         journey = new Journey();
         overSpeedLimits = new ArrayList<>();
@@ -184,7 +177,6 @@ public class MyLocationService extends Service implements
         stopVoiceIntent = new Intent();
         playSpeedVanIntent = new Intent();
         playSpeedCameraIntent = new Intent();
-
 
         ses = Executors.newScheduledThreadPool(10);
         ses.scheduleAtFixedRate(new Runnable() {
@@ -218,11 +210,11 @@ public class MyLocationService extends Service implements
                         if(!intialMovement) {
                             journeyList.add(new JourneyFragment(journey.getLatitude(), journey.getLongitude(), journey.getCurrentSpeed(), limit, dNow, journey.getJourneyID(), provider.getUserName(), speedSearch.getOsm_id()));
                         }
-                            if (journeyList.size() == 50) {
-//                            JourneyFragment.AddJourneyFragments(queue, journeyList, journey.getJourneyID());
-                            volleyService.addJourneyFragments(journeyList, journey.getJourneyID());
-                            journeyList.clear();
-                        }
+//                            if (journeyList.size() == 50) {
+////                            JourneyFragment.AddJourneyFragments(queue, journeyList, journey.getJourneyID());
+//                            volleyService.addJourneyFragments(journeyList, journey.getJourneyID());
+//                            journeyList.clear();
+//                        }
                         //System.out.println(cameras.size());
                     } catch (Exception e) {
                         Log.i("Get Limit Exception", e.getMessage());
@@ -281,6 +273,7 @@ public class MyLocationService extends Service implements
         ses.shutdown();
         mLocationRequest = null;
         mGoogleApiClient.disconnect();
+        //unregisterReceiver(phoneStatReceiver);
         this.stopSelf();
     }
 
@@ -330,7 +323,7 @@ public class MyLocationService extends Service implements
         mThreadPool.execute(new Runnable() {
             @Override
             public void run() {
-//                Log.i(TAG, String.valueOf(location.getLatitude()));
+                Log.i(TAG, String.valueOf(location.getLatitude()));
                 //Data within intent to send in a broadcast.
                 //  Intent intent = new Intent(HuhConnectionService.NEW_MESSAGE);
 
@@ -338,8 +331,6 @@ public class MyLocationService extends Service implements
                     //trackSpeedLocation = location;
                     journey.setLatitude(String.valueOf(location.getLatitude()));
                     journey.setLongitude(String.valueOf(location.getLongitude()));
-
-
 
                     // Called when a new location is found by the network location provider.
                     if (location.hasSpeed()) {
@@ -445,7 +436,7 @@ public class MyLocationService extends Service implements
                     playSpeedVanIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                     playSpeedVanIntent.setPackage(context.getPackageName());
                     sendBroadcast(playSpeedVanIntent);
-                    Log.i(TAG,"near speed van");
+                    //Log.i(TAG,"near speed van");
                     //System.out.println(cameraLocations.get(i).getLatitude() + " _ _ _ " + cameraLocations.get(i).getLongitude());
                     return true;
                 }
@@ -473,7 +464,7 @@ public class MyLocationService extends Service implements
                 playSpeedCameraIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                 playSpeedCameraIntent.setPackage(context.getPackageName());
                 sendBroadcast(playSpeedCameraIntent);
-                Log.i(TAG,"near speed camera");
+                //Log.i(TAG,"near speed camera");
                 return true;
             }
         }

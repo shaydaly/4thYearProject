@@ -180,7 +180,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-            android:layout_weight="3"
+            android:layout_weight="1"
             android:background="@color/silver"/>
 
         <Button
@@ -188,7 +188,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/addTrafficIndicator"
-            android:layout_weight="3"
+            android:layout_weight="1"
             android:background="@color/vanMapColor"/>
 
         <Button
@@ -201,6 +201,18 @@
             android:layout_alignParentEnd="true"
             android:layout_weight="1"
             android:background="@color/red"/>
+
+        <Button
+            android:text="@string/endJourney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/endJourney"
+            android:textColor="@color/white"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_weight="1"
+            android:background="@color/nav_drawer_background"/>
 
 
 

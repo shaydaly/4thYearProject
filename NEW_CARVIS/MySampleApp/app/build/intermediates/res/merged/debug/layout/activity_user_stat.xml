@@ -51,6 +51,7 @@
             android:textSize="12sp"
             android:textStyle="normal"
             android:background="@drawable/shape"
+            android:onClick="showToast"
             />
         <TextView
             android:id="@+id/overSpeedDay"
@@ -63,7 +64,8 @@
             android:background="@drawable/shape"
             android:textColor="@color/white"
             android:textSize="12sp"
-            android:textStyle="normal"/>
+            android:textStyle="normal"
+            android:onClick="showOverSpeedDays"/>
 
     </LinearLayout>
 

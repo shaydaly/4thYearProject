@@ -3,6 +3,8 @@ package com.carvis;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -19,8 +21,10 @@ import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.telephony.SmsManager;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -33,10 +37,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
+import com.android.internal.telephony.ITelephony;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
 import java.io.File;
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -61,7 +67,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.mysampleapp.*;
 import com.mysampleapp.MainActivity;
+import com.mysampleapp.demo.HomeDemoFragment;
 
+import static android.content.Intent.ACTION_ANSWER;
+import static android.telephony.TelephonyManager.ACTION_PHONE_STATE_CHANGED;
 import static com.google.android.gms.plus.PlusOneDummyView.TAG;
 
 public class TrackSpeedActivity extends Activity {
@@ -116,14 +125,16 @@ public class TrackSpeedActivity extends Activity {
 
     //ArrayList<Road> roads;
 
-    //boolean speeding;
+    ArrayList<String> missedCallNumbers;
+
+
 
     //Location trackSpeedLocation;
     boolean isRunning;
     boolean isPlayingVoice;
-    boolean isPlayingCameraVoice;
+    boolean isPlayingCameraVoice, playVoice , playSpeedVoice, blockPhoneCalls;
     SpeedSearch speedSearch;
-    String playVoice;
+
 
 
 //    View trackSpeedView;
@@ -187,20 +198,22 @@ public class TrackSpeedActivity extends Activity {
 
         speedSearch = new SpeedSearch(-99);
 
+        missedCallNumbers = new ArrayList<>();
+
 
 
         context = getApplicationContext();
         provider = new CognitoUserPoolsSignInProvider(context);
         volleyService = new VolleyService(context);
         //showPermissionDialog();
-        playVoice = PreferenceManager.getDefaultSharedPreferences(context).getString("playVoiceUpdate", "");
-        if(playVoice.equals("")){
-            playVoice="YES";
-        }
+        playVoice = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("playVoiceUpdate", true);
+
+        playSpeedVoice = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("playSpeedLimit", true);
+
+        blockPhoneCalls = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("blockIncomingCalls", false);
 
         serviceIntent = new Intent(context, MyLocationService.class);
         startService(serviceIntent);
-
 
         //Uri myUri = Uri.fromFile(new File("raw/speedlimitpolly.mp3"));
 
@@ -217,6 +230,7 @@ public class TrackSpeedActivity extends Activity {
 //        trackSpeedView = findViewById(R.id.activity_track_speed);
 
 
+
     }
 
 
@@ -225,6 +239,7 @@ public class TrackSpeedActivity extends Activity {
         super.onResume();
         latitude = 0.0;
         longitude = 0.0;
+
         mBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -235,7 +250,7 @@ public class TrackSpeedActivity extends Activity {
                         latitude = intent.getDoubleExtra("latitude", 0);
                         longitude = intent.getDoubleExtra("longitude", 0);
                     }
-                    if (intent.getAction().equals(MyLocationService.LIMIT_MESSAGE)) {
+                    else if (intent.getAction().equals(MyLocationService.LIMIT_MESSAGE)) {
                         Log.i("speeeeeeedd", String.valueOf(intent.getIntExtra("speedLimit", 0)));
                         limit = intent.getIntExtra("speedLimit", 0);
                         if (limit != 0) {
@@ -246,16 +261,16 @@ public class TrackSpeedActivity extends Activity {
                         Log.wtf("osmID", String.valueOf(speedSearch.getOsm_id()));
 
                     }
-                    if (intent.getAction().equals(MyLocationService.PLAY_SPEED_MESSAGE) && !isPlayingVoice) {
+                    else if (intent.getAction().equals(MyLocationService.PLAY_SPEED_MESSAGE) && !isPlayingVoice && playSpeedVoice) {
                         Log.i("VOICEEEE", "PLAY VOICE RECEIVED");
                         playSpeedPolly();
                     }
-                    if (intent.getAction().equals(MyLocationService.STOP_SPEED_MESSAGE) && isPlayingVoice) {
+                    else if (intent.getAction().equals(MyLocationService.STOP_SPEED_MESSAGE) && isPlayingVoice) {
                         Log.i("VOICEEEE", "STOP VOICE RECEIVED");
                         stopVoice();
                     }
 
-                    if (intent.getAction().equals(MyLocationService.PLAY_CAMERA_MESSAGE)) {
+                    else if (intent.getAction().equals(MyLocationService.PLAY_CAMERA_MESSAGE)) {
                         Log.i("shay", "received play speed camera broadcast");
                         double cameraLatitude = intent.getDoubleExtra("latitude",0);
                         double cameraLongitude = intent.getDoubleExtra("longitude",0);
@@ -265,11 +280,19 @@ public class TrackSpeedActivity extends Activity {
                         if(!speedCameraWarningShowing) {
                             displaySpeedCameraInfo(address, time);
                         }
-                        if (!isPlayingCameraVoice && playVoice.equals("YES")) {
-
+                        if (!isPlayingCameraVoice && playVoice) {
                             playSpeedCameraPolly();
                         }
                     }
+
+                    else if (intent.getAction().equals(ACTION_PHONE_STATE_CHANGED) && blockPhoneCalls) {
+                        Log.wtf("PHONE CALL RECEIVED", "phone call");
+                        blockIncomeCalls(intent);
+                    }
+//                    else if (intent.getAction().equals(ACTION_ANSWER)) {
+//                        Log.wtf("PHONE CALL RECEIVED", "phone call");
+//                        blockIncomeCalls(intent);
+//                    }
 
 //                    if((speed>limit && limit!= 0)){
 //                        trackSpeedView.setBackgroundColor(Color.RED);
@@ -286,60 +309,19 @@ public class TrackSpeedActivity extends Activity {
             }
         };
 
-        Button emergencySMSButton = (Button) findViewById(R.id.sendEmergencySMS);
-        emergencySMSButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String emergencyContact = PreferenceManager.getDefaultSharedPreferences(context).getString("emergencyContact", "");
-                if (emergencyContact.equals("")) {
-                    System.out.println("emergeency contact emtpy");
-                    emergencyContact = "0851329485";
-                }
-                SmsManager smsManager = SmsManager.getDefault();
-                String messageBody = getResources().getString(R.string.emergencyText) + " " + latitude + "," + longitude + "\n\nhttp://www.google.com/maps/place/" + latitude + "," + longitude;
-                smsManager.sendTextMessage(emergencyContact, null, messageBody, null, null);
-                Toast.makeText(context, "MESSAGE SENT", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        Button addSpeedCameraButton = (Button) findViewById(R.id.addSpeedCamera);
-        addSpeedCameraButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dNow = new Date();
-                String time = ft.format(dNow);
-                TemporarySpeedCamera.addTemporaryCamera(latitude, longitude, time, context);
-                Toast.makeText(context, "Speed Camera Added", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        Button addTrafficIndicator = (Button) findViewById(R.id.addTrafficIndicator);
-        addTrafficIndicator.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    dNow = new Date();
-                    String time = ft.format(dNow);
-                    TrafficUpdate.AddTrafficUpdate(latitude, longitude, time, context);
-                    Log.wtf("speedSearch ID :::", String.valueOf(speedSearch.getOsm_id()));
-                    if(speedSearch.getOsm_id()!= -99) {
-                        volleyService.createTrafficIncident(speedSearch.getOsm_id(), time, provider.getUserName());
-                    }
-                    Toast.makeText(context, "Bad traffic added", Toast.LENGTH_SHORT).show();
-                }
-                catch(Exception e){
-
-                }
-            }
-        });
-
-
         IntentFilter filter = new IntentFilter(MyLocationService.SPEED_MESSAGE);
         filter.addAction(MyLocationService.LIMIT_MESSAGE);
         filter.addAction(MyLocationService.PLAY_SPEED_MESSAGE);
         filter.addAction(MyLocationService.STOP_SPEED_MESSAGE);
         filter.addAction(MyLocationService.PLAY_CAMERA_MESSAGE);
+        filter.addAction(ACTION_PHONE_STATE_CHANGED);
+        filter.addAction(TELEPHONY_SERVICE);
         registerReceiver(mBroadcastReceiver, filter);
+
+
+        registerButtons();
+
+
     }
 
     @Override
@@ -355,7 +337,13 @@ public class TrackSpeedActivity extends Activity {
     protected void onStop() {
         // Disconnecting the client invalidates it.
         super.onStop();
-        unregisterReceiver(mBroadcastReceiver);
+
+        try {
+            unregisterReceiver(mBroadcastReceiver);
+        }
+        catch(Exception e){
+
+        }
     }
 
 
@@ -363,6 +351,8 @@ public class TrackSpeedActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         context.stopService(serviceIntent);
+        createNotification();
+        //startActivity(new Intent(context, MainActivity.class));
 
     }
 
@@ -473,27 +463,6 @@ public class TrackSpeedActivity extends Activity {
         };
         Thread thread = new Thread(r);
         thread.start();
-
-//        LayoutInflater inflater = getLayoutInflater();
-//        View layout = inflater.inflate(R.layout.speed_camera_toast,
-//                (ViewGroup) findViewById(R.id.custom_toast_container));
-//        TextView header = (TextView) layout.findViewById(R.id.speedToastHeader);
-//        header.setText("Speed Camera Nearby");
-//
-//
-//        TextView text = (TextView) layout.findViewById(R.id.speedVanLocation);
-//        text.setText(address);
-//
-//
-//        TextView lastLocated = (TextView) layout.findViewById(R.id.lastSpotted);
-//
-//        lastLocated.setText(time);
-//
-//        Toast toast = new Toast(context);
-//        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 0);
-//        toast.setDuration(Toast.LENGTH_SHORT);
-//        toast.setView(layout);
-//        toast.show();
     }
 
 
@@ -606,7 +575,6 @@ public class TrackSpeedActivity extends Activity {
     }
 
     public void playSpeedPolly() {
-        Log.i("playSpeedPolly", "plzy");
         Runnable r = new Runnable() {
             @Override
             public void run() {
@@ -712,6 +680,125 @@ public class TrackSpeedActivity extends Activity {
         }
     }
 
+
+    private void blockIncomeCalls(Intent intent){
+        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        try {
+            Class c = Class.forName(tm.getClass().getName());
+            Method m = c.getDeclaredMethod("getITelephony");
+            m.setAccessible(true);
+            ITelephony telephonyService = (ITelephony) m.invoke(tm);
+            Bundle bundle = intent.getExtras();
+            String phoneNumber = bundle.getString("incoming_number");
+            sendDrivingSMS(phoneNumber);
+
+            if(!missedCallNumbers.contains(phoneNumber)){
+                missedCallNumbers.add(phoneNumber);
+            }
+            Log.d("INCOMING", phoneNumber);
+            if ((phoneNumber != null)) {
+                telephonyService.endCall();
+                Log.d("HANG UP", phoneNumber);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void registerButtons(){
+        Button emergencySMSButton = (Button) findViewById(R.id.sendEmergencySMS);
+        emergencySMSButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String emergencyContact = PreferenceManager.getDefaultSharedPreferences(context).getString("emergencyContact", "");
+                if (emergencyContact.equals("")) {
+                    System.out.println("emergeency contact emtpy");
+                    emergencyContact = "0851329485";
+                }
+                SmsManager smsManager = SmsManager.getDefault();
+                String messageBody = getString(R.string.emergencyText) + " " + latitude + "," + longitude + "\n\nhttp://www.google.com/maps/place/" + latitude + "," + longitude;
+                smsManager.sendTextMessage(emergencyContact, null, messageBody, null, null);
+                Toast.makeText(context, "MESSAGE SENT", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Button addSpeedCameraButton = (Button) findViewById(R.id.addSpeedCamera);
+        addSpeedCameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dNow = new Date();
+                String time = ft.format(dNow);
+                TemporarySpeedCamera.addTemporaryCamera(latitude, longitude, time, context);
+                Toast.makeText(context, "Speed Camera Added", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Button addTrafficIndicator = (Button) findViewById(R.id.addTrafficIndicator);
+        addTrafficIndicator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    dNow = new Date();
+                    String time = ft.format(dNow);
+                    TrafficUpdate.AddTrafficUpdate(latitude, longitude, time, context);
+                    Log.wtf("speedSearch ID :::", String.valueOf(speedSearch.getOsm_id()));
+                    if(speedSearch.getOsm_id()!= -99) {
+                        volleyService.createTrafficIncident(speedSearch.getOsm_id(), time, provider.getUserName());
+                    }
+                    Toast.makeText(context, "Bad traffic added", Toast.LENGTH_SHORT).show();
+                }
+                catch(Exception e){
+
+                }
+            }
+        });
+
+        Button endJourney = (Button) findViewById(R.id.endJourney);
+        endJourney.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Toast.makeText(context, "Journey Ended", Toast.LENGTH_SHORT).show();
+                    //onDestroy();
+                }
+                catch(Exception e){
+                    Log.wtf("endJounrye",e.getMessage());
+                }
+            }
+        });
+    }
+
+
+    private void createNotification(){
+        missedCallNumbers.add("0851329485");
+        if(missedCallNumbers!=null) {
+            if (missedCallNumbers.size() != 0) {
+                NotificationCompat.Builder notification = new NotificationCompat.Builder(this);
+                notification.setAutoCancel(true);
+
+                notification.setSmallIcon(R.mipmap.splash_icon);
+                notification.setWhen(System.currentTimeMillis());
+                notification.setContentText("You have missed calls from");
+                Intent intent = new Intent(this, MissedCall.class);
+
+
+                intent.putStringArrayListExtra("numbers", missedCallNumbers);
+                PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                notification.setContentIntent(pendingIntent);
+
+                NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                nm.notify(1231, notification.build());
+            }
+        }
+    }
+
+    private void sendDrivingSMS(String phoneNumber){
+        SmsManager smsManager = SmsManager.getDefault();
+        String messageBody = getString(R.string.currentlyDriving);
+        smsManager.sendTextMessage(phoneNumber, null, messageBody, null, null);
+        Toast.makeText(context, "MESSAGE SENT", Toast.LENGTH_SHORT).show();
+    }
 
 
 //    private void showPermissionDialog() {

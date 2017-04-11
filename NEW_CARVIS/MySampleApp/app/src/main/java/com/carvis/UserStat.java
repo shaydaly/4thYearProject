@@ -3,6 +3,7 @@ package com.carvis;
 import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -17,6 +18,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import static org.apache.commons.lang3.time.DateUtils.round;
@@ -35,7 +37,10 @@ public class UserStat implements Serializable {
     private ArrayList<DateTime> overSpeedDates;
     private String roadAddress;
     int daysSinceOverSpeed;
+    Map<String, Integer> mostCommon;
 
+
+    HashMap<String, Double> monthlyKilom;
 
     public UserStat(String overSpeedRoad, ArrayList<JourneyInfo> journeyInfos, int journeysWithOverSpeed, int numJourneys, ArrayList<DateTime> overSpeedDates, DateTime memberSince, String roadAddress) {
         //this.username = username;
@@ -46,9 +51,13 @@ public class UserStat implements Serializable {
         this.overSpeedDates = overSpeedDates;
         this.memberSince = memberSince;
         this.roadAddress = roadAddress;
+        monthlyKilom = new HashMap<>();
+        mostCommon = new HashMap<>();
     }
 
-
+    public HashMap<String, Double> getMonthlyKilom() {
+        return monthlyKilom;
+    }
 
     public UserStat() {
         overSpeedDates = new ArrayList<>();
@@ -172,12 +181,11 @@ public class UserStat implements Serializable {
             for (DateTime dateTime : overSpeedDates) {
                 days.add(getDayOfWeek(dateTime));
             }
-            Map<String, Integer> mostCommon = new HashMap<>();
             String maxWord = null;
             Integer maxCount = -1;
             for (String day : days) {
                 if (!mostCommon.containsKey(day)) {
-                    mostCommon.put(day, 0);
+                    mostCommon.put(day, 1);
                 }
                 int count = mostCommon.get(day) + 1;
                 if (count > maxCount) {
@@ -191,6 +199,10 @@ public class UserStat implements Serializable {
         else{
             return "NA";
         }
+    }
+
+    public Map<String, Integer> getMostCommon() {
+        return mostCommon;
     }
 
     public String getOverSpeedPercentage(){
@@ -225,27 +237,77 @@ public class UserStat implements Serializable {
 
     public double getKilomsTravelled(){
         double total = 0;
-        Location start =new Location("start");
+        Location start = new Location("start");
         Location end =new Location("end");
         if(journeyInfos.size()!= 0) {
             for (JourneyInfo journeyInfo : journeyInfos) {
+                double monthlyTotal = 0;
                 start.setLatitude(journeyInfo.getStartLatitude());
                 start.setLongitude(journeyInfo.getStartLongitude());
                 end.setLatitude(journeyInfo.getEndLatitude());
                 end.setLongitude(journeyInfo.getEndLongitude());
                 total += getDistance(start, end);
+//                monthlyTotal = getDistance(start, end);
+//                String month = journeyInfo.getStartTime().toString("MMM");
+//
+//                if(!monthlyKilom.containsKey(month)){
+//                    monthlyKilom.put(month, monthlyTotal);
+//                }
+//                else{
+//                    monthlyKilom.put(month, monthlyKilom.get(month) +monthlyTotal);
+//                }
+
             }
         }
         else{
             total = 0;
+        }
+        Log.wtf("map size", String.valueOf(monthlyKilom.size()));
+        Iterator it = monthlyKilom.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            System.out.println(pair.getKey() + " = " + pair.getValue());
+            //it.remove(); // avoids a ConcurrentModificationException
         }
         //return getRoundedValue(total, 2);
 
         if(total!= 0){
             return getRoundedValue(total,2);
         }
+
+
+
         return total;
     }
+
+    public void getMonthlyKilomTravelled() {
+        double total = 0;
+
+        Location start = new Location("start");
+        Location end = new Location("end");
+        if (journeyInfos.size() != 0) {
+            for (JourneyInfo journeyInfo : journeyInfos) {
+                double monthlyTotal = 0;
+                start.setLatitude(journeyInfo.getStartLatitude());
+                start.setLongitude(journeyInfo.getStartLongitude());
+                end.setLatitude(journeyInfo.getEndLatitude());
+                end.setLongitude(journeyInfo.getEndLongitude());
+                monthlyTotal = getDistance(start, end);
+                monthlyTotal = getRoundedValue(monthlyTotal, 2);
+                String month = journeyInfo.getStartTime().toString("MMM");
+
+                if (!monthlyKilom.containsKey(month)) {
+                    monthlyKilom.put(month, monthlyTotal);
+                } else {
+                    monthlyKilom.put(month, getRoundedValue(monthlyKilom.get(month),2) + monthlyTotal);
+                }
+
+            }
+        }
+    }
+
+
+
 
     public double getAverageJourneyKiloms(){
         if(journeyInfos.size()!= 0) {
@@ -272,6 +334,7 @@ public class UserStat implements Serializable {
             return 0;
         }
     }
+
     public  double getRoundedValue(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
 

@@ -170,13 +170,31 @@ public class HomeDemoFragment extends DemoFragmentBase {
                         ArrayList<String> addresses = intent.getStringArrayListExtra("addresses");
                         String output ="";
                         if(addresses.size()!= 0) {
-                            output += getString(R.string.roadsWithOverspeed) + "\n";
+                            output += getString(R.string.roadsWithOverspeed) + "\n\n";
                             for (String a : addresses) {
                                 output += a + "\n";
                             }
                         }
                         else{
                             output+= getString(R.string.noRoadsWithOverspeed);
+                        }
+//                        Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
+//
+//                        textView.setTypeface(boldTypeface);
+//
+                        textView.setText(greeting+"\n"+output);
+                    }
+                    else if(intent.getAction().equals(VolleyService.ROADSTOAVOID)){
+                        ArrayList<String> addresses = intent.getStringArrayListExtra("addresses");
+                        String output ="";
+                        if(addresses.size()!= 0) {
+                            output += getString(R.string.pastWeekRoad)+"\n";
+                            for (String a : addresses) {
+                                output += a + "\n";
+                            }
+                        }
+                        else{
+                            output = getString(R.string.noPastWeekRoad);
                         }
 //                        Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
 //
@@ -194,6 +212,7 @@ public class HomeDemoFragment extends DemoFragmentBase {
         filter.addAction(VolleyService.OVERSPEEDDAY);
         filter.addAction(VolleyService.NUMTRAFFICINCIDENTS);
         filter.addAction(VolleyService.ROADSWITHINCIDENTS);
+        filter.addAction(VolleyService.ROADSTOAVOID);
         getActivity().registerReceiver(mBroadcastReceiver, filter);
 
     }
@@ -370,6 +389,28 @@ public class HomeDemoFragment extends DemoFragmentBase {
             }
         }
         if (ContextCompat.checkSelfPermission(context,
+                Manifest.permission.READ_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.READ_PHONE_STATE)) {
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.READ_PHONE_STATE},
+                        1);
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.READ_PHONE_STATE},
+                        1);
+
+            }
+        }
+
+        if (ContextCompat.checkSelfPermission(context,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
@@ -393,5 +434,56 @@ public class HomeDemoFragment extends DemoFragmentBase {
                 // result of the request.
             }
         }
+
+        if (ContextCompat.checkSelfPermission(context,
+                Manifest.permission.CALL_PHONE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.CALL_PHONE)) {
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.CALL_PHONE},
+                        1);
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.CALL_PHONE},
+                        1);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        }
+
+        if (ContextCompat.checkSelfPermission(context,
+                Manifest.permission.BIND_INCALL_SERVICE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.BIND_INCALL_SERVICE)) {
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.BIND_INCALL_SERVICE},
+                        1);
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.BIND_INCALL_SERVICE},
+                        1);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        }
+
     }
 }

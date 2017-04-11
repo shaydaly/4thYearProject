@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_missed_call"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.carvis.MissedCall">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/missedCallToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/dashBackground"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        />
+
+    <ListView
+        android:layout_below="@+id/missedCallToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/missedCallList"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>

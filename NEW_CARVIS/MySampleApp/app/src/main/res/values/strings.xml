@@ -133,8 +133,17 @@
     <string name="promtTraffic">It would help CARVIS better promote safe driving if you could indicate heavy Traffic. Thanks again</string>
     <string name="noOverSpeeds">\"You have yet to overspeed using CARVIS, Congratulations!\"</string>
     <string name="roadsWithOverspeed">The following roads have experienced heavy traffic today</string>
-    <string name="noRoadsWithOverspeed">No Roads have been indicated having heavy today.</string>
-    <string name="voiceUpdate">Voice Updates</string>
+    <string name="noRoadsWithOverspeed">No Roads have been indicated having heavy traffic today.</string>
+    <string name="voiceUpdate">Speed Camera Notification</string>
+    <string name="endJourney">End Journey</string>
+    <string name="noPastWeekRoad">You havent used any roads in the past week which have been indicated to have heavy traffic</string>
+    <string name="pastWeekRoad">You have regularly used the following roads which have been indicated to have heavy traffic in the past week</string>
+    <string name="overSpeedLimitVoice">Over limit notification</string>
+    <string name="mobileNumberEntry">e.g 0851234567</string>
+    <string name="gettingStats">Getting your stats....</string>
+
+    <string name="currentlyDriving">I am currently driving. I will give you a call back when I reach my destination</string>
+    <string name="blockIncoming">Block incoming calls</string>
 
     <string-array name="counties">
         <item>Dublin</item>
@@ -144,5 +153,10 @@
     <string-array name="voiceUpdateChoices">
         <item>YES</item>
         <item>NO</item>
+    </string-array>
+
+    <string-array name="blockIncomingCallsChoices">
+        <item>NO</item>
+        <item>YES</item>
     </string-array>
 </resources>

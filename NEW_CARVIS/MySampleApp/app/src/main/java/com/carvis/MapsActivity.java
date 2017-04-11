@@ -101,7 +101,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     //options.position(latLng);
                     //options.title(listOfJourneys.get(i).getLatitude()+"_"+listOfJourneys.get(i).getLongitude());
                     options.title("Speed: " + listOfJourneys.get(i).getFragmentSpeed());
-                    options.snippet("Limit:" + listOfJourneys.get(i).getSpeedLimit());//
+                    if(listOfJourneys.get(i).getSpeedLimit()!=0) {
+                        options.snippet("Limit:" + listOfJourneys.get(i).getSpeedLimit());//
+                    }
+                    else{
+                        options.snippet("Limit: NA");
+                    }
                     if (i + 1 < listOfJourneys.size()) {
                         if ((listOfJourneys.get(i).getSpeedLimit()) == 0) {
                             options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));

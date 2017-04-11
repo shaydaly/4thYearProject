@@ -57,6 +57,7 @@ public class VolleyService extends Activity {
     public static  String OVERSPEEDDAY ="OVER_SPEED_DAY";
     public static  String NUMTRAFFICINCIDENTS ="NUMTRAFFICINCIDENTS";
     public static  String ROADSWITHINCIDENTS ="ROADSWITHINCIDENTS";
+    public static  String ROADSTOAVOID ="ROADSTOAVOID";
     private RequestQueue queue;
     private Context context;
     String url;
@@ -157,7 +158,7 @@ public class VolleyService extends Activity {
 
             final String requestBody = jsonBody.toString();
 
-            Log.wtf("volley", requestBody);
+            Log.wtf("volleyTraffic", requestBody);
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                 @Override
@@ -429,6 +430,7 @@ public class VolleyService extends Activity {
     }
 
     public void getUserStatistics(String username) {
+
         final DateTimeFormatter dateWithTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
         final DateTimeFormatter dateFormatter = DateTimeFormat.forPattern("yyyy-MM-dd");
         url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/getuserstatistics?username=" + username;
@@ -491,12 +493,11 @@ public class VolleyService extends Activity {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.i("Speed Lambda", "ERROR");
+                        Log.wtf("Stats Lambda", error.getMessage());
                     }
                 });
         queue.add(jsObjRequest);
     }
-
 
     public void addOverSpeedLimits(List<OverSpeedLimit> overSpeedLimits, String journeyID, String user) {
 
@@ -591,9 +592,9 @@ public class VolleyService extends Activity {
                             Random random = new Random();
                             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
                             Intent intent = new Intent();
-//                            int randomNumber = random.nextInt(4 + 1);
-                            int randomNumber = 4;
-                            Log.i("randomNum", String.valueOf(randomNumber));
+                            int randomNumber = random.nextInt(5-1) + 1;
+
+//                            int randomNumber = 5;
                             if(randomNumber == 1) {
 
                                 Log.i("days", response.toString());
@@ -630,15 +631,29 @@ public class VolleyService extends Activity {
                                         .putInt("numTrafficIncidentsReported", numTrafficIncidentsReported)
                                         .commit();
                             }
-                            else{
+                            else if (randomNumber == 4){
                                 intent.setAction(ROADSWITHINCIDENTS);
                                 JSONArray roadWithTraffic = response.getJSONArray("roadWithTraffic");
                                 ArrayList<String> addresses = new ArrayList<>();
                                 for (int i = 0; i < roadWithTraffic.length(); i++) {
                                     String address = String.valueOf(roadWithTraffic.getJSONObject(i).get("address"));
-                                    addresses.add(address);
+                                    if(!addresses.contains(address)) {
+                                        addresses.add(address);
+                                    }
                                 }
                                 intent.putStringArrayListExtra("addresses", addresses);
+                            }
+                            else{
+                                intent.setAction(ROADSTOAVOID);
+                                JSONArray roadWithTraffic = response.getJSONArray("roadsToAvoid");
+                                ArrayList<String> addresses = new ArrayList<>();
+                                for (int i = 0; i < roadWithTraffic.length(); i++) {
+                                    String address = String.valueOf(roadWithTraffic.getJSONObject(i).get("roadAddress"));
+                                    if(!addresses.contains(address)) {
+                                        addresses.add(address);
+                                    }
+                                }
+                                intent.putStringArrayListExtra("addresses",addresses);
                             }
                             contextIn.sendBroadcast(intent);
                             //final Intent intent = new Intent();

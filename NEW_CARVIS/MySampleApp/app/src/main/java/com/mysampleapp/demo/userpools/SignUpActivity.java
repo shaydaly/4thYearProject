@@ -13,8 +13,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
 import com.carvis.Customer;
@@ -49,6 +51,7 @@ public class SignUpActivity extends Activity {
         final String phone = "+353"+ViewHelper.getStringValue(this, R.id.signup_phone);
 
 
+
         Log.d(LOG_TAG, "username = " + username);
         Log.d(LOG_TAG, "given_name = " + givenName);
         Log.d(LOG_TAG, "email = " + email);
@@ -61,14 +64,49 @@ public class SignUpActivity extends Activity {
         intent.putExtra(CognitoUserPoolsSignInProvider.AttributeKeys.EMAIL_ADDRESS, email);
         intent.putExtra(CognitoUserPoolsSignInProvider.AttributeKeys.PHONE_NUMBER, phone);
 
-        setResult(RESULT_OK, intent);
-        //Customer c = new Customer(givenName,username,email,phone);
-       // c.AddCustomerToDB(context);
+
+        if(TextUtils.isEmpty(username) || TextUtils.isEmpty(password) ||TextUtils.isEmpty(givenName) || TextUtils.isEmpty(email) || TextUtils.isEmpty(phone)){
+            Toast.makeText(context, "Fields cannot be empty", Toast.LENGTH_LONG).show();
+        }
+
+       else  if(password.length()<8){
+            Toast.makeText(context, "Password must be at least 8 characters", Toast.LENGTH_LONG).show();
+        }
+
+        else if(!containsDigit(password)){
+            Toast.makeText(context, "Password must contain a numeric value", Toast.LENGTH_LONG).show();
+        }
+
+        else if(password.equals(password.toLowerCase())){
+            Toast.makeText(context, "Password must contain an uppercase", Toast.LENGTH_LONG).show();
+        }
+
+
+
+
+        else{
+            setResult(RESULT_OK, intent);
+            //Customer c = new Customer(givenName,username,email,phone);
+            // c.AddCustomerToDB(context);
 
 ////        Intent i = new Intent();
 ////        //i.putExtra("CustomerBundle", c);
 //        intent.putExtra("CustomerBundle", (Parcelable) c);
 
-        finish();
+            Toast.makeText(context, "An email has been sent to your account", Toast.LENGTH_LONG).show();
+            finish();
+        }
+
+    }
+
+    public  boolean containsDigit(String s) {
+        if (s != null && !s.isEmpty()) {
+            for (char c : s.toCharArray()) {
+                if (Character.isDigit(c)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

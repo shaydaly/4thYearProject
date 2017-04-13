@@ -5,43 +5,103 @@
     density="xxhdpi"
     format="8"
     plugin-version="2.2.3"
-    timestamp="393312530220658"
+    timestamp="571136545893871"
     token="4545831529975899506"
     verifier="COMPATIBLE" >
 
     <task
         name="javac"
-        duration="2872" />
+        duration="1510" />
     <task
         name="instant-run-dex"
-        duration="22" />
+        duration="36" />
     <task
         name="instant-run-transform"
-        duration="90" />
+        duration="48" />
     <task
         name="verifier"
-        duration="41" />
+        duration="8" />
 
-    <artifact
-        location="C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\instant-run-resources\resources-debug.ir.ap_"
-        type="RESOURCES" />
     <artifact
         location="C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\reload-dex\debug\classes.dex"
         type="RELOAD_DEX" />
 
     <build
-        timestamp="393163401429571"
+        timestamp="567147112084482"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\outputs\apk\app-debug.apk"
             type="MAIN" />
     </build>
     <build
-        timestamp="393312530220658"
+        timestamp="568757150542031"
+        verifier="FIELD_REMOVED" >
+        <artifact
+            location="C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_6\classes.dex"
+            type="DEX" />
+    </build>
+    <build
+        timestamp="569143130031374"
+        verifier="FIELD_ADDED" >
+        <artifact
+            location="C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_3\classes.dex"
+            type="DEX" />
+        <artifact
+            location="C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_1\classes.dex"
+            type="DEX" />
+    </build>
+    <build
+        timestamp="569398712585566"
         verifier="COMPATIBLE" >
         <artifact
-            location="C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\instant-run-resources\resources-debug.ir.ap_"
-            type="RESOURCES" />
+            location="C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\builds\debug\569398712585566\classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        timestamp="569464959805184"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\builds\debug\569464959805184\classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        timestamp="569592138201821"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\builds\debug\569592138201821\classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        timestamp="569739409796649"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\builds\debug\569739409796649\classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        timestamp="570820523290499"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\builds\debug\570820523290499\classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        timestamp="570885638621012"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\builds\debug\570885638621012\classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        timestamp="571016880125908"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\builds\debug\571016880125908\classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        timestamp="571136545893871"
+        verifier="COMPATIBLE" >
         <artifact
             location="C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\reload-dex\debug\classes.dex"
             type="RELOAD_DEX" />

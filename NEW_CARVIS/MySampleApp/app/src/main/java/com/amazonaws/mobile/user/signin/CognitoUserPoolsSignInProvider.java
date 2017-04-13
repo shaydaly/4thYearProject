@@ -11,6 +11,8 @@ package com.amazonaws.mobile.user.signin;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -39,6 +41,10 @@ import com.mysampleapp.demo.userpools.MFAActivity;
 import com.mysampleapp.demo.userpools.SignUpActivity;
 import com.mysampleapp.demo.userpools.SignUpConfirmActivity;
 import com.mysampleapp.util.ViewHelper;
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -219,6 +225,14 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
             Log.i(LOG_TAG, "Confirmed.");
             Toast.makeText(context, activity.getString(sign_up_confirm_success), Toast.LENGTH_SHORT).show();
 
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            DateTime jodaTime = new DateTime();
+            DateTimeFormatter formatter = DateTimeFormat.forPattern("YYYY-MM-dd");
+            String today = formatter.print(jodaTime);
+
+            prefs.edit()
+                    .putString("memberSince", today)
+                    .commit();
         }
 
         @Override

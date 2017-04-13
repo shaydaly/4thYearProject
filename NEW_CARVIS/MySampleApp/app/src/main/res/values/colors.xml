@@ -19,4 +19,7 @@
     <color name="dashBackground">#2e2828</color>
     <color name="vanMapColor">#10228b</color>
     <color name="redTransparent">#3ff40404</color>
+    <color name="blue">#0505fd</color>
+    <color name="yellow">#d0ff00</color>
+    <color name="green">#0dff00</color>
 </resources>

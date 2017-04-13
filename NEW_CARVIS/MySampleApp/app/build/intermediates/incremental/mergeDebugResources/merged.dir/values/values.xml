@@ -64,6 +64,7 @@
     <color name="background_material_dark">@color/material_grey_850</color>
     <color name="background_material_light">@color/material_grey_50</color>
     <color name="black_overlay">#66000000</color>
+    <color name="blue">#0505fd</color>
     <color name="bright_foreground_disabled_material_dark">#80ffffff</color>
     <color name="bright_foreground_disabled_material_light">#80000000</color>
     <color name="bright_foreground_inverse_material_dark">@color/bright_foreground_material_light</color>
@@ -123,6 +124,7 @@
     <color name="dim_foreground_material_light">#ff323232</color>
     <color name="foreground_material_dark">@android:color/white</color>
     <color name="foreground_material_light">@android:color/black</color>
+    <color name="green">#0dff00</color>
     <color name="highlighted_text_material_dark">#6680cbc4</color>
     <color name="highlighted_text_material_light">#66009688</color>
     <color name="hint_foreground_material_dark">@color/bright_foreground_disabled_material_dark</color>
@@ -188,6 +190,7 @@
     <color name="wallet_holo_blue_light">#ff33b5e5</color>
     <color name="wallet_link_text_light">#0000ee</color>
     <color name="white">#ffffff</color>
+    <color name="yellow">#d0ff00</color>
     <declare-styleable name="ActionBar"><attr name="navigationMode">
             
             <enum name="normal" value="0"/>
@@ -807,7 +810,8 @@
     <string name="app_name">CARVIS</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
     <string name="averageJourneyTime">Avg. Journey Time (mins)</string>
-    <string name="avgJourneyKM">Avg. Journey Distance(KM)</string>
+    <string name="averageSpeed">Avg. Speed(km)</string>
+    <string name="avgJourneyKM">Avg. Journey Distance(km)</string>
     <string name="blockIncoming">Block incoming calls</string>
     <string name="bottom_sheet_behavior" translatable="false">android.support.design.widget.BottomSheetBehavior</string>
     <string name="button_text_sign_in">SIGN IN</string>
@@ -926,7 +930,7 @@
     <string name="fragment_demo_instruction_overview_header">Overview</string>
     <string name="gcm_defaultSenderId" translatable="false">54865169501</string>
     <string name="gettingStats">Getting your stats....</string>
-    <string name="given_name_text">Given name</string>
+    <string name="given_name_text">Full name</string>
     <string name="google_api_key" translatable="false">AIzaSyAXWZNBgfzdbr5rdKa4xtRimy1oJ2vVyzE</string>
     <string name="google_app_id" translatable="false">1:54865169501:android:0ed891489004be59</string>
     <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAXWZNBgfzdbr5rdKa4xtRimy1oJ2vVyzE</string>
@@ -958,6 +962,7 @@
     <string name="messenger_send_button_text">Send</string>
     <string name="mfa_code_sent_message">Code sent.</string>
     <string name="mfa_header">MFA verification is required to authenticate.</string>
+    <string name="missedCall">While Driving you missed calls from</string>
     <string name="mobileNumberEntry">e.g 0851234567</string>
     <string name="mostOverSpeedRoad">Most Over Limit Road</string>
     <string name="mr_button_content_description">Cast button</string>
@@ -976,13 +981,14 @@
     <string name="mr_controller_stop">Stop casting</string>
     <string name="mr_system_route_name">System</string>
     <string name="mr_user_route_category_name">Devices</string>
-    <string name="noOverSpeeds">\"You have yet to overspeed using CARVIS, Congratulations!\"</string>
+    <string name="noOverSpeeds">You have yet to overspeed using CARVIS, Congratulations!</string>
     <string name="noPastWeekRoad">You havent used any roads in the past week which have been indicated to have heavy traffic</string>
     <string name="noRoadsWithOverspeed">No Roads have been indicated having heavy traffic today.</string>
     <string name="numJourneys">Journeys</string>
     <string name="numOverSpeeds">Over Speed Journeys</string>
     <string name="numTrafficIncidents"> times you have indicated heavy traffic</string>
     <string name="overSpeedDay">The day you tend to overspeed on is </string>
+    <string name="overSpeedDayTitle">Days speed on</string>
     <string name="overSpeedLimitVoice">Over limit notification</string>
     <string name="password">Password</string>
     <string name="password_change_failed">Password change failed.</string>
@@ -1009,7 +1015,7 @@
     <string name="sign_in_new_account">Create New Account</string>
     <string name="sign_in_or">or sign in with</string>
     <string name="sign_in_password">Password</string>
-    <string name="sign_in_username">Username/Phone Number (0871234567)</string>
+    <string name="sign_in_username">Username</string>
     <string name="sign_up_confirm_code">Confirmation code</string>
     <string name="sign_up_confirm_code_sent">A confirmation code was sent.</string>
     <string name="sign_up_confirm_enter_code">Please enter the code below to confirm your account.</string>

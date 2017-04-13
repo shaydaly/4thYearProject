@@ -15,7 +15,7 @@
     <string name="button_text_sign_in">SIGN IN</string>
     <string name="button_text_sign_out">SIGN OUT</string>
     <string name="sign_in_email">Email</string>
-    <string name="sign_in_username">Username/Phone Number (0871234567)</string>
+    <string name="sign_in_username">Username</string>
     <string name="sign_in_password">Password</string>
     <string name="sign_in_new_account">Create New Account</string>
     <string name="sign_in_forgot_password">Forgot Your Password?</string>
@@ -33,7 +33,7 @@
     <string name="mfa_code_sent_message">Code sent.</string>
     <string name="verify_button_text">Verify</string>
     <string name="username_text">Username</string>
-    <string name="given_name_text">Given name</string>
+    <string name="given_name_text">Full name</string>
     <string name="email_address_text">Email address</string>
     <string name="phone_number_text">Phone number (0851234567)</string>
     <string name="sign_up_header">Enter the following information to sign up.</string>
@@ -114,7 +114,7 @@
     <string name="memberSince">Member Since</string>
     <string name="percentageOverSpeed">% Speeding Journeys</string>
     <string name="kmTravelled">Distance Travelled(km)</string>
-    <string name="avgJourneyKM">Avg. Journey Distance(KM)</string>
+    <string name="avgJourneyKM">Avg. Journey Distance(km)</string>
     <string name="journeyHistory">Journey History</string>
     <string name="daysSinceLastOverSpeed1">It has been </string>
     <string name="daysSinceLastOverSpeed2"> days since your last Speeding incident </string>
@@ -131,7 +131,7 @@
     <string name="thanks">Thanks for helping CARVIS help promote safe driving :)</string>
     <string name="numTrafficIncidents"> times you have indicated heavy traffic</string>
     <string name="promtTraffic">It would help CARVIS better promote safe driving if you could indicate heavy Traffic. Thanks again</string>
-    <string name="noOverSpeeds">\"You have yet to overspeed using CARVIS, Congratulations!\"</string>
+    <string name="noOverSpeeds">You have yet to overspeed using CARVIS, Congratulations!</string>
     <string name="roadsWithOverspeed">The following roads have experienced heavy traffic today</string>
     <string name="noRoadsWithOverspeed">No Roads have been indicated having heavy traffic today.</string>
     <string name="voiceUpdate">Speed Camera Notification</string>
@@ -144,6 +144,9 @@
 
     <string name="currentlyDriving">I am currently driving. I will give you a call back when I reach my destination</string>
     <string name="blockIncoming">Block incoming calls</string>
+    <string name="missedCall">While Driving you missed calls from</string>
+    <string name="overSpeedDayTitle">Days speed on</string>
+    <string name="averageSpeed">Avg. Speed(km)</string>
 
     <string-array name="counties">
         <item>Dublin</item>

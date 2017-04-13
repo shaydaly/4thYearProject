@@ -771,7 +771,6 @@ public class TrackSpeedActivity extends Activity {
 
 
     private void createNotification(){
-        missedCallNumbers.add("0851329485");
         if(missedCallNumbers!=null) {
             if (missedCallNumbers.size() != 0) {
                 NotificationCompat.Builder notification = new NotificationCompat.Builder(this);
@@ -779,7 +778,7 @@ public class TrackSpeedActivity extends Activity {
 
                 notification.setSmallIcon(R.mipmap.splash_icon);
                 notification.setWhen(System.currentTimeMillis());
-                notification.setContentText("You have missed calls from");
+                notification.setContentText(getString(R.string.missedCall));
                 Intent intent = new Intent(this, MissedCall.class);
 
 

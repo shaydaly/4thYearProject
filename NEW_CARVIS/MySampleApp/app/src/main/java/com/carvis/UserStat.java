@@ -16,6 +16,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -32,27 +33,35 @@ public class UserStat implements Serializable {
     private String overSpeedRoad;
     private ArrayList<JourneyInfo> journeyInfos;
     private int journeysWithOverSpeed;
-    private int numJourneys;
+    //private int numJourneys;
     private DateTime memberSince;
     private ArrayList<DateTime> overSpeedDates;
     private String roadAddress;
     int daysSinceOverSpeed;
+    int averageSpeed;
+    String mostOverSpedDay;
     Map<String, Integer> mostCommon;
 
 
     HashMap<String, Double> monthlyKilom;
 
-    public UserStat(String overSpeedRoad, ArrayList<JourneyInfo> journeyInfos, int journeysWithOverSpeed, int numJourneys, ArrayList<DateTime> overSpeedDates, DateTime memberSince, String roadAddress) {
+    public UserStat(String overSpeedRoad, ArrayList<JourneyInfo> journeyInfos, int journeysWithOverSpeed, ArrayList<DateTime> overSpeedDates,  String roadAddress, int averageSpeed) {
         //this.username = username;
         this.overSpeedRoad = overSpeedRoad;
         this.journeyInfos = journeyInfos;
         this.journeysWithOverSpeed = journeysWithOverSpeed;
-        this.numJourneys = numJourneys;
+        //this.numJourneys = numJourneys;
         this.overSpeedDates = overSpeedDates;
-        this.memberSince = memberSince;
+        //this.memberSince = memberSince;
         this.roadAddress = roadAddress;
+        this.averageSpeed =  averageSpeed;
         monthlyKilom = new HashMap<>();
-        mostCommon = new HashMap<>();
+        mostOverSpedDay = getOverSpeedDay();
+
+    }
+
+    public String getMostOverSpedDay() {
+        return mostOverSpedDay;
     }
 
     public HashMap<String, Double> getMonthlyKilom() {
@@ -61,6 +70,7 @@ public class UserStat implements Serializable {
 
     public UserStat() {
         overSpeedDates = new ArrayList<>();
+        mostCommon = new HashMap<>();
     }
 
     public UserStat(String username){
@@ -116,6 +126,10 @@ public class UserStat implements Serializable {
         this.journeyInfos = journeyInfos;
     }
 
+    public int getAverageSpeed() {
+        return averageSpeed;
+    }
+
     public int getJourneysWithOverSpeed() {
         return journeysWithOverSpeed;
     }
@@ -125,12 +139,12 @@ public class UserStat implements Serializable {
     }
 
     public int getNumJourneys() {
-        return numJourneys;
+        return journeyInfos.size();
     }
 
-    public void setNumJourneys(int numJourneys) {
-        this.numJourneys = numJourneys;
-    }
+//    //public void setNumJourneys(int numJourneys) {
+//        this.numJourneys = numJourneys;
+//    }
 
     public ArrayList<DateTime> getOverSpeedDates() {
         return overSpeedDates;
@@ -176,29 +190,35 @@ public class UserStat implements Serializable {
 
 
     public String getOverSpeedDay(){
-        if(overSpeedDates.size()!= 0) {
-            ArrayList<String> days = new ArrayList<>();
-            for (DateTime dateTime : overSpeedDates) {
-                days.add(getDayOfWeek(dateTime));
-            }
-            String maxWord = null;
-            Integer maxCount = -1;
-            for (String day : days) {
-                if (!mostCommon.containsKey(day)) {
-                    mostCommon.put(day, 1);
+        if(overSpeedDates!=null) {
+            if (overSpeedDates.size() != 0) {
+                ArrayList<String> days = new ArrayList<>();
+                for (DateTime dateTime : overSpeedDates) {
+                    days.add(getDayOfWeek(dateTime));
                 }
-                int count = mostCommon.get(day) + 1;
-                if (count > maxCount) {
-                    maxWord = day;
-                    maxCount = count;
+                String maxWord = null;
+                Integer maxCount = -1;
+                for (String day : days) {
+                    if(mostCommon ==null){
+                        mostCommon = new HashMap<>();
+                    }
+                    if (!mostCommon.containsKey(day)) {
+                        mostCommon.put(day, 0);
+                    }
+
+                    int count = mostCommon.get(day) + 1;
+                    if (count > maxCount) {
+                        maxWord = day;
+                        maxCount = count;
+                    }
+                    mostCommon.put(day, count);
                 }
-                mostCommon.put(day, count);
+                return maxWord;
+            } else {
+                return "NA";
             }
-            return maxWord;
         }
-        else{
-            return "NA";
-        }
+        return "NA";
     }
 
     public Map<String, Integer> getMostCommon() {
@@ -246,7 +266,7 @@ public class UserStat implements Serializable {
                 start.setLongitude(journeyInfo.getStartLongitude());
                 end.setLatitude(journeyInfo.getEndLatitude());
                 end.setLongitude(journeyInfo.getEndLongitude());
-                total += getDistance(start, end);
+                total += getRoundedValue(getDistance(start, end),2);
 //                monthlyTotal = getDistance(start, end);
 //                String month = journeyInfo.getStartTime().toString("MMM");
 //
@@ -262,13 +282,13 @@ public class UserStat implements Serializable {
         else{
             total = 0;
         }
-        Log.wtf("map size", String.valueOf(monthlyKilom.size()));
-        Iterator it = monthlyKilom.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
-            System.out.println(pair.getKey() + " = " + pair.getValue());
-            //it.remove(); // avoids a ConcurrentModificationException
-        }
+//        Log.wtf("map size", String.valueOf(monthlyKilom.size()));
+//        Iterator it = monthlyKilom.entrySet().iterator();
+//        while (it.hasNext()) {
+//            Map.Entry pair = (Map.Entry)it.next();
+//            System.out.println(pair.getKey() + " = " + pair.getValue());
+//            //it.remove(); // avoids a ConcurrentModificationException
+//        }
         //return getRoundedValue(total, 2);
 
         if(total!= 0){
@@ -281,8 +301,6 @@ public class UserStat implements Serializable {
     }
 
     public void getMonthlyKilomTravelled() {
-        double total = 0;
-
         Location start = new Location("start");
         Location end = new Location("end");
         if (journeyInfos.size() != 0) {

@@ -32,6 +32,8 @@
         android:layout_below="@id/signup_message"
         android:layout_centerHorizontal="true" />
 
+
+
     <EditText
         android:id="@+id/signup_username"
         android:layout_width="match_parent"

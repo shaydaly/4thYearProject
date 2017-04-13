@@ -20,8 +20,14 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mysampleapp.R;
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.io.IOException;
 import java.util.List;
@@ -32,6 +38,7 @@ public class UserSettings extends AppCompatActivity {
     Context context;
     Spinner spinner , voiceSpinner, speedLimitSpinner, blockIncomingCallSpinner;
 
+    TextView memberSince;
     String[] counties;
     String emergencyContact;
     EditText editText ;
@@ -48,6 +55,10 @@ public class UserSettings extends AppCompatActivity {
 
         context = getApplicationContext();
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        memberSince = (TextView)findViewById(R.id.memberSinceDisplay);
+        memberSince.setText(prefs.getString("memberSince", ""));
+
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.settingsToolbar);

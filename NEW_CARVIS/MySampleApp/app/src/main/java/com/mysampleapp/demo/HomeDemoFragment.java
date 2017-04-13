@@ -16,6 +16,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +25,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,9 +38,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+
+import com.carvis.CameraRecorder;
 import com.carvis.ListJourney;
 import com.carvis.MainActivity;
 import com.carvis.MyLocationService;
+import com.carvis.OnSwipeTouchListener;
 import com.carvis.SpeedCameraMap;
 import com.carvis.TemporarySpeedCamera;
 import com.carvis.TrackSpeedActivity;
@@ -59,14 +65,16 @@ import static android.R.attr.value;
 
 public class HomeDemoFragment extends DemoFragmentBase {
 
+    int count, modulo;
 
     CognitoUserPoolsSignInProvider provider;
     VolleyService v ;
     Context context;
     public static TextView textViewObj;
-    TextView textView ;
+    TextView overSpeedDayTV, roadsToAvoid, todayTrafficIncident, daysSinceOverSpeed, numIncidentsReported ;
     BroadcastReceiver mBroadcastReceiver;
     Random random ;
+    ArrayList<TextView> textViews;
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              final Bundle savedInstanceState) {
@@ -88,9 +96,22 @@ public class HomeDemoFragment extends DemoFragmentBase {
     @Override
     public void onPause(){
         super.onPause();
-        textView = (TextView) getActivity().findViewById(R.id.daysSinceOverSpeed);
-        if(textView!= null){
-            textView.setText("");
+
+
+        if(daysSinceOverSpeed!= null){
+            daysSinceOverSpeed.setText("");
+        }
+        if(roadsToAvoid!= null){
+            roadsToAvoid.setText("");
+        }
+        if(overSpeedDayTV!= null){
+            overSpeedDayTV.setText("");
+        }
+        if(todayTrafficIncident!= null){
+            todayTrafficIncident.setText("");
+        }
+        if(numIncidentsReported!= null){
+            numIncidentsReported.setText("");
         }
         getActivity().unregisterReceiver(mBroadcastReceiver);
     }
@@ -105,9 +126,189 @@ public class HomeDemoFragment extends DemoFragmentBase {
     @Override
     public void onResume(){
         super.onResume();
+         count = 0;
+
+        modulo = 0;
+
+
+        daysSinceOverSpeed = (TextView) getActivity().findViewById(R.id.daysSinceOverSpeed);
+//        daysSinceOverSpeed.setText("hello`1");
+        roadsToAvoid = (TextView) getActivity().findViewById(R.id.roadsToAvoid);
+//        roadsToAvoid.setText("hello2");
+        overSpeedDayTV = (TextView) getActivity().findViewById(R.id.overSpeedDay);
+        todayTrafficIncident = (TextView) getActivity().findViewById(R.id.todayTrafficIncident);
+//        todayTrafficIncident.setText("hello4");
+        numIncidentsReported = (TextView)getActivity().findViewById(R.id.numTrafficReported);
+//        numIncidentsReported.setText("hell5");
+
+        textViews = new ArrayList<>();
+        textViews.add(daysSinceOverSpeed);
+        textViews.add(roadsToAvoid);
+        textViews.add(overSpeedDayTV);
+        textViews.add(todayTrafficIncident);
+        textViews.add(numIncidentsReported);
+
+        mBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Log.wtf("volley received","");
+
+//                String greeting  = "Hi " + provider.getUserName();
+                String greeting  = "";
+                try {
+                    int days = PreferenceManager.getDefaultSharedPreferences(context).getInt("daysSinceOverSpeed", 0);
+
+                    String displayMessage = "";
+                    if (days != -99) {
+                        String over1 = getString(R.string.daysSinceLastOverSpeed1);
+                        String over2 = getString(R.string.daysSinceLastOverSpeed2);
+                        displayMessage = greeting + over1 + " " + days + " " + over2 + ". ";
+                        if (days < 3) {
+                            displayMessage = displayMessage + getString(R.string.slowingDown);
+                        } else {
+                            displayMessage = displayMessage + "\n" + getString(R.string.wellDone);
+                        }
+
+                    } else {
+                        displayMessage =getString(R.string.noOverSpeeds);
+                    }
+                    daysSinceOverSpeed.setText(displayMessage);
+                }
+                catch(Exception e) {
+                    Log.wtf("ex1", e.getMessage());
+                }
+                try {
+                    String overSpeedDay = PreferenceManager.getDefaultSharedPreferences(context).getString("overSpeedDate", "");
+                    String textOutput = "";
+                    if (!overSpeedDay.equals("NA")) {
+                        textOutput = greeting + getString(R.string.overSpeedDay)
+                                + " " + overSpeedDay + ". " + getString(R.string.alternativeRoute);
+                    } else {
+                        textOutput =  getString(R.string.noOverSpeeds);
+                    }
+                    overSpeedDayTV.setText(textOutput);
+                }
+                catch (Exception ex) {
+                    Log.wtf("Exception2", ex.getMessage());
+                }
+                try {
+
+                    int numTrafficIncidentsReported = PreferenceManager.getDefaultSharedPreferences(context).getInt("numTrafficIncidentsReported", 0);
+                    String output =  numTrafficIncidentsReported + " " + getString(R.string.numTrafficIncidents);
+                    if (numTrafficIncidentsReported > 0) {
+                        output += ". " + getString(R.string.thanks);
+                    } else {
+                        output += ". " + getString(R.string.promtTraffic);
+                    }
+                    numIncidentsReported.setText(output);
+                }
+                catch(Exception e) {
+                    Log.w("Exception3", e.getMessage());
+                }
+
+                try{
+                    String output ="";
+                    ArrayList<String> addresses = intent.getStringArrayListExtra("trafficAddresses");
+                    //String output ="";
+                    if(addresses!=null) {
+                        if (addresses.size() != 0) {
+                            output += getString(R.string.roadsWithOverspeed) + "\n\n";
+                            for (String a : addresses) {
+                                output += a + "\n";
+                                Log.wtf("address",a);
+                            }
+                        } else {
+                            output += getString(R.string.noRoadsWithOverspeed);
+                        }
+                    }
+                    else{
+                        output += getString(R.string.noRoadsWithOverspeed);
+                    }
+//                        Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
+//
+//                        textView.setTypeface(boldTypeface);
+//
+                    todayTrafficIncident.setText(greeting+output);
+
+                    try {
+                        ArrayList<String> roadAddresses = intent.getStringArrayListExtra("addresses");
+                        String output2 = "";
+
+                        if (roadAddresses != null) {
+                            if (roadAddresses.size() != 0) {
+                                output2 += getString(R.string.pastWeekRoad) + "\n\n";
+                                for (String a : roadAddresses) {
+                                    output2 += a + "\n";
+                                }
+                            } else {
+                                output2 = getString(R.string.noPastWeekRoad);
+                            }
+                            roadsToAvoid.setText(greeting+""+output2);
+                        }
+                        else{
+                            roadsToAvoid.setText(greeting+" there are no roads you have used where bad traffic has been reported");
+                        }
+                    }
+                    catch (Exception e){
+
+                    }
+//                        Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
+//
+//                        textView.setTypeface(boldTypeface);
+
+                } catch (Exception e) {
+                    Log.wtf("exception !", e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+        };
+
+
+        IntentFilter filter = new IntentFilter(VolleyService.DAYS_OVER_SPEED);
+        filter.addAction(VolleyService.OVERSPEEDDAY);
+        filter.addAction(VolleyService.NUMTRAFFICINCIDENTS);
+        filter.addAction(VolleyService.ROADSWITHINCIDENTS);
+        filter.addAction(VolleyService.ROADSTOAVOID);
+        getActivity().registerReceiver(mBroadcastReceiver, filter);
+
+
 
        random = new Random();
+        int randomNumber = random.nextInt(5-1) + 1;
+
+        showTextView(randomNumber);
         //textView = (TextView) getActivity().findViewById(R.id.daysSinceOverSpeed);
+        //textView = (TextView) getActivity().findViewById(R.id.daysSinceOverSpeed);
+        RelativeLayout layout = (RelativeLayout) getActivity().findViewById(R.id.messageContainer);
+        layout.setOnTouchListener(new OnSwipeTouchListener(context) {
+            @Override
+            public void onSwipeLeft() {
+                super.onSwipeLeft();
+                count--;
+                Log.wtf("COUNT", String.valueOf(count));
+                modulo = (count % 5);
+                if(modulo<0)
+                    modulo+=5;
+                Log.wtf("modulo", String.valueOf(modulo));
+                showTextView(modulo);
+                Toast.makeText(context, "modul---"+String.valueOf(modulo), Toast.LENGTH_SHORT).show();
+
+            }
+
+
+        @Override
+        public void onSwipeRight() {
+            super.onSwipeRight();
+            count++;
+            Log.wtf("COUNT", String.valueOf(count));
+            modulo = (count % 5);
+            Log.wtf("modulo", String.valueOf(modulo));
+            showTextView(modulo);
+            Toast.makeText(context, "modul---"+String.valueOf(modulo), Toast.LENGTH_SHORT).show();
+            // Put your logic here for text visibility and for timer like progress bar for 5 second and setText
+        }
+    });
+
 
         if(SplashActivity.justSignedin) {
             v = new VolleyService(context);
@@ -120,100 +321,103 @@ public class HomeDemoFragment extends DemoFragmentBase {
         registerButtons();
 
 
-        mBroadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                Log.i("volley received","");
-                textView = (TextView) getActivity().findViewById(R.id.daysSinceOverSpeed);
-                String greeting  = "Hi " + provider.getUserName();
-                try {
-                    if (intent.getAction().equals(VolleyService.DAYS_OVER_SPEED)) {
-                        int days = PreferenceManager.getDefaultSharedPreferences(context).getInt("daysSinceOverSpeed", 0);
-                        String over1 = getString(R.string.daysSinceLastOverSpeed1);
-                        String over2 = getString(R.string.daysSinceLastOverSpeed2);
-                        String displayMessage = greeting+". "+over1+" "+days+" "+over2+". ";
-                        if(days < 3){
-                            displayMessage = displayMessage+getString(R.string.slowingDown);
-                        }
-                        else{
-                            displayMessage = displayMessage+"\n"+  getString(R.string.wellDone);
-                        }
-                        textView.setText(displayMessage);
-                    }
-
-                    else if(intent.getAction().equals(VolleyService.OVERSPEEDDAY)){
-                        String overSpeedDay =  PreferenceManager.getDefaultSharedPreferences(context).getString("overSpeedDate", "");
-                        String textOutput ="";
-                        if(!overSpeedDay.equals("NA")) {
-                             textOutput = greeting + ". " + getString(R.string.overSpeedDay)
-                                    + " " + overSpeedDay + ". " + getString(R.string.alternativeRoute);
-                        }
-                        else{
-                            textOutput = greeting + getString(R.string.noOverSpeeds);
-                        }
-                        textView.setText(textOutput);
-                    }
-
-                    else if(intent.getAction().equals(VolleyService.NUMTRAFFICINCIDENTS)){
-                        int numTrafficIncidentsReported = PreferenceManager.getDefaultSharedPreferences(context).getInt("numTrafficIncidentsReported", 0);
-                        String output = greeting+". "+numTrafficIncidentsReported+" "+getString(R.string.numTrafficIncidents);
-                        if(numTrafficIncidentsReported > 0){
-                            output+=". "+getString(R.string.thanks);
-                        }
-                        else{
-                            output+=". "+getString(R.string.promtTraffic);
-                        }
-                        textView.setText(output);
-                    }
-
-                    else if(intent.getAction().equals(VolleyService.ROADSWITHINCIDENTS)){
-                        ArrayList<String> addresses = intent.getStringArrayListExtra("addresses");
-                        String output ="";
-                        if(addresses.size()!= 0) {
-                            output += getString(R.string.roadsWithOverspeed) + "\n\n";
-                            for (String a : addresses) {
-                                output += a + "\n";
-                            }
-                        }
-                        else{
-                            output+= getString(R.string.noRoadsWithOverspeed);
-                        }
-//                        Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
+//        mBroadcastReceiver = new BroadcastReceiver() {
+//            @Override
+//            public void onReceive(Context context, Intent intent) {
+//                Log.i("volley received","");
 //
-//                        textView.setTypeface(boldTypeface);
+//                String greeting  = "Hi " + provider.getUserName();
+//                try {
+//                    if (intent.getAction().equals(VolleyService.DAYS_OVER_SPEED)) {
+//                        int days = PreferenceManager.getDefaultSharedPreferences(context).getInt("daysSinceOverSpeed", 0);
+//                        String displayMessage="";
+//                        if(days!= -99) {
+//                            String over1 = getString(R.string.daysSinceLastOverSpeed1);
+//                            String over2 = getString(R.string.daysSinceLastOverSpeed2);
+//                            displayMessage = greeting + ". \n" + over1 + " " + days + " " + over2 + ". ";
 //
-                        textView.setText(greeting+"\n"+output);
-                    }
-                    else if(intent.getAction().equals(VolleyService.ROADSTOAVOID)){
-                        ArrayList<String> addresses = intent.getStringArrayListExtra("addresses");
-                        String output ="";
-                        if(addresses.size()!= 0) {
-                            output += getString(R.string.pastWeekRoad)+"\n";
-                            for (String a : addresses) {
-                                output += a + "\n";
-                            }
-                        }
-                        else{
-                            output = getString(R.string.noPastWeekRoad);
-                        }
-//                        Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
 //
-//                        textView.setTypeface(boldTypeface);
+//                            if (days < 3) {
+//                                displayMessage = displayMessage + getString(R.string.slowingDown);
+//                            } else {
+//                                displayMessage = displayMessage + "\n" + getString(R.string.wellDone);
+//                            }
 //
-                        textView.setText(greeting+"\n"+output);
-                    }
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-        };
+//                        }
+//                        else{
+//                            displayMessage = greeting + ". \nYou have no speeding incidents recorded. Congratulations";
+//                        }
+//                        textView.setText(displayMessage);
+//                    }
+//
+//                    else if(intent.getAction().equals(VolleyService.OVERSPEEDDAY)){
+//                        String overSpeedDay =  PreferenceManager.getDefaultSharedPreferences(context).getString("overSpeedDate", "");
+//                        String textOutput ="";
+//                        if(!overSpeedDay.equals("NA")) {
+//                             textOutput = greeting + ". " + getString(R.string.overSpeedDay)
+//                                    + " " + overSpeedDay + ". " + getString(R.string.alternativeRoute);
+//                        }
+//                        else{
+//                            textOutput = greeting + getString(R.string.noOverSpeeds);
+//                        }
+//                        textView.setText(textOutput);
+//                    }
+//
+//                    else if(intent.getAction().equals(VolleyService.NUMTRAFFICINCIDENTS)){
+//                        int numTrafficIncidentsReported = PreferenceManager.getDefaultSharedPreferences(context).getInt("numTrafficIncidentsReported", 0);
+//                        String output = greeting+". "+numTrafficIncidentsReported+" "+getString(R.string.numTrafficIncidents);
+//                        if(numTrafficIncidentsReported > 0){
+//                            output+=". "+getString(R.string.thanks);
+//                        }
+//                        else{
+//                            output+=". "+getString(R.string.promtTraffic);
+//                        }
+//                        textView.setText(output);
+//                    }
+//
+//                    else if(intent.getAction().equals(VolleyService.ROADSWITHINCIDENTS)){
+//                        ArrayList<String> addresses = intent.getStringArrayListExtra("addresses");
+//                        String output ="";
+//                        if(addresses.size()!= 0) {
+//                            output += getString(R.string.roadsWithOverspeed) + "\n\n";
+//                            for (String a : addresses) {
+//                                output += a + "\n";
+//                            }
+//                        }
+//                        else{
+//                            output+= getString(R.string.noRoadsWithOverspeed);
+//                        }
+////                        Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
+////
+////                        textView.setTypeface(boldTypeface);
+////
+//                        textView.setText(greeting+"\n"+output);
+//                    }
+//                    else if(intent.getAction().equals(VolleyService.ROADSTOAVOID)){
+//                        ArrayList<String> addresses = intent.getStringArrayListExtra("addresses");
+//                        String output ="";
+//                        if(addresses.size()!= 0) {
+//                            output += getString(R.string.pastWeekRoad)+"\n";
+//                            for (String a : addresses) {
+//                                output += a + "\n";
+//                            }
+//                        }
+//                        else{
+//                            output = getString(R.string.noPastWeekRoad);
+//                        }
+////                        Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
+////
+////                        textView.setTypeface(boldTypeface);
+////
+//                        textView.setText(greeting+"\n"+output);
+//                    }
+//                } catch (Exception e) {
+//                    System.out.println(e.getMessage());
+//                }
+//            }
+//        };
 
-        IntentFilter filter = new IntentFilter(VolleyService.DAYS_OVER_SPEED);
-        filter.addAction(VolleyService.OVERSPEEDDAY);
-        filter.addAction(VolleyService.NUMTRAFFICINCIDENTS);
-        filter.addAction(VolleyService.ROADSWITHINCIDENTS);
-        filter.addAction(VolleyService.ROADSTOAVOID);
-        getActivity().registerReceiver(mBroadcastReceiver, filter);
+
 
     }
 
@@ -355,12 +559,40 @@ public class HomeDemoFragment extends DemoFragmentBase {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(getActivity(), UserStatistics.class);
+               //Intent myIntent = new Intent(getActivity(), CameraRecorder.class);
                 getActivity().startActivity(myIntent);
             }
         });
     }
 
+    private void increaseCount(){
+
+    }
+
+    private void decreaseCount(){
+        count --;
+    }
     private void getPermissions(){
+        int permission = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+// If we don't have permissions, ask user for permissions
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            String[] PERMISSIONS_STORAGE = {
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+            };
+            int REQUEST_EXTERNAL_STORAGE = 1;
+
+            ActivityCompat.requestPermissions(
+                    getActivity(),
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
+        }
+
+
+
+
         if (ContextCompat.checkSelfPermission(context,
                 Manifest.permission.SEND_SMS)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -485,5 +717,34 @@ public class HomeDemoFragment extends DemoFragmentBase {
             }
         }
 
+    }
+
+
+    private void showTextView(int tvNum){
+        for(TextView tv : textViews){
+            tv.setVisibility(View.INVISIBLE);
+        }
+
+        if(tvNum == 0){
+            overSpeedDayTV.setVisibility(View.VISIBLE);
+//            Log.wtf("",String.valueOf(overSpeedDayTV.getText()));
+        }
+
+        else if(tvNum ==1){
+            roadsToAvoid.setVisibility(View.VISIBLE);
+//            Log.wtf("",String.valueOf(roadsToAvoid.getText()));
+        }
+        else if(tvNum ==2) {
+            todayTrafficIncident.setVisibility(View.VISIBLE);
+//            Log.wtf("",String.valueOf(todayTrafficIncident.getText()));
+        }
+        else if(tvNum ==3) {
+            daysSinceOverSpeed.setVisibility(View.VISIBLE);
+//            Log.wtf("",String.valueOf(daysSinceOverSpeed.getText()));
+        }
+        else if(tvNum ==4) {
+            numIncidentsReported.setVisibility(View.VISIBLE);
+//            Log.wtf("",String.valueOf(numIncidentsReported.getText()));
+        }
     }
 }

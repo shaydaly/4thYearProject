@@ -442,20 +442,27 @@ public class VolleyService extends Activity {
                         try {
                             ArrayList<JourneyInfo> journeys = new ArrayList<>();
                             ArrayList<DateTime> dates = new ArrayList<>();
-                            JSONObject jsonObject = new JSONObject(response.toString());
-                            int numJourneys = Integer.parseInt(jsonObject.get("numJourneys").toString());
-                            int journeysWithOverSpeed = jsonObject.getInt("journeysWithOverSpeed");
-                            String overSpeedRoad = jsonObject.getString("overSpeedRoad");
-                            String roadAddress = jsonObject.getString("roadAddress");
+//                            JSONObject jsonObject = new JSONObject(response.toString());
+                            //int numJourneys = response.getInt("numJourneys");
+                            int journeysWithOverSpeed = response.getInt("journeysWithOverSpeed");
+                            String overSpeedRoad = response.getString("overSpeedRoad");
+                            String roadAddress = response.getString("roadAddress");
+                            int averageSpeed = 0;
                             //System.out.println(numJourneys+" num journeys\n"+journeysWithOverSpeed+"journeys");
-                            JSONArray jsonArray = jsonObject.getJSONArray("journeys");
+                            if(!String.valueOf(response.get("averageSpeed")).equals("None")) {
+                                averageSpeed = response.getInt("averageSpeed");
+                            }
+                            else{
+                                 averageSpeed = 0;
+                            }
+                            JSONArray jsonArray = response.getJSONArray("journeys");
                             for (int i = 0; i < jsonArray.length(); i++) {
-                                String endTime = String.valueOf(jsonArray.getJSONObject(i).get("endTime"));
-                                String startTime = String.valueOf(jsonArray.getJSONObject(i).get("startTime"));
-                                double startLatitude = Double.parseDouble(String.valueOf(jsonArray.getJSONObject(i).get("startLatitude")));
-                                double startLongitude = Double.parseDouble(String.valueOf(jsonArray.getJSONObject(i).get("startLongitude")));
-                                double endLatitude = Double.parseDouble(String.valueOf(jsonArray.getJSONObject(i).get("endLatitude")));
-                                double endLongitude = Double.parseDouble(String.valueOf(jsonArray.getJSONObject(i).get("endLongitude")));
+                                String endTime = jsonArray.getJSONObject(i).getString("endTime");
+                                String startTime = jsonArray.getJSONObject(i).getString("startTime");
+                                double startLatitude = jsonArray.getJSONObject(i).getDouble("startLatitude");
+                                double startLongitude = jsonArray.getJSONObject(i).getDouble("startLongitude");
+                                double endLatitude = jsonArray.getJSONObject(i).getDouble("endLatitude");
+                                double endLongitude = jsonArray.getJSONObject(i).getDouble("endLongitude");
 
 //                                Location start = new Location("start");
 //                                start.setLatitude(Double.parseDouble(startLatitude));
@@ -466,17 +473,17 @@ public class VolleyService extends Activity {
 //                                end.setLongitude(Double.parseDouble(endLongitude));
                                 journeys.add(new JourneyInfo(dateWithTimeFormatter.parseDateTime(startTime), dateWithTimeFormatter.parseDateTime(endTime), startLatitude, startLongitude, endLatitude, endLongitude));
                             }
-                            JSONArray overSpeedDates = jsonObject.getJSONArray("overSpeedDates");
+                            JSONArray overSpeedDates = response.getJSONArray("overSpeedDates");
                             for (int i = 0; i < overSpeedDates.length(); i++) {
-                                String date = String.valueOf(overSpeedDates.getJSONObject(i).get("overSpeedDate"));
+                                String date = overSpeedDates.getJSONObject(i).getString("overSpeedDate");
                                 dates.add(dateFormatter.parseDateTime(date));
                             }
 
-                            String date = String.valueOf(jsonObject.get("memberSince"));
-                            DateTime memberSince = dateFormatter.parseDateTime(date);
+////                            String date = String.valueOf(jsonObject.get("memberSince"));
+//                            DateTime memberSince = dateFormatter.parseDateTime(DateTime.now().toString());
 
 
-                            UserStat userStat = new UserStat(overSpeedRoad, journeys, journeysWithOverSpeed, numJourneys, dates, memberSince, roadAddress);
+                            UserStat userStat = new UserStat(overSpeedRoad, journeys, journeysWithOverSpeed, dates, roadAddress, averageSpeed);
                             Intent myIntent = new Intent(context, UserStatActivity.class);
                             myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             myIntent.putExtra("userStat", userStat); //Optional parameters
@@ -576,9 +583,8 @@ public class VolleyService extends Activity {
         }
     }
 
-
     public void getDaysSinceLastOverSpeed(final String username, final Context contextIn) {
-        Log.i("getDaysincespeed", " called");
+        Log.wtf("getDaysincespeed", " called");
         final DateTimeFormatter dateFormatter = DateTimeFormat.forPattern("yyyy-MM-dd");
 
         url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/daysinceoverspeed?username=" + username;
@@ -589,30 +595,28 @@ public class VolleyService extends Activity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            Random random = new Random();
+//                            Log.wtf("response ",response.toString());
                             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
                             Intent intent = new Intent();
-                            int randomNumber = random.nextInt(5-1) + 1;
-
-//                            int randomNumber = 5;
-                            if(randomNumber == 1) {
-
-                                Log.i("days", response.toString());
-                                JSONObject obj = new JSONObject(response.toString());
-                                int daysSinceOverSpeed = obj.getInt("daysOverSpeed");
+                            intent.setAction(DAYS_OVER_SPEED);
+                            intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+//                            intent.putExtra("hello", "");
+//
+//                            contextIn.sendBroadcast(intent);
+////                            int randomNumber = random.nextInt(5-1) + 1;
+//
+//
+//                                Log.i("days", response.toString());
+ //                               JSONObject obj = new JSONObject(response.toString());
+                                int daysSinceOverSpeed = response.getInt("daysOverSpeed");
 
                                 prefs.edit()
                                         .putInt("daysSinceOverSpeed", daysSinceOverSpeed)
                                         .commit();
-
-                                //intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                                intent.setAction(DAYS_OVER_SPEED);
                                 intent.putExtra("hello", "shaymus");
-                            }
-                            else if(randomNumber == 2) {
-                                intent.setAction(OVERSPEEDDAY);
-                                UserStat userStat = new UserStat();
-                                JSONArray overSpeedDates = response.getJSONArray("overSpeedDates");
+
+                            UserStat userStat = new UserStat();
+                            JSONArray overSpeedDates = response.getJSONArray("overSpeedDates");
                                 for (int i = 0; i < overSpeedDates.length(); i++) {
                                     String date = String.valueOf(overSpeedDates.getJSONObject(i).get("overSpeedDate"));
                                     userStat.addOverSpeedDate(dateFormatter.parseDateTime(date));
@@ -620,49 +624,62 @@ public class VolleyService extends Activity {
                                 }
 
                                 prefs.edit()
-                                        .putString("overSpeedDate", userStat.getOverSpeedDay())
+                                        .putString("overSpeedDate", userStat.getMostOverSpedDay())
                                         .commit();
-                            }
 
-                            else if (randomNumber == 3){
-                                intent.setAction(NUMTRAFFICINCIDENTS);
                                 int numTrafficIncidentsReported = response.getInt("numTrafficIncidentsReported");
                                 prefs.edit()
                                         .putInt("numTrafficIncidentsReported", numTrafficIncidentsReported)
                                         .commit();
-                            }
-                            else if (randomNumber == 4){
-                                intent.setAction(ROADSWITHINCIDENTS);
+
+
+                            try {
                                 JSONArray roadWithTraffic = response.getJSONArray("roadWithTraffic");
-                                ArrayList<String> addresses = new ArrayList<>();
-                                for (int i = 0; i < roadWithTraffic.length(); i++) {
-                                    String address = String.valueOf(roadWithTraffic.getJSONObject(i).get("address"));
-                                    if(!addresses.contains(address)) {
-                                        addresses.add(address);
+                                if(roadWithTraffic.length()>0) {
+                                    ArrayList<String> addresses = new ArrayList<>();
+                                    for (int i = 0; i < roadWithTraffic.length(); i++) {
+                                        String address = String.valueOf(roadWithTraffic.getJSONObject(i).get("address"));
+                                        if (!addresses.contains(address)) {
+                                            addresses.add(address);
+                                        }
                                     }
+
+                                    intent.putStringArrayListExtra("trafficAddresses", addresses);
                                 }
-                                intent.putStringArrayListExtra("addresses", addresses);
                             }
-                            else{
-                                intent.setAction(ROADSTOAVOID);
-                                JSONArray roadWithTraffic = response.getJSONArray("roadsToAvoid");
-                                ArrayList<String> addresses = new ArrayList<>();
-                                for (int i = 0; i < roadWithTraffic.length(); i++) {
-                                    String address = String.valueOf(roadWithTraffic.getJSONObject(i).get("roadAddress"));
-                                    if(!addresses.contains(address)) {
-                                        addresses.add(address);
+                            catch(Exception e){
+                                e.printStackTrace();e.printStackTrace();
+
+                            }
+                            try {
+                                JSONArray roadsToAvoidWithTraffic = response.getJSONArray("roadsToAvoid");
+                                if (roadsToAvoidWithTraffic.length() > 0) {
+                                    ArrayList<String> roadAddress = new ArrayList<>();
+                                    for (int i = 0; i < roadsToAvoidWithTraffic.length(); i++) {
+                                        String address = String.valueOf(roadsToAvoidWithTraffic.getJSONObject(i).get("roadAddress"));
+                                        if (!roadAddress.contains(address)) {
+                                            roadAddress.add(address);
+                                        }
                                     }
+                                    intent.putStringArrayListExtra("addresses", roadAddress);
                                 }
-                                intent.putStringArrayListExtra("addresses",addresses);
+                            }
+                            catch(Exception e){
+                                e.printStackTrace();e.printStackTrace();
+
                             }
                             contextIn.sendBroadcast(intent);
                             //final Intent intent = new Intent();
                             // sets keyword to listen out for for this broadcast
 
                         } catch (JSONException e) {
-                            Log.i("days", e.getMessage());
+                            e.printStackTrace();
+                            Log.wtf("VOLLEY DAY JSON", e.getMessage());
+                            e.printStackTrace();
                         } catch (Exception e) {
-                            Log.i("days ", e.getMessage());
+                            e.printStackTrace();
+                            Log.wtf("VOLLEY DAY", e.getMessage());
+
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -674,6 +691,104 @@ public class VolleyService extends Activity {
                 });
         queue.add(jsObjRequest);
     }
+
+//    public void getDaysSinceLastOverSpeed(final String username, final Context contextIn) {
+//        Log.i("getDaysincespeed", " called");
+//        final DateTimeFormatter dateFormatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+//
+//        url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/daysinceoverspeed?username=" + username;
+//        //final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
+//        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+//                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+//
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        try {
+//                            Random random = new Random();
+//                            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+//                            Intent intent = new Intent();
+////                            int randomNumber = random.nextInt(5-1) + 1;
+//
+//                            int randomNumber =1;
+//                            if(randomNumber == 1) {
+//
+//                                Log.i("days", response.toString());
+//                                JSONObject obj = new JSONObject(response.toString());
+//                                int daysSinceOverSpeed = obj.getInt("daysOverSpeed");
+//
+//                                prefs.edit()
+//                                        .putInt("daysSinceOverSpeed", daysSinceOverSpeed)
+//                                        .commit();
+//
+//                                //intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+//                                intent.setAction(DAYS_OVER_SPEED);
+//                                intent.putExtra("hello", "shaymus");
+//                            }
+//                            else if(randomNumber == 2) {
+//                                intent.setAction(OVERSPEEDDAY);
+//                                UserStat userStat = new UserStat();
+//                                JSONArray overSpeedDates = response.getJSONArray("overSpeedDates");
+//                                for (int i = 0; i < overSpeedDates.length(); i++) {
+//                                    String date = String.valueOf(overSpeedDates.getJSONObject(i).get("overSpeedDate"));
+//                                    userStat.addOverSpeedDate(dateFormatter.parseDateTime(date));
+//                                    //dates.add(dateFormatter.parseDateTime(date));
+//                                }
+//
+//                                prefs.edit()
+//                                        .putString("overSpeedDate", userStat.getOverSpeedDay())
+//                                        .commit();
+//                            }
+//
+//                            else if (randomNumber == 3){
+//                                intent.setAction(NUMTRAFFICINCIDENTS);
+//                                int numTrafficIncidentsReported = response.getInt("numTrafficIncidentsReported");
+//                                prefs.edit()
+//                                        .putInt("numTrafficIncidentsReported", numTrafficIncidentsReported)
+//                                        .commit();
+//                            }
+//                            else if (randomNumber == 4){
+//                                intent.setAction(ROADSWITHINCIDENTS);
+//                                JSONArray roadWithTraffic = response.getJSONArray("roadWithTraffic");
+//                                ArrayList<String> addresses = new ArrayList<>();
+//                                for (int i = 0; i < roadWithTraffic.length(); i++) {
+//                                    String address = String.valueOf(roadWithTraffic.getJSONObject(i).get("address"));
+//                                    if(!addresses.contains(address)) {
+//                                        addresses.add(address);
+//                                    }
+//                                }
+//                                intent.putStringArrayListExtra("addresses", addresses);
+//                            }
+//                            else{
+//                                intent.setAction(ROADSTOAVOID);
+//                                JSONArray roadWithTraffic = response.getJSONArray("roadsToAvoid");
+//                                ArrayList<String> addresses = new ArrayList<>();
+//                                for (int i = 0; i < roadWithTraffic.length(); i++) {
+//                                    String address = String.valueOf(roadWithTraffic.getJSONObject(i).get("roadAddress"));
+//                                    if(!addresses.contains(address)) {
+//                                        addresses.add(address);
+//                                    }
+//                                }
+//                                intent.putStringArrayListExtra("addresses",addresses);
+//                            }
+//                            contextIn.sendBroadcast(intent);
+//                            //final Intent intent = new Intent();
+//                            // sets keyword to listen out for for this broadcast
+//
+//                        } catch (JSONException e) {
+//                            Log.i("days", e.getMessage());
+//                        } catch (Exception e) {
+//                            Log.i("days ", e.getMessage());
+//                        }
+//                    }
+//                }, new Response.ErrorListener() {
+//
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        Log.i("Sdays", "ERROR");
+//                    }
+//                });
+//        queue.add(jsObjRequest);
+//    }
 
 
     private void sendBroadcastMessage(WeakReference<Context> weakContext, String intentFilterName) {

@@ -40,10 +40,18 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.PROCESS_INCOMING_CALLS" />
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <receiver android:name="com.mysampleapp.PhoneStatReceiver" >
         <intent-filter android:priority="100" >
@@ -185,6 +193,12 @@
 
         <activity android:name="com.carvis.JourneyProgressBar" />
         <activity android:name="com.carvis.MissedCall" />
+        <activity android:name="com.carvis.CameraRecorder" />
+
+        <service
+            android:name="com.carvis.RecorderService"
+            android:enabled="true"
+            android:exported="true" />
         <!-- Include the AdActivity and InAppPurchaseActivity configChanges and themes. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"

@@ -137,7 +137,6 @@ public class MyLocationService extends Service implements
 
         super.onCreate();
         context = getApplicationContext();
-        Log.i(TAG, "created");
         FirebaseApp.initializeApp(context);
         //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         database = FirebaseDatabase.getInstance();
@@ -249,21 +248,6 @@ public class MyLocationService extends Service implements
 //        registerReceiver(serviceBroadcastReceiver, filter);
     }
 
-    public void setLocationSettings(){
-        try {
-            mLocationRequest = LocationRequest.create();
-            mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-            mLocationRequest.setInterval(1000); // Update location every second
-            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED) {
-                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-            }
-            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-        }
-        catch(Exception e){
-            Log.e("setLocation", e.getMessage());
-        }
-    }
 
     @Override
     public void onDestroy() {
@@ -420,7 +404,7 @@ public class MyLocationService extends Service implements
         for (SpeedCamera s : SpeedCamera.getCameras()) {
             ArrayList<Location> cameraLocations = s.getCameraLocations();
             for (int i = 0; i < cameraLocations.size(); i++) {
-                if (location.distanceTo(cameraLocations.get(i)) / 1000 < 0.1) {
+                if (location.distanceTo(cameraLocations.get(i)) / 1000 < 0.2) {
                     //displaySpeedVanInfo(s);
 //                    Message message = new Message();
 //                    Bundle b = new Bundle();
@@ -446,7 +430,7 @@ public class MyLocationService extends Service implements
             cameraLocation = new Location("Camera Location");
             cameraLocation.setLatitude(t.getLatitude());
             cameraLocation.setLongitude(t.getLongitude());
-            if ((location.distanceTo(cameraLocation) / 1000) < 1.0) {
+            if ((location.distanceTo(cameraLocation) / 1000) < 0.5) {
                 //System.out.println("TEMPORARY SPEED CAMERA NEAR");
                 //displaySpeedCameraInfo(t);
 //                Message message = new Message();

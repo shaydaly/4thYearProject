@@ -307,7 +307,7 @@ public class MyLocationService extends Service implements
         mThreadPool.execute(new Runnable() {
             @Override
             public void run() {
-                Log.i(TAG, String.valueOf(location.getLatitude()));
+                //Log.i(TAG, String.valueOf(location.getLatitude()));
                 //Data within intent to send in a broadcast.
                 //  Intent intent = new Intent(HuhConnectionService.NEW_MESSAGE);
 

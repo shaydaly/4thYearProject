@@ -27,6 +27,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.mysampleapp.R;
 import com.mysampleapp.demo.HomeDemoFragment;
 
@@ -37,12 +38,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import static android.R.attr.value;
@@ -623,6 +627,8 @@ public class VolleyService extends Activity {
                                     //dates.add(dateFormatter.parseDateTime(date));
                                 }
 
+
+                            intent.putExtra("overSpeedDay", userStat.getOverSpeedDay());
                                 prefs.edit()
                                         .putString("overSpeedDate", userStat.getMostOverSpedDay())
                                         .commit();
@@ -691,6 +697,49 @@ public class VolleyService extends Activity {
                 });
         queue.add(jsObjRequest);
     }
+
+    public void createTrafficNotification(String trafficAddress) {
+        try {
+            url = "https://fcm.googleapis.com/fcm/send";
+            JSONObject jsonBody = new JSONObject();
+            JSONObject notification = new JSONObject();
+            notification.put("title", "Bad Traffic Reported");
+            notification.put("body", trafficAddress);
+            jsonBody.put("notification", notification);
+            jsonBody.put("to", "/topics/trafficUpdates");
+
+            jsonBody.toString().replace("\\\\","");
+            Log.wtf("BODY", jsonBody.toString());
+
+            JsonObjectRequest request = new JsonObjectRequest(
+                    Request.Method.POST,
+                    url,
+                    jsonBody,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            //Log.d(TAG, "Response:" + response.toString());
+                            //Log.d(TAG,"Setting Response to string:\n" + response.toString());
+                            Log.wtf("RESPOMSE", response.toString());
+                        }
+                    },
+                    null) {
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<String, String>();
+                    headers.put("Authorization", "key=AAAADMY4DF0:APA91bF-6FzxakqhfIG1Zc2O2auOhnjSBHcIYmqm2RJVcRnT_tcE6Lz6LqLlujGQazCwh4XSDVxI_vXRrHZ10OMc9s-XeRtbenFVw4GbpqbqCMSVmEpv8T-8VxgdqiUwGLIKbASydy5h");
+                    headers.put("Content-Type", "application/json");
+                    return headers;
+                }
+            };
+
+            queue.add(request);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 //    public void getDaysSinceLastOverSpeed(final String username, final Context contextIn) {
 //        Log.i("getDaysincespeed", " called");
@@ -796,5 +845,14 @@ public class VolleyService extends Activity {
         intent.putExtra("response", "hello");
         weakContext.get().sendBroadcast(intent);
     }
+}
+class Notification implements Serializable{
+    String title, body;
+
+    public Notification(String title, String body) {
+        this.title = title;
+        this.body = body;
+    }
+
 
 }

@@ -188,15 +188,34 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             />
+    </LinearLayout>
+    <LinearLayout
+        android:paddingTop="20dp"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="214dp"
+        android:orientation="horizontal">
 
-        <!--<Spinner-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="30dp"-->
-            <!--android:id="@+id/blockIncomingSpinner"-->
-            <!--android:layout_weight="1"-->
-            <!--android:background="@color/white"-->
-            <!--android:entries="@array/blockIncomingCallsChoices"-->
-            <!--/>-->
+        <TextView
+            android:id="@+id/recieveTrafficUpdates"
+            android:gravity="left"
+            android:text="@string/receiveTraffic"
+            android:layout_weight="2"
+            android:layout_width="0dip"
+            android:layout_height="83dp"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textAlignment="center"
+            android:textStyle="normal"
+            />
+
+        <Switch
+            android:id="@+id/recieveTrafficUpdatesSwitch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
     </LinearLayout>
     <LinearLayout
         android:paddingTop="20dp"
@@ -242,5 +261,6 @@
         <!--android:entries="@array/blockIncomingCallsChoices"-->
         <!--/>-->
     </LinearLayout>
+
 </LinearLayout>
 

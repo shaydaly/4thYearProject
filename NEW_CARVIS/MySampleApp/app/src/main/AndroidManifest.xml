@@ -182,6 +182,13 @@
             android:name="com.carvis.RecorderService"
             android:enabled="true"
             android:exported="true"></service>
+
+        <service
+            android:name="com.carvis.CarvisFireBaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

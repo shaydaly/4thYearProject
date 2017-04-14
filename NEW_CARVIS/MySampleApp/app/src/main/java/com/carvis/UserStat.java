@@ -338,8 +338,6 @@ public class UserStat implements Serializable {
         return (start.distanceTo(end)) / 1000;
     }
 
-
-
     public double  getJourneyDuration(DateTime start, DateTime end){
 
         DateTimeFormatter format = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");

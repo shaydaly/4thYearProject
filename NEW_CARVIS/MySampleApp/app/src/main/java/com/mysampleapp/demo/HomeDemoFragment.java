@@ -178,11 +178,12 @@ public class HomeDemoFragment extends DemoFragmentBase {
                     Log.wtf("ex1", e.getMessage());
                 }
                 try {
+                    String day = intent.getStringExtra("overSpeedDay");
                     String overSpeedDay = PreferenceManager.getDefaultSharedPreferences(context).getString("overSpeedDate", "");
                     String textOutput = "";
                     if (!overSpeedDay.equals("NA")) {
                         textOutput = greeting + getString(R.string.overSpeedDay)
-                                + " " + overSpeedDay + ". " + getString(R.string.alternativeRoute);
+                                + " " + day + ". " + getString(R.string.alternativeRoute);
                     } else {
                         textOutput =  getString(R.string.noOverSpeeds);
                     }
@@ -302,6 +303,8 @@ public class HomeDemoFragment extends DemoFragmentBase {
             count++;
             Log.wtf("COUNT", String.valueOf(count));
             modulo = (count % 5);
+            if(modulo<0)
+                modulo+=5;
             Log.wtf("modulo", String.valueOf(modulo));
             showTextView(modulo);
             Toast.makeText(context, "modul---"+String.valueOf(modulo), Toast.LENGTH_SHORT).show();

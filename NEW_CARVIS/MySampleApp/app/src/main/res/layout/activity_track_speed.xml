@@ -42,18 +42,7 @@
         <!--android:layout_alignParentLeft="true"-->
         <!--android:layout_alignParentStart="true"-->
         <!--android:layout_marginLeft="15dp"-->
-        <!--android:layout_marginStart="15dp" />--><![CDATA[
-
-
-
-    //android:layout_alignLeft="@+id/addSpeedCamera"
-        //android:layout_alignStart="@+id/addSpeedCamera" />
-
-
-
-
-
-    ]]><!--<FrameLayout-->
+        <!--android:layout_marginStart="15dp" />--><!--<FrameLayout-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent">-->
 
@@ -133,21 +122,9 @@
         android:layout_marginStart="27dp"
         android:background="@color/dark"/>
 
-    <TextView
-        android:layout_below="@id/speed100km"
-        android:text=""
-        android:background="@color/red"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:id="@+id/speedCamera"
-        android:textColor="@color/dark"
-        android:visibility="invisible"
-        android:textStyle="bold"
-        android:layout_marginTop="70dp"
-        android:textAlignment="center"
-        android:gravity="center_horizontal" />
 
-<!--<SurfaceView-->
+
+    <!--<SurfaceView-->
     <!--android:layout_width="wrap_content"-->
     <!--android:layout_height="wrap_content"-->
     <!--android:id="@+id/surfaceViewSpeed"/>-->
@@ -167,6 +144,41 @@
         <!--android:layout_alignStart="@+id/speed50km" />-->
 
 </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/speed100km">
+    <TextView
+        android:layout_below="@id/speed100km"
+        android:text="hello"
+        android:background="@color/red"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:id="@+id/speedCamera"
+        android:textColor="@color/dark"
+        android:visibility="invisible"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:layout_below="@id/speed100km"
+        android:text="hello"
+        android:background="@color/blue"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:id="@+id/badTrafficReported"
+        android:textColor="@color/dark"
+        android:visibility="invisible"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        android:layout_weight="1" />
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"

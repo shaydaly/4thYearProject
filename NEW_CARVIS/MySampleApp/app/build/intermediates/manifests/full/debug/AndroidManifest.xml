@@ -198,6 +198,11 @@
             android:name="com.carvis.RecorderService"
             android:enabled="true"
             android:exported="true" />
+        <service android:name="com.carvis.CarvisFireBaseMessagingService" >
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
         <!-- Include the AdActivity and InAppPurchaseActivity configChanges and themes. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
@@ -234,17 +239,6 @@ Service handling Google Sign-In user revocation. For apps that do not integrate 
 
         <service android:name="com.google.android.gms.cast.framework.media.MediaNotificationService" />
         <service android:name="com.google.android.gms.cast.framework.ReconnectionService" />
-        <!--
- FirebaseMessagingService performs security checks at runtime,
-             no need for explicit permissions despite exported="true"
-        -->
-        <service
-            android:name="com.google.firebase.messaging.FirebaseMessagingService"
-            android:exported="true" >
-            <intent-filter android:priority="-500" >
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
         <service
             android:name="com.google.android.gms.tagmanager.TagManagerService"
             android:enabled="true"
@@ -266,10 +260,17 @@ Service handling Google Sign-In user revocation. For apps that do not integrate 
             android:name="com.google.android.gms.common.api.GoogleApiActivity"
             android:exported="false"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+        <!--
+ FirebaseMessagingService performs security checks at runtime,
+             no need for explicit permissions despite exported="true"
+        -->
+        <service
+            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+            android:exported="true" >
+            <intent-filter android:priority="-500" >
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
         <receiver
             android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
@@ -325,6 +326,10 @@ Service handling Google Sign-In user revocation. For apps that do not integrate 
             android:authorities="com.amazon.mysampleapp.firebaseinitprovider"
             android:exported="false"
             android:initOrder="100" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

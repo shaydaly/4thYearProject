@@ -7,6 +7,9 @@ import android.util.Log;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Date;
 import java.util.LinkedHashSet;
@@ -47,6 +50,14 @@ public class TrafficUpdate {
         FirebaseApp.initializeApp(context);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("reportedTrafficIncident");
+
+
+//        FirebaseMessaging fm = FirebaseMessaging.getInstance();
+//        fm.send(new RemoteMessage.Builder("SHAY" + "@gcm.googleapis.com")
+//                .setMessageId(FirebaseInstanceId.getInstance().getToken())
+//                .addData("my_message", "Hello World")
+//                .addData("my_action","SAY_HELLO")
+//                .build());
 
         Location updateLocation  = new Location("Traffic Location");
         updateLocation.setLatitude(latitude);

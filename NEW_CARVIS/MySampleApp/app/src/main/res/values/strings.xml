@@ -147,6 +147,7 @@
     <string name="missedCall">While Driving you missed calls from</string>
     <string name="overSpeedDayTitle">Days speed on</string>
     <string name="averageSpeed">Avg. Speed(km)</string>
+    <string name="receiveTraffic">Receive traffic notifications</string>
 
     <string-array name="counties">
         <item>Dublin</item>

@@ -23,6 +23,10 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.RemoteMessage;
 import com.mysampleapp.R;
 
 import org.joda.time.DateTime;
@@ -44,7 +48,7 @@ public class UserSettings extends AppCompatActivity {
     EditText editText ;
     SharedPreferences prefs;
 
-    Switch blockCallsSwitch, speedCameraSwitch, overLimitSwitch;
+    Switch blockCallsSwitch, speedCameraSwitch, overLimitSwitch, receiveTrafficUpdates;
 
 
 
@@ -59,6 +63,9 @@ public class UserSettings extends AppCompatActivity {
         memberSince = (TextView)findViewById(R.id.memberSinceDisplay);
         memberSince.setText(prefs.getString("memberSince", ""));
 
+
+        //Log.wtf("TOKEM",FirebaseInstanceId.getInstance().getToken());
+        //FirebaseMessaging.getInstance().send(RemoteMessage);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.settingsToolbar);
@@ -90,7 +97,7 @@ public class UserSettings extends AppCompatActivity {
         blockCallsSwitch = (Switch)findViewById(R.id.blockIncomingCallsSwitch);
         overLimitSwitch = (Switch)findViewById(R.id.overSpeedLimitSwitch);
         speedCameraSwitch = (Switch)findViewById(R.id.speedCameraNotificationSwitch);
-
+        receiveTrafficUpdates  = (Switch)findViewById(R.id.recieveTrafficUpdatesSwitch);
 
         Resources res = getResources();
         final String[] counties = res.getStringArray(R.array.counties);
@@ -116,6 +123,21 @@ public class UserSettings extends AppCompatActivity {
                 speedCameraSwitch.setChecked(false);
             }
         }
+        if(prefs.contains("receiveTrafficNotifications")){
+            if(prefs.getBoolean("receiveTrafficNotifications", false)){
+                Log.wtf("playVoiceUpdate", "0");
+                //voiceSpinner.setSelection(0);
+                receiveTrafficUpdates.setChecked(true);
+            }
+            else{
+                Log.wtf("playVoiceUpdate", "1");
+                //voiceSpinner.setSelection(1);
+                receiveTrafficUpdates.setChecked(false);
+            }
+        }
+
+
+
 
         if(prefs.contains("playSpeedLimit")){
             if(prefs.getBoolean("playSpeedLimit", false)){
@@ -158,6 +180,27 @@ public class UserSettings extends AppCompatActivity {
                 }
             }
         });
+
+
+        receiveTrafficUpdates.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // do something, the isChecked will be
+                // true if the switch is in the On position
+                if(receiveTrafficUpdates.isChecked()){
+                    FirebaseMessaging.getInstance().subscribeToTopic("trafficUpdates");
+                    prefs.edit()
+                            .putBoolean("receiveTrafficNotifications", true)
+                            .commit();
+                }
+                else{
+                    FirebaseMessaging.getInstance().unsubscribeFromTopic("trafficUpdates");
+                    prefs.edit()
+                            .putBoolean("receiveTrafficNotifications", false)
+                            .commit();
+                }
+            }
+        });
+
 
 
         blockCallsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -291,8 +334,8 @@ public class UserSettings extends AppCompatActivity {
 
     public void saveLocaleSharedPreferences(String locale){
         prefs.edit()
-        .putString("locale", locale)
-        .commit();
+                .putString("locale", locale)
+                .commit();
     }
 
     public void getCityAddress(double lat, double lon) {

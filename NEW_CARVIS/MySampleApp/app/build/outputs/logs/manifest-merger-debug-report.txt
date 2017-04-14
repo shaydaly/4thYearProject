@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:13:1-187:12
+ADDED from C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:13:1-194:12
 	package
 		ADDED from C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:14:5-30
 		INJECTED from C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml
@@ -144,8 +144,8 @@ ADDED from C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\src\main\A
 	android:name
 		ADDED from C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:55:21-69
 application
-ADDED from C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:59:5-185:19
-MERGED from [com.android.support:design:23.2.1] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.support\design\23.2.1\AndroidManifest.xml:22:5-20
+ADDED from C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:59:5-192:19
+MERGED from [com.android.support:design:23.4.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.support\design\23.4.0\AndroidManifest.xml:22:5-20
 MERGED from [com.facebook.android:facebook-android-sdk:4.6.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.6.0\AndroidManifest.xml:28:5-20
 MERGED from [com.android.volley:volley:1.0.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.volley\volley\1.0.0\AndroidManifest.xml:9:5-20
 MERGED from [com.google.android.gms:play-services:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services\10.2.0\AndroidManifest.xml:5:5-20
@@ -165,7 +165,6 @@ MERGED from [com.google.firebase:firebase-config:10.2.0] C:\Users\Seamus\Desktop
 MERGED from [com.google.android.gms:play-services-awareness:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-awareness\10.2.0\AndroidManifest.xml:18:5-19
 MERGED from [com.google.firebase:firebase-crash:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-crash\10.2.0\AndroidManifest.xml:22:5-23:19
 MERGED from [com.google.firebase:firebase-auth:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-auth\10.2.0\AndroidManifest.xml:19:5-20:19
-MERGED from [com.google.firebase:firebase-messaging:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-messaging\10.2.0\AndroidManifest.xml:19:5-29:19
 MERGED from [com.google.android.gms:play-services-fitness:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-fitness\10.2.0\AndroidManifest.xml:18:5-19
 MERGED from [com.google.android.gms:play-services-games:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\10.2.0\AndroidManifest.xml:18:5-19
 MERGED from [com.google.android.gms:play-services-drive:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\10.2.0\AndroidManifest.xml:18:5-19
@@ -187,7 +186,7 @@ MERGED from [com.google.android.gms:play-services-identity:10.2.0] C:\Users\Seam
 MERGED from [com.google.android.gms:play-services-wearable:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\10.2.0\AndroidManifest.xml:18:5-19
 MERGED from [com.google.android.gms:play-services-maps:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\10.2.0\AndroidManifest.xml:24:5-19
 MERGED from [com.google.android.gms:play-services-base:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\10.2.0\AndroidManifest.xml:18:5-20:19
-MERGED from [com.google.maps.android:android-maps-utils:0.5] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.maps.android\android-maps-utils\0.5\AndroidManifest.xml:7:5-11:19
+MERGED from [com.google.firebase:firebase-messaging:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-messaging\10.2.0\AndroidManifest.xml:19:5-29:19
 MERGED from [com.google.firebase:firebase-core:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-core\10.2.0\AndroidManifest.xml:5:5-20
 MERGED from [com.google.firebase:firebase-analytics:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics\10.2.0\AndroidManifest.xml:24:5-33:19
 MERGED from [com.google.firebase:firebase-analytics-impl:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics-impl\10.2.0\AndroidManifest.xml:24:5-28:19
@@ -358,11 +357,21 @@ ADDED from C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\src\main\A
 		ADDED from C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:184:13-36
 	android:name
 		ADDED from C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:182:13-54
+service#com.carvis.CarvisFireBaseMessagingService
+ADDED from C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:186:9-191:19
+	android:name
+		ADDED from C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:187:13-69
+intent-filter#com.google.firebase.MESSAGING_EVENT
+ADDED from C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:188:13-190:29
+action#com.google.firebase.MESSAGING_EVENT
+ADDED from C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:189:17-77
+	android:name
+		ADDED from C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml:189:25-75
 uses-sdk
 INJECTED from C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 MERGED from [com.android.support:multidex:1.0.1] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.support\multidex\1.0.1\AndroidManifest.xml:18:5-42
-MERGED from [com.android.support:design:23.2.1] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.support\design\23.2.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:recyclerview-v7:23.2.1] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.2.1\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:design:23.4.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.support\design\23.4.0\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:23.4.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.4.0\AndroidManifest.xml:20:5-43
 MERGED from [com.facebook.android:facebook-android-sdk:4.6.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.6.0\AndroidManifest.xml:24:5-26:41
 MERGED from [com.android.volley:volley:1.0.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.android.volley\volley\1.0.0\AndroidManifest.xml:7:5-43
 MERGED from [com.google.android.gms:play-services:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services\10.2.0\AndroidManifest.xml:4:5-43
@@ -384,7 +393,6 @@ MERGED from [com.google.firebase:firebase-config:10.2.0] C:\Users\Seamus\Desktop
 MERGED from [com.google.android.gms:play-services-awareness:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-awareness\10.2.0\AndroidManifest.xml:17:5-43
 MERGED from [com.google.firebase:firebase-crash:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-crash\10.2.0\AndroidManifest.xml:20:5-43
 MERGED from [com.google.firebase:firebase-auth:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-auth\10.2.0\AndroidManifest.xml:17:5-43
-MERGED from [com.google.firebase:firebase-messaging:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-messaging\10.2.0\AndroidManifest.xml:17:5-43
 MERGED from [com.google.firebase:firebase-storage:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-storage\10.2.0\AndroidManifest.xml:3:5-43
 MERGED from [com.google.firebase:firebase-storage-common:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-storage-common\10.2.0\AndroidManifest.xml:3:5-43
 MERGED from [com.google.android.gms:play-services-fitness:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-fitness\10.2.0\AndroidManifest.xml:17:5-43
@@ -413,7 +421,7 @@ MERGED from [com.google.android.gms:play-services-maps:10.2.0] C:\Users\Seamus\D
 MERGED from [com.google.android.gms:play-services-base:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\10.2.0\AndroidManifest.xml:17:5-43
 MERGED from [com.google.firebase:firebase-database:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-database\10.2.0\AndroidManifest.xml:3:5-43
 MERGED from [com.google.firebase:firebase-database-connection:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-database-connection\10.2.0\AndroidManifest.xml:3:5-43
-MERGED from [com.google.maps.android:android-maps-utils:0.5] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.maps.android\android-maps-utils\0.5\AndroidManifest.xml:5:5-43
+MERGED from [com.google.firebase:firebase-messaging:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-messaging\10.2.0\AndroidManifest.xml:17:5-43
 MERGED from [com.google.firebase:firebase-core:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-core\10.2.0\AndroidManifest.xml:4:5-43
 MERGED from [com.google.firebase:firebase-analytics:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics\10.2.0\AndroidManifest.xml:17:5-43
 MERGED from [com.google.firebase:firebase-analytics-impl:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics-impl\10.2.0\AndroidManifest.xml:17:5-43
@@ -492,20 +500,6 @@ service#com.google.android.gms.cast.framework.ReconnectionService
 ADDED from [com.google.android.gms:play-services-cast-framework:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast-framework\10.2.0\AndroidManifest.xml:7:9-92
 	android:name
 		ADDED from [com.google.android.gms:play-services-cast-framework:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast-framework\10.2.0\AndroidManifest.xml:7:18-90
-service#com.google.firebase.messaging.FirebaseMessagingService
-ADDED from [com.google.firebase:firebase-messaging:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-messaging\10.2.0\AndroidManifest.xml:23:9-27:19
-	android:exported
-		ADDED from [com.google.firebase:firebase-messaging:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-messaging\10.2.0\AndroidManifest.xml:23:88-111
-	android:name
-		ADDED from [com.google.firebase:firebase-messaging:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-messaging\10.2.0\AndroidManifest.xml:23:18-87
-intent-filter#com.google.firebase.MESSAGING_EVENT
-ADDED from [com.google.firebase:firebase-messaging:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-messaging\10.2.0\AndroidManifest.xml:24:13-26:29
-	android:priority
-		ADDED from [com.google.firebase:firebase-messaging:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-messaging\10.2.0\AndroidManifest.xml:24:28-51
-action#com.google.firebase.MESSAGING_EVENT
-ADDED from [com.google.firebase:firebase-messaging:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-messaging\10.2.0\AndroidManifest.xml:25:17-77
-	android:name
-		ADDED from [com.google.firebase:firebase-messaging:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-messaging\10.2.0\AndroidManifest.xml:25:25-75
 uses-permission#com.google.android.c2dm.permission.RECEIVE
 ADDED from [com.google.android.gms:play-services-gcm:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\10.2.0\AndroidManifest.xml:20:5-81
 MERGED from [com.google.android.gms:play-services-iid:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-iid\10.2.0\AndroidManifest.xml:20:5-81
@@ -554,13 +548,12 @@ ADDED from [com.google.android.gms:play-services-base:10.2.0] C:\Users\Seamus\De
 		ADDED from [com.google.android.gms:play-services-base:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\10.2.0\AndroidManifest.xml:19:86-145
 	android:name
 		ADDED from [com.google.android.gms:play-services-base:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\10.2.0\AndroidManifest.xml:19:19-85
-meta-data#com.google.android.gms.version
-ADDED from [com.google.maps.android:android-maps-utils:0.5] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.maps.android\android-maps-utils\0.5\AndroidManifest.xml:8:9-10:69
-MERGED from [com.google.android.gms:play-services-basement:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\10.2.0\AndroidManifest.xml:20:9-121
-	android:value
-		ADDED from [com.google.maps.android:android-maps-utils:0.5] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.maps.android\android-maps-utils\0.5\AndroidManifest.xml:10:13-66
+service#com.google.firebase.messaging.FirebaseMessagingService
+ADDED from [com.google.firebase:firebase-messaging:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-messaging\10.2.0\AndroidManifest.xml:23:9-27:19
+	android:exported
+		ADDED from [com.google.firebase:firebase-messaging:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-messaging\10.2.0\AndroidManifest.xml:23:88-111
 	android:name
-		ADDED from [com.google.maps.android:android-maps-utils:0.5] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.maps.android\android-maps-utils\0.5\AndroidManifest.xml:9:13-58
+		ADDED from [com.google.firebase:firebase-messaging:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-messaging\10.2.0\AndroidManifest.xml:23:18-87
 receiver#com.google.android.gms.measurement.AppMeasurementReceiver
 ADDED from [com.google.firebase:firebase-analytics:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics\10.2.0\AndroidManifest.xml:25:7-26:18
 MERGED from [com.google.firebase:firebase-analytics-impl:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics-impl\10.2.0\AndroidManifest.xml:25:7-26:18
@@ -655,3 +648,9 @@ ADDED from [com.google.firebase:firebase-common:10.2.0] C:\Users\Seamus\Desktop\
 		ADDED from [com.google.firebase:firebase-common:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-common\10.2.0\AndroidManifest.xml:6:169-192
 	android:name
 		ADDED from [com.google.firebase:firebase-common:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-common\10.2.0\AndroidManifest.xml:6:79-143
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\10.2.0\AndroidManifest.xml:20:9-121
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\10.2.0\AndroidManifest.xml:20:66-119
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:10.2.0] C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\10.2.0\AndroidManifest.xml:20:20-65

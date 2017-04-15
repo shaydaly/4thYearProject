@@ -86,6 +86,7 @@ public class HomeDemoFragment extends DemoFragmentBase {
 
 
 
+
         getPermissions();
 
 
@@ -129,7 +130,7 @@ public class HomeDemoFragment extends DemoFragmentBase {
          count = 0;
 
         modulo = 0;
-
+        Log.wtf("TOKEN", provider.getToken());
 
         daysSinceOverSpeed = (TextView) getActivity().findViewById(R.id.daysSinceOverSpeed);
 //        daysSinceOverSpeed.setText("hello`1");
@@ -315,7 +316,7 @@ public class HomeDemoFragment extends DemoFragmentBase {
 
         if(SplashActivity.justSignedin) {
             v = new VolleyService(context);
-            v.getDaysSinceLastOverSpeed(provider.getUserName(), context);
+            v.getDaysSinceLastOverSpeed(provider, context);
 
 
         }

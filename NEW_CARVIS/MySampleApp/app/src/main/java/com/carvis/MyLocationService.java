@@ -192,7 +192,7 @@ public class MyLocationService extends Service implements
                     Log.i("Get Limit Exception", e.getMessage());
                 }
             }
-        }, 0, 3, TimeUnit.SECONDS);  // execute every x seconds
+        }, 0, 5, TimeUnit.SECONDS);  // execute every x seconds
 
         ses.scheduleAtFixedRate(new Runnable() {
             @Override
@@ -347,7 +347,7 @@ public class MyLocationService extends Service implements
 
                     if (intialMovement) {
                         //journey.addJourneyDB(queue, provider.getUserName(), "insert");
-                        volleyService.addJourneyDB(journey, provider.getUserName(), "insert");
+                        volleyService.addJourneyDB(journey, provider, "insert");
                         intialMovement = false;
                     }
 
@@ -540,7 +540,7 @@ public class MyLocationService extends Service implements
             }
             //handler.sendEmptyMessage(0);
             //journey.getSpeedFromLambda(database, queue, speedSearch);
-            volleyService.getSpeedFromLambda(this, speedSearch, journey.getLatitude(), journey.getLongitude());
+            volleyService.getSpeedFromLambda(this, speedSearch, journey.getLatitude(), journey.getLongitude(), provider.getToken());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -554,10 +554,10 @@ public class MyLocationService extends Service implements
             @Override
             public void run() {
                 //journey.addJourneyDB(queue, provider.getUserName(), "update");
-                volleyService.addJourneyDB(journey, provider.getUserName(), "update");
+                volleyService.addJourneyDB(journey, provider, "update");
 //                JourneyFragment.AddJourneyFragments(queue, journeyList, journey.getJourneyID());
-                volleyService.addJourneyFragments(journeyList, journey.getJourneyID());
-                volleyService.addOverSpeedLimits(overSpeedLimits, journey.getJourneyID(), provider.getUserName());
+                volleyService.addJourneyFragments(journeyList, journey.getJourneyID(), provider.getToken());
+                volleyService.addOverSpeedLimits(overSpeedLimits, journey.getJourneyID(), provider.getToken());
                 updateHandler.sendEmptyMessage(0);
             }
         };

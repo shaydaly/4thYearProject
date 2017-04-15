@@ -134,7 +134,7 @@ public class ListJourney extends ListActivity {
             @Override
             public void run() {
                 //journey.getJourneyFragments(context, provider.getUserName(), selectedValue);
-                volleyService.getJourneyFragments(provider.getUserName(), selectedValue, journey);
+                volleyService.getJourneyFragments(provider, selectedValue, journey);
 //                long futureTme = System.currentTimeMillis()+3000;
 //                while (System.currentTimeMillis()< futureTme){
 //                    synchronized (this){
@@ -187,7 +187,7 @@ public class ListJourney extends ListActivity {
             @Override
             public void run() {
                 try{
-                    volleyService.getUsersJourneys(provider.getUserName(),journey);
+                    volleyService.getUsersJourneys(provider,journey);
                 userJourneyHandler.sendEmptyMessage(0);
             }catch (Exception e){
                     System.out.println(e.getMessage());

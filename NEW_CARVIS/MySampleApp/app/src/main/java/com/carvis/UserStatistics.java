@@ -70,7 +70,7 @@ public class UserStatistics extends AppCompatActivity {
         context = getApplicationContext();
         provider = new CognitoUserPoolsSignInProvider(context);
         volleyService = new VolleyService(context);
-        volleyService.getUserStatistics(provider.getUserName());
+        volleyService.getUserStatistics(provider);
     }
 
 

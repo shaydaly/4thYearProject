@@ -48,7 +48,7 @@ public class UserSettings extends AppCompatActivity {
     EditText editText ;
     SharedPreferences prefs;
 
-    Switch blockCallsSwitch, speedCameraSwitch, overLimitSwitch, receiveTrafficUpdates;
+    Switch blockCallsSwitch, speedCameraSwitch, overLimitSwitch, receiveTrafficUpdates, receiveVoiceTrafficUpdates;
 
 
 
@@ -98,7 +98,7 @@ public class UserSettings extends AppCompatActivity {
         overLimitSwitch = (Switch)findViewById(R.id.overSpeedLimitSwitch);
         speedCameraSwitch = (Switch)findViewById(R.id.speedCameraNotificationSwitch);
         receiveTrafficUpdates  = (Switch)findViewById(R.id.recieveTrafficUpdatesSwitch);
-
+        receiveVoiceTrafficUpdates = (Switch)findViewById(R.id.receiveVoiceTrafficUpdatesSwitch);
         Resources res = getResources();
         final String[] counties = res.getStringArray(R.array.counties);
         final String[] playVoiceArray = res.getStringArray(R.array.voiceUpdateChoices);
@@ -164,6 +164,20 @@ public class UserSettings extends AppCompatActivity {
             }
         }
 
+        if(prefs.contains("playTrafficUpdates")){
+            if(prefs.getBoolean("playTrafficUpdates", false)){
+                Log.wtf("playTrafficUpdates", "1");
+                //blockIncomingCallSpinner.setSelection(1);
+                receiveVoiceTrafficUpdates.setChecked(true);
+            }
+            else{
+                Log.wtf("playTrafficUpdates", "1");
+                //blockIncomingCallSpinner.setSelection(0);
+                receiveVoiceTrafficUpdates.setChecked(false);
+            }
+        }
+
+
         speedCameraSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // do something, the isChecked will be
@@ -181,7 +195,6 @@ public class UserSettings extends AppCompatActivity {
             }
         });
 
-
         receiveTrafficUpdates.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // do something, the isChecked will be
@@ -196,6 +209,23 @@ public class UserSettings extends AppCompatActivity {
                     FirebaseMessaging.getInstance().unsubscribeFromTopic("trafficUpdates");
                     prefs.edit()
                             .putBoolean("receiveTrafficNotifications", false)
+                            .commit();
+                }
+            }
+        });
+
+        receiveVoiceTrafficUpdates.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // do something, the isChecked will be
+                // true if the switch is in the On position
+                if(receiveVoiceTrafficUpdates.isChecked()){
+                    prefs.edit()
+                            .putBoolean("playTrafficUpdates", true)
+                            .commit();
+                }
+                else{
+                    prefs.edit()
+                            .putBoolean("playTrafficUpdates", false)
                             .commit();
                 }
             }

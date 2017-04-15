@@ -148,6 +148,7 @@
     <string name="overSpeedDayTitle">Days speed on</string>
     <string name="averageSpeed">Avg. Speed(km)</string>
     <string name="receiveTraffic">Receive traffic notifications</string>
+    <string name="receiveTrafficVoice">Receive Voice Traffic Updates</string>
 
     <string-array name="counties">
         <item>Dublin</item>

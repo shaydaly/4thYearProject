@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/darkDash">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/settingsToolbar"
         android:layout_width="match_parent"
@@ -19,7 +20,11 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingRight="20dp"
-        android:paddingLeft="20dp">
+        android:paddingLeft="20dp"
+        android:layout_below="@+id/settingsToolbar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout1">
 
 
 
@@ -61,7 +66,9 @@
         android:paddingRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout2"
+        android:layout_below="@+id/linearLayout1">
 
         <TextView
             android:id="@+id/locale"
@@ -92,7 +99,9 @@
         android:paddingRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout3"
+        android:layout_below="@+id/linearLayout2">
 
         <TextView
             android:id="@+id/voiceUpdate"
@@ -115,21 +124,24 @@
             />
 
         <!--<Spinner-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:id="@+id/speedCameraVoiceUpdateSpinner"-->
-            <!--android:layout_weight="1"-->
-            <!--android:background="@color/white"-->
-            <!--android:entries="@array/voiceUpdateChoices"-->
-            <!--/>-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/speedCameraVoiceUpdateSpinner"-->
+        <!--android:layout_weight="1"-->
+        <!--android:background="@color/white"-->
+        <!--android:entries="@array/voiceUpdateChoices"-->
+        <!--/>-->
     </LinearLayout>
+
     <LinearLayout
         android:paddingTop="20dp"
         android:paddingRight="20dp"
         android:paddingLeft="20dp"
         android:layout_width="match_parent"
-        android:layout_height="59dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout4"
+        android:layout_below="@+id/linearLayout3">
 
         <TextView
             android:id="@+id/speedOverLimitVoice"
@@ -137,7 +149,7 @@
             android:text="@string/overSpeedLimitVoice"
             android:layout_weight="2"
             android:layout_width="0dip"
-            android:layout_height="83dp"
+            android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textAlignment="center"
@@ -151,23 +163,17 @@
             android:id="@+id/overSpeedLimitSwitch"
             />
 
-        <!--<Spinner-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="30dp"-->
-            <!--android:id="@+id/speedOverLimitVoiceSpinner"-->
-            <!--android:layout_weight="1"-->
-            <!--android:background="@color/white"-->
-            <!--android:entries="@array/voiceUpdateChoices"-->
-            <!--/>-->
     </LinearLayout>
+
     <LinearLayout
         android:paddingTop="20dp"
         android:paddingRight="20dp"
         android:paddingLeft="20dp"
         android:layout_width="match_parent"
-        android:layout_height="0dip"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_weight="0.61" >
+        android:id="@+id/linearLayout5"
+        android:layout_below="@+id/linearLayout4">
 
         <TextView
             android:id="@+id/blockIncoming"
@@ -175,7 +181,7 @@
             android:text="@string/blockIncoming"
             android:layout_weight="2"
             android:layout_width="0dip"
-            android:layout_height="83dp"
+            android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textAlignment="center"
@@ -189,13 +195,16 @@
             android:layout_weight="1"
             />
     </LinearLayout>
+
     <LinearLayout
         android:paddingTop="20dp"
         android:paddingRight="20dp"
         android:paddingLeft="20dp"
         android:layout_width="match_parent"
-        android:layout_height="214dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout6"
+        android:layout_below="@id/linearLayout5">
 
         <TextView
             android:id="@+id/recieveTrafficUpdates"
@@ -203,7 +212,7 @@
             android:text="@string/receiveTraffic"
             android:layout_weight="2"
             android:layout_width="0dip"
-            android:layout_height="83dp"
+            android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textAlignment="center"
@@ -217,6 +226,7 @@
             android:layout_weight="1"
             />
     </LinearLayout>
+
     <LinearLayout
         android:paddingTop="20dp"
         android:paddingRight="20dp"
@@ -224,7 +234,41 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="10dp">
+        android:id="@+id/linearLayout7"
+        android:layout_below="@+id/linearLayout6">
+
+        <TextView
+            android:id="@+id/receiveVoiceTraffic"
+            android:gravity="left"
+            android:text="@string/receiveTrafficVoice"
+            android:layout_weight="2"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textAlignment="center"
+            android:textStyle="normal"
+            />
+
+        <Switch
+            android:id="@+id/receiveVoiceTrafficUpdatesSwitch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingTop="20dp"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout8"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <TextView
             android:id="@+id/memberSince"
@@ -262,5 +306,6 @@
         <!--/>-->
     </LinearLayout>
 
-</LinearLayout>
+
+</RelativeLayout>
 

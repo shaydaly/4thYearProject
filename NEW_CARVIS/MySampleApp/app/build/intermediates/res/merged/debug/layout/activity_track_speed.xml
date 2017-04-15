@@ -7,232 +7,187 @@
     android:layout_height="match_parent"
     tools:context="com.carvis.TrackSpeedActivity">
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_track_speed"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.carvis.TrackSpeedActivity"
-    android:background="@color/dark">
-
-
-
-    <!--<Button-->
-        <!--android:text="@string/addCamera"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/addSpeedCamera"-->
-        <!--android:layout_marginBottom="19dp"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_alignParentEnd="true" />-->
-
-    <!--<Button-->
-        <!--android:text="query DB"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/queryDB"-->
-        <!--android:layout_alignBaseline="@+id/addSpeedCamera"-->
-        <!--android:layout_alignBottom="@+id/addSpeedCamera"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--android:layout_marginLeft="15dp"-->
-        <!--android:layout_marginStart="15dp" />--><!--<FrameLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
-
-    <!--</FrameLayout>-->
-
-    <ImageView
-    android:layout_width="200dp"
-    android:layout_height="200dp"
-    android:src="@drawable/speed50km"
-    android:id="@+id/speed50km"
-    android:scaleType="fitXY"
-    android:adjustViewBounds="true"
-    android:contentDescription="asdassad"
-    android:scaleX="0.75"
-    android:scaleY="0.75"
-    android:visibility="invisible" android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"/>
-
-    <ImageView
-    android:layout_width="200dp"
-    android:layout_height="200dp"
-    android:src="@drawable/speed60km"
-    android:id="@+id/speed60km"
-    android:scaleType="fitXY"
-    android:adjustViewBounds="true"
-    android:contentDescription="asdassad"
-    android:scaleX="0.75"
-    android:scaleY="0.75"
-    android:visibility="invisible"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp" />
-
-    <ImageView
-    android:layout_width="200dp"
-    android:layout_height="200dp"
-    android:src="@drawable/speed80km"
-    android:id="@+id/speed80km"
-    android:scaleType="fitXY"
-    android:adjustViewBounds="true"
-    android:contentDescription="asdassad"
-    android:scaleX="0.75"
-    android:scaleY="0.75"
-    android:visibility="invisible"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp" />
-
-    <ImageView
-    android:layout_width="200dp"
-    android:layout_height="200dp"
-    android:src="@drawable/speed100km"
-    android:id="@+id/speed100km"
-        android:scaleType="fitXY"
-    android:adjustViewBounds="true"
-    android:contentDescription="asdassad"
-    android:scaleX="0.75"
-    android:scaleY="0.75"
-        android:visibility="invisible"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp" />
-
-    <TextView
-        android:text="@string/initialSpeed"
-        android:layout_width="290dp"
-        android:layout_height="150dp"
-        android:textSize="30sp"
-        android:id="@+id/currentSpeed"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/speed50km"
-        android:layout_alignStart="@+id/speed50km"
-        android:layout_marginLeft="27dp"
-        android:layout_marginStart="27dp"
-        android:background="@color/dark"/>
-
-
-
-    <!--<SurfaceView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:id="@+id/surfaceViewSpeed"/>-->
-
-    <!--<TextView-->
-        <!--android:text="@string/speedLimit"-->
-        <!--android:layout_width="290dp"-->
-        <!--android:layout_height="150dp"-->
-        <!--android:textSize="30sp"-->
-        <!--android:id="@+id/speedLimit"-->
-        <!--android:textStyle="bold"-->
-        <!--android:textColor="@color/white"-->
-        <!--android:layout_marginLeft="78dp"-->
-        <!--android:layout_marginStart="78dp"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_alignLeft="@+id/speed50km"-->
-        <!--android:layout_alignStart="@+id/speed50km" />-->
-
-</RelativeLayout>
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/speed100km">
-    <TextView
-        android:layout_below="@id/speed100km"
-        android:text="hello"
-        android:background="@color/red"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:id="@+id/speedCamera"
-        android:textColor="@color/dark"
-        android:visibility="invisible"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        android:gravity="center_horizontal"
-        android:layout_weight="1"/>
+        android:layout_height="match_parent"
+        android:background="@color/dark"
+        android:id="@+id/relative">
 
-    <TextView
-        android:layout_below="@id/speed100km"
-        android:text="hello"
-        android:background="@color/blue"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:id="@+id/badTrafficReported"
-        android:textColor="@color/dark"
-        android:visibility="invisible"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        android:gravity="center_horizontal"
-        android:layout_weight="1" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:orientation="horizontal"
-        android:layout_weight="1"
-        android:gravity="center|bottom">
-
-        <Button
-        android:text="@string/addCamera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/addSpeedCamera"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-            android:layout_weight="1"
-            android:background="@color/silver"/>
-
-        <Button
-            android:text="@string/addTrafficIndicator"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/addTrafficIndicator"
-            android:layout_weight="1"
-            android:background="@color/vanMapColor"/>
-
-        <Button
-            android:text="@string/emergencySMS"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/sendEmergencySMS"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_weight="1"
-            android:background="@color/red"/>
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/linearLayout">
 
-        <Button
-            android:text="@string/endJourney"
-            android:layout_width="wrap_content"
+            <Button
+                android:text="@string/addCamera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/addSpeedCamera"
+                android:layout_weight="1"
+                android:background="@color/silver"/>
+
+            <Button
+                android:text="@string/addTrafficIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/addTrafficIndicator"
+                android:layout_weight="1"
+                android:background="@color/vanMapColor"/>
+
+            </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/endJourney"
+            android:id="@+id/linearLayout2">
+
+            <Button
+                android:text="@string/emergencySMS"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/sendEmergencySMS"
+                android:layout_weight="1"
+                android:background="@color/red"
+                android:layout_above="@+id/linearLayout"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <Button
+                android:text="@string/endJourney"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/endJourney"
+                android:textColor="@color/white"
+                android:layout_weight="1"
+                android:background="@color/nav_drawer_background"
+                android:layout_alignBaseline="@+id/sendEmergencySMS"
+                android:layout_alignBottom="@+id/sendEmergencySMS"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/speed60km"
+            android:id="@+id/speed60km"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:contentDescription="asdassad"
+            android:scaleX="0.75"
+            android:scaleY="0.75"
+            android:visibility="invisible"
+            android:layout_below="@+id/currentSpeed"
+            android:layout_alignLeft="@+id/speed50km"
+            android:layout_alignStart="@+id/speed50km" />
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/speed50km"
+            android:id="@+id/speed50km"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:contentDescription="asdassad"
+            android:scaleX="0.75"
+            android:scaleY="0.75"
+            android:visibility="invisible"
+            android:layout_below="@+id/currentSpeed"
+            android:layout_alignLeft="@+id/speed80km"
+            android:layout_alignStart="@+id/speed80km" />
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/speed80km"
+            android:id="@+id/speed80km"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:contentDescription="asdassad"
+            android:scaleX="0.75"
+            android:scaleY="0.75"
+            android:visibility="invisible"
+            android:layout_below="@+id/currentSpeed"
+            android:layout_alignLeft="@+id/speed100km"
+            android:layout_alignStart="@+id/speed100km" />
+
+        <TextView
+            android:text="@string/initialSpeed"
+            android:layout_width="290dp"
+            android:layout_height="150dp"
+            android:textSize="30sp"
+            android:id="@+id/currentSpeed"
+            android:textStyle="bold"
             android:textColor="@color/white"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_weight="1"
-            android:background="@color/nav_drawer_background"/>
+
+            android:background="@color/dark"
+            android:textAlignment="center"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_marginTop="104dp"
+            android:layout_below="@+id/linearLayout2"
+            android:layout_centerHorizontal="true" />
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/linearLayout2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <TextView
+                android:text="hello"
+                android:background="@color/blue"
+                android:layout_height="100dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:id="@+id/speedCamera"
+                android:textColor="@color/dark"
+                android:visibility="invisible"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:gravity="center_horizontal"
+                android:layout_below="@+id/linearLayout2"
+                android:layout_alignParentRight="true"
+                />
+
+            <TextView
+                android:text="hello"
+                android:background="@color/blue"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="100dp"
+                android:id="@+id/badTrafficReported"
+                android:textColor="@color/dark"
+                android:visibility="invisible"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:gravity="center_horizontal"
+                android:layout_below="@+id/linearLayout2"
+                android:layout_alignParentLeft="true" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/speed100km"
+            android:id="@+id/speed100km"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:contentDescription="asdassad"
+            android:scaleX="0.75"
+            android:scaleY="0.75"
+            android:visibility="invisible"
+            android:layout_below="@+id/currentSpeed"
+            android:layout_centerHorizontal="true" />
 
 
+    </RelativeLayout>
 
-
-
-    </LinearLayout>
 </android.support.v4.widget.DrawerLayout>

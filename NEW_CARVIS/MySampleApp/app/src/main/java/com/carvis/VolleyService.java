@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -49,6 +50,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import static android.R.attr.outlineProvider;
 import static android.R.attr.value;
 
 /**
@@ -74,7 +76,7 @@ public class VolleyService extends Activity {
         view = new View(context);
     }
 
-    public void addJourneyDB(final Journey journey, String username, String updateType) {
+    public void addJourneyDB(final Journey journey,final CognitoUserPoolsSignInProvider provider, String updateType) {
         try {
             System.out.println("Add journey called");
             url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/createjourneyobject";
@@ -85,7 +87,7 @@ public class VolleyService extends Activity {
             jsonBody.put("latitude", journey.getLatitude());
             jsonBody.put("startTime", dNow);
             jsonBody.put("endTime", dNow);
-            jsonBody.put("username", username);
+            jsonBody.put("username", provider.getUserName());
             jsonBody.put("sqlType", updateType);
             jsonBody.put("journeyID", journey.getJourneyID());
             final String requestBody = jsonBody.toString();
@@ -121,6 +123,14 @@ public class VolleyService extends Activity {
                 }
 
                 @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<String, String>();
+                    headers.put("Authorization", provider.getToken());
+                    headers.put("Content-Type", "application/json");
+                    return headers;
+                }
+
+                @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
 
                     String responseString = "";
@@ -149,7 +159,7 @@ public class VolleyService extends Activity {
     }
 
 
-    public void createTrafficIncident(int roadid, String date, String username) {
+    public void createTrafficIncident(int roadid, String date, final CognitoUserPoolsSignInProvider provider) {
         try {
             System.out.println("Add journey called");
             url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/createTrafficIncident";
@@ -158,65 +168,36 @@ public class VolleyService extends Activity {
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("roadid", roadid);
             jsonBody.put("timeofincident", date);
-            jsonBody.put("username", username);
+            jsonBody.put("username", provider.getUserName());
 
             final String requestBody = jsonBody.toString();
 
             Log.wtf("volleyTraffic", requestBody);
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    //result = response;
-                    Log.i("create traffic", response.toString());
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    //result = error.toString();
-                    Log.i("create traffic", error.toString());
-                }
-            }) {
-                @Override
-                public String getBodyContentType() {
-                    return "application/json; charset=utf-8";
-                }
-
-                @Override
-                public byte[] getBody() throws AuthFailureError {
-                    try {
-                        return requestBody == null ? null : requestBody.getBytes("utf-8");
-
-                    } catch (UnsupportedEncodingException uee) {
-                        // result = uee.toString();
-                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
-                        return null;
-                    }
-                }
-
-                @Override
-                protected Response<String> parseNetworkResponse(NetworkResponse response) {
-
-                    String responseString = "";
-                    if (response != null) {
-                        responseString = String.valueOf(response.statusCode);
-                        // can get more details such as response.headers
-                        //result = (response.toString());
-                        try {
-                            String str = new String(response.data, "UTF-8");
-                            Log.i("volleyResponse", str);
-
-                            String jID = str.replaceAll("[^\\d.]", "");
-                            Log.wtf("volleResponse", jID);
-                        } catch (UnsupportedEncodingException e) {
-
+            JsonObjectRequest request = new JsonObjectRequest(
+                    Request.Method.POST,
+                    url,
+                    jsonBody,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            //Log.d(TAG, "Response:" + response.toString());
+                            //Log.d(TAG,"Setting Response to string:\n" + response.toString());
+                            Log.wtf("Response", response.toString());
                         }
-                    }
-                    return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+                    },
+                    null) {
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<String, String>();
+                    headers.put("Authorization", provider.getToken());
+                    headers.put("Content-Type", "application/json");
+                    return headers;
                 }
             };
 
-            queue.add(stringRequest);
+            queue.add(request);
         } catch (Exception e) {
             e.printStackTrace();
             //result = e.toString();
@@ -224,9 +205,9 @@ public class VolleyService extends Activity {
     }
 
 
-    public void getSpeedFromLambda(final MyLocationService t, final SpeedSearch speedSearch, final String latitude, final String longitude) {
+    public void getSpeedFromLambda(final MyLocationService t, final SpeedSearch speedSearch, final String latitude, final String longitude, final String token) {
         System.out.println("GET SPEED CALLED");
-        url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/QuerySpeed/callqueryspeed?latitude=" + latitude + "&longitude=" + longitude;
+        url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/callqueryspeed?latitude=" + latitude + "&longitude=" + longitude;
         //final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -255,18 +236,27 @@ public class VolleyService extends Activity {
                             Log.i("sp ex ", "speed lambda exception");
                         }
                     }
-                }, new Response.ErrorListener() {
+                },null) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Authorization", token);
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+        }; new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
                        //Log.i("Speed Lambda", error.getMessage());
                     }
-                });
+                };
         queue.add(jsObjRequest);
     }
 
-    public void getJourneyFragments(String username, String journeyID, final Journey journey) {
-        url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/journeyfragment?username=" + username + "&journeyID=" + journeyID;
+    public void getJourneyFragments(final CognitoUserPoolsSignInProvider provider, String journeyID, final Journey journey) {
+        url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/journeyfragment?username=" + provider.getUserName() + "&journeyID=" + journeyID;
         //JsonArrayRequest jsObjRequest = new JsonArrayRequest
         JsonArrayRequest request = new JsonArrayRequest(url,
                 new Response.Listener<JSONArray>() {
@@ -297,19 +287,21 @@ public class VolleyService extends Activity {
 //                            }
                         }
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        //Toast.makeText(MainActivity.this, "Unable to fetch data: " + volleyError.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                },null) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Authorization", provider.getToken());
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+        };
         //mEntries
         queue.add(request);
     }
 
-    public void getUsersJourneys(String username, final Journey journey) {
-        url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/retrieveuserjourneys?username=" + username;
+    public void getUsersJourneys(final CognitoUserPoolsSignInProvider provider, final Journey journey) {
+        url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/retrieveuserjourneys?username=" + provider.getUserName();
         //JsonArrayRequest jsObjRequest = new JsonArrayRequest
         JsonArrayRequest request = new JsonArrayRequest(url,
                 new Response.Listener<JSONArray>() {
@@ -338,19 +330,21 @@ public class VolleyService extends Activity {
                         }
                         //goToJourneys(journeys);
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        System.out.println("volley error in USe JouRS " + volleyError.toString());
-                        //Toast.makeText(MainActivity.this, "Unable to fetch data: " + volleyError.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                },null) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Authorization", provider.getToken());
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+        };
         //mEntries
         queue.add(request);
     }
 
-    public void addJourneyFragments(List<JourneyFragment> journies, String journeyID) {
+    public void addJourneyFragments(List<JourneyFragment> journies, String journeyID, final String token) {
         try {
             for (JourneyFragment j : journies) {
                 if (j.getJourneyID().equals("")) {
@@ -396,6 +390,14 @@ public class VolleyService extends Activity {
                     }
 
                     @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        HashMap<String, String> headers = new HashMap<String, String>();
+                        headers.put("Authorization", token);
+                        headers.put("Content-Type", "application/json");
+                        return headers;
+                    }
+
+                    @Override
                     protected Response<String> parseNetworkResponse(NetworkResponse response) {
 
                         String responseString = "";
@@ -433,11 +435,11 @@ public class VolleyService extends Activity {
 
     }
 
-    public void getUserStatistics(String username) {
+    public void getUserStatistics(final CognitoUserPoolsSignInProvider provider) {
 
         final DateTimeFormatter dateWithTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
         final DateTimeFormatter dateFormatter = DateTimeFormat.forPattern("yyyy-MM-dd");
-        url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/getuserstatistics?username=" + username;
+        url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/getuserstatistics?username=" + provider.getUserName();
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -500,17 +502,20 @@ public class VolleyService extends Activity {
                             e.printStackTrace();
                         }
                     }
-                }, new Response.ErrorListener() {
+               },null) {
 
                     @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.wtf("Stats Lambda", error.getMessage());
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        HashMap<String, String> headers = new HashMap<String, String>();
+                        headers.put("Authorization", provider.getToken());
+                        headers.put("Content-Type", "application/json");
+                        return headers;
                     }
-                });
+                };
         queue.add(jsObjRequest);
     }
 
-    public void addOverSpeedLimits(List<OverSpeedLimit> overSpeedLimits, String journeyID, String user) {
+    public void addOverSpeedLimits(List<OverSpeedLimit> overSpeedLimits, String journeyID, final String token) {
 
         Log.i("over speed size ", String.valueOf(overSpeedLimits.size()));
         for (OverSpeedLimit o : overSpeedLimits) {
@@ -562,22 +567,30 @@ public class VolleyService extends Activity {
                 }
 
                 @Override
-                protected Response<String> parseNetworkResponse(NetworkResponse response) {
-
-                    String responseString = "";
-                    if (response != null) {
-                        responseString = String.valueOf(response.statusCode);
-                        // can get more details such as response.headers
-                        //result = (response.toString());
-                        try {
-                            String str = new String(response.data, "UTF-8");
-                            //System.out.println("overspeed "+ str);
-                        } catch (UnsupportedEncodingException e) {
-
-                        }
-                    }
-                    return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<String, String>();
+                    headers.put("Authorization", token);
+                    headers.put("Content-Type", "application/json");
+                    return headers;
                 }
+//
+//                @Override
+//                protected Response<String> parseNetworkResponse(NetworkResponse response) {
+//
+//                    String responseString = "";
+//                    if (response != null) {
+//                        responseString = String.valueOf(response.statusCode);
+//                        // can get more details such as response.headers
+//                        //result = (response.toString());
+//                        try {
+//                            String str = new String(response.data, "UTF-8");
+//                            //System.out.println("overspeed "+ str);
+//                        } catch (UnsupportedEncodingException e) {
+//
+//                        }
+//                    }
+//                    return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+//                }
             };
 
             queue.add(stringRequest);
@@ -587,11 +600,11 @@ public class VolleyService extends Activity {
         }
     }
 
-    public void getDaysSinceLastOverSpeed(final String username, final Context contextIn) {
+    public void getDaysSinceLastOverSpeed(final CognitoUserPoolsSignInProvider provider, final Context contextIn) {
         Log.wtf("getDaysincespeed", " called");
         final DateTimeFormatter dateFormatter = DateTimeFormat.forPattern("yyyy-MM-dd");
 
-        url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/daysinceoverspeed?username=" + username;
+        url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/daysinceoverspeed?username=" + provider.getUserName();
         //final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -611,37 +624,37 @@ public class VolleyService extends Activity {
 //
 //
 //                                Log.i("days", response.toString());
- //                               JSONObject obj = new JSONObject(response.toString());
-                                int daysSinceOverSpeed = response.getInt("daysOverSpeed");
+                            //                               JSONObject obj = new JSONObject(response.toString());
+                            int daysSinceOverSpeed = response.getInt("daysOverSpeed");
 
-                                prefs.edit()
-                                        .putInt("daysSinceOverSpeed", daysSinceOverSpeed)
-                                        .commit();
-                                intent.putExtra("hello", "shaymus");
+                            prefs.edit()
+                                    .putInt("daysSinceOverSpeed", daysSinceOverSpeed)
+                                    .commit();
+                            intent.putExtra("hello", "shaymus");
 
                             UserStat userStat = new UserStat();
                             JSONArray overSpeedDates = response.getJSONArray("overSpeedDates");
-                                for (int i = 0; i < overSpeedDates.length(); i++) {
-                                    String date = String.valueOf(overSpeedDates.getJSONObject(i).get("overSpeedDate"));
-                                    userStat.addOverSpeedDate(dateFormatter.parseDateTime(date));
-                                    //dates.add(dateFormatter.parseDateTime(date));
-                                }
+                            for (int i = 0; i < overSpeedDates.length(); i++) {
+                                String date = String.valueOf(overSpeedDates.getJSONObject(i).get("overSpeedDate"));
+                                userStat.addOverSpeedDate(dateFormatter.parseDateTime(date));
+                                //dates.add(dateFormatter.parseDateTime(date));
+                            }
 
 
                             intent.putExtra("overSpeedDay", userStat.getOverSpeedDay());
-                                prefs.edit()
-                                        .putString("overSpeedDate", userStat.getMostOverSpedDay())
-                                        .commit();
+                            prefs.edit()
+                                    .putString("overSpeedDate", userStat.getMostOverSpedDay())
+                                    .commit();
 
-                                int numTrafficIncidentsReported = response.getInt("numTrafficIncidentsReported");
-                                prefs.edit()
-                                        .putInt("numTrafficIncidentsReported", numTrafficIncidentsReported)
-                                        .commit();
+                            int numTrafficIncidentsReported = response.getInt("numTrafficIncidentsReported");
+                            prefs.edit()
+                                    .putInt("numTrafficIncidentsReported", numTrafficIncidentsReported)
+                                    .commit();
 
 
                             try {
                                 JSONArray roadWithTraffic = response.getJSONArray("roadWithTraffic");
-                                if(roadWithTraffic.length()>0) {
+                                if (roadWithTraffic.length() > 0) {
                                     ArrayList<String> addresses = new ArrayList<>();
                                     for (int i = 0; i < roadWithTraffic.length(); i++) {
                                         String address = String.valueOf(roadWithTraffic.getJSONObject(i).get("address"));
@@ -652,9 +665,9 @@ public class VolleyService extends Activity {
 
                                     intent.putStringArrayListExtra("trafficAddresses", addresses);
                                 }
-                            }
-                            catch(Exception e){
-                                e.printStackTrace();e.printStackTrace();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                e.printStackTrace();
 
                             }
                             try {
@@ -669,9 +682,9 @@ public class VolleyService extends Activity {
                                     }
                                     intent.putStringArrayListExtra("addresses", roadAddress);
                                 }
-                            }
-                            catch(Exception e){
-                                e.printStackTrace();e.printStackTrace();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                e.printStackTrace();
 
                             }
                             contextIn.sendBroadcast(intent);
@@ -688,13 +701,15 @@ public class VolleyService extends Activity {
 
                         }
                     }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.i("Sdays", "ERROR");
-                    }
-                });
+                }, null) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Authorization", provider.getToken());
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+        };
         queue.add(jsObjRequest);
     }
 
@@ -846,13 +861,13 @@ public class VolleyService extends Activity {
         weakContext.get().sendBroadcast(intent);
     }
 }
-class Notification implements Serializable{
-    String title, body;
-
-    public Notification(String title, String body) {
-        this.title = title;
-        this.body = body;
-    }
-
-
-}
+//class Notification implements Serializable{
+//    String title, body;
+//
+//    public Notification(String title, String body) {
+//        this.title = title;
+//        this.body = body;
+//    }
+//
+//
+//}

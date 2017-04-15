@@ -52,7 +52,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
-        sha1="5cd3b592a80805a2834a938d53b7aafe2bc94e5b">
+        sha1="d77c4c992cf6f12dfb08d3ed4040e52cfd3ff301">
         <dex dex="C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_2f82ad35f90ee421e312e33083233602f565c691\classes.dex" />
     </item>
     <item
@@ -88,7 +88,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
-        sha1="016cc08a2779b5081aca187133c7de5a56fffa21">
+        sha1="3ac1583fb579550b0916a717c503a25c85dee560">
         <dex dex="C:\Users\Seamus\Desktop\Project\NEW_CARVIS\MySampleApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_c117f7d218cb3588e64780e88519619d17c1403f\classes.dex" />
     </item>
     <item

@@ -92,12 +92,12 @@
         "source": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.0.0\\res\\layout\\abc_action_bar_view_list_nav_layout.xml"
     },
     {
-        "merged": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_select_dialog_material.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.0.0\\res\\layout\\abc_select_dialog_material.xml"
-    },
-    {
         "merged": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_demo_identity.xml",
         "source": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\src\\main\\res\\layout\\fragment_demo_identity.xml"
+    },
+    {
+        "merged": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_select_dialog_material.xml",
+        "source": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.0.0\\res\\layout\\abc_select_dialog_material.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_menu_item.xml",

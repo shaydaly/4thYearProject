@@ -191,7 +191,6 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name="com.carvis.JourneyProgressBar" />
         <activity android:name="com.carvis.MissedCall" />
         <activity android:name="com.carvis.CameraRecorder" />
 
@@ -204,6 +203,8 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <activity android:name="com.carvis.NewListJourney" />
         <!-- Include the AdActivity and InAppPurchaseActivity configChanges and themes. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"

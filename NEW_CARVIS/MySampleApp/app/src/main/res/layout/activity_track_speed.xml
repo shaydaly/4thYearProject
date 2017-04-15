@@ -14,61 +14,7 @@
         android:id="@+id/relative">
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:id="@+id/linearLayout">
 
-            <Button
-                android:text="@string/addCamera"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/addSpeedCamera"
-                android:layout_weight="1"
-                android:background="@color/silver"/>
-
-            <Button
-                android:text="@string/addTrafficIndicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/addTrafficIndicator"
-                android:layout_weight="1"
-                android:background="@color/vanMapColor"/>
-
-            </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/linearLayout2">
-
-            <Button
-                android:text="@string/emergencySMS"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/sendEmergencySMS"
-                android:layout_weight="1"
-                android:background="@color/red"
-                android:layout_above="@+id/linearLayout"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
-
-            <Button
-                android:text="@string/endJourney"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/endJourney"
-                android:textColor="@color/white"
-                android:layout_weight="1"
-                android:background="@color/nav_drawer_background"
-                android:layout_alignBaseline="@+id/sendEmergencySMS"
-                android:layout_alignBottom="@+id/sendEmergencySMS"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-
-        </LinearLayout>
 
 
         <ImageView
@@ -116,6 +62,114 @@
             android:layout_alignLeft="@+id/speed100km"
             android:layout_alignStart="@+id/speed100km" />
 
+
+        <LinearLayout
+            android:paddingTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/linearLayout2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/linearLayout9">
+
+            <TextView
+                android:text="hello"
+                android:background="@drawable/shape"
+                android:layout_height="100dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:id="@+id/speedCamera"
+                android:textColor="@color/white"
+                android:visibility="invisible"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:gravity="center_horizontal"
+                android:layout_below="@+id/linearLayout2"
+                android:layout_alignParentRight="true"
+                />
+
+            <TextView
+                android:text="hello"
+                android:background="@drawable/shape"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="100dp"
+                android:id="@+id/badTrafficReported"
+                android:textColor="@color/white"
+                android:visibility="invisible"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:gravity="center_horizontal"
+                android:layout_below="@+id/linearLayout2"
+                android:layout_alignParentLeft="true" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:orientation="vertical"
+            android:id="@+id/linearLayout10">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/trafLin"
+                android:layout_weight="1">
+                <Button
+                    android:text="@string/addCamera"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/addSpeedCamera"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape"
+                    android:textColor="@color/white"/>
+
+                <Button
+                    android:text="@string/addTrafficIndicator"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/addTrafficIndicator"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                >
+                <Button
+                    android:text="@string/emergencySMS"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/sendEmergencySMS"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape"
+                    android:layout_above="@+id/linearLayout"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="@color/white"/>
+
+                <Button
+                    android:text="@string/endJourney"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/endJourney"
+                    android:textColor="@color/white"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape"
+                    android:layout_alignBaseline="@+id/sendEmergencySMS"
+                    android:layout_alignBottom="@+id/sendEmergencySMS"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+            </LinearLayout>
+
+        </LinearLayout>
+
         <TextView
             android:text="@string/initialSpeed"
             android:layout_width="290dp"
@@ -128,50 +182,11 @@
             android:background="@color/dark"
             android:textAlignment="center"
             android:gravity="center_vertical|center_horizontal"
-            android:layout_marginTop="104dp"
-            android:layout_below="@+id/linearLayout2"
-            android:layout_centerHorizontal="true" />
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_below="@+id/linearLayout2"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
-
-            <TextView
-                android:text="hello"
-                android:background="@color/blue"
-                android:layout_height="100dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:id="@+id/speedCamera"
-                android:textColor="@color/dark"
-                android:visibility="invisible"
-                android:textStyle="bold"
-                android:textAlignment="center"
-                android:gravity="center_horizontal"
-                android:layout_below="@+id/linearLayout2"
-                android:layout_alignParentRight="true"
-                />
-
-            <TextView
-                android:text="hello"
-                android:background="@color/blue"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="100dp"
-                android:id="@+id/badTrafficReported"
-                android:textColor="@color/dark"
-                android:visibility="invisible"
-                android:textStyle="bold"
-                android:textAlignment="center"
-                android:gravity="center_horizontal"
-                android:layout_below="@+id/linearLayout2"
-                android:layout_alignParentLeft="true" />
-        </LinearLayout>
+            android:layout_below="@+id/linearLayout9"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="36dp"
+            android:layout_marginEnd="36dp" />
 
         <ImageView
             android:layout_width="200dp"
@@ -184,9 +199,8 @@
             android:scaleX="0.75"
             android:scaleY="0.75"
             android:visibility="invisible"
-            android:layout_below="@+id/currentSpeed"
+            android:layout_above="@+id/linearLayout10"
             android:layout_centerHorizontal="true" />
-
 
     </RelativeLayout>
 

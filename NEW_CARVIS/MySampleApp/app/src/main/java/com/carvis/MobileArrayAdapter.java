@@ -29,6 +29,7 @@ public class MobileArrayAdapter extends  ArrayAdapter<String> {
         this.journeys = journeys;
         this.timestamps = timestamps;
         this.durations = durations;
+
     }
 
 

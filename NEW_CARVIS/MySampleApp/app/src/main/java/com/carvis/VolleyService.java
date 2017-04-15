@@ -64,6 +64,8 @@ public class VolleyService extends Activity {
     public static  String NUMTRAFFICINCIDENTS ="NUMTRAFFICINCIDENTS";
     public static  String ROADSWITHINCIDENTS ="ROADSWITHINCIDENTS";
     public static  String ROADSTOAVOID ="ROADSTOAVOID";
+    public static String JOURNEYRESPFULL= "";
+    public static String JOURNEYRESPEMPTY = "";
     private RequestQueue queue;
     private Context context;
     String url;
@@ -307,6 +309,7 @@ public class VolleyService extends Activity {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray jsonArray) {
+                        Log.wtf("ARR RESP",String.valueOf(jsonArray.length()));
                         for (int i = 0; i < jsonArray.length(); i++) {
                             try {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -328,9 +331,26 @@ public class VolleyService extends Activity {
 //                                //j.add("Error: " + e.getLocalizedMessage());
 //                            }
                         }
+                        Intent intent = new Intent();
+                        if(jsonArray.length()!=0){
+                            intent.setAction(JOURNEYRESPFULL);
+                        }
+                        else{
+                            intent.setAction(JOURNEYRESPEMPTY);
+                        }
+                        intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                        intent.setPackage(context.getPackageName());
+                        context.sendBroadcast(intent);
                         //goToJourneys(journeys);
                     }
-                },null) {
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("Volley Error1 ", error.toString());
+            }
+        })
+
+        {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
@@ -855,11 +875,11 @@ public class VolleyService extends Activity {
 //    }
 
 
-    private void sendBroadcastMessage(WeakReference<Context> weakContext, String intentFilterName) {
-        Intent intent = new Intent(intentFilterName);
-        intent.putExtra("response", "hello");
-        weakContext.get().sendBroadcast(intent);
-    }
+//    private void sendBroadcastMessage(WeakReference<Context> weakContext, String intentFilterName) {
+//        Intent intent = new Intent(intentFilterName);
+//        intent.putExtra("response", "hello");
+//        weakContext.get().sendBroadcast(intent);
+//    }
 }
 //class Notification implements Serializable{
 //    String title, body;

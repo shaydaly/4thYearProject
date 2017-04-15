@@ -137,6 +137,9 @@ public class TrackSpeedActivity extends Activity {
             Bundle summaryBundle = msg.getData();
             String address = summaryBundle.getString("address");
             String time = summaryBundle.getString("time");
+            if(time==null){
+                time = "";
+            }
             speedCameraTextView.setVisibility(View.VISIBLE);
             speedCameraTextView.setText(address+"\n"+time);
         }
@@ -598,6 +601,7 @@ public class TrackSpeedActivity extends Activity {
                     isPlayingCameraVoice = true;
                     try {
                         stopSpeedCameraVoice();
+                        //speedCameraPlayer = MediaPlayer.create(context);
                         speedCameraPlayer = MediaPlayer.create(TrackSpeedActivity.this, R.raw.speedcamerapolly);
                         speedCameraPlayer.start();
 

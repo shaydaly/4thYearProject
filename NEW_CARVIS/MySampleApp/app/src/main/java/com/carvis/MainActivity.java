@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
     }
 
     public void goToJourneys(View view){
-        Intent intent = new Intent (this, ListJourney.class);
+        Intent intent = new Intent (this, NewListJourney.class);
         startActivity(intent);
     }
 

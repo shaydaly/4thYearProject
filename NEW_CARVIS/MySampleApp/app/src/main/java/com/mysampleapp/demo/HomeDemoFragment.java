@@ -40,9 +40,9 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import com.carvis.CameraRecorder;
-import com.carvis.ListJourney;
 import com.carvis.MainActivity;
 import com.carvis.MyLocationService;
+import com.carvis.NewListJourney;
 import com.carvis.OnSwipeTouchListener;
 import com.carvis.SpeedCameraMap;
 import com.carvis.TemporarySpeedCamera;
@@ -544,7 +544,7 @@ public class HomeDemoFragment extends DemoFragmentBase {
         prevJourneys.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(getActivity(), ListJourney.class);
+                Intent myIntent = new Intent(getActivity(), NewListJourney.class);
                 getActivity().startActivity(myIntent);
             }
         });

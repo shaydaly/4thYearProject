@@ -22,4 +22,5 @@
     <color name="blue">#0505fd</color>
     <color name="yellow">#d0ff00</color>
     <color name="green">#0dff00</color>
+    <color name="black">#000000</color>
 </resources>

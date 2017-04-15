@@ -1,6 +1,7 @@
 package com.carvis;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Handler;
@@ -38,7 +39,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.JsonArray;
-import com.mysampleapp.R;
+import com.mysampleapp.*;
+import com.mysampleapp.demo.HomeDemoFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,7 +58,7 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
     FirebaseDatabase database;
     DatabaseReference vanRef,cameraRef, trafficIncidentsRef;
 
-
+    private boolean isInFocus = false;
     Handler polyLineHandler;
     ArrayList<LatLng> lats = new ArrayList<>();
     ArrayList<SpeedCamera> cameras = new ArrayList<>();
@@ -66,7 +68,6 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
     Handler trafficUpdateHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            Log.i("shay", "handle message caalled");
 //            for(TrafficUpdate trafficUpdate : TrafficUpdate.trafficUpdates){
 //
 //            }
@@ -83,8 +84,6 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
         circles = new ArrayList<>();
 
 
-
-        queue = Volley.newRequestQueue(mContext);
         setContentView(R.layout.activity_speed_camera_map);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -94,32 +93,58 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
 
 
 
-        polyLineHandler = new Handler(){
-            @Override
-            public void handleMessage(Message msg) {
-                if(lats.size()!=0){
-                    for(int i = 0; i< lats.size();i++) {
-                        if (i + 1 != lats.size()) {
-                            // mMap.addMarker(new MarkerOptions().snippet("marker"));
-                            mMap.addPolyline(new PolylineOptions()
-                                    .add(lats.get(i), lats.get(i + 1))
-                                    .width(10)
-                                    .geodesic(true)
-                                    .jointType(JointType.BEVEL)
-                                    .endCap(new RoundCap())
-                                    .startCap(new RoundCap())
-                                    .color(Color.RED));
-                        }
-                    }
-                }
-                lats.removeAll(lats);
-                lats.clear();
-            }
-        };
-
-
+//        polyLineHandler = new Handler(){
+//            @Override
+//            public void handleMessage(Message msg) {
+//                if(lats.size()!=0){
+//                    for(int i = 0; i< lats.size();i++) {
+//                        if (i + 1 != lats.size()) {
+//                            // mMap.addMarker(new MarkerOptions().snippet("marker"));
+//                            mMap.addPolyline(new PolylineOptions()
+//                                    .add(lats.get(i), lats.get(i + 1))
+//                                    .width(10)
+//                                    .geodesic(true)
+//                                    .jointType(JointType.BEVEL)
+//                                    .endCap(new RoundCap())
+//                                    .startCap(new RoundCap())
+//                                    .color(Color.RED));
+//                        }
+//                    }
+//                }
+//                lats.removeAll(lats);
+//                lats.clear();
+//            }
+//        };
     }
 
+
+//    @Override
+//    public void onWindowFocusChanged(boolean hasFocus) {
+//        super.onWindowFocusChanged(hasFocus);
+//        isInFocus = hasFocus;
+//    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        Log.wtf("ONSTOP", "CALLED");
+        if (!isInFocus) finish();
+    }
+    @Override
+    protected void onPause(){
+        super.onPause();
+        Log.wtf("onPause", "CALLED");
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Log.wtf("onResume", "CALLED");
+    }
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        Log.wtf("onDestroy", "CALLED");
+    }
 
     /**
      * Manipulates the map once available.
@@ -161,77 +186,6 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
 //            latlngs.add(latLng);
 //            mMap.addMarker(new MarkerOptions().position(latLng).title(t.getTime()).icon(BitmapDescriptorFactory.fromResource(R.drawable.speedcamera)));
 //        }
-    }
-    public void getSnapToRoadsPoints(Context c, final SpeedCamera speedCamera){
-        //String url = "https://roads.googleapis.com/v1/snapToRoads?path="+startLatitude+","+ startLongitude+"|"+endLatitude+","+endLongitude+"&interpolate=true&key=AIzaSyANu-d2RqCWLTyyZoh3s9lL0_PurPTNlIQ";
-        //String url = "https://roads.googleapis.com/v1/snapToRoads?path=-35.27801,149.12958|-35.28032,149.12907&interpolate=true&key=AIzaSyANu-d2RqCWLTyyZoh3s9lL0_PurPTNlIQ";
-//        String params = "";
-//        for(Location l : locations){
-//            params+= l.getLatitude()+","+l.getLongitude()+"|";
-//        }
-//        params = params.substring(0, params.length()-1);
-//        String url = "https://roads.googleapis.com/v1/snapToRoads?path="+startLat+","+startLong+"|"+endLat+","+endLong+"&interpolate=true&key=AIzaSyANu-d2RqCWLTyyZoh3s9lL0_PurPTNlIQ";
-//        System.out.println(url);
-        //String url = "http://router.project-osrm.org/trip/v1/driving/"+params+"?overview=false";
-        //System.out.println(url);
-        String url = makeURL(speedCamera.getStartLatitude(), speedCamera.getStartLongitude(), speedCamera.getEndLatitude(), speedCamera.getEndLongitude());
-        System.out.println(url);
-        final JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            drawPath(speedCamera, response.toString());
-                            JSONObject obj = new JSONObject(response.toString());
-//                            //journey.setSpeedLimit((obj.get("speed").toString()));
-                            JSONArray jarray = obj.getJSONArray("snappedPoints");
-                            //System.out.println("11\t"+jarray.toString());
-                            //System.out.println(jarray.toString() + " _ _ _ _ _ _ ");
-                            for (int i = 0; i < jarray.length(); i++) {
-                                //System.out.println(jarray.length());
-                                    JSONObject jsonObject = jarray.getJSONObject(i);
-                                    //System.out.println(jsonObject.toString());
-                                double lat = Double.parseDouble(String.valueOf(jsonObject.getJSONObject("location").get("latitude")));
-                                double longitude = Double.parseDouble(String.valueOf(jsonObject.getJSONObject("location").get("longitude")));
-
-
-                                    //System.out.println(Double.parseDouble(String.valueOf(jsonObject.get("latitude"))) + Double.parseDouble(String.valueOf(jsonObject.get("longitude"))));
-                                    //LatLng l = new LatLng(Double.parseDouble(String.valueOf(jsonObject.get("latitude"))), Double.parseDouble(String.valueOf(jsonObject.get("longitude"))));
-                                    //System.out.println(l.toString());
-
-                                    lats.add(new LatLng(lat,longitude));
-
-                                }
-//                            for(int i = 0; i< lats.size(); i++){
-//                                mMap.addPolyline(new PolylineOptions()
-//                                        .add(lats.get(i), lats.get(i+1))
-//                                        .width(10)
-//                                        .geodesic(true)
-//                                        .jointType(JointType.BEVEL)
-//                                        .endCap(new RoundCap())
-//                                        .startCap(new RoundCap())
-//                                        .color(Color.RED));
-//                            }
-
-//                            lats.add(new LatLng(startLatitude,startLongitude));
-//                            lats.add(new LatLng(endLatitude,endLongitude));
-                            //polyLineHandler.sendEmptyMessage(0);
-                        } catch (JSONException e) {
-                            System.out.println(e.getMessage());
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //journey.setSpeedLimit("");
-                        System.out.println(error.toString());
-                    }
-                });
-        queue.add(jsObjRequest);
     }
 
 //    private List<SnappedPoint> snapToRoads(GeoApiContext context) throws Exception {
@@ -560,9 +514,10 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
     @Override
     public void onBackPressed() {
         //super.onStop();
-        System.out.println("back called");
+       Log.wtf("onBackPressed", "CALLEd");
         super.onBackPressed();
-        super.onStop();
+        Intent intent = new Intent(getApplicationContext(), com.mysampleapp.MainActivity.class);
+        startActivity(intent);
     }
 
 }

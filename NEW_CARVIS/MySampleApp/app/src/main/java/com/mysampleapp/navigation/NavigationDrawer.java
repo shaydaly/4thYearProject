@@ -30,8 +30,8 @@ import com.amazonaws.mobile.AWSMobileClient;
 import com.amazonaws.mobile.user.IdentityManager;
 import com.amazonaws.mobile.user.IdentityProvider;
 import com.carvis.Journey;
-import com.carvis.ListJourney;
 import com.carvis.MapsActivity;
+import com.carvis.NewListJourney;
 import com.carvis.SpeedCameraMap;
 import com.carvis.TrackSpeedActivity;
 import com.carvis.UserSettings;
@@ -256,7 +256,7 @@ public class NavigationDrawer {
     }
 
     public void goToJourneys(){
-        Intent myIntent = new Intent(this.containingActivity, ListJourney.class);
+        Intent myIntent = new Intent(this.containingActivity, NewListJourney.class);
         myIntent.putExtra("listOfJourneys", "value"); //Optional parameters
         this.containingActivity.startActivity(myIntent);
     }

@@ -209,11 +209,11 @@ public class MyLocationService extends Service implements
                         if(!intialMovement) {
                             journeyList.add(new JourneyFragment(journey.getLatitude(), journey.getLongitude(), journey.getCurrentSpeed(), limit, dNow, journey.getJourneyID(), provider.getUserName(), speedSearch.getOsm_id()));
                         }
-//                            if (journeyList.size() == 50) {
-////                            JourneyFragment.AddJourneyFragments(queue, journeyList, journey.getJourneyID());
-//                            volleyService.addJourneyFragments(journeyList, journey.getJourneyID());
-//                            journeyList.clear();
-//                        }
+                            if (journeyList.size() == 20) {
+//                            JourneyFragment.AddJourneyFragments(queue, journeyList, journey.getJourneyID());
+                            volleyService.addJourneyFragments(journeyList, journey.getJourneyID(), provider.getToken());
+                            journeyList.clear();
+                        }
                         //System.out.println(cameras.size());
                     } catch (Exception e) {
                         Log.i("Get Limit Exception", e.getMessage());

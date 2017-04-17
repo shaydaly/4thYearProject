@@ -132,6 +132,8 @@ public class HomeDemoFragment extends DemoFragmentBase {
         modulo = 0;
         Log.wtf("TOKEN", provider.getToken());
 
+        provider.refreshToken();
+
         daysSinceOverSpeed = (TextView) getActivity().findViewById(R.id.daysSinceOverSpeed);
 //        daysSinceOverSpeed.setText("hello`1");
         roadsToAvoid = (TextView) getActivity().findViewById(R.id.roadsToAvoid);
@@ -152,13 +154,14 @@ public class HomeDemoFragment extends DemoFragmentBase {
         mBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                Log.wtf("volley received","");
 
-//                String greeting  = "Hi " + provider.getUserName();
-                String greeting  = "";
+
+                String greeting  = "Hi " + provider.getUserName()+". \n";
+               // String greeting  = "";
                 try {
-                    int days = PreferenceManager.getDefaultSharedPreferences(context).getInt("daysSinceOverSpeed", 0);
+                    //int days = PreferenceManager.getDefaultSharedPreferences(context).getInt("daysSinceOverSpeed", 0);
 
+                    int days = intent.getIntExtra("daysSinceOverSpeed", 0);
                     String displayMessage = "";
                     if (days != -99) {
                         String over1 = getString(R.string.daysSinceLastOverSpeed1);
@@ -171,32 +174,32 @@ public class HomeDemoFragment extends DemoFragmentBase {
                         }
 
                     } else {
-                        displayMessage =getString(R.string.noOverSpeeds);
+                        displayMessage= greeting +displayMessage+ getString(R.string.noOverSpeeds);
                     }
                     daysSinceOverSpeed.setText(displayMessage);
                 }
                 catch(Exception e) {
-                    Log.wtf("ex1", e.getMessage());
                 }
                 try {
                     String day = intent.getStringExtra("overSpeedDay");
                     String overSpeedDay = PreferenceManager.getDefaultSharedPreferences(context).getString("overSpeedDate", "");
                     String textOutput = "";
-                    if (!overSpeedDay.equals("NA")) {
+                    if (!day.equals("NA")) {
                         textOutput = greeting + getString(R.string.overSpeedDay)
                                 + " " + day + ". " + getString(R.string.alternativeRoute);
                     } else {
-                        textOutput =  getString(R.string.noOverSpeeds);
+                        textOutput = greeting + getString(R.string.noOverSpeedDay);
                     }
                     overSpeedDayTV.setText(textOutput);
                 }
                 catch (Exception ex) {
-                    Log.wtf("Exception2", ex.getMessage());
+
                 }
                 try {
 
-                    int numTrafficIncidentsReported = PreferenceManager.getDefaultSharedPreferences(context).getInt("numTrafficIncidentsReported", 0);
-                    String output =  numTrafficIncidentsReported + " " + getString(R.string.numTrafficIncidents);
+                    //int numTrafficIncidentsReported = PreferenceManager.getDefaultSharedPreferences(context).getInt("numTrafficIncidentsReported", 0);
+                    int numTrafficIncidentsReported = intent.getIntExtra("numTrafficIncidentsReported", 0);
+                    String output =  greeting +numTrafficIncidentsReported + " " + getString(R.string.numTrafficIncidents);
                     if (numTrafficIncidentsReported > 0) {
                         output += ". " + getString(R.string.thanks);
                     } else {
@@ -205,7 +208,7 @@ public class HomeDemoFragment extends DemoFragmentBase {
                     numIncidentsReported.setText(output);
                 }
                 catch(Exception e) {
-                    Log.w("Exception3", e.getMessage());
+
                 }
 
                 try{
@@ -217,7 +220,7 @@ public class HomeDemoFragment extends DemoFragmentBase {
                             output += getString(R.string.roadsWithOverspeed) + "\n\n";
                             for (String a : addresses) {
                                 output += a + "\n";
-                                Log.wtf("address",a);
+
                             }
                         } else {
                             output += getString(R.string.noRoadsWithOverspeed);
@@ -238,7 +241,7 @@ public class HomeDemoFragment extends DemoFragmentBase {
 
                         if (roadAddresses != null) {
                             if (roadAddresses.size() != 0) {
-                                output2 += getString(R.string.pastWeekRoad) + "\n\n";
+                                output2 +=getString(R.string.pastWeekRoad) + "\n\n";
                                 for (String a : roadAddresses) {
                                     output2 += a + "\n";
                                 }
@@ -248,7 +251,7 @@ public class HomeDemoFragment extends DemoFragmentBase {
                             roadsToAvoid.setText(greeting+""+output2);
                         }
                         else{
-                            roadsToAvoid.setText(greeting+" there are no roads you have used where bad traffic has been reported");
+                            roadsToAvoid.setText(greeting+" There are no roads you have used where bad traffic has been reported");
                         }
                     }
                     catch (Exception e){
@@ -259,7 +262,7 @@ public class HomeDemoFragment extends DemoFragmentBase {
 //                        textView.setTypeface(boldTypeface);
 
                 } catch (Exception e) {
-                    Log.wtf("exception !", e.getMessage());
+
                     e.printStackTrace();
                 }
             }
@@ -287,11 +290,10 @@ public class HomeDemoFragment extends DemoFragmentBase {
             public void onSwipeLeft() {
                 super.onSwipeLeft();
                 count--;
-                Log.wtf("COUNT", String.valueOf(count));
+
                 modulo = (count % 5);
                 if(modulo<0)
                     modulo+=5;
-                Log.wtf("modulo", String.valueOf(modulo));
                 showTextView(modulo);
                 Toast.makeText(context, "modul---"+String.valueOf(modulo), Toast.LENGTH_SHORT).show();
 
@@ -302,11 +304,9 @@ public class HomeDemoFragment extends DemoFragmentBase {
         public void onSwipeRight() {
             super.onSwipeRight();
             count++;
-            Log.wtf("COUNT", String.valueOf(count));
             modulo = (count % 5);
             if(modulo<0)
                 modulo+=5;
-            Log.wtf("modulo", String.valueOf(modulo));
             showTextView(modulo);
             Toast.makeText(context, "modul---"+String.valueOf(modulo), Toast.LENGTH_SHORT).show();
             // Put your logic here for text visibility and for timer like progress bar for 5 second and setText
@@ -430,7 +430,6 @@ public class HomeDemoFragment extends DemoFragmentBase {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
 
-        Log.i(data.getStringExtra("hello"), " has been passed");
 //        if(resultCode == RESULT_CANCELED){
             Toast.makeText(getActivity()     , "El Bluetooth debe estar activado para continuar", Toast.LENGTH_SHORT).show();
 //            getActivity().finish();
@@ -531,42 +530,86 @@ public class HomeDemoFragment extends DemoFragmentBase {
     }
 
 
+    public void startJourney(View view){
+        Toast.makeText(context, "Start Jounrey", Toast.LENGTH_LONG).show();
+    }
+
+
     public void registerButtons(){
-        Button startJourney = (Button) getActivity().findViewById(R.id.startJourney);
-        startJourney.setOnClickListener(new View.OnClickListener() {
+
+        RelativeLayout startRel = (RelativeLayout) getActivity().findViewById(R.id.startJourneyRelative);
+        startRel.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v) {
+            public void onClick(View v){
                 Intent myIntent = new Intent(getActivity(), TrackSpeedActivity.class);
-                getActivity().startActivity(myIntent);
+               getActivity().startActivity(myIntent);
             }
         });
-        Button prevJourneys = (Button) getActivity().findViewById(R.id.prevJourney);
-        prevJourneys.setOnClickListener(new View.OnClickListener() {
+
+        RelativeLayout prevRel = (RelativeLayout) getActivity().findViewById(R.id.prevJourneyRel);
+        prevRel.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v) {
+            public void onClick(View v){
                 Intent myIntent = new Intent(getActivity(), NewListJourney.class);
                 getActivity().startActivity(myIntent);
             }
         });
 
-        Button speedCameraMap = (Button) getActivity().findViewById(R.id.speedCameraMap);
-        speedCameraMap.setOnClickListener(new View.OnClickListener() {
+
+        RelativeLayout mapRel = (RelativeLayout) getActivity().findViewById(R.id.mapRel);
+        mapRel.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v) {
+            public void onClick(View v){
                 Intent myIntent = new Intent(getActivity(), SpeedCameraMap.class);
                 getActivity().startActivity(myIntent);
             }
         });
 
-        Button userSettings = (Button) getActivity().findViewById(R.id.statistics);
-        userSettings.setOnClickListener(new View.OnClickListener() {
+        RelativeLayout statRel = (RelativeLayout) getActivity().findViewById(R.id.statsRel);
+        statRel.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(getActivity(), UserStatistics.class);
-               //Intent myIntent = new Intent(getActivity(), CameraRecorder.class);
+            public void onClick(View v){
+               Intent myIntent = new Intent(getActivity(), UserStatistics.class);
+//               //Intent myIntent = new Intent(getActivity(), CameraRecorder.class);
                 getActivity().startActivity(myIntent);
             }
         });
+
+//        Button startJourney = (Button) getActivity().findViewById(R.id.startJourney);
+//        startJourney.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent myIntent = new Intent(getActivity(), TrackSpeedActivity.class);
+//                getActivity().startActivity(myIntent);
+//            }
+//        });
+//        Button prevJourneys = (Button) getActivity().findViewById(R.id.prevJourney);
+//        prevJourneys.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent myIntent = new Intent(getActivity(), NewListJourney.class);
+//                getActivity().startActivity(myIntent);
+//            }
+//        });
+//
+//        Button speedCameraMap = (Button) getActivity().findViewById(R.id.speedCameraMap);
+//        speedCameraMap.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent myIntent = new Intent(getActivity(), SpeedCameraMap.class);
+//                getActivity().startActivity(myIntent);
+//            }
+//        });
+//
+//        Button userSettings = (Button) getActivity().findViewById(R.id.statistics);
+//        userSettings.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent myIntent = new Intent(getActivity(), UserStatistics.class);
+//               //Intent myIntent = new Intent(getActivity(), CameraRecorder.class);
+//                getActivity().startActivity(myIntent);
+//            }
+//        });
     }
 
     private void increaseCount(){

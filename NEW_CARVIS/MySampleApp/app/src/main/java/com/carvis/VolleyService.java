@@ -66,6 +66,8 @@ public class VolleyService extends Activity {
     public static  String ROADSTOAVOID ="ROADSTOAVOID";
     public static String JOURNEYRESPFULL= "";
     public static String JOURNEYRESPEMPTY = "";
+    public static String jf= "jf";
+    public static String jf2 = "jf2";
     private RequestQueue queue;
     private Context context;
     String url;
@@ -233,9 +235,9 @@ public class VolleyService extends Activity {
                             //myRef.child(String.valueOf(obj.get("osm_id"))).push().setValue(new RoadRecord(latitude,longitude, speedLimit));
                             speedSearch.setOsm_id(obj.getInt("osm_id"));
                         } catch (JSONException e) {
-                            Log.i("GET SPEED EXCEPTIOM ", e.getMessage());
+                            Log.wtf("GET SPEED EXCEPTIOM ", e.getMessage()+" "+latitude+" "+longitude);
                         } catch (Exception e) {
-                            Log.i("sp ex ", "speed lambda exception");
+                            Log.wtf("sp ex ", e.getMessage()+" "+latitude+" "+longitude);
                         }
                     }
                 },null) {
@@ -288,6 +290,17 @@ public class VolleyService extends Activity {
 //                                //j.add("Error: " + e.getLocalizedMessage());
 //                            }
                         }
+                        Intent intent = new Intent();
+                        if(jsonArray.length()!=0){
+                            Log.wtf("FRAGMENT SIZE", String.valueOf(jsonArray.length()));
+                            intent.setAction(jf);
+                        }
+                        else{
+                            intent.setAction(jf2);
+                        }
+                        intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                        intent.setPackage(context.getPackageName());
+                        context.sendBroadcast(intent);
                     }
                 },null) {
             @Override
@@ -374,7 +387,7 @@ public class VolleyService extends Activity {
             System.out.println("AddJourneyFragments called");
             Gson gson = new Gson();
             String json = gson.toJson(journies);
-            System.out.println(json);
+            Log.wtf("fragment json", json);
             try {
                 //RequestQueue requestQueue = Volley.newRequestQueue(c);
                 url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/journeyfragment";
@@ -647,10 +660,10 @@ public class VolleyService extends Activity {
                             //                               JSONObject obj = new JSONObject(response.toString());
                             int daysSinceOverSpeed = response.getInt("daysOverSpeed");
 
-                            prefs.edit()
-                                    .putInt("daysSinceOverSpeed", daysSinceOverSpeed)
-                                    .commit();
-                            intent.putExtra("hello", "shaymus");
+//                            prefs.edit()
+//                                    .putInt("daysSinceOverSpeed", daysSinceOverSpeed)
+//                                    .commit();
+                            intent.putExtra("daysSinceOverSpeed", daysSinceOverSpeed);
 
                             UserStat userStat = new UserStat();
                             JSONArray overSpeedDates = response.getJSONArray("overSpeedDates");
@@ -662,14 +675,16 @@ public class VolleyService extends Activity {
 
 
                             intent.putExtra("overSpeedDay", userStat.getOverSpeedDay());
-                            prefs.edit()
-                                    .putString("overSpeedDate", userStat.getMostOverSpedDay())
-                                    .commit();
+//                            prefs.edit()
+//                                    .putString("overSpeedDate", userStat.getMostOverSpedDay())
+//                                    .commit();
+
 
                             int numTrafficIncidentsReported = response.getInt("numTrafficIncidentsReported");
-                            prefs.edit()
-                                    .putInt("numTrafficIncidentsReported", numTrafficIncidentsReported)
-                                    .commit();
+                            intent .putExtra("numTrafficIncidentsReported", numTrafficIncidentsReported);
+//                            prefs.edit()
+//                                    .putInt("numTrafficIncidentsReported", numTrafficIncidentsReported)
+//                                    .commit();
 
 
                             try {

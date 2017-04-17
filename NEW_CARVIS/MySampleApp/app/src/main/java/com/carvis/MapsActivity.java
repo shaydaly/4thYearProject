@@ -86,7 +86,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         // getSnapToRoadsPoints(context);
         mMap = googleMap;
-
+        LatLng dublin = new LatLng(53.348778, -6.270933);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(dublin,11.0f));
         try {
             Bundle extras = getIntent().getExtras();
             if (extras != null) {
@@ -149,6 +150,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             //Polyline p = mMap.ge
                         }
                     }
+                    else {
+                        options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                        options.flat(true);
+                        options.position(latLng);
+                    }
+
                     if (options != null) {
                         googleMap.addMarker(options).setAlpha(0.0f);
                     }
@@ -164,7 +171,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     origin.setZIndex(1);
                     destination.setZIndex(1);
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlngs.get(latlngs.size() - 1), 13.0f));
-
                 }
             } else {
                 LatLng home = new LatLng(53.3514105, -6.3803316);

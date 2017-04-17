@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_centerVertical="true"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_centerVertical="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
         <TextView
             android:id="@+id/roadsToAvoid"
             android:gravity="center"
-            android:padding="50dp"
+            android:padding="40dp"
             android:text=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
         <TextView
             android:id="@+id/overSpeedDay"
             android:gravity="center"
-            android:padding="50dp"
+            android:padding="40dp"
             android:text=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
         <TextView
             android:id="@+id/numTrafficReported"
             android:gravity="center"
-            android:padding="50dp"
+            android:padding="40dp"
             android:text=""
             android:layout_weight="1"
             android:layout_width="wrap_content"
@@ -83,7 +83,7 @@
         <TextView
             android:id="@+id/todayTrafficIncident"
             android:gravity="center"
-            android:padding="50dp"
+            android:padding="40dp"
             android:text=""
             android:layout_weight="1"
             android:layout_width="wrap_content"
@@ -103,7 +103,7 @@
         <TextView
             android:id="@+id/daysSinceOverSpeed"
             android:gravity="center"
-            android:padding="50dp"
+            android:padding="40dp"
             android:text=""
             android:layout_weight="1"
             android:layout_width="wrap_content"
@@ -122,6 +122,7 @@
 
 
     </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
@@ -129,44 +130,65 @@
         android:layout_weight="1"
         android:background="@color/dark">
 
-        <!--<Button-->
-        <!--android:layout_width="0dip"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_weight="1"-->
-        <!--android:textColor="@color/white"-->
-        <!--android:background="@drawable/shape"/>-->
-
-        <Button
-            android:drawableLeft="@drawable/cast_ic_mini_controller_play"
-            android:gravity="left|center_vertical"
-            android:id="@+id/startJourney"
-            android:padding="3dip"
-            android:text="@string/startJourney"
-            android:layout_weight="1"
-            android:layout_width="0dip"
+        <RelativeLayout
+            android:id="@+id/startJourneyRelative"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:textColor="@color/white"
-            android:textAlignment="center"
-            android:textSize="12sp"
-            android:textStyle="normal"
-            android:background="@drawable/shape"/>
-
-        <Button
-
-            android:drawableLeft="@drawable/cast_ic_mini_controller_play"
-            android:gravity="left|center_vertical"
-            android:id="@+id/prevJourney"
-            android:padding="3dip"
-            android:text="@string/journeys"
             android:layout_weight="1"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:textColor="@color/white"
-            android:textAlignment="center"
-            android:textSize="12sp"
-            android:textStyle="normal"
             android:background="@drawable/shape"
-            />
+            android:clickable="true">
+
+            <ImageView
+                android:id="@+id/startJourneyImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/speedlimit60" />
+
+            <TextView
+                android:paddingTop="10dp"
+                android:id="@+id/startJourneyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/startJourney"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_below="@+id/startJourneyImage"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="11dp"
+                android:paddingBottom="10dp"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/prevJourneyRel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/shape">
+
+            <ImageView
+                android:id="@+id/prevJourneyImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/journey"
+                />
+
+            <TextView
+                android:paddingTop="10dp"
+                android:id="@+id/prevJourneyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/journeys"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_below="@+id/prevJourneyImage"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="11dp"
+                android:paddingBottom="10dp"/>
+        </RelativeLayout>
+
 
 
     </LinearLayout>
@@ -177,42 +199,65 @@
         android:layout_weight="1"
         android:background="@color/dark">
 
-        <!--<Button-->
-        <!--android:layout_width="0dip"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_weight="1"-->
-        <!--android:textColor="@color/white"-->
-        <!--android:background="@drawable/shape"/>-->
-        <Button
-            android:drawableLeft="@drawable/cast_ic_mini_controller_play"
-            android:gravity="left|center_vertical"
-            android:id="@+id/speedCameraMap"
-            android:padding="3dip"
-            android:text="@string/roadMap"
-            android:layout_weight="1"
-            android:layout_width="0dip"
+        <RelativeLayout
+            android:id="@+id/mapRel"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:textColor="@color/white"
-            android:textAlignment="center"
-            android:textSize="12sp"
-            android:textStyle="normal"
-            android:background="@drawable/shape"/>
-
-
-        <Button
-            android:drawableLeft="@drawable/cast_ic_mini_controller_play"
-            android:gravity="center_vertical"
-            android:id="@+id/statistics"
-            android:padding="3dip"
-            android:text="@string/userStatistics"
             android:layout_weight="1"
-            android:layout_width="0dip"
+            android:background="@drawable/shape"
+            android:clickable="true">
+
+            <ImageView
+                android:id="@+id/map"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/speed_cam_new" />
+
+            <TextView
+                android:paddingTop="10dp"
+                android:id="@+id/mapText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/roadMap"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_below="@+id/map"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="11dp"
+                android:paddingBottom="10dp"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/statsRel"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:textColor="@color/white"
-            android:textAlignment="center"
-            android:textSize="12sp"
-            android:textStyle="normal"
-            android:background="@drawable/shape"/>
+            android:layout_weight="1"
+            android:background="@drawable/shape">
+
+            <ImageView
+                android:id="@+id/userstatsimage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/statistics"
+                />
+
+            <TextView
+                android:paddingTop="10dp"
+                android:id="@+id/userstatstext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/userStatistics"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_below="@+id/userstatsimage"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="11dp"
+                android:paddingBottom="10dp"/>
+        </RelativeLayout>
+
 
 
     </LinearLayout>
@@ -226,10 +271,4 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@android:id/list"/>
-
-    <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:text="hello"-->
-        <!--android:textColor="@color/red"/>-->
 </LinearLayout>

@@ -3,6 +3,7 @@ import android.animation.LayoutTransition;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,25 +38,31 @@ public class MobileArrayAdapter extends  ArrayAdapter<String> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 
+            View rowView = inflater.inflate(R.layout.activity_list_journey, parent, false);
+        try {
+            TextView journeyIDtextView = (TextView) rowView.findViewById(R.id.journeyID);
+            //ImageView imageView = (ImageView) rowView.findViewById(R.id.logo);
+            journeyIDtextView.setText(journeys.get(position));
+            journeyIDtextView.setTextColor(Color.BLACK);
 
-        View rowView = inflater.inflate(R.layout.activity_list_journey, parent, false);
-        TextView journeyIDtextView = (TextView) rowView.findViewById(R.id.journeyID);
-        //ImageView imageView = (ImageView) rowView.findViewById(R.id.logo);
-        journeyIDtextView.setText(journeys.get(position));
-        journeyIDtextView.setTextColor(Color.BLACK);
-
-        TextView timestampView = (TextView) rowView.findViewById(R.id.timestamp);
-        //ImageView imageView = (ImageView) rowView.findViewById(R.id.logo);
-        timestampView.setText(timestamps.get(position));
+            TextView timestampView = (TextView) rowView.findViewById(R.id.timestamp);
+            //ImageView imageView = (ImageView) rowView.findViewById(R.id.logo);
+            timestampView.setText(timestamps.get(position));
 
 
-        TextView durationsView = (TextView) rowView.findViewById(R.id.duration);
-        //ImageView imageView = (ImageView) rowView.findViewById(R.id.logo);
-        durationsView.setText(durations.get(position));
+            TextView durationsView = (TextView) rowView.findViewById(R.id.duration);
+            //ImageView imageView = (ImageView) rowView.findViewById(R.id.logo);
+            durationsView.setText(durations.get(position));
+            return rowView;
+        }
+        catch (Exception e){
+            Log.wtf("mobilearray", e.getMessage());
+        }
         return rowView;
     }
 }

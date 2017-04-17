@@ -109,6 +109,7 @@ public class NewListJourney extends Activity {
     Handler fragmentHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
+            Log.wtf("fragment handler called", "");
             //getSnapToRoadsPoints(context,journeyFragments);
             goToMap(journeyFragments);
         }
@@ -178,13 +179,24 @@ public class NewListJourney extends Activity {
         mBroadCastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
+                Log.wtf("action:::", intent.getAction());
                 try {
                     if (intent.getAction().equals(VolleyService.JOURNEYRESPFULL)) {
+                        System.out.println("fill journey");
                         fillJourneyList();
                     }
 
                     else if(intent.getAction().equals(VolleyService.JOURNEYRESPEMPTY)){
                         gettingJourneyTV.setText("No Journeys Found");
+                    }
+                    else if(intent.getAction().equals(VolleyService.jf)){
+                        System.out.println("JOURNEYFRAGFULL");
+                        journeyFragments = journey.getListOfJourneyFragments();
+                        fragmentHandler.sendEmptyMessage(0);
+                    }
+                    else if(intent.getAction().equals(VolleyService.jf2)){
+                        System.out.println("JOURNEYFRAGEMPTY");
+                        Toast.makeText(context, "No fragments found for this journey", Toast.LENGTH_LONG).show();
                     }
 
 //                    else if (intent.getAction().equals(ACTION_ANSWER)) {
@@ -209,6 +221,8 @@ public class NewListJourney extends Activity {
 
         IntentFilter filter = new IntentFilter(VolleyService.JOURNEYRESPFULL);
         filter.addAction(VolleyService.JOURNEYRESPEMPTY);
+        filter.addAction(VolleyService.jf);
+        filter.addAction(VolleyService.jf2);
         registerReceiver(mBroadCastReceiver, filter);
     }
 
@@ -229,23 +243,12 @@ public class NewListJourney extends Activity {
             public void run() {
                 //journey.getJourneyFragments(context, provider.getUserName(), selectedValue);
                 volleyService.getJourneyFragments(provider, selectedValue, journey);
-//                long futureTme = System.currentTimeMillis()+3000;
-//                while (System.currentTimeMillis()< futureTme){
-//                    synchronized (this){
-//                        try{
-//                            wait(futureTme-System.currentTimeMillis());
-//                        }
-//                        catch(Exception e){
-//
-//                        }
-//                    }
-//                }
                 //call function
-                journeyFragments = journey.getListOfJourneyFragments();
-                while(journeyFragments.size()==0){
-                    journeyFragments = journey.getListOfJourneyFragments();
-                }
-                fragmentHandler.sendEmptyMessage(0);
+                //journeyFragments = journey.getListOfJourneyFragments();
+//                while(journeyFragments.size()==0){
+//                    journeyFragments = journey.getListOfJourneyFragments();
+//                }
+                //fragmentHandler.sendEmptyMessage(0);
             }
 
         };

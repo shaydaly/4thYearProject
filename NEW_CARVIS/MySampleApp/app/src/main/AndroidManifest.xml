@@ -100,7 +100,8 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:launchMode="singleInstance" />
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"/>
 
         <!-- BEGIN - FACEBOOK SIGN-IN -->
 
@@ -135,7 +136,6 @@
 
         <!-- <activity android:name=".TestHttp" /> -->
 
-        <activity android:name="com.carvis.ListJourney" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -150,10 +150,11 @@
 
         <activity
             android:name="com.carvis.MapsActivity"
-            android:label="@string/title_activity_maps" />
+            android:label="@string/title_activity_maps"/>
         <activity
             android:name="com.carvis.SpeedCameraMap"
-            android:label="@string/title_activity_speed_camera_map" />
+            android:label="@string/title_activity_speed_camera_map"
+            android:screenOrientation="portrait"/>
 
         <!-- <service -->
         <!-- android:name="com.carvis.SpeedCheckService" -->
@@ -162,7 +163,8 @@
 
         <activity android:name="com.carvis.UserStatistics" />
         <activity android:name="com.carvis.UserStatActivity" />
-        <activity android:name="com.carvis.UserSettings" />
+        <activity android:name="com.carvis.UserSettings"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name="com.carvis.MyLocationService"

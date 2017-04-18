@@ -3,21 +3,14 @@ package com.carvis;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.location.Location;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -38,9 +31,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.gson.JsonArray;
-import com.mysampleapp.*;
-import com.mysampleapp.demo.HomeDemoFragment;
+import com.CARVISAPP.*;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -516,7 +507,7 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
         //super.onStop();
        Log.wtf("onBackPressed", "CALLEd");
         super.onBackPressed();
-        Intent intent = new Intent(getApplicationContext(), com.mysampleapp.MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), com.CARVISAPP.MainActivity.class);
         startActivity(intent);
     }
 

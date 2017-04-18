@@ -3,7 +3,6 @@ package com.carvis;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -15,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mysampleapp.*;
+import com.CARVISAPP.*;
 
 import org.joda.time.DateTime;
 
@@ -79,7 +78,7 @@ public class UserStatActivity extends AppCompatActivity {
         //super.onStop();
         System.out.println("back called");
         super.onBackPressed();
-        Intent myIntent = new Intent(context, com.mysampleapp.MainActivity.class);
+        Intent myIntent = new Intent(context, com.CARVISAPP.MainActivity.class);
         myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(myIntent);
         super.onStop();

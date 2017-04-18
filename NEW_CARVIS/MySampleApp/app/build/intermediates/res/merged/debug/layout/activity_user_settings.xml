@@ -265,6 +265,45 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:id="@+id/linearLayout9"
+        android:layout_below="@+id/linearLayout7">
+
+        <TextView
+            android:id="@+id/kilomPerm"
+            android:gravity="left"
+            android:text="@string/trafficPerim"
+            android:layout_weight="2"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textAlignment="center"
+            android:textStyle="normal"
+            />
+
+        <EditText
+            android:id="@+id/kilomPermInput"
+            android:gravity="center"
+            android:padding="3dip"
+            android:text=""
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            android:textStyle="normal"
+            android:inputType="number"
+            android:textColorHint="@color/white"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingTop="20dp"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:id="@+id/linearLayout8"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"

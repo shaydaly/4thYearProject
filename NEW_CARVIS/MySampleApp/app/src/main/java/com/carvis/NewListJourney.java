@@ -17,18 +17,10 @@
 package com.carvis;
 
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.android.gms.maps.model.LatLng;
-import com.mysampleapp.R;
+import com.CARVISAPP.R;
 
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -46,17 +38,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import static android.R.attr.value;
-import static android.telephony.TelephonyManager.ACTION_PHONE_STATE_CHANGED;
 
 
 public class NewListJourney extends Activity {

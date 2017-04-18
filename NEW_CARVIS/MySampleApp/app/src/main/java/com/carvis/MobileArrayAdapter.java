@@ -1,21 +1,16 @@
 package com.carvis;
-import android.animation.LayoutTransition;
 import android.content.Context;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mysampleapp.R;
+import com.CARVISAPP.R;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class MobileArrayAdapter extends  ArrayAdapter<String> {
     private final Context context;

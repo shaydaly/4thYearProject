@@ -35,12 +35,12 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.Authentic
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.ForgotPasswordHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GenericHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.SignUpHandler;
-import com.mysampleapp.R;
-import com.mysampleapp.demo.userpools.ForgotPasswordActivity;
-import com.mysampleapp.demo.userpools.MFAActivity;
-import com.mysampleapp.demo.userpools.SignUpActivity;
-import com.mysampleapp.demo.userpools.SignUpConfirmActivity;
-import com.mysampleapp.util.ViewHelper;
+import com.CARVISAPP.R;
+import com.CARVISAPP.demo.userpools.ForgotPasswordActivity;
+import com.CARVISAPP.demo.userpools.MFAActivity;
+import com.CARVISAPP.demo.userpools.SignUpActivity;
+import com.CARVISAPP.demo.userpools.SignUpConfirmActivity;
+import com.CARVISAPP.util.ViewHelper;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -50,18 +50,12 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 
-import static com.mysampleapp.R.string.login_failed;
-import static com.mysampleapp.R.string.login_success;
-import static com.mysampleapp.R.string.password_change_failed;
-import static com.mysampleapp.R.string.password_change_success;
-import static com.mysampleapp.R.string.sign_up_confirm_failed;
-import static com.mysampleapp.R.string.sign_up_confirm_success;
-import static com.mysampleapp.R.string.sign_up_failed;
-import static com.mysampleapp.R.string.sign_up_success;
-import static com.mysampleapp.R.string.title_activity_forgot_password;
-import static com.mysampleapp.R.string.title_activity_sign_in;
-import static com.mysampleapp.R.string.title_activity_sign_up;
-import static com.mysampleapp.R.string.title_activity_sign_up_confirm;
+import static com.CARVISAPP.R.string.password_change_failed;
+import static com.CARVISAPP.R.string.password_change_success;
+import static com.CARVISAPP.R.string.sign_up_confirm_failed;
+import static com.CARVISAPP.R.string.sign_up_confirm_success;
+import static com.CARVISAPP.R.string.sign_up_failed;
+import static com.CARVISAPP.R.string.title_activity_sign_in;
 
 /**
  * Manages sign-in using Cognito User Pools.

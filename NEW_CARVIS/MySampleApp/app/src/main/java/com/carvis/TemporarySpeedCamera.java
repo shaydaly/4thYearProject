@@ -24,7 +24,7 @@ import java.util.LinkedHashSet;
 public class TemporarySpeedCamera implements Serializable{
     private double latitude, longitude;
     private String time;
-    static LinkedHashSet<TemporarySpeedCamera> temporarySpeedCameras = new LinkedHashSet<>();
+    public static LinkedHashSet<TemporarySpeedCamera> temporarySpeedCameras = new LinkedHashSet<>();
 
     public TemporarySpeedCamera(double latitude, double longitude, String time) {
         this.latitude = latitude;
@@ -105,7 +105,6 @@ public class TemporarySpeedCamera implements Serializable{
             cameraLocation = new Location("cameraLocation");
             cameraLocation.setLatitude(t.getLatitude());
             cameraLocation.setLongitude(t.getLongitude());
-
             if ((location.distanceTo(cameraLocation) / 1000) < 0.5) {
                 return true;
             }

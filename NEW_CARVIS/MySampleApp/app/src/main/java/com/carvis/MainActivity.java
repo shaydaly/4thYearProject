@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.mysampleapp.R;
+import com.CARVISAPP.R;
 
 public class MainActivity extends Activity {
 

@@ -1,7 +1,6 @@
 package com.carvis;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -15,23 +14,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.RemoteMessage;
-import com.mysampleapp.R;
-
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
+import com.CARVISAPP.R;
 
 import java.io.IOException;
 import java.util.List;
@@ -45,7 +35,7 @@ public class UserSettings extends AppCompatActivity {
     TextView memberSince;
     String[] counties;
     String emergencyContact;
-    EditText editText ;
+    EditText editText, kilomPerim;
     SharedPreferences prefs;
 
     Switch blockCallsSwitch, speedCameraSwitch, overLimitSwitch, receiveTrafficUpdates, receiveVoiceTrafficUpdates;
@@ -91,8 +81,9 @@ public class UserSettings extends AppCompatActivity {
 
         emergencyContact = PreferenceManager.getDefaultSharedPreferences(context).getString("emergencyContact", null);
         editText = (EditText)findViewById(R.id.emergencyContact);
-
+        kilomPerim = (EditText)findViewById(R.id.kilomPermInput);
         editText.setText(emergencyContact);
+
 
         blockCallsSwitch = (Switch)findViewById(R.id.blockIncomingCallsSwitch);
         overLimitSwitch = (Switch)findViewById(R.id.overSpeedLimitSwitch);
@@ -175,6 +166,10 @@ public class UserSettings extends AppCompatActivity {
                 //blockIncomingCallSpinner.setSelection(0);
                 receiveVoiceTrafficUpdates.setChecked(false);
             }
+        }
+
+        if(prefs.contains("kilomPerim")){
+            kilomPerim.setText(String.valueOf(prefs.getInt("kilomPerim", 0)));
         }
 
 
@@ -433,8 +428,10 @@ public class UserSettings extends AppCompatActivity {
 
         String emergencyContact = String.valueOf(editText.getText());
 
+        int kilomPerm = Integer.parseInt(kilomPerim.getText().toString());
         prefs.edit()
                 .putString("emergencyContact", emergencyContact)
+                .putInt("kilomPerim", kilomPerm)
                 .commit();
         super.onStop();
     }

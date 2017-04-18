@@ -4,12 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.location.Location;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
 
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
 import com.android.volley.AuthFailureError;
@@ -24,13 +21,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.mysampleapp.R;
-import com.mysampleapp.demo.HomeDemoFragment;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -39,19 +30,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
-import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
-
-import static android.R.attr.outlineProvider;
-import static android.R.attr.value;
 
 /**
  * Created by Seamus on 23/03/2017.
@@ -402,7 +387,7 @@ public class VolleyService extends Activity {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.i("Volley Error1 ", error.toString());
+                        Log.wtf("Volley Error1 ", error.toString());
                     }
                 }) {
                     @Override
@@ -433,23 +418,26 @@ public class VolleyService extends Activity {
                     @Override
                     protected Response<String> parseNetworkResponse(NetworkResponse response) {
 
+                        //Log.wtf("FRagment repos", String.valueOf(response));
                         String responseString = "";
-//                        if (response != null) {
-//                            responseString = String.valueOf(response.statusCode);
-//                            // can get more details such as response.headers
-//                            //result = (response.toString());
-//
-////                            try {
-////                                String str = new String(response.data, "UTF-8");
-////                                //journeyID = jID;
-////                                //System.out.println(str+"______________!!");
-////                            }
-////                            catch(UnsupportedEncodingException e){
-////                                System.out.println(e.getMessage());
-////                            }
-//
-//
-//                        }
+                        if (response != null) {
+                            responseString = response.toString();
+                           // Log.wtf("FRagment!!!", responseString);
+                            // can get more details such as response.headers
+                            //result = (response.toString());
+
+                            try {
+                                String str = new String(response.data, "UTF-8");
+                                Log.wtf("FRaAGGG!!!", str);
+                                //journeyID = jID;
+                                //System.out.println(str+"______________!!");
+                            }
+                            catch(UnsupportedEncodingException e){
+                                System.out.println(e.getMessage());
+                            }
+
+
+                        }
                         return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
                     }
                 };
@@ -748,17 +736,22 @@ public class VolleyService extends Activity {
         queue.add(jsObjRequest);
     }
 
-    public void createTrafficNotification(String trafficAddress) {
+    public void createTrafficNotification(String trafficAddress, String latitude, String longitude) {
         try {
             url = "https://fcm.googleapis.com/fcm/send";
             JSONObject jsonBody = new JSONObject();
+
+            JSONObject messageBody = new JSONObject();
+            messageBody.put("latitude", latitude);
+            messageBody.put("longitude", longitude);
+            messageBody.put("address", trafficAddress);
             JSONObject notification = new JSONObject();
             notification.put("title", "Bad Traffic Reported");
-            notification.put("body", trafficAddress);
+            notification.put("body", messageBody);
             jsonBody.put("notification", notification);
             jsonBody.put("to", "/topics/trafficUpdates");
 
-            jsonBody.toString().replace("\\\\","");
+            //jsonBody.toString().replace("\\\\","");
             Log.wtf("BODY", jsonBody.toString());
 
             JsonObjectRequest request = new JsonObjectRequest(

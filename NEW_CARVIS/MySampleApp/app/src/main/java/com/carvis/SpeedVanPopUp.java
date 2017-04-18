@@ -6,8 +6,6 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import com.mysampleapp.R;
-
 /**
  * Created by Seamus on 04/03/2017.
  */

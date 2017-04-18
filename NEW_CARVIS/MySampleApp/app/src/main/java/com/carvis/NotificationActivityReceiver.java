@@ -3,7 +3,7 @@ package com.carvis;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.mysampleapp.R;
+import com.CARVISAPP.R;
 
 /**
  * Created by Seamus on 01/03/2017.

@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
-import com.mysampleapp.R;
+import com.CARVISAPP.R;
 
 public class UserStatistics extends AppCompatActivity {
     Context context;

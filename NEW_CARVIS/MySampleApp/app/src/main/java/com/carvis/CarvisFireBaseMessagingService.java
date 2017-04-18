@@ -6,15 +6,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.mysampleapp.R;
+import com.CARVISAPP.R;
+
+import org.json.JSONObject;
 
 /**
  * Created by Seamus on 14/04/2017.
@@ -62,14 +62,30 @@ public class CarvisFireBaseMessagingService extends FirebaseMessagingService{
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
-            Intent intent = new Intent();
-            intent.setAction(TAG);
-            intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-            intent.putExtra("badTrafficLocation", remoteMessage.getNotification().getBody());
-            getApplicationContext().sendBroadcast(intent);
+            try {
+                JSONObject jsonObject = new JSONObject(remoteMessage.getNotification().getBody());
+                double latitude = Double.parseDouble(jsonObject.getString("latitude"));
+                double longitude = Double.parseDouble(jsonObject.getString("longitude"));
+                String address = jsonObject.getString("address");
 
 
-            Log.wtf(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+
+
+                Intent intent = new Intent();
+                intent.setAction(TAG);
+                intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                intent.putExtra("latitude", latitude);
+                intent.putExtra("longitude", longitude);
+                intent.putExtra("badTrafficLocation", address);
+                getApplicationContext().sendBroadcast(intent);
+
+
+
+                Log.wtf(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+            }
+            catch(Exception e){
+                Log.wtf("message ex", e.getMessage());
+            }
         }
 
         // Also if you intend on generating your own notifications as a result of a received FCM

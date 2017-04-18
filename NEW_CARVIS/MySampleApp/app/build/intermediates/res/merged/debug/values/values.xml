@@ -1053,6 +1053,7 @@
     <string name="title_activity_sign_up">Sign Up</string>
     <string name="title_activity_sign_up_confirm">Confirm Account</string>
     <string name="title_activity_speed_camera_map">Map</string>
+    <string name="trafficPerim">Traffic Notification (km)</string>
     <string name="unknown_user">Guest User</string>
     <string name="userStatistics">User Statistics</string>
     <string name="user_id">USER IDENTIFIER</string>

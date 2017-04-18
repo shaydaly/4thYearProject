@@ -117,7 +117,6 @@ public class MyLocationService extends Service implements
             public void run() {
                 Log.i(TAG, "run");
                 mThreadPool = Executors.newSingleThreadExecutor();
-
                 Log.i(TAG, "startCommand");
 
             }
@@ -182,7 +181,6 @@ public class MyLocationService extends Service implements
             @Override
             public void run() {
                 // do some work
-
                 try {
                     if(!intialMovement) {
                         nearKnownSpeedLimit(speedSearch);
@@ -193,7 +191,6 @@ public class MyLocationService extends Service implements
                 }
             }
         }, 0, 5, TimeUnit.SECONDS);  // execute every x seconds
-
         ses.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
@@ -209,11 +206,11 @@ public class MyLocationService extends Service implements
                         if(!intialMovement) {
                             journeyList.add(new JourneyFragment(journey.getLatitude(), journey.getLongitude(), journey.getCurrentSpeed(), limit, dNow, journey.getJourneyID(), provider.getUserName(), speedSearch.getOsm_id()));
                         }
-                            if (journeyList.size() == 20) {
-//                            JourneyFragment.AddJourneyFragments(queue, journeyList, journey.getJourneyID());
-                            volleyService.addJourneyFragments(journeyList, journey.getJourneyID(), provider.getToken());
-                            journeyList.clear();
-                        }
+//                            if (journeyList.size() == 20) {
+////                            JourneyFragment.AddJourneyFragments(queue, journeyList, journey.getJourneyID());
+//                            volleyService.addJourneyFragments(journeyList, journey.getJourneyID(), provider.getToken());
+//                            journeyList.clear();
+//                        }
                         //System.out.println(cameras.size());
                     } catch (Exception e) {
                         Log.i("Get Limit Exception", e.getMessage());
@@ -223,29 +220,6 @@ public class MyLocationService extends Service implements
                 }
             }
         }, 0, 15, TimeUnit.SECONDS);  // execute every x seconds
-
-
-
-//        serviceBroadcastReceiver = new BroadcastReceiver() {
-//            @Override
-//            public void onReceive(Context context, Intent intent) {
-//                try {
-//
-//                    Log.i("hala", "hal");
-//                    if(intent.getAction().equals(UPDATE_LOCATION)){
-//                        setLocationSettings();
-//                        Bundle bundle = new Bundle();
-//                        onConnected(bundle);
-//                    }
-//                }
-//                catch(Exception e){
-//                    System.out.println(e.getMessage());
-//                }
-//
-//            }
-//        };
-//        IntentFilter filter = new IntentFilter("SEAMUS");
-//        registerReceiver(serviceBroadcastReceiver, filter);
     }
 
 
@@ -307,7 +281,7 @@ public class MyLocationService extends Service implements
         mThreadPool.execute(new Runnable() {
             @Override
             public void run() {
-                //Log.i(TAG, String.valueOf(location.getLatitude()));
+                Log.wtf(TAG, String.valueOf(location.getLatitude()));
                 //Data within intent to send in a broadcast.
                 //  Intent intent = new Intent(HuhConnectionService.NEW_MESSAGE);
 
@@ -320,7 +294,6 @@ public class MyLocationService extends Service implements
                     if (location.hasSpeed()) {
                         speed = (int) (Math.round((location.getSpeed() * 3.6) * 100.0) / 100.0);
                         journey.setCurrentSpeed((speed));
-
                         currentSpeedIntent = new Intent();
                         // sets keyword to listen out for for this broadcast
                         currentSpeedIntent.setAction(SPEED_MESSAGE);
@@ -507,9 +480,6 @@ public class MyLocationService extends Service implements
                         speedLimitIntent.putExtra("speedLimit", r.getSpeedLimit());
                         speedLimitIntent.putExtra("osmID", speedSearch.getOsm_id());
                         sendBroadcast(speedLimitIntent);
-
-
-                        //speedHandler.sendMessage(alertMessage);
                         return;
                     }
                 }
@@ -519,7 +489,7 @@ public class MyLocationService extends Service implements
                 for (RoadRecord r : entry.getValue()) {
                     test.setLatitude(Double.parseDouble(r.getLatitude()));
                     test.setLongitude(Double.parseDouble(r.getLongitude()));
-                    if (speedSearch.getLocation().distanceTo(test) / 1000 <= 0.015) {
+                    if (speedSearch.getLocation().distanceTo(test) / 1000 <= 0.02) {
                         Log.i("speed Test log 2", "near" + r.getSpeedLimit());
                         // speedLimit =  roadRecords.get(i).getSpeedLimit();
                         speedSearch.setOsm_id(entry.getKey());
@@ -538,8 +508,6 @@ public class MyLocationService extends Service implements
                 }
                 // System.out.println(entry.getKey() + "/" + entry.getValue());
             }
-            //handler.sendEmptyMessage(0);
-            //journey.getSpeedFromLambda(database, queue, speedSearch);
             volleyService.getSpeedFromLambda(this, speedSearch, journey.getLatitude(), journey.getLongitude(), provider.getToken());
         } catch (Exception e) {
             System.out.println(e.getMessage());

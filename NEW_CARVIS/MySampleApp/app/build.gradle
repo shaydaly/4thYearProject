@@ -43,6 +43,10 @@ android {
         abortOnError false
     }
 
+    testOptions {
+        unitTests.returnDefaultValues = false
+    }
+
     sourceCompatibility = 1.7
     targetCompatibility = 1.7
 }
@@ -80,6 +84,9 @@ dependencies {
     compile 'junit:junit:4.12'
     compile 'com.google.firebase:firebase-messaging:10.2.0'
     testCompile 'junit:junit:4.12'
+
+
+
     //testCompile "org.robolectric:robolectric:3.3.2"
 
 //    androidTestCompile "com.google.dexmaker:dexmaker:1.0"
@@ -94,5 +101,6 @@ repositories {
         dirs 'libs'
     }
 }
+
 
 apply plugin: 'com.google.gms.google-services'

@@ -11,7 +11,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -27,9 +26,7 @@ import com.google.android.gms.maps.model.JointType;
 
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.maps.model.RoundCap;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.mysampleapp.R;
+import com.CARVISAPP.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,10 +34,7 @@ import java.util.List;
 import java.util.Locale;
 
 import android.location.Address;
-import android.location.Geocoder;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;

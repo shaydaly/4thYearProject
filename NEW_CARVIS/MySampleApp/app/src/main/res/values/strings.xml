@@ -150,6 +150,7 @@
     <string name="receiveTraffic">Receive traffic notifications</string>
     <string name="receiveTrafficVoice">Receive Voice Traffic Updates</string>
     <string name="noOverSpeedDay">You have not yet driven over the speed limit on any date. Well done !</string>
+    <string name="trafficPerim">Traffic Notification (km)</string>
 
     <string-array name="counties">
         <item>Dublin</item>

@@ -2,34 +2,23 @@ package com.carvis;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Location;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -39,26 +28,16 @@ import android.widget.Toast;
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
 import com.android.internal.telephony.ITelephony;
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 
-import java.io.File;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
-import com.mysampleapp.*;
+import com.CARVISAPP.*;
+import com.CARVISAPP.MainActivity;
 
 import static android.telephony.TelephonyManager.ACTION_PHONE_STATE_CHANGED;
 
@@ -98,10 +77,10 @@ public class TrackSpeedActivity extends Activity {
     MediaPlayer mediaPlayer, speedLimitPlayer, speedCameraPlayer, trafficPlayer;
     CarvisMediaPlayer carvisMediaPlayer;
     ArrayList<Integer> songs;
+    ArrayList<ImageView> imageViews;
 
-    int limit;
+    int speed, limit, kilomPerim;
     private Date dNow;
-    int speed;
     double latitude, longitude;
     private RequestQueue queue;
 
@@ -224,6 +203,7 @@ public class TrackSpeedActivity extends Activity {
         playTrafficVoice = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("playTrafficUpdates", false);
         receiveTrafficUpdates = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("receiveTrafficNotifications", false);
 
+        kilomPerim = PreferenceManager.getDefaultSharedPreferences(context).getInt("kilomPerim", 3);
 
         songs = new ArrayList<>();
         mediaPlayer = new MediaPlayer();
@@ -237,6 +217,11 @@ public class TrackSpeedActivity extends Activity {
         imageView80 = (ImageView) findViewById(R.id.speed80km);
         imageView100 = (ImageView) findViewById(R.id.speed100km);
 
+        imageViews = new ArrayList<>();
+        imageViews.add(imageView50);
+        imageViews.add(imageView60);
+        imageViews.add(imageView80);
+        imageViews.add(imageView100);
 
         currentSpeedTextView = (TextView) findViewById(R.id.currentSpeed);
         speedCameraTextView = (TextView)findViewById(R.id.speedCamera);
@@ -270,10 +255,10 @@ public class TrackSpeedActivity extends Activity {
                     else if (intent.getAction().equals(MyLocationService.LIMIT_MESSAGE)) {
                         //Log.i("speeeeeeedd", String.valueOf(intent.getIntExtra("speedLimit", 0)));
                         limit = intent.getIntExtra("speedLimit", 0);
-                        if (limit != 0) {
-                            chooseSpeedImage(limit);
-                        }
-
+//                        if (limit != 0) {
+//                            chooseSpeedImage(limit);
+//                        }
+                        chooseSpeedImage(limit);
                         speedSearch.setOsm_id(intent.getIntExtra("osmID",0));
 
                     }
@@ -281,6 +266,7 @@ public class TrackSpeedActivity extends Activity {
                         //Log.i("VOICEEEE", "PLAY VOICE RECEIVED");
                         //playSpeedPolly();
                         carvisMediaPlayer.addSongToQueue(R.raw.speedlimitpolly);
+                        Log.wtf("Speed limit polly", String.valueOf(R.raw.speedlimitpolly));
                     }
                     else if (intent.getAction().equals(MyLocationService.STOP_SPEED_MESSAGE) && isPlayingVoice) {
                         // Log.i("VOICEEEE", "STOP VOICE RECEIVED");
@@ -301,6 +287,7 @@ public class TrackSpeedActivity extends Activity {
 
                         if(playVoice) {
                             carvisMediaPlayer.addSongToQueue(R.raw.speedcamerapolly);
+                            Log.wtf("Speed camera polly", String.valueOf(R.raw.speedcamerapolly));
                         }
 //                        if (!isPlayingCameraVoice && playVoice) {
 //
@@ -316,12 +303,15 @@ public class TrackSpeedActivity extends Activity {
 //                        Log.wtf("badTrafficLocation", intent.getStringExtra("badTrafficLocation"));
 //                        Toast.makeText(context,intent.getStringExtra("badTrafficLocation"), Toast.LENGTH_LONG ).show();
 
-                        if(receiveTrafficUpdates){
-                            showBadTrafficLocation(intent.getStringExtra("badTrafficLocation"));
-                            if(playTrafficVoice) {
-                                Log.wtf("play traffic"," paly");
-                                carvisMediaPlayer.addSongToQueue(R.raw.badtraffic);
-                                //playBadTrafficPolly();
+                        if(receiveTrafficUpdates) {
+                            if (distanceToTrafficAddress(intent.getDoubleExtra("latitude", 0), intent.getDoubleExtra("longitude", 0))) {
+                                showBadTrafficLocation(intent.getStringExtra("badTrafficLocation"));
+                                if (playTrafficVoice) {
+                                    Log.wtf("play traffic", " paly");
+                                    Log.wtf("bad traffic", String.valueOf(R.raw.badtraffic));
+                                    carvisMediaPlayer.addSongToQueue(R.raw.badtraffic);
+                                    //playBadTrafficPolly();
+                                }
                             }
                         }
 
@@ -400,7 +390,7 @@ public class TrackSpeedActivity extends Activity {
         //super.onStop();
         Log.wtf("onBackPressed", "CALLEd");
         super.onBackPressed();
-        Intent intent = new Intent(getApplicationContext(), com.mysampleapp.MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), com.CARVISAPP.MainActivity.class);
         startActivity(intent);
     }
 
@@ -479,16 +469,19 @@ public class TrackSpeedActivity extends Activity {
 //    }
 
     public void chooseSpeedImage(int limit) {
-        if (limit == 50) {
+        if(limit == 0){
+            hideAllImages();
+        }
+        else if (limit == 50) {
             showImage(imageView50);
         }
-        if (limit == 60) {
+        else if (limit == 60) {
             showImage(imageView60);
         }
-        if (limit == 80) {
+        else if (limit == 80) {
             showImage(imageView80);
         }
-        if (limit == 100) {
+        else if (limit == 100) {
             showImage(imageView100);
         }
     }
@@ -496,6 +489,12 @@ public class TrackSpeedActivity extends Activity {
     public void showImage(ImageView view) {
         view.setVisibility(View.VISIBLE);
         view.bringToFront();
+    }
+
+    public void hideAllImages(){
+        for(ImageView imageView :imageViews ){
+            imageView.setVisibility(View.INVISIBLE);
+        }
     }
 
     public void playSpeedPolly() {
@@ -615,7 +614,8 @@ public class TrackSpeedActivity extends Activity {
                     speedCameraPlayer = MediaPlayer.create(TrackSpeedActivity.this, R.raw.speedcamerapolly);
                     speedCameraPlayer.start();
 
-                } catch (Exception e) {
+                }
+                catch (Exception e) {
 
                 }
                 long futureTime = System.currentTimeMillis() + 30000;
@@ -759,7 +759,7 @@ public class TrackSpeedActivity extends Activity {
                     TrafficUpdate.AddTrafficUpdate(latitude, longitude, time, context);
                     String Address = SpeedCamera.getSpeedCameraAddress(context, latitude, longitude);
 
-                    volleyService.createTrafficNotification(Address);
+                    volleyService.createTrafficNotification(Address, String.valueOf(latitude), String.valueOf(longitude));
                     if(speedSearch.getOsm_id()!= -99) {
                         volleyService.createTrafficIncident(speedSearch.getOsm_id(), time, provider);
                     }
@@ -777,6 +777,9 @@ public class TrackSpeedActivity extends Activity {
             public void onClick(View v) {
                 try {
                     Toast.makeText(context, "Journey Ended", Toast.LENGTH_SHORT).show();
+                    //finish();
+                    Intent intent = new Intent(context, MainActivity.class);
+                    startActivity(intent);
                     finish();
                 }
                 catch(Exception e){
@@ -841,11 +844,20 @@ public class TrackSpeedActivity extends Activity {
 //                    intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
 //                    intent.setPackage(context.getPackageName());
 //                    //Sends out broadcast
-//                    sendBroadcast(intent);
 //
-//                return;
-//            }
-//        }
+
+    private boolean distanceToTrafficAddress(double trafficLatitude,double trafficLongitude){
+        Location current = new Location("current");
+        current.setLatitude(latitude);
+        current.setLongitude(longitude);
+        Location traffic = new Location("traffic");
+        traffic.setLatitude(trafficLatitude);
+        traffic.setLongitude(trafficLongitude);
+        if((current.distanceTo(traffic) / 1000) < kilomPerim){
+            return true;
+        }
+        return  false;
+    }
 }
 
 

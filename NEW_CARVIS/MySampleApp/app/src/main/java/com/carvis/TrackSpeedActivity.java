@@ -62,14 +62,8 @@ public class TrackSpeedActivity extends Activity {
 
 
     SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    private LocationRequest mLocationRequest;
-    private GoogleApiClient mGoogleApiClient;
 
-
-    ImageView imageView50;
-    ImageView imageView60;
-    ImageView imageView80;
-    ImageView imageView100;
+    ImageView imageView50, imageView60, imageView80, imageView100, imageView120;
 
     TextView currentSpeedTextView, speedCameraTextView, badTraffic;
     CognitoUserPoolsSignInProvider provider;
@@ -216,13 +210,13 @@ public class TrackSpeedActivity extends Activity {
         imageView60 = (ImageView) findViewById(R.id.speed60km);
         imageView80 = (ImageView) findViewById(R.id.speed80km);
         imageView100 = (ImageView) findViewById(R.id.speed100km);
-
+        imageView120 = (ImageView) findViewById(R.id.speed120km);
         imageViews = new ArrayList<>();
         imageViews.add(imageView50);
         imageViews.add(imageView60);
         imageViews.add(imageView80);
         imageViews.add(imageView100);
-
+        imageViews.add(imageView120);
         currentSpeedTextView = (TextView) findViewById(R.id.currentSpeed);
         speedCameraTextView = (TextView)findViewById(R.id.speedCamera);
         badTraffic = (TextView)findViewById(R.id.badTrafficReported);
@@ -262,17 +256,17 @@ public class TrackSpeedActivity extends Activity {
                         speedSearch.setOsm_id(intent.getIntExtra("osmID",0));
 
                     }
-                    else if (intent.getAction().equals(MyLocationService.PLAY_SPEED_MESSAGE) && !isPlayingVoice && playSpeedVoice) {
+                    else if (intent.getAction().equals(MyLocationService.PLAY_SPEED_MESSAGE) && playSpeedVoice) {
                         //Log.i("VOICEEEE", "PLAY VOICE RECEIVED");
                         //playSpeedPolly();
                         carvisMediaPlayer.addSongToQueue(R.raw.speedlimitpolly);
                         Log.wtf("Speed limit polly", String.valueOf(R.raw.speedlimitpolly));
                     }
-                    else if (intent.getAction().equals(MyLocationService.STOP_SPEED_MESSAGE) && isPlayingVoice) {
-                        // Log.i("VOICEEEE", "STOP VOICE RECEIVED");
-                        //stopSpeedVoice();
-                        carvisMediaPlayer.stopMediaPlayer();
-                    }
+//                    else if (intent.getAction().equals(MyLocationService.STOP_SPEED_MESSAGE)) {
+//                        // Log.i("VOICEEEE", "STOP VOICE RECEIVED");
+//                        //stopSpeedVoice();
+//                        carvisMediaPlayer.stopMediaPlayer();
+//                    }
 
                     else if (intent.getAction().equals(MyLocationService.PLAY_CAMERA_MESSAGE)) {
 //                        Log.i("shay", "received play speed camera broadcast");
@@ -316,19 +310,6 @@ public class TrackSpeedActivity extends Activity {
                         }
 
                     }
-
-//                    else if (intent.getAction().equals(ACTION_ANSWER)) {
-//                        Log.wtf("PHONE CALL RECEIVED", "phone call");
-//                        blockIncomeCalls(intent);
-//                    }
-
-//                    if((speed>limit && limit!= 0)){
-//                        trackSpeedView.setBackgroundColor(Color.RED);
-//                    }
-//                    else{
-//                        trackSpeedView.setBackgroundColor(Color.WHITE);
-//                    }
-
 
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
@@ -394,7 +375,6 @@ public class TrackSpeedActivity extends Activity {
         startActivity(intent);
     }
 
-
     public void displaySpeedCameraInfo(final String address, final String time) {
         speedCameraWarningShowing = true;
         Runnable r = new Runnable() {
@@ -426,48 +406,6 @@ public class TrackSpeedActivity extends Activity {
         thread.start();
     }
 
-
-//    private ServiceConnection speedCheckConnection = new ServiceConnection() {
-//        @Override
-//        public void onServiceConnected(ComponentName componentName, IBinder service) {
-//            SpeedCheckService.SpeedLocalBinder binder = (SpeedCheckService.SpeedLocalBinder) service;
-//            speedCheckService = binder.getService();
-//            isBound = true;
-//        }
-//
-//        @Override
-//        public void onServiceDisconnected(ComponentName componentName) {
-//            isBound = false;
-//        }
-//    };
-
-//    public void setOverSpeedLimit() {
-//        isRunning = true;
-//        Runnable r = new Runnable() {
-//            @Override
-//            public void run() {
-//                long futureTime = System.currentTimeMillis() + 5000;
-//                while (System.currentTimeMillis() < futureTime) {
-//                    synchronized (this) {
-//                        try {
-////                            playVoice();
-////                            stopVoice();
-//                            wait(futureTime - System.currentTimeMillis());
-//
-//                        } catch (Exception e) {
-//                            Log.i("over speed", e.getMessage());
-//                        }
-//                    }
-//                }
-//                overSpeedHandler.sendEmptyMessage(0);
-//                isRunning = false;
-//            }
-//
-//        };
-//        Thread t = new Thread(r);
-//        t.start();
-//    }
-
     public void chooseSpeedImage(int limit) {
         if(limit == 0){
             hideAllImages();
@@ -484,6 +422,9 @@ public class TrackSpeedActivity extends Activity {
         else if (limit == 100) {
             showImage(imageView100);
         }
+        else if(limit == 120){
+            showImage(imageView120);
+        }
     }
 
     public void showImage(ImageView view) {
@@ -497,41 +438,41 @@ public class TrackSpeedActivity extends Activity {
         }
     }
 
-    public void playSpeedPolly() {
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                isPlayingVoice = true;
-                try {
-                    stopSpeedVoice();
-                    speedLimitPlayer = MediaPlayer.create(TrackSpeedActivity.this, R.raw.speedlimitpolly);
-                    speedLimitPlayer.start();
-
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
-                long futureTime = System.currentTimeMillis() + 5000;
-                while (System.currentTimeMillis() < futureTime) {
-                    synchronized (this) {
-                        try {
-                            wait(futureTime - System.currentTimeMillis());
-                        } catch (Exception e) {
-
-                        }
-                    }
-                }
-                isPlayingVoice = false;
-            }
-        };
-        Thread t = new Thread(r);
-        t.start();
-
-//        player.reset();
-//        player.setDataSource(Environment.getExternalStorageDirectory().getPath()+"/2cp.3gp");
-//        player.prepare();
-//        player.start();
-
-    }
+//    public void playSpeedPolly() {
+//        Runnable r = new Runnable() {
+//            @Override
+//            public void run() {
+//                isPlayingVoice = true;
+//                try {
+//                    stopSpeedVoice();
+//                    speedLimitPlayer = MediaPlayer.create(TrackSpeedActivity.this, R.raw.speedlimitpolly);
+//                    speedLimitPlayer.start();
+//
+//                } catch (Exception e) {
+//                    System.out.println(e.getMessage());
+//                }
+//                long futureTime = System.currentTimeMillis() + 5000;
+//                while (System.currentTimeMillis() < futureTime) {
+//                    synchronized (this) {
+//                        try {
+//                            wait(futureTime - System.currentTimeMillis());
+//                        } catch (Exception e) {
+//
+//                        }
+//                    }
+//                }
+//                isPlayingVoice = false;
+//            }
+//        };
+//        Thread t = new Thread(r);
+//        t.start();
+//
+////        player.reset();
+////        player.setDataSource(Environment.getExternalStorageDirectory().getPath()+"/2cp.3gp");
+////        player.prepare();
+////        player.start();
+//
+//    }
 
 
     private void showBadTrafficLocation(final String address){
@@ -564,76 +505,6 @@ public class TrackSpeedActivity extends Activity {
 
     }
 
-    public void playBadTrafficPolly() {
-
-        if(!trafficPlayer.isPlaying()) {
-            Runnable r = new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        stopTrafficPlayer();
-                        trafficPlayer = MediaPlayer.create(TrackSpeedActivity.this, R.raw.badtraffic);
-                        trafficPlayer.start();
-
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
-                    long futureTime = System.currentTimeMillis() + 15000;
-                    while (System.currentTimeMillis() < futureTime) {
-                        synchronized (this) {
-                            try {
-                                wait(futureTime - System.currentTimeMillis());
-                            } catch (Exception e) {
-
-                            }
-                        }
-
-                    }
-                }
-            };
-            Thread t = new Thread(r);
-            t.start();
-
-//        player.reset();
-//        player.setDataSource(Environment.getExternalStorageDirectory().getPath()+"/2cp.3gp");
-//        player.prepare();
-//        player.start();
-        }
-    }
-
-
-    public void playSpeedCameraPolly() {
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                isPlayingCameraVoice = true;
-                try {
-                    stopSpeedCameraVoice();
-                    stopSpeedVoice();
-                    //speedCameraPlayer = MediaPlayer.create(context);
-                    speedCameraPlayer = MediaPlayer.create(TrackSpeedActivity.this, R.raw.speedcamerapolly);
-                    speedCameraPlayer.start();
-
-                }
-                catch (Exception e) {
-
-                }
-                long futureTime = System.currentTimeMillis() + 30000;
-                while (System.currentTimeMillis() < futureTime) {
-                    synchronized (this) {
-                        try {
-                            wait(futureTime - System.currentTimeMillis());
-                        } catch (Exception e) {
-
-                        }
-                    }
-                }
-                isPlayingCameraVoice = false;
-            }
-        };
-        Thread t = new Thread(r);
-        t.start();
-    }
 
 //    public void playSpeedVanPolly() {
 //        Log.i("playSpeedVanPolly", "plzy");
@@ -665,35 +536,6 @@ public class TrackSpeedActivity extends Activity {
 //        Thread t = new Thread(r);
 //        t.start();
 //    }
-
-
-
-    public void stopSpeedVoice() {
-        if (speedLimitPlayer != null) {
-            speedLimitPlayer.pause();
-            // mediaPlayer.reset();
-            speedLimitPlayer.release();
-            speedLimitPlayer = null;
-        }
-    }
-    public void stopTrafficPlayer() {
-        if (trafficPlayer != null) {
-            trafficPlayer.pause();
-            // mediaPlayer.reset();
-            trafficPlayer.release();
-            trafficPlayer = null;
-        }
-    }
-    public void stopSpeedCameraVoice() {
-        if (speedCameraPlayer != null) {
-            speedCameraPlayer.pause();
-            // mediaPlayer.reset();
-            speedCameraPlayer.release();
-            speedCameraPlayer = null;
-        }
-    }
-
-
 
     private void blockIncomeCalls(Intent intent){
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -859,12 +701,3 @@ public class TrackSpeedActivity extends Activity {
         return  false;
     }
 }
-
-
-
-
-
-
-
-
-

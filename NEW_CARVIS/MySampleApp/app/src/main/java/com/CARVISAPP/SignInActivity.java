@@ -106,9 +106,10 @@ public class SignInActivity extends Activity {
 
         signInManager.setResultsHandler(this, new SignInResultsHandler());
 
+        //FACEBOOK__BUTTON
         // Initialize sign-in buttons.
-        signInManager.initializeSignInButton(FacebookSignInProvider.class,
-            this.findViewById(R.id.fb_login_button));
+//        signInManager.initializeSignInButton(FacebookSignInProvider.class,
+//            this.findViewById(R.id.fb_login_button));
 
         signInManager.initializeSignInButton(CognitoUserPoolsSignInProvider.class,
                 this.findViewById(R.id.signIn_imageButton_login));

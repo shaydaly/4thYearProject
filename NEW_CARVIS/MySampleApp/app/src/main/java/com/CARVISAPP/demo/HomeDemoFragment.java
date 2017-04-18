@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
 
+import com.carvis.CarvisFireBaseMessagingService;
 import com.carvis.NewListJourney;
 import com.carvis.OnSwipeTouchListener;
 import com.carvis.SpeedCameraMap;
@@ -111,6 +112,10 @@ public class HomeDemoFragment extends DemoFragmentBase {
 
 
         provider.refreshToken();
+
+
+        Intent firebaseIntent = new Intent(context, CarvisFireBaseMessagingService.class);
+        context.startService(firebaseIntent);
 
         daysSinceOverSpeed = (TextView) getActivity().findViewById(R.id.daysSinceOverSpeed);
 //        daysSinceOverSpeed.setText("hello`1");
@@ -295,8 +300,6 @@ public class HomeDemoFragment extends DemoFragmentBase {
         if(SplashActivity.justSignedin) {
             v = new VolleyService(context);
             v.getDaysSinceLastOverSpeed(provider, context);
-
-
         }
         SplashActivity.justSignedin = false;
 
@@ -398,9 +401,6 @@ public class HomeDemoFragment extends DemoFragmentBase {
 //                }
 //            }
 //        };
-
-
-
     }
 
     @Override

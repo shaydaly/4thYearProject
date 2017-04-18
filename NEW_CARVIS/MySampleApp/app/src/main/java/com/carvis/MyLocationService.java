@@ -62,26 +62,26 @@ public class MyLocationService extends Service implements
 
     private LocationRequest mLocationRequest;
     private GoogleApiClient mGoogleApiClient;
-    FirebaseDatabase database;
-    DatabaseReference vanRef;
-    DatabaseReference cameraRef;
-    DatabaseReference speedref;
-    Context context;
-    ExecutorService mThreadPool;
+    private FirebaseDatabase database;
+    private DatabaseReference vanRef, speedref, cameraRef;
+    private Context context;
+    private  ExecutorService mThreadPool;
     private Journey journey;
-    Intent currentSpeedIntent, speedLimitIntent, playVoiceIntent, stopVoiceIntent, playSpeedCameraIntent, playSpeedVanIntent ;
-    VolleyService volleyService;
-    CognitoUserPoolsSignInProvider provider;
+    private  Intent currentSpeedIntent, speedLimitIntent, playVoiceIntent, stopVoiceIntent, playSpeedCameraIntent, playSpeedVanIntent ;
+    private VolleyService volleyService;
+    private CognitoUserPoolsSignInProvider provider;
     private SpeedSearch speedSearch;
-    ScheduledExecutorService ses;
+    private ScheduledExecutorService ses;
 
     private List<JourneyFragment> journeyList;
-    ArrayList<OverSpeedLimit> overSpeedLimits;
-    ArrayList<RoadRecord> record;
+    private ArrayList<OverSpeedLimit> overSpeedLimits;
+    private ArrayList<RoadRecord> record;
 
-    HashMap<Integer, ArrayList<RoadRecord>> roadHashMap;
+    private HashMap<Integer, ArrayList<RoadRecord>> roadHashMap;
 
-    BroadcastReceiver mBroadcastReceiver;
+    private BroadcastReceiver mBroadcastReceiver;
+
+    private OverSpeedLimit overSpeedLimit;
 
 
     public MyLocationService() {
@@ -93,10 +93,16 @@ public class MyLocationService extends Service implements
         @Override
         public void handleMessage(Message msg) {
             if (journey.getCurrentSpeed() > journey.getSpeedLimit()) {
-                OverSpeedLimit o = new OverSpeedLimit(journey.getLatitude(), journey.getLongitude(), journey.getCurrentSpeed(),
+                //journeyList.add(new JourneyFragment(journey.getLatitude(), journey.getLongitude(), journey.getCurrentSpeed(), limit, dNow, journey.getJourneyID(), provider.getUserName(), speedSearch.getOsm_id()));
+                overSpeedLimit = new OverSpeedLimit(journey.getLatitude(), journey.getLongitude(), journey.getCurrentSpeed(),
                         (limit), dNow, provider.getUserName(), journey.getJourneyID(), speedSearch.getOsm_id());
-                if (!overSpeedLimits.contains(o)) {
-                    overSpeedLimits.add(o);
+//                overSpeedLimit.setLatitude(journey.getLatitude());
+//                overSpeedLimit.setLongitude(journey.getLongitude());
+//                overSpeedLimit.setSpeedLimit(limit);
+//                overSpeedLimit.setCurrentSpeed(journey.getCurrentSpeed());
+//                overSpeedLimit.setRoadId(speedSearch);
+                if (!overSpeedLimits.contains(overSpeedLimit)) {
+                    overSpeedLimits.add(overSpeedLimit);
                 }
             }
         }
@@ -509,6 +515,14 @@ public class MyLocationService extends Service implements
                 // System.out.println(entry.getKey() + "/" + entry.getValue());
             }
             volleyService.getSpeedFromLambda(this, speedSearch, journey.getLatitude(), journey.getLongitude(), provider.getToken());
+            speedLimitIntent = new Intent();
+            // sets keyword to listen out for for this broadcast
+            speedLimitIntent.setAction(LIMIT_MESSAGE);
+            speedLimitIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+            speedLimitIntent.setPackage(context.getPackageName());
+            speedLimitIntent.putExtra("speedLimit", 0);
+            speedLimitIntent.putExtra("osmID", -99);
+            sendBroadcast(speedLimitIntent);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
@@ -35,6 +36,8 @@ public class SignUpActivity extends Activity {
         setContentView(R.layout.activity_sign_up);
 
         context = getApplicationContext();
+
+
     }
 
     /**
@@ -62,21 +65,36 @@ public class SignUpActivity extends Activity {
         intent.putExtra(CognitoUserPoolsSignInProvider.AttributeKeys.EMAIL_ADDRESS, email);
         intent.putExtra(CognitoUserPoolsSignInProvider.AttributeKeys.PHONE_NUMBER, phone);
 
+        EditText emailText = (EditText)findViewById(R.id.signup_email);
+        EditText phoneNumberText = (EditText)findViewById(R.id.signup_phone);
+        EditText passwordText  = (EditText)findViewById(R.id.signup_password);
+        EditText usernameText  = (EditText)findViewById(R.id.signup_username);
 
-        if(TextUtils.isEmpty(username) || TextUtils.isEmpty(password) ||TextUtils.isEmpty(givenName) || TextUtils.isEmpty(email) || TextUtils.isEmpty(phone)){
+
+        if(TextUtils.isEmpty(username) || TextUtils.isEmpty(password) ||TextUtils.isEmpty(givenName)  || TextUtils.isEmpty(phone)){
             Toast.makeText(context, "Fields cannot be empty", Toast.LENGTH_LONG).show();
         }
 
        else  if(password.length()<8){
-            Toast.makeText(context, "Password must be at least 8 characters", Toast.LENGTH_LONG).show();
+            passwordText.setError("Password must be at least 8 characters");
+
+        }
+
+        else if (phone.length()<10){
+            phoneNumberText.setError("Please enter a valid mobile number");
         }
 
         else if(!containsDigit(password)){
-            Toast.makeText(context, "Password must contain a numeric value", Toast.LENGTH_LONG).show();
+            passwordText.setError("Password must contain a digit");
         }
 
         else if(password.equals(password.toLowerCase())){
-            Toast.makeText(context, "Password must contain an uppercase", Toast.LENGTH_LONG).show();
+            passwordText.setError("Password must contain upper/lower case letters");
+        }
+
+        else if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+
+            emailText.setError("enter a valid email address");
         }
 
 

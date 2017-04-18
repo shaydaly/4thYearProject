@@ -40,7 +40,8 @@ public class OverSpeedLimit implements Serializable{
     private Date currentTime;
     private int currentSpeed, speedLimit;
 
-    public OverSpeedLimit(String latitude,String longitude, int currentSpeed, int speedLimit) {
+
+    public OverSpeedLimit(String latitude, String longitude, int currentSpeed, int speedLimit) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.currentSpeed = currentSpeed;

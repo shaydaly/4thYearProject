@@ -17,7 +17,7 @@
     <string name="sign_in_email">Email</string>
     <string name="sign_in_username">Username</string>
     <string name="sign_in_password">Password</string>
-    <string name="sign_in_new_account">Create New Account</string>
+    <string name="sign_in_new_account">New User?</string>
     <string name="sign_in_forgot_password">Forgot Your Password?</string>
     <string name="sign_in_or">or sign in with</string>
     <string name="main_nav_menu_default_user_text">\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020</string>
@@ -107,7 +107,7 @@
     <string name="title_activity_speed_camera_map">Map</string>
     <string name="userStatistics">User Statistics</string>
     <string name="averageJourneyTime">Avg. Journey Time (mins)</string>
-    <string name="numJourneys">Journeys</string>
+    <string name="numJourneys">Number of Journeys</string>
     <string name="numOverSpeeds">Over Speed Journeys</string>
     <string name="dayWithMostOverSpeed">Day Most Likely to Speed</string>
     <string name="mostOverSpeedRoad">Most Over Limit Road</string>
@@ -151,6 +151,10 @@
     <string name="receiveTrafficVoice">Receive Voice Traffic Updates</string>
     <string name="noOverSpeedDay">You have not yet driven over the speed limit on any date. Well done !</string>
     <string name="trafficPerim">Traffic Notification (km)</string>
+    <string name="firebaseKey">key=AAAADMY4DF0:APA91bF-6FzxakqhfIG1Zc2O2auOhnjSBHcIYmqm2RJVcRnT_tcE6Lz6LqLlujGQazCwh4XSDVxI_vXRrHZ10OMc9s-XeRtbenFVw4GbpqbqCMSVmEpv8T-8VxgdqiUwGLIKbASydy5h</string>
+    <string name="montlyJourney">Monthly Journeys</string>
+    <string name="monthlyKm">Monthly km</string>
+    <string name="overSpeedDays">Over Speed Days</string>
 
     <string-array name="counties">
         <item>Dublin</item>

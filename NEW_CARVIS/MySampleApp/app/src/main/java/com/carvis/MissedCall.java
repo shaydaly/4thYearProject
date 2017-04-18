@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -52,9 +53,6 @@ public class MissedCall extends AppCompatActivity {
             // argument position gives the index of item which is clicked
             public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
                 String selectedNumber = numbers.get(position);
-                Toast.makeText(getApplicationContext(), "Movie Selected : " + selectedNumber, Toast.LENGTH_LONG).show();
-
-
                 Intent phoneIntent = new Intent(Intent.ACTION_CALL);
                 phoneIntent.setData(Uri.parse("tel:"+selectedNumber));
                 if (ActivityCompat.checkSelfPermission(mContext, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
@@ -63,5 +61,13 @@ public class MissedCall extends AppCompatActivity {
                 startActivity(phoneIntent);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onStop();
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), com.CARVISAPP.MainActivity.class);
+        startActivity(intent);
     }
 }

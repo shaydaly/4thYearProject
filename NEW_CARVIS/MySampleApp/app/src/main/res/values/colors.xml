@@ -15,6 +15,7 @@
     <color name="white">#ffffff</color>
     <color name="dark">#101010</color>
     <color name="darkDash">#2d2c2c</color>
+    <color name="darkDashTop">#797a7e</color>
     <color name="silver">#948f8f</color>
     <color name="dashBackground">#2e2828</color>
     <color name="vanMapColor">#10228b</color>

@@ -191,6 +191,23 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             />
+        <ImageView
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:src="@drawable/speed120km"
+            android:id="@+id/speed120km"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:contentDescription="asdassad"
+            android:scaleX="0.75"
+            android:scaleY="0.75"
+            android:visibility="invisible"
+            android:layout_marginRight="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_alignTop="@+id/currentSpeed"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            />
 
         <TextView
             android:text="@string/initialSpeed"

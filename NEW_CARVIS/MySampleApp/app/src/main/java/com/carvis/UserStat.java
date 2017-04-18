@@ -37,10 +37,11 @@ public class UserStat implements Serializable {
     private DateTime memberSince;
     private ArrayList<DateTime> overSpeedDates;
     private String roadAddress;
-    int daysSinceOverSpeed;
-    int averageSpeed;
-    String mostOverSpedDay;
-    Map<String, Integer> mostCommon;
+    private int daysSinceOverSpeed;
+    private  int averageSpeed;
+    private String mostOverSpedDay;
+    private Map<String, Integer> mostCommon;
+    private HashMap<String , Integer>monthlyJourneys;
 
 
     HashMap<String, Double> monthlyKilom;
@@ -57,6 +58,7 @@ public class UserStat implements Serializable {
         this.averageSpeed =  averageSpeed;
         monthlyKilom = new HashMap<>();
         mostOverSpedDay = getOverSpeedDay();
+        monthlyJourneys = new HashMap<>();
 
     }
 
@@ -66,6 +68,10 @@ public class UserStat implements Serializable {
 
     public HashMap<String, Double> getMonthlyKilom() {
         return monthlyKilom;
+    }
+
+    public HashMap<String, Integer> getMonthlyJourneysHashMap() {
+        return monthlyJourneys;
     }
 
     public UserStat() {
@@ -324,7 +330,21 @@ public class UserStat implements Serializable {
         }
     }
 
+    public void getMonthlyJourneys() {
+        if (journeyInfos.size() != 0) {
+            for (JourneyInfo journeyInfo : journeyInfos) {
+                double monthlyTotal = 0;
+                String month = journeyInfo.getStartTime().toString("MMM");
 
+                if (!monthlyJourneys.containsKey(month)) {
+                    monthlyJourneys.put(month, 1);
+                } else {
+                    monthlyJourneys.put(month, monthlyJourneys.get(month) + 1);
+                }
+
+            }
+        }
+    }
 
 
     public double getAverageJourneyKiloms(){

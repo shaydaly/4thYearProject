@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 
+import com.CARVISAPP.R;
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -22,6 +23,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -44,14 +46,14 @@ import java.util.Map;
 
 public class VolleyService extends Activity {
 
-    public static  String DAYS_OVER_SPEED ="DAYS_OVER_SPEED";
-    public static  String OVERSPEEDDAY ="OVER_SPEED_DAY";
-    public static  String NUMTRAFFICINCIDENTS ="NUMTRAFFICINCIDENTS";
-    public static  String ROADSWITHINCIDENTS ="ROADSWITHINCIDENTS";
-    public static  String ROADSTOAVOID ="ROADSTOAVOID";
-    public static String JOURNEYRESPFULL= "";
-    public static String JOURNEYRESPEMPTY = "";
-    public static String jf= "jf";
+    public static String DAYS_OVER_SPEED = "DAYS_OVER_SPEED";
+    public static String OVERSPEEDDAY = "OVER_SPEED_DAY";
+    public static String NUMTRAFFICINCIDENTS = "NUMTRAFFICINCIDENTS";
+    public static String ROADSWITHINCIDENTS = "ROADSWITHINCIDENTS";
+    public static String ROADSTOAVOID = "ROADSTOAVOID";
+    public static String JOURNEYRESPFULL = "jfe";
+    public static String JOURNEYRESPEMPTY = "jfe";
+    public static String jf = "jf";
     public static String jf2 = "jf2";
     private RequestQueue queue;
     private Context context;
@@ -65,7 +67,7 @@ public class VolleyService extends Activity {
         view = new View(context);
     }
 
-    public void addJourneyDB(final Journey journey,final CognitoUserPoolsSignInProvider provider, String updateType) {
+    public void addJourneyDB(final Journey journey, final CognitoUserPoolsSignInProvider provider, String updateType) {
         try {
             System.out.println("Add journey called");
             url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/createjourneyobject";
@@ -214,18 +216,18 @@ public class VolleyService extends Activity {
 //                            l.setLongitude(Double.parseDouble(longitude));
 //                            int speedLimit = obj.getInt("speed");
                             String city = obj.getString("locale");
-                            if(!t.getLocale().equals(city)) {
+                            if (!t.getLocale().equals(city)) {
                                 t.createSpeedLimitReference(city);
                             }
                             //myRef.child(String.valueOf(obj.get("osm_id"))).push().setValue(new RoadRecord(latitude,longitude, speedLimit));
                             speedSearch.setOsm_id(obj.getInt("osm_id"));
                         } catch (JSONException e) {
-                            Log.wtf("GET SPEED EXCEPTIOM ", e.getMessage()+" "+latitude+" "+longitude);
+                            Log.wtf("GET SPEED EXCEPTIOM ", e.getMessage() + " " + latitude + " " + longitude);
                         } catch (Exception e) {
-                            Log.wtf("sp ex ", e.getMessage()+" "+latitude+" "+longitude);
+                            Log.wtf("sp ex ", e.getMessage() + " " + latitude + " " + longitude);
                         }
                     }
-                },null) {
+                }, null) {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
@@ -234,13 +236,14 @@ public class VolleyService extends Activity {
                 headers.put("Content-Type", "application/json");
                 return headers;
             }
-        }; new Response.ErrorListener() {
+        };
+        new Response.ErrorListener() {
 
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                       //Log.i("Speed Lambda", error.getMessage());
-                    }
-                };
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Log.i("Speed Lambda", error.getMessage());
+            }
+        };
         queue.add(jsObjRequest);
     }
 
@@ -276,18 +279,17 @@ public class VolleyService extends Activity {
 //                            }
                         }
                         Intent intent = new Intent();
-                        if(jsonArray.length()!=0){
+                        if (jsonArray.length() != 0) {
                             Log.wtf("FRAGMENT SIZE", String.valueOf(jsonArray.length()));
                             intent.setAction(jf);
-                        }
-                        else{
+                        } else {
                             intent.setAction(jf2);
                         }
                         intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                         intent.setPackage(context.getPackageName());
                         context.sendBroadcast(intent);
                     }
-                },null) {
+                }, null) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
@@ -307,7 +309,7 @@ public class VolleyService extends Activity {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray jsonArray) {
-                        Log.wtf("ARR RESP",String.valueOf(jsonArray.length()));
+                        Log.wtf("ARR RESP", String.valueOf(jsonArray.length()));
                         for (int i = 0; i < jsonArray.length(); i++) {
                             try {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -330,10 +332,9 @@ public class VolleyService extends Activity {
 //                            }
                         }
                         Intent intent = new Intent();
-                        if(jsonArray.length()!=0){
+                        if (jsonArray.length() != 0) {
                             intent.setAction(JOURNEYRESPFULL);
-                        }
-                        else{
+                        } else {
                             intent.setAction(JOURNEYRESPEMPTY);
                         }
                         intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
@@ -422,7 +423,7 @@ public class VolleyService extends Activity {
                         String responseString = "";
                         if (response != null) {
                             responseString = response.toString();
-                           // Log.wtf("FRagment!!!", responseString);
+                            // Log.wtf("FRagment!!!", responseString);
                             // can get more details such as response.headers
                             //result = (response.toString());
 
@@ -431,8 +432,7 @@ public class VolleyService extends Activity {
                                 Log.wtf("FRaAGGG!!!", str);
                                 //journeyID = jID;
                                 //System.out.println(str+"______________!!");
-                            }
-                            catch(UnsupportedEncodingException e){
+                            } catch (UnsupportedEncodingException e) {
                                 System.out.println(e.getMessage());
                             }
 
@@ -476,11 +476,10 @@ public class VolleyService extends Activity {
                             String roadAddress = response.getString("roadAddress");
                             int averageSpeed = 0;
                             //System.out.println(numJourneys+" num journeys\n"+journeysWithOverSpeed+"journeys");
-                            if(!String.valueOf(response.get("averageSpeed")).equals("None")) {
+                            if (!String.valueOf(response.get("averageSpeed")).equals("None")) {
                                 averageSpeed = response.getInt("averageSpeed");
-                            }
-                            else{
-                                 averageSpeed = 0;
+                            } else {
+                                averageSpeed = 0;
                             }
                             JSONArray jsonArray = response.getJSONArray("journeys");
                             for (int i = 0; i < jsonArray.length(); i++) {
@@ -523,16 +522,16 @@ public class VolleyService extends Activity {
                             e.printStackTrace();
                         }
                     }
-               },null) {
+                }, null) {
 
-                    @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        HashMap<String, String> headers = new HashMap<String, String>();
-                        headers.put("Authorization", provider.getToken());
-                        headers.put("Content-Type", "application/json");
-                        return headers;
-                    }
-                };
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Authorization", provider.getToken());
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+        };
         queue.add(jsObjRequest);
     }
 
@@ -669,7 +668,7 @@ public class VolleyService extends Activity {
 
 
                             int numTrafficIncidentsReported = response.getInt("numTrafficIncidentsReported");
-                            intent .putExtra("numTrafficIncidentsReported", numTrafficIncidentsReported);
+                            intent.putExtra("numTrafficIncidentsReported", numTrafficIncidentsReported);
 //                            prefs.edit()
 //                                    .putInt("numTrafficIncidentsReported", numTrafficIncidentsReported)
 //                                    .commit();
@@ -737,24 +736,31 @@ public class VolleyService extends Activity {
     }
 
     public void createTrafficNotification(String trafficAddress, String latitude, String longitude) {
+        JsonObjectRequest request, dataRequest;
         try {
             url = "https://fcm.googleapis.com/fcm/send";
             JSONObject jsonBody = new JSONObject();
 
             JSONObject messageBody = new JSONObject();
-            messageBody.put("latitude", latitude);
-            messageBody.put("longitude", longitude);
-            messageBody.put("address", trafficAddress);
-            JSONObject notification = new JSONObject();
-            notification.put("title", "Bad Traffic Reported");
-            notification.put("body", messageBody);
-            jsonBody.put("notification", notification);
+
+            JSONObject data = new JSONObject();
+            data.put("title","Bad Traffic Reported" );
+            data.put("latitude", latitude);
+            data.put("longitude", longitude);
+            data.put("address", trafficAddress);
+            jsonBody.put("data", data);
             jsonBody.put("to", "/topics/trafficUpdates");
 
-            //jsonBody.toString().replace("\\\\","");
-            Log.wtf("BODY", jsonBody.toString());
+            JSONObject notification = new JSONObject();
+            notification.put("title", "Bad Traffic Reported");
+            notification.put("body", trafficAddress);
+            jsonBody.put("notification", notification);
 
-            JsonObjectRequest request = new JsonObjectRequest(
+            Log.wtf("jso  ",String.valueOf(jsonBody));
+            //jsonBody.toString().replace("\\\\","");
+           //Log.wtf("BODY", jsonBody.toString());
+
+            request = new JsonObjectRequest(
                     Request.Method.POST,
                     url,
                     jsonBody,
@@ -763,7 +769,7 @@ public class VolleyService extends Activity {
                         public void onResponse(JSONObject response) {
                             //Log.d(TAG, "Response:" + response.toString());
                             //Log.d(TAG,"Setting Response to string:\n" + response.toString());
-                            Log.wtf("RESPOMSE", response.toString());
+                            //Log.wtf("RESPOMSE", response.toString());
                         }
                     },
                     null) {
@@ -771,131 +777,19 @@ public class VolleyService extends Activity {
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap<String, String> headers = new HashMap<String, String>();
-                    headers.put("Authorization", "key=AAAADMY4DF0:APA91bF-6FzxakqhfIG1Zc2O2auOhnjSBHcIYmqm2RJVcRnT_tcE6Lz6LqLlujGQazCwh4XSDVxI_vXRrHZ10OMc9s-XeRtbenFVw4GbpqbqCMSVmEpv8T-8VxgdqiUwGLIKbASydy5h");
+                    headers.put("Authorization", context.getString(R.string.firebaseKey));
                     headers.put("Content-Type", "application/json");
                     return headers;
                 }
             };
 
+
+
             queue.add(request);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
-
-
-//    public void getDaysSinceLastOverSpeed(final String username, final Context contextIn) {
-//        Log.i("getDaysincespeed", " called");
-//        final DateTimeFormatter dateFormatter = DateTimeFormat.forPattern("yyyy-MM-dd");
-//
-//        url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/daysinceoverspeed?username=" + username;
-//        //final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
-//        JsonObjectRequest jsObjRequest = new JsonObjectRequest
-//                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-//
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        try {
-//                            Random random = new Random();
-//                            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-//                            Intent intent = new Intent();
-////                            int randomNumber = random.nextInt(5-1) + 1;
-//
-//                            int randomNumber =1;
-//                            if(randomNumber == 1) {
-//
-//                                Log.i("days", response.toString());
-//                                JSONObject obj = new JSONObject(response.toString());
-//                                int daysSinceOverSpeed = obj.getInt("daysOverSpeed");
-//
-//                                prefs.edit()
-//                                        .putInt("daysSinceOverSpeed", daysSinceOverSpeed)
-//                                        .commit();
-//
-//                                //intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-//                                intent.setAction(DAYS_OVER_SPEED);
-//                                intent.putExtra("hello", "shaymus");
-//                            }
-//                            else if(randomNumber == 2) {
-//                                intent.setAction(OVERSPEEDDAY);
-//                                UserStat userStat = new UserStat();
-//                                JSONArray overSpeedDates = response.getJSONArray("overSpeedDates");
-//                                for (int i = 0; i < overSpeedDates.length(); i++) {
-//                                    String date = String.valueOf(overSpeedDates.getJSONObject(i).get("overSpeedDate"));
-//                                    userStat.addOverSpeedDate(dateFormatter.parseDateTime(date));
-//                                    //dates.add(dateFormatter.parseDateTime(date));
-//                                }
-//
-//                                prefs.edit()
-//                                        .putString("overSpeedDate", userStat.getOverSpeedDay())
-//                                        .commit();
-//                            }
-//
-//                            else if (randomNumber == 3){
-//                                intent.setAction(NUMTRAFFICINCIDENTS);
-//                                int numTrafficIncidentsReported = response.getInt("numTrafficIncidentsReported");
-//                                prefs.edit()
-//                                        .putInt("numTrafficIncidentsReported", numTrafficIncidentsReported)
-//                                        .commit();
-//                            }
-//                            else if (randomNumber == 4){
-//                                intent.setAction(ROADSWITHINCIDENTS);
-//                                JSONArray roadWithTraffic = response.getJSONArray("roadWithTraffic");
-//                                ArrayList<String> addresses = new ArrayList<>();
-//                                for (int i = 0; i < roadWithTraffic.length(); i++) {
-//                                    String address = String.valueOf(roadWithTraffic.getJSONObject(i).get("address"));
-//                                    if(!addresses.contains(address)) {
-//                                        addresses.add(address);
-//                                    }
-//                                }
-//                                intent.putStringArrayListExtra("addresses", addresses);
-//                            }
-//                            else{
-//                                intent.setAction(ROADSTOAVOID);
-//                                JSONArray roadWithTraffic = response.getJSONArray("roadsToAvoid");
-//                                ArrayList<String> addresses = new ArrayList<>();
-//                                for (int i = 0; i < roadWithTraffic.length(); i++) {
-//                                    String address = String.valueOf(roadWithTraffic.getJSONObject(i).get("roadAddress"));
-//                                    if(!addresses.contains(address)) {
-//                                        addresses.add(address);
-//                                    }
-//                                }
-//                                intent.putStringArrayListExtra("addresses",addresses);
-//                            }
-//                            contextIn.sendBroadcast(intent);
-//                            //final Intent intent = new Intent();
-//                            // sets keyword to listen out for for this broadcast
-//
-//                        } catch (JSONException e) {
-//                            Log.i("days", e.getMessage());
-//                        } catch (Exception e) {
-//                            Log.i("days ", e.getMessage());
-//                        }
-//                    }
-//                }, new Response.ErrorListener() {
-//
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        Log.i("Sdays", "ERROR");
-//                    }
-//                });
-//        queue.add(jsObjRequest);
-//    }
-
-
-//    private void sendBroadcastMessage(WeakReference<Context> weakContext, String intentFilterName) {
-//        Intent intent = new Intent(intentFilterName);
-//        intent.putExtra("response", "hello");
-//        weakContext.get().sendBroadcast(intent);
-//    }
 }
-//class Notification implements Serializable{
-//    String title, body;
-//
-//    public Notification(String title, String body) {
-//        this.title = title;
-//        this.body = body;
-//    }
-//
-//
-//}

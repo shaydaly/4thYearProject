@@ -16,7 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:orientation="horizontal"
-        android:layout_weight="1" >
+        android:layout_weight="1"
+        android:background="@color/darkDashTop">
 
         <!--<Button-->
             <!--android:layout_width="0dip"-->
@@ -25,24 +26,24 @@
             <!--android:textColor="@color/white"-->
             <!--android:background="@drawable/shape"/>-->
         <TextView
-            android:id="@+id/memberSince"
+            android:id="@+id/numberOfUserJourneys"
             android:gravity="center"
             android:padding="3dip"
-            android:text="123"
+            android:text=""
             android:layout_weight="1"
             android:layout_width="0dip"
             android:layout_height="match_parent"
+            android:background="@drawable/shape"
             android:textColor="@color/white"
-            android:textAlignment="center"
             android:textSize="12sp"
             android:textStyle="normal"
-            android:background="@drawable/shape"
-            />
+            android:onClick="showMonthlyJourneys"/>
+
         <TextView
             android:id="@+id/kilomTravelled"
             android:gravity="center"
             android:padding="3dip"
-            android:text="213"
+            android:text=""
             android:layout_weight="1"
             android:layout_width="0dip"
             android:layout_height="match_parent"
@@ -76,20 +77,19 @@
         android:layout_weight="1"
         >
         <TextView
-            android:id="@+id/numberOfUserJourneys"
+            android:id="@+id/memberSince"
             android:gravity="center"
             android:padding="3dip"
             android:text=""
             android:layout_weight="1"
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:background="@drawable/shape"
             android:textColor="@color/white"
+            android:textAlignment="center"
             android:textSize="12sp"
-            android:textStyle="normal"/>
-
-
-
+            android:textStyle="normal"
+            android:background="@drawable/shape"
+            />
         <TextView
             android:id="@+id/numberOfOverSpeedJourneys"
             android:gravity="center"
@@ -117,11 +117,7 @@
             android:textSize="12sp"
             android:textStyle="normal"/>
 
-
-
-
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
@@ -144,7 +140,7 @@
             android:id="@+id/avgJourneykilom"
             android:gravity="center"
             android:padding="3dip"
-            android:text="234"
+            android:text=""
             android:layout_weight="1"
             android:layout_width="0dip"
             android:layout_height="match_parent"

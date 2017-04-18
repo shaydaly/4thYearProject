@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.util.LogWriter;
 import android.util.Log;
 
 
@@ -48,7 +49,7 @@ public class CarvisFireBaseMessagingService extends FirebaseMessagingService{
 
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
-            Log.wtf(TAG, "Message data payload: " + remoteMessage.getData());
+            //Log.wtf(TAG, "Message data payload: " + remoteMessage.getData());
 
 //            if (/* Check if data needs to be processed by long running job */ true) {
 //                // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
@@ -61,15 +62,13 @@ public class CarvisFireBaseMessagingService extends FirebaseMessagingService{
         }
 
         // Check if message contains a notification payload.
-        if (remoteMessage.getNotification() != null) {
+        if(remoteMessage.getData()!= null){
             try {
-                JSONObject jsonObject = new JSONObject(remoteMessage.getNotification().getBody());
-                double latitude = Double.parseDouble(jsonObject.getString("latitude"));
-                double longitude = Double.parseDouble(jsonObject.getString("longitude"));
+//                Log.wtf("data message", String.valueOf(remoteMessage.getData()));
+                JSONObject jsonObject = new JSONObject(remoteMessage.getData());
+                double latitude = jsonObject.getDouble("latitude");
+                double longitude = jsonObject.getDouble("longitude");
                 String address = jsonObject.getString("address");
-
-
-
 
                 Intent intent = new Intent();
                 intent.setAction(TAG);
@@ -79,19 +78,43 @@ public class CarvisFireBaseMessagingService extends FirebaseMessagingService{
                 intent.putExtra("badTrafficLocation", address);
                 getApplicationContext().sendBroadcast(intent);
 
-
-
-                Log.wtf(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
             }
+
             catch(Exception e){
                 Log.wtf("message ex", e.getMessage());
             }
+        }
+        if (remoteMessage.getNotification() != null) {
+//            try {
+//                Log.wtf("remote message", String.valueOf(remoteMessage.getNotification()));
+//                JSONObject jsonObject = new JSONObject(remoteMessage.getNotification().getBody());
+//                double latitude = Double.parseDouble(jsonObject.getString("latitude"));
+//                double longitude = Double.parseDouble(jsonObject.getString("longitude"));
+//                String address = jsonObject.getString("address");
+//
+//                Intent intent = new Intent();
+//                intent.setAction(TAG);
+//                intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+//                intent.putExtra("latitude", latitude);
+//                intent.putExtra("longitude", longitude);
+//                intent.putExtra("badTrafficLocation", address);
+//                getApplicationContext().sendBroadcast(intent);
+//
+//                Log.wtf(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+//            }
+//
+//            catch(Exception e){
+//                Log.wtf("message ex", e.getMessage());
+//            }
         }
 
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
     }
     // [END receive_message]
+
+
+
 
     /**
      * Schedule a job using FirebaseJobDispatcher.

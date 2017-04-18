@@ -43,7 +43,7 @@
             />
         <EditText
             android:id="@+id/emergencyContact"
-            android:gravity="center"
+            android:gravity="right"
             android:padding="3dip"
             android:text=""
             android:layout_weight="1"
@@ -283,7 +283,7 @@
 
         <EditText
             android:id="@+id/kilomPermInput"
-            android:gravity="center"
+            android:gravity="right"
             android:padding="3dip"
             android:text=""
             android:layout_weight="1"

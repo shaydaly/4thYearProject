@@ -47,7 +47,7 @@
             android:padding="12dp"
             android:textColor="@color/white"
             android:text="Sign In"
-            android:background="@color/dark"/>
+            android:background="@color/signInButtonBackground"/>
 
 
         <!--<ImageButton-->

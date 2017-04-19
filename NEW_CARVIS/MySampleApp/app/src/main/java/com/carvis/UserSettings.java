@@ -1,6 +1,7 @@
 package com.carvis;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -20,8 +21,8 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.CARVISAPP.*;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.CARVISAPP.R;
 
 import java.io.IOException;
 import java.util.List;
@@ -40,6 +41,9 @@ public class UserSettings extends AppCompatActivity {
 
     Switch blockCallsSwitch, speedCameraSwitch, overLimitSwitch, receiveTrafficUpdates, receiveVoiceTrafficUpdates;
 
+    String locale;
+    FirebaseMessaging firebaseMessaging;
+
 
 
     @Override
@@ -49,7 +53,7 @@ public class UserSettings extends AppCompatActivity {
 
         context = getApplicationContext();
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
-
+        firebaseMessaging = FirebaseMessaging.getInstance();
         memberSince = (TextView)findViewById(R.id.memberSinceDisplay);
         memberSince.setText(prefs.getString("memberSince", ""));
 
@@ -91,7 +95,7 @@ public class UserSettings extends AppCompatActivity {
         receiveTrafficUpdates  = (Switch)findViewById(R.id.recieveTrafficUpdatesSwitch);
         receiveVoiceTrafficUpdates = (Switch)findViewById(R.id.receiveVoiceTrafficUpdatesSwitch);
         Resources res = getResources();
-        final String[] counties = res.getStringArray(R.array.counties);
+        counties = res.getStringArray(R.array.counties);
         final String[] playVoiceArray = res.getStringArray(R.array.voiceUpdateChoices);
         int position = getPosition(counties);
 //        int postionOfPlayVoicePosition = getPositionOfPlayVoice(playVoiceArray);
@@ -172,6 +176,21 @@ public class UserSettings extends AppCompatActivity {
             kilomPerim.setText(String.valueOf(prefs.getInt("kilomPerim", 0)));
         }
 
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                locale = parentView.getSelectedItem().toString();
+                saveLocaleSharedPreferences(locale);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
+
 
         speedCameraSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -194,14 +213,18 @@ public class UserSettings extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // do something, the isChecked will be
                 // true if the switch is in the On position
+
+
+                unsubcribeFromAll();
+
                 if(receiveTrafficUpdates.isChecked()){
-                    FirebaseMessaging.getInstance().subscribeToTopic("trafficUpdates");
+                    firebaseMessaging.subscribeToTopic(locale);
                     prefs.edit()
                             .putBoolean("receiveTrafficNotifications", true)
                             .commit();
                 }
                 else{
-                    FirebaseMessaging.getInstance().unsubscribeFromTopic("trafficUpdates");
+                    firebaseMessaging.unsubscribeFromTopic(locale);
                     prefs.edit()
                             .putBoolean("receiveTrafficNotifications", false)
                             .commit();
@@ -261,93 +284,6 @@ public class UserSettings extends AppCompatActivity {
                 }
             }
         });
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-
-                System.out.println(counties[position]);
-                saveLocaleSharedPreferences(counties[position]);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
-            }
-
-        });
-//
-//        voiceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-//
-//                Log.wtf("spnner   ",String.valueOf(voiceSpinner.getSelectedItem()));
-//                if(String.valueOf(voiceSpinner.getSelectedItem()).equals("YES")) {
-//                    prefs.edit()
-//                            .putBoolean("playVoiceUpdate", true)
-//                            .commit();
-//                }
-//                else{
-//                    prefs.edit()
-//                            .putBoolean("playVoiceUpdate", false)
-//                            .commit();
-//                }
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parentView) {
-//                // your code here
-//            }
-//
-//        });
-//
-//        speedLimitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-//
-//                if(String.valueOf(speedLimitSpinner.getSelectedItem()).equals("YES")){
-//                    prefs.edit()
-//                            .putBoolean("playSpeedLimit", true)
-//                            .commit();
-//                }
-//                else{
-//                    prefs.edit()
-//                            .putBoolean("playSpeedLimit", false)
-//                            .commit();
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parentView) {
-//                // your code here
-//            }
-//
-//        });
-
-
-//        blockIncomingCallSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-//
-//                if(String.valueOf(blockIncomingCallSpinner.getSelectedItem()).equals("YES")) {
-//                    prefs.edit()
-//                            .putBoolean("blockIncomingCalls", true)
-//                            .commit();
-//                }
-//                else{
-//                    prefs.edit()
-//                            .putBoolean("blockIncomingCalls", false)
-//                            .commit();
-//                }
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parentView) {
-//                // your code here
-//            }
-//
-//        });
 
     }
 
@@ -433,9 +369,23 @@ public class UserSettings extends AppCompatActivity {
                 .putString("emergencyContact", emergencyContact)
                 .putInt("kilomPerim", kilomPerm)
                 .commit();
-        super.onStop();
+
+        if(receiveTrafficUpdates.isChecked()){
+            unsubcribeFromAll();
+            firebaseMessaging.subscribeToTopic(locale);
+        }
+
+
+        Intent intent = new Intent(context, com.CARVISAPP.MainActivity.class);
+        context.startActivity(intent);
     }
 
+
+    private void unsubcribeFromAll(){
+        for(String s: counties){
+            firebaseMessaging.unsubscribeFromTopic(s);
+        }
+    }
 
 
 }

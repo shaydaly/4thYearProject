@@ -132,6 +132,8 @@ public class UserStat implements Serializable {
         this.journeyInfos = journeyInfos;
     }
 
+
+
     public int getAverageSpeed() {
         return averageSpeed;
     }
@@ -233,22 +235,21 @@ public class UserStat implements Serializable {
 
     public String getOverSpeedPercentage(){
         if(journeyInfos.size()!=0) {
+            System.out.println("in overspeed");
             double percentage = ((double) journeysWithOverSpeed / journeyInfos.size()) * 100;
             return String.valueOf(getRoundedValue(percentage,2))+"%";
         }
+        System.out.println("outside overspeed");
         return String.valueOf(0.0)+"%";
 
     }
-
     public double getAverageJourneyTime() {
             double total =0.0;
             if (journeyInfos.size() != 0) {
                 for (JourneyInfo journeyDate : journeyInfos) {
                     total += getJourneyDuration(journeyDate.getStartTime(), journeyDate.getEndTime());
                 }
-                System.out.println(total+" total");
                 double value  = getRoundedValue((total / journeyInfos.size()), 5);
-                System.out.println(value+" value");
                 total = value;
             }
             else {
@@ -354,11 +355,11 @@ public class UserStat implements Serializable {
         return 0.0;
     }
 
-    public double getDistance(Location start, Location end){
+    public static double getDistance(Location start, Location end){
         return (start.distanceTo(end)) / 1000;
     }
 
-    public double  getJourneyDuration(DateTime start, DateTime end){
+    public static double  getJourneyDuration(DateTime start, DateTime end){
 
         DateTimeFormatter format = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
         if(start!= null&& end!=null) {
@@ -381,100 +382,100 @@ public class UserStat implements Serializable {
 }
 
 
- class JourneyInfo implements  Serializable{
-     DateTime startTime;
-     DateTime endTime;
-     double startLatitude, startLongitude, endLatitude, endLongitude;
-
-
-     JourneyInfo(DateTime startTime, DateTime endTime, double startLatitude, double startLongitude, double endLatitude, double endLongitude){
-         this.startTime = startTime;
-         this.endTime = endTime;
-         this.startLatitude = startLatitude;
-         this.startLongitude = startLongitude;
-         this.endLatitude  = endLatitude;
-         this.endLongitude = endLongitude;
-     }
-
-     JourneyInfo(DateTime startTime, DateTime endTime){
-         this.startTime = startTime;
-         this.endTime = endTime;
-     }
-
-     public DateTime getStartTime() {
-         return startTime;
-     }
-
-     public void setStartTime(DateTime startTime) {
-         this.startTime = startTime;
-     }
-
-     public DateTime getEndTime() {
-         return endTime;
-     }
-
-     public void setEndTime(DateTime endTime) {
-         this.endTime = endTime;
-     }
-
-     public double getStartLatitude() {
-         return startLatitude;
-     }
-
-     public void setStartLatitude(double startLatitude) {
-         this.startLatitude = startLatitude;
-     }
-
-     public double getStartLongitude() {
-         return startLongitude;
-     }
-
-     public void setStartLongitude(double startLongitude) {
-         this.startLongitude = startLongitude;
-     }
-
-     public double getEndLatitude() {
-         return endLatitude;
-     }
-
-     public void setEndLatitude(double endLatitude) {
-         this.endLatitude = endLatitude;
-     }
-
-     public double getEndLongitude() {
-         return endLongitude;
-     }
-
-     public void setEndLongitude(double endLongitude) {
-         this.endLongitude = endLongitude;
-     }
-
-//     public int describeContents() {
-//         return 0;
+// class JourneyInfo implements  Serializable{
+//     DateTime startTime;
+//     DateTime endTime;
+//     double startLatitude, startLongitude, endLatitude, endLongitude;
+//
+//
+//     JourneyInfo(DateTime startTime, DateTime endTime, double startLatitude, double startLongitude, double endLatitude, double endLongitude){
+//         this.startTime = startTime;
+//         this.endTime = endTime;
+//         this.startLatitude = startLatitude;
+//         this.startLongitude = startLongitude;
+//         this.endLatitude  = endLatitude;
+//         this.endLongitude = endLongitude;
 //     }
 //
-//     public void writeToParcel(Parcel out, int flags) {
-//         out.wr;
-//         out.writeValue(startLocation);
-//         out.writeValue(endLocation);
+//     JourneyInfo(DateTime startTime, DateTime endTime){
+//         this.startTime = startTime;
+//         this.endTime = endTime;
 //     }
 //
-//     public static final Parcelable.Creator<JourneyInfo> CREATOR
-//             = new Parcelable.Creator<JourneyInfo>() {
-//         public JourneyInfo createFromParcel(Parcel in) {
-//             return new JourneyInfo(in);
-//         }
+//     public DateTime getStartTime() {
+//         return startTime;
+//     }
 //
-//         public JourneyInfo[] newArray(int size) {
-//             return new JourneyInfo[size];
-//         }
-//     };
+//     public void setStartTime(DateTime startTime) {
+//         this.startTime = startTime;
+//     }
 //
-//     private JourneyInfo(Parcel in) {
-////         startLocation = in.readBundle();
+//     public DateTime getEndTime() {
+//         return endTime;
+//     }
+//
+//     public void setEndTime(DateTime endTime) {
+//         this.endTime = endTime;
+//     }
+//
+//     public double getStartLatitude() {
+//         return startLatitude;
+//     }
+//
+//     public void setStartLatitude(double startLatitude) {
+//         this.startLatitude = startLatitude;
+//     }
+//
+//     public double getStartLongitude() {
+//         return startLongitude;
+//     }
+//
+//     public void setStartLongitude(double startLongitude) {
+//         this.startLongitude = startLongitude;
+//     }
+//
+//     public double getEndLatitude() {
+//         return endLatitude;
+//     }
+//
+//     public void setEndLatitude(double endLatitude) {
+//         this.endLatitude = endLatitude;
+//     }
+//
+//     public double getEndLongitude() {
+//         return endLongitude;
+//     }
+//
+//     public void setEndLongitude(double endLongitude) {
+//         this.endLongitude = endLongitude;
+//     }
+//
+////     public int describeContents() {
+////         return 0;
 ////     }
-//     }
- }
+////
+////     public void writeToParcel(Parcel out, int flags) {
+////         out.wr;
+////         out.writeValue(startLocation);
+////         out.writeValue(endLocation);
+////     }
+////
+////     public static final Parcelable.Creator<JourneyInfo> CREATOR
+////             = new Parcelable.Creator<JourneyInfo>() {
+////         public JourneyInfo createFromParcel(Parcel in) {
+////             return new JourneyInfo(in);
+////         }
+////
+////         public JourneyInfo[] newArray(int size) {
+////             return new JourneyInfo[size];
+////         }
+////     };
+////
+////     private JourneyInfo(Parcel in) {
+//////         startLocation = in.readBundle();
+//////     }
+////     }
+// }
 
 
 

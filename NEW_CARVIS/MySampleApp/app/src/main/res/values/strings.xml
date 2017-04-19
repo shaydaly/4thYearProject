@@ -155,11 +155,14 @@
     <string name="montlyJourney">Monthly Journeys</string>
     <string name="monthlyKm">Monthly km</string>
     <string name="overSpeedDays">Over Speed Days</string>
+    <string name="enterUsername">Enter username</string>
 
     <string-array name="counties">
         <item>Dublin</item>
         <item>Cork</item>
         <item>Galway</item>
+        <item>Kilkenny</item>
+        <item>Waterford</item>
     </string-array>
     <string-array name="voiceUpdateChoices">
         <item>YES</item>

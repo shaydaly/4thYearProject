@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -123,6 +124,7 @@ public class HomeDemoFragment extends DemoFragmentBase {
 //        roadsToAvoid.setText("hello2");
         overSpeedDayTV = (TextView) getActivity().findViewById(R.id.overSpeedDay);
         todayTrafficIncident = (TextView) getActivity().findViewById(R.id.todayTrafficIncident);
+        todayTrafficIncident.setMovementMethod(new ScrollingMovementMethod());
 //        todayTrafficIncident.setText("hello4");
         numIncidentsReported = (TextView)getActivity().findViewById(R.id.numTrafficReported);
 //        numIncidentsReported.setText("hell5");

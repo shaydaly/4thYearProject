@@ -17,6 +17,8 @@
         <item>Dublin</item>
         <item>Cork</item>
         <item>Galway</item>
+        <item>Kilkenny</item>
+        <item>Waterford</item>
     </string-array>
     <string-array name="voiceUpdateChoices">
         <item>YES</item>
@@ -171,6 +173,7 @@
     <color name="secondary_text_default_material_light">#8a000000</color>
     <color name="secondary_text_disabled_material_dark">#36ffffff</color>
     <color name="secondary_text_disabled_material_light">#24000000</color>
+    <color name="signInButtonBackground">#131313</color>
     <color name="sign_in_separator_color">#ffffff</color>
     <color name="silver">#948f8f</color>
     <color name="splash_background">#C0C0C0</color>
@@ -911,6 +914,7 @@
     <string name="emergencySMS">EMERGENCY SMS</string>
     <string name="emergencyText">I have been in a motor accident. My co-ordinates are: </string>
     <string name="endJourney">End Journey</string>
+    <string name="enterUsername">Enter username !</string>
     <string name="error_field_required">This field is required</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_invalid_email">This email address is invalid</string>

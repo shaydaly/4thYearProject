@@ -106,7 +106,8 @@ public class TemporarySpeedCamera implements Serializable{
             cameraLocation.setLatitude(t.getLatitude());
             cameraLocation.setLongitude(t.getLongitude());
             if ((location.distanceTo(cameraLocation) / 1000) < 0.5) {
-                return true;
+                System.out.println(t.getLatitude()+" "+t.getLongitude()+"\t "+location.distanceTo(cameraLocation)+" \t"+location.getLatitude());
+                //return true;
             }
         }
         return false;

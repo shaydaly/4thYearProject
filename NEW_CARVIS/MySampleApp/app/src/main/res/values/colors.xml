@@ -25,4 +25,5 @@
     <color name="green">#0dff00</color>
     <color name="black">#000000</color>
     <color name="buttonBackground">#1e1e1e</color>
+    <color name="signInButtonBackground">#131313</color>
 </resources>

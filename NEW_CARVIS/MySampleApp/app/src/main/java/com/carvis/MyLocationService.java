@@ -287,7 +287,7 @@ public class MyLocationService extends Service implements
         mThreadPool.execute(new Runnable() {
             @Override
             public void run() {
-                Log.wtf(TAG, String.valueOf(location.getLatitude()));
+                //Log.wtf(TAG, String.valueOf(location.getLatitude()));
                 //Data within intent to send in a broadcast.
                 //  Intent intent = new Intent(HuhConnectionService.NEW_MESSAGE);
 
@@ -474,7 +474,7 @@ public class MyLocationService extends Service implements
                     test.setLatitude(Double.parseDouble(r.getLatitude()));
                     test.setLongitude(Double.parseDouble(r.getLongitude()));
                     if (speedSearch.getLocation().distanceTo(test) / 1000 <= 0.015) {
-                        Log.i("speed Test log 1", "near" + r.getSpeedLimit());
+                        //Log.i("speed Test log 1", "near" + r.getSpeedLimit());
                         // speedLimit =  roadRecords.get(i).getSpeedLimit();
                         journey.setSpeedLimit(r.getSpeedLimit());
 
@@ -496,10 +496,10 @@ public class MyLocationService extends Service implements
                     test.setLatitude(Double.parseDouble(r.getLatitude()));
                     test.setLongitude(Double.parseDouble(r.getLongitude()));
                     if (speedSearch.getLocation().distanceTo(test) / 1000 <= 0.02) {
-                        Log.i("speed Test log 2", "near" + r.getSpeedLimit());
+                       // Log.i("speed Test log 2", "near" + r.getSpeedLimit());
                         // speedLimit =  roadRecords.get(i).getSpeedLimit();
                         speedSearch.setOsm_id(entry.getKey());
-                        Log.wtf("osmIDDI", String.valueOf(entry.getKey()));
+                        //Log.wtf("osmIDDI", String.valueOf(entry.getKey()));
                         journey.setSpeedLimit(r.getSpeedLimit());
                         speedLimitIntent = new Intent();
                         // sets keyword to listen out for for this broadcast

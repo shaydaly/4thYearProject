@@ -295,7 +295,7 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
             if (null != resultsHandler) {
 //                ViewHelper.showDialog(activity, activity.getString(R.string.title_activity_sign_in),
 //                        activity.getString(login_failed) + " " + exception);
-                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Username or password incorrect", Toast.LENGTH_LONG).show();
 
 
                 //resultsHandler.onError(CognitoUserPoolsSignInProvider.this, exception);
@@ -422,10 +422,10 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
             @Override
             public void onClick(View v) {
                 username = ViewHelper.getStringValue(activity, EDIT_TEXT_USERNAME_ID);
-                if (null == username || username.length() < 1) {
+                if (username == null || username.length() < 1) {
                     Log.w(LOG_TAG, "Missing username.");
 
-                    Toast.makeText(context, activity.getString(title_activity_sign_in), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, activity.getString(R.string.enterUsername), Toast.LENGTH_SHORT).show();
                 } else {
 
                     final CognitoUser cognitoUser = cognitoUserPool.getUser(username);

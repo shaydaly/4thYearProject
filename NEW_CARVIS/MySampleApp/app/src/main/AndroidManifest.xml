@@ -28,7 +28,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.PROCESS_INCOMING_CALLS" />
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
@@ -45,11 +44,11 @@
         android:name="android.hardware.camera"
         android:required="true" />
 
-    <receiver android:name=".PhoneStatReceiver">
-        <intent-filter android:priority="100">
-            <action android:name="android.intent.action.PHONE_STATE" />
-        </intent-filter>
-    </receiver>
+    <!--<receiver android:name=".PhoneStatReceiver">-->
+        <!--<intent-filter android:priority="100">-->
+            <!--<action android:name="android.intent.action.PHONE_STATE" />-->
+        <!--</intent-filter>-->
+    <!--</receiver>-->
 
     <application
         android:name="com.CARVISAPP.Application"

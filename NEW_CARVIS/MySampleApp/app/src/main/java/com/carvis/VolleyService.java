@@ -197,7 +197,7 @@ public class VolleyService extends Activity {
 
 
     public void getSpeedFromLambda(final MyLocationService t, final SpeedSearch speedSearch, final String latitude, final String longitude, final String token) {
-        System.out.println("GET SPEED CALLED");
+       // System.out.println("GET SPEED CALLED");
         url = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/callqueryspeed?latitude=" + latitude + "&longitude=" + longitude;
         //final TextView speedLimitTextView = (TextView) findViewById(R.id.speedLimit);
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
@@ -222,9 +222,9 @@ public class VolleyService extends Activity {
                             //myRef.child(String.valueOf(obj.get("osm_id"))).push().setValue(new RoadRecord(latitude,longitude, speedLimit));
                             speedSearch.setOsm_id(obj.getInt("osm_id"));
                         } catch (JSONException e) {
-                            Log.wtf("GET SPEED EXCEPTIOM ", e.getMessage() + " " + latitude + " " + longitude);
+                            //Log.wtf("GET SPEED EXCEPTIOM ", e.getMessage() + " " + latitude + " " + longitude);
                         } catch (Exception e) {
-                            Log.wtf("sp ex ", e.getMessage() + " " + latitude + " " + longitude);
+                            //Log.wtf("sp ex ", e.getMessage() + " " + latitude + " " + longitude);
                         }
                     }
                 }, null) {
@@ -735,7 +735,7 @@ public class VolleyService extends Activity {
         queue.add(jsObjRequest);
     }
 
-    public void createTrafficNotification(String trafficAddress, String latitude, String longitude) {
+    public void createTrafficNotification(String trafficAddress, String latitude, String longitude, String locale) {
         JsonObjectRequest request, dataRequest;
         try {
             url = "https://fcm.googleapis.com/fcm/send";
@@ -749,14 +749,14 @@ public class VolleyService extends Activity {
             data.put("longitude", longitude);
             data.put("address", trafficAddress);
             jsonBody.put("data", data);
-            jsonBody.put("to", "/topics/trafficUpdates");
+            jsonBody.put("to", "/topics/"+locale);
 
             JSONObject notification = new JSONObject();
             notification.put("title", "Bad Traffic Reported");
             notification.put("body", trafficAddress);
             jsonBody.put("notification", notification);
 
-            Log.wtf("jso  ",String.valueOf(jsonBody));
+
             //jsonBody.toString().replace("\\\\","");
            //Log.wtf("BODY", jsonBody.toString());
 
@@ -782,14 +782,41 @@ public class VolleyService extends Activity {
                     return headers;
                 }
             };
-
-
-
             queue.add(request);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+
+
+        public static String createMessageJSON(String trafficAddress, String latitude, String longitude, String locale  ) {
+            JSONObject jsonBody = new JSONObject();
+            try {
+                jsonBody = new JSONObject();
+
+                JSONObject data = new JSONObject();
+                data.put("title", "Bad Traffic Reported");
+                data.put("latitude", latitude);
+                data.put("longitude", longitude);
+                data.put("address", trafficAddress);
+                jsonBody.put("data", data);
+                jsonBody.put("to", "/topics/" + locale);
+
+                JSONObject notification = new JSONObject();
+                notification.put("title", "Bad Traffic Reported");
+                notification.put("body", trafficAddress);
+                jsonBody.put("notification", notification);
+
+
+                System.out.println(jsonBody.toString());
+                return jsonBody.toString();
+            }
+            catch(Exception e){
+
+        }
+            return jsonBody.toString();
     }
 }

@@ -191,12 +191,10 @@
     <orderEntry type="library" exported="" name="commons-lang3-3.5" level="project" />
     <orderEntry type="library" exported="" name="play-services-maps-10.2.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-location-10.2.0" level="project" />
-    <orderEntry type="library" exported="" scope="TEST" name="mockito-core-1.9.5" level="project" />
     <orderEntry type="library" exported="" name="bolts-android-1.2.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-appinvite-10.2.0" level="project" />
     <orderEntry type="library" exported="" name="firebase-crash-10.2.0" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="multidex-instrumentation-1.0.1" level="project" />
-    <orderEntry type="library" exported="" scope="TEST" name="objenesis-1.0" level="project" />
     <orderEntry type="library" exported="" name="jackson-core-2.7.2" level="project" />
     <orderEntry type="library" exported="" name="design-23.4.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-plus-10.2.0" level="project" />
@@ -233,7 +231,6 @@
     <orderEntry type="library" exported="" name="play-services-tagmanager-api-10.2.0" level="project" />
     <orderEntry type="library" exported="" name="firebase-messaging-10.2.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-tagmanager-10.2.0" level="project" />
-    <orderEntry type="library" exported="" scope="TEST" name="json-20140107" level="project" />
     <orderEntry type="library" exported="" name="firebase-analytics-impl-10.2.0" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-24.0.0" level="project" />
     <orderEntry type="library" exported="" name="support-vector-drawable-24.0.0" level="project" />

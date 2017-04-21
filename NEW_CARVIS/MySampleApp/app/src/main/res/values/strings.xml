@@ -118,6 +118,7 @@
     <string name="journeyHistory">Journey History</string>
     <string name="daysSinceLastOverSpeed1">It has been </string>
     <string name="daysSinceLastOverSpeed2"> days since your last Speeding incident </string>
+    <string name="daysSinceLastOverSpeed3"> day since your last Speeding incident </string>
     <string name="wellDone">Well Done !</string>
     <string name="slowingDown">It may be advisable to consider slowing down</string>
     <string name="locale">Locale</string>
@@ -130,6 +131,7 @@
     <string name="alternativeRoute">Perhaps taking an alternative route may be advisable on this particular day</string>
     <string name="thanks">Thanks for helping CARVIS help promote safe driving :)</string>
     <string name="numTrafficIncidents"> times you have indicated heavy traffic</string>
+    <string name="numTrafficIncidents2"> time you have indicated heavy traffic</string>
     <string name="promtTraffic">It would help CARVIS better promote safe driving if you could indicate heavy Traffic. Thanks again</string>
     <string name="noOverSpeeds">You have yet to overspeed using CARVIS, Congratulations!</string>
     <string name="roadsWithOverspeed">The following roads have experienced heavy traffic today</string>
@@ -153,9 +155,10 @@
     <string name="trafficPerim">Traffic Notification (km)</string>
     <string name="firebaseKey">key=AAAADMY4DF0:APA91bF-6FzxakqhfIG1Zc2O2auOhnjSBHcIYmqm2RJVcRnT_tcE6Lz6LqLlujGQazCwh4XSDVxI_vXRrHZ10OMc9s-XeRtbenFVw4GbpqbqCMSVmEpv8T-8VxgdqiUwGLIKbASydy5h</string>
     <string name="montlyJourney">Monthly Journeys</string>
-    <string name="monthlyKm">Monthly km</string>
+    <string name="monthlyKm">Monthly Kilometers</string>
     <string name="overSpeedDays">Over Speed Days</string>
     <string name="enterUsername">Enter username</string>
+    <string name="legendText"></string>
 
     <string-array name="counties">
         <item>Dublin</item>

@@ -474,12 +474,12 @@ public class VolleyService extends Activity {
                             int journeysWithOverSpeed = response.getInt("journeysWithOverSpeed");
                             String overSpeedRoad = response.getString("overSpeedRoad");
                             String roadAddress = response.getString("roadAddress");
-                            int averageSpeed = 0;
+                            int numOverSpeeds = 0;
                             //System.out.println(numJourneys+" num journeys\n"+journeysWithOverSpeed+"journeys");
-                            if (!String.valueOf(response.get("averageSpeed")).equals("None")) {
-                                averageSpeed = response.getInt("averageSpeed");
+                            if (!String.valueOf(response.get("numOverSpeeds")).equals("None")) {
+                                numOverSpeeds = response.getInt("numOverSpeeds");
                             } else {
-                                averageSpeed = 0;
+                                numOverSpeeds = 0;
                             }
                             JSONArray jsonArray = response.getJSONArray("journeys");
                             for (int i = 0; i < jsonArray.length(); i++) {
@@ -509,7 +509,7 @@ public class VolleyService extends Activity {
 //                            DateTime memberSince = dateFormatter.parseDateTime(DateTime.now().toString());
 
 
-                            UserStat userStat = new UserStat(overSpeedRoad, journeys, journeysWithOverSpeed, dates, roadAddress, averageSpeed);
+                            UserStat userStat = new UserStat(overSpeedRoad, journeys, journeysWithOverSpeed, dates, roadAddress, numOverSpeeds);
                             Intent myIntent = new Intent(context, UserStatActivity.class);
                             myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             myIntent.putExtra("userStat", userStat); //Optional parameters

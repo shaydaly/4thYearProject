@@ -96,11 +96,6 @@ public class MyLocationService extends Service implements
                 //journeyList.add(new JourneyFragment(journey.getLatitude(), journey.getLongitude(), journey.getCurrentSpeed(), limit, dNow, journey.getJourneyID(), provider.getUserName(), speedSearch.getOsm_id()));
                 overSpeedLimit = new OverSpeedLimit(journey.getLatitude(), journey.getLongitude(), journey.getCurrentSpeed(),
                         (limit), dNow, provider.getUserName(), journey.getJourneyID(), speedSearch.getOsm_id());
-//                overSpeedLimit.setLatitude(journey.getLatitude());
-//                overSpeedLimit.setLongitude(journey.getLongitude());
-//                overSpeedLimit.setSpeedLimit(limit);
-//                overSpeedLimit.setCurrentSpeed(journey.getCurrentSpeed());
-//                overSpeedLimit.setRoadId(speedSearch);
                 if (!overSpeedLimits.contains(overSpeedLimit)) {
                     overSpeedLimits.add(overSpeedLimit);
                 }

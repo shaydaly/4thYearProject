@@ -196,6 +196,7 @@
     <color name="wallet_holo_blue_light">#ff33b5e5</color>
     <color name="wallet_link_text_light">#0000ee</color>
     <color name="white">#ffffff</color>
+    <color name="whiteTransparent">#acffffff</color>
     <color name="yellow">#d0ff00</color>
     <declare-styleable name="ActionBar"><attr name="navigationMode">
             
@@ -902,6 +903,7 @@
     <string name="dayWithMostOverSpeed">Day Most Likely to Speed</string>
     <string name="daysSinceLastOverSpeed1">It has been </string>
     <string name="daysSinceLastOverSpeed2"> days since your last Speeding incident </string>
+    <string name="daysSinceLastOverSpeed3"> day since your last Speeding incident </string>
     <string name="debug_menu_ad_information">Ad Information</string>
     <string name="debug_menu_creative_preview">Creative Preview</string>
     <string name="debug_menu_title">Select a Debug Mode</string>
@@ -914,7 +916,7 @@
     <string name="emergencySMS">EMERGENCY SMS</string>
     <string name="emergencyText">I have been in a motor accident. My co-ordinates are: </string>
     <string name="endJourney">End Journey</string>
-    <string name="enterUsername">Enter username !</string>
+    <string name="enterUsername">Enter username</string>
     <string name="error_field_required">This field is required</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_invalid_email">This email address is invalid</string>
@@ -956,6 +958,7 @@
     <string name="journeyHistory">Journey History</string>
     <string name="journeys">Previous Journeys</string>
     <string name="kmTravelled">Distance Travelled(km)</string>
+    <string name="legendText"/>
     <string name="locale">Locale</string>
     <string name="login">Login</string>
     <string name="login_failed">Login failed.</string>
@@ -971,7 +974,7 @@
     <string name="mfa_header">MFA verification is required to authenticate.</string>
     <string name="missedCall">While Driving you missed calls from</string>
     <string name="mobileNumberEntry">e.g 0851234567</string>
-    <string name="monthlyKm">Monthly km</string>
+    <string name="monthlyKm">Monthly Kilometers</string>
     <string name="montlyJourney">Monthly Journeys</string>
     <string name="mostOverSpeedRoad">Most Over Limit Road</string>
     <string name="mr_button_content_description">Cast button</string>
@@ -997,6 +1000,7 @@
     <string name="numJourneys">Number of Journeys</string>
     <string name="numOverSpeeds">Over Speed Journeys</string>
     <string name="numTrafficIncidents"> times you have indicated heavy traffic</string>
+    <string name="numTrafficIncidents2"> time you have indicated heavy traffic</string>
     <string name="overSpeedDay">The day you tend to overspeed on is </string>
     <string name="overSpeedDayTitle">Days speed on</string>
     <string name="overSpeedDays">Over Speed Days</string>

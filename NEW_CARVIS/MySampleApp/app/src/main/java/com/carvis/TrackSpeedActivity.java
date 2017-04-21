@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.Telephony;
+import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
@@ -34,11 +35,18 @@ import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.CARVISAPP.*;
 import com.CARVISAPP.MainActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import static android.telephony.PhoneStateListener.LISTEN_CALL_STATE;
 import static android.telephony.TelephonyManager.ACTION_PHONE_STATE_CHANGED;
@@ -56,26 +64,23 @@ public class TrackSpeedActivity extends Activity {
     };
 
     //  SpeedCheckService speedCheckService;
-    boolean ispeedCameraWarningShowing = false, snackBackShown, isRunning, isPlayingVoice, speedCameraWarningShowing,
+    boolean  snackBackShown, isRunning, isPlayingVoice, speedCameraWarningShowing,
             isPlayingCameraVoice, playVoice, playSpeedVoice, blockPhoneCalls, playTrafficVoice, receiveTrafficUpdates;
 
 
     private Context context;
-    //Intent intent = getIntent();
-    //JourneyFragment journeyFragment;
-
 
     SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     ImageView imageView50, imageView60, imageView80, imageView100, imageView120;
 
-    TextView currentSpeedTextView, speedCameraTextView, badTraffic;
-    CognitoUserPoolsSignInProvider provider;
+    private TextView currentSpeedTextView, speedCameraTextView, badTraffic;
+    private CognitoUserPoolsSignInProvider provider;
 
-    MediaPlayer mediaPlayer, speedLimitPlayer, speedCameraPlayer, trafficPlayer;
-    CarvisMediaPlayer carvisMediaPlayer;
-    ArrayList<Integer> songs;
-    ArrayList<ImageView> imageViews;
+    private  MediaPlayer mediaPlayer, speedLimitPlayer, speedCameraPlayer, trafficPlayer;
+    private  CarvisMediaPlayer carvisMediaPlayer;
+    private  ArrayList<Integer> songs;
+    private ArrayList<ImageView> imageViews;
 
     int speed, limit, kilomPerim;
     private Date dNow;
@@ -95,18 +100,6 @@ public class TrackSpeedActivity extends Activity {
     //Location trackSpeedLocation;
 
     SpeedSearch speedSearch;
-
-
-//    View trackSpeedView;
-
-//    Handler speedHandler = new Handler() {
-//        @Override
-//        public void handleMessage(Message msg) {
-//            super.handleMessage(msg);
-//            chooseSpeedImage(msg.what);
-//        }
-//    };
-
 
     Handler SpeedCameraHandler = new Handler() {
         @Override
@@ -151,10 +144,10 @@ public class TrackSpeedActivity extends Activity {
         }
     };
 
-
     BroadcastReceiver mBroadcastReceiver;
 
-
+    FirebaseAuth mAuth;
+    private String firebaseToken;
 //    private Handler handler;
 //    private Runnable runnable;
 //
@@ -188,16 +181,16 @@ public class TrackSpeedActivity extends Activity {
         provider = new CognitoUserPoolsSignInProvider(context);
         volleyService = new VolleyService(context);
         //showPermissionDialog();
+
+
         playVoice = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("playVoiceUpdate", true);
-
         playSpeedVoice = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("playSpeedLimit", true);
-
         blockPhoneCalls = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("blockIncomingCalls", false);
-
         playTrafficVoice = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("playTrafficUpdates", false);
         receiveTrafficUpdates = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("receiveTrafficNotifications", false);
 
-        kilomPerim = PreferenceManager.getDefaultSharedPreferences(context).getInt("kilomPerim", 3);
+
+        kilomPerim = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(context).getString("kilomPerim", "5"));
 
 
         locale = PreferenceManager.getDefaultSharedPreferences(context).getString("locale", "");
@@ -226,6 +219,51 @@ public class TrackSpeedActivity extends Activity {
         currentSpeedTextView = (TextView) findViewById(R.id.currentSpeed);
         speedCameraTextView = (TextView) findViewById(R.id.speedCamera);
         badTraffic = (TextView) findViewById(R.id.badTrafficReported);
+
+
+
+ //       mAuth = FirebaseAuth.getInstance();
+//
+//        String uid = "some-uid";
+//
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        if (user != null) {
+//            // Name, email address, and profile photo Url
+//            String name = user.getDisplayName();
+//            String email = user.getEmail();
+//            Uri photoUrl = user.getPhotoUrl();
+//
+//            // The user's ID, unique to the Firebase project. Do NOT use this value to
+//            // authenticate with your backend server, if you have one. Use
+//            // FirebaseUser.getToken() instead.
+//            String uid = user.getUid();
+//        }
+
+//        mAuth.signInWithCustomToken("")
+//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if (task.isSuccessful()) {
+//                            // Sign in success, update UI with the signed-in user's information
+//                            Log.d("", "signInWithCustomToken:success");
+//                            FirebaseUser user = mAuth.getCurrentUser();
+//
+//                        } else {
+//                            // If sign in fails, display a message to the user.
+//                            Log.w("", "signInWithCustomToken:failure", task.getException());
+//                        }
+//                    }
+//                });
+//
+//
+//        mAuth.getCurrentUser().getToken(
+////        mAuth.createCustomToken(uid)
+////                .addOnSuccessListener(new OnSuccessListener<String>() {
+////                    @Override
+////                    public void onSuccess(String customToken) {
+////                        // Send token back to client
+////                    }
+////                });
     }
 
 
@@ -234,8 +272,6 @@ public class TrackSpeedActivity extends Activity {
         super.onResume();
         latitude = 0.0;
         longitude = 0.0;
-
-
         firebaseIntent = new Intent(context, CarvisFireBaseMessagingService.class);
         startService(firebaseIntent);
         mBroadcastReceiver = new BroadcastReceiver() {
@@ -556,14 +592,20 @@ public class TrackSpeedActivity extends Activity {
         emergencySMSButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
+
                 String emergencyContact = PreferenceManager.getDefaultSharedPreferences(context).getString("emergencyContact", "");
                 if (emergencyContact.equals("")) {
                     emergencyContact = "0851329485";
                 }
-                SmsManager smsManager = SmsManager.getDefault();
-                String messageBody = getString(R.string.emergencyText) + " " + latitude + "," + longitude + "\n\nhttp://www.google.com/maps/place/" + latitude + "," + longitude;
-                smsManager.sendTextMessage(emergencyContact, null, messageBody, null, null);
-                Toast.makeText(context, "MESSAGE SENT", Toast.LENGTH_SHORT).show();
+                try {
+                    SmsManager smsManager = SmsManager.getDefault();
+                    String messageBody = getString(R.string.emergencyText) + " " + latitude + "," + longitude + "\n\nhttp://www.google.com/maps/place/" + latitude + "," + longitude;
+                    smsManager.sendTextMessage(emergencyContact, null, messageBody, null, null);
+                    Toast.makeText(context, "MESSAGE SENT", Toast.LENGTH_SHORT).show();
+                }
+                catch(Exception e){
+
+                }
                 return true;
             }
 
@@ -642,11 +684,16 @@ public class TrackSpeedActivity extends Activity {
     }
 
     private void sendDrivingSMS(String phoneNumber) {
-        Log.wtf("message sent", phoneNumber);
-        SmsManager smsManager = SmsManager.getDefault();
-        String messageBody = getString(R.string.currentlyDriving);
-        smsManager.sendTextMessage(phoneNumber, null, messageBody, null, null);
-        Toast.makeText(context, "MESSAGE SENT", Toast.LENGTH_SHORT).show();
+        try {
+            Log.wtf("message sent", phoneNumber);
+            SmsManager smsManager = SmsManager.getDefault();
+            String messageBody = getString(R.string.currentlyDriving);
+            smsManager.sendTextMessage(phoneNumber, null, messageBody, null, null);
+            Toast.makeText(context, "MESSAGE SENT", Toast.LENGTH_SHORT).show();
+        }
+        catch(Exception e){
+
+        }
     }
 
 
@@ -688,4 +735,6 @@ public class TrackSpeedActivity extends Activity {
         }
         return false;
     }
+
+
 }

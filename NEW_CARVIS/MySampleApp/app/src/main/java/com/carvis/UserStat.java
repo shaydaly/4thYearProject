@@ -38,7 +38,7 @@ public class UserStat implements Serializable {
     private ArrayList<DateTime> overSpeedDates;
     private String roadAddress;
     private int daysSinceOverSpeed;
-    private  int averageSpeed;
+    private  int numOverSpeeds;
     private String mostOverSpedDay;
     private Map<String, Integer> mostCommon;
     private HashMap<String , Integer>monthlyJourneys;
@@ -46,7 +46,7 @@ public class UserStat implements Serializable {
 
     HashMap<String, Double> monthlyKilom;
 
-    public UserStat(String overSpeedRoad, ArrayList<JourneyInfo> journeyInfos, int journeysWithOverSpeed, ArrayList<DateTime> overSpeedDates,  String roadAddress, int averageSpeed) {
+    public UserStat(String overSpeedRoad, ArrayList<JourneyInfo> journeyInfos, int journeysWithOverSpeed, ArrayList<DateTime> overSpeedDates,  String roadAddress, int numOverSpeeds) {
         //this.username = username;
         this.overSpeedRoad = overSpeedRoad;
         this.journeyInfos = journeyInfos;
@@ -55,7 +55,7 @@ public class UserStat implements Serializable {
         this.overSpeedDates = overSpeedDates;
         //this.memberSince = memberSince;
         this.roadAddress = roadAddress;
-        this.averageSpeed =  averageSpeed;
+        this.numOverSpeeds =  numOverSpeeds;
         monthlyKilom = new HashMap<>();
         mostOverSpedDay = getOverSpeedDay();
         monthlyJourneys = new HashMap<>();
@@ -134,8 +134,20 @@ public class UserStat implements Serializable {
 
 
 
-    public int getAverageSpeed() {
-        return averageSpeed;
+    public int getNumOverSpeeds() {
+        return numOverSpeeds;
+    }
+
+
+    public double  overSpeedPerKilom(){
+        double total = 0;
+        try {
+            total  =  getKilomsTravelled() / numOverSpeeds;
+        }
+        catch(Exception e){
+
+        }
+        return getRoundedValue(total, 2);
     }
 
     public int getJourneysWithOverSpeed() {
@@ -319,7 +331,7 @@ public class UserStat implements Serializable {
                 end.setLongitude(journeyInfo.getEndLongitude());
                 monthlyTotal = getDistance(start, end);
                 monthlyTotal = getRoundedValue(monthlyTotal, 2);
-                String month = journeyInfo.getStartTime().toString("MMM");
+                String month = journeyInfo.getStartTime().toString("MMMM");
 
                 if (!monthlyKilom.containsKey(month)) {
                     monthlyKilom.put(month, monthlyTotal);
@@ -335,7 +347,7 @@ public class UserStat implements Serializable {
         if (journeyInfos.size() != 0) {
             for (JourneyInfo journeyInfo : journeyInfos) {
                 double monthlyTotal = 0;
-                String month = journeyInfo.getStartTime().toString("MMM");
+                String month = journeyInfo.getStartTime().toString("MMMM");
 
                 if (!monthlyJourneys.containsKey(month)) {
                     monthlyJourneys.put(month, 1);
@@ -373,11 +385,18 @@ public class UserStat implements Serializable {
     }
 
     public  double getRoundedValue(double value, int places) {
-        if (places < 0) throw new IllegalArgumentException();
+        double returnValue = 0.0;
+        try {
+            if (places < 0) throw new IllegalArgumentException();
 
-        BigDecimal bd = new BigDecimal(value);
-        bd = bd.setScale(places, RoundingMode.HALF_UP);
-        return bd.doubleValue();
+            BigDecimal bd = new BigDecimal(value);
+            bd = bd.setScale(places, RoundingMode.HALF_UP);
+            returnValue =  bd.doubleValue();
+        }
+        catch (Exception e){
+
+        }
+        return returnValue;
     }
 }
 

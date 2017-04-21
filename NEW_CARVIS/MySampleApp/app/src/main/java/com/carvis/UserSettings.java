@@ -57,7 +57,6 @@ public class UserSettings extends AppCompatActivity {
         memberSince = (TextView)findViewById(R.id.memberSinceDisplay);
         memberSince.setText(prefs.getString("memberSince", ""));
 
-
         //Log.wtf("TOKEM",FirebaseInstanceId.getInstance().getToken());
         //FirebaseMessaging.getInstance().send(RemoteMessage);
 
@@ -135,7 +134,7 @@ public class UserSettings extends AppCompatActivity {
 
 
         if(prefs.contains("playSpeedLimit")){
-            if(prefs.getBoolean("playSpeedLimit", false)){
+            if(prefs.getBoolean("playSpeedLimit", true)){
                 Log.wtf("playSpeedLimit", "0");
                 overLimitSwitch.setChecked(true);
             }
@@ -173,7 +172,7 @@ public class UserSettings extends AppCompatActivity {
         }
 
         if(prefs.contains("kilomPerim")){
-            kilomPerim.setText(String.valueOf(prefs.getInt("kilomPerim", 0)));
+            kilomPerim.setText(prefs.getString("kilomPerim", ""));
         }
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -196,15 +195,19 @@ public class UserSettings extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // do something, the isChecked will be
                 // true if the switch is in the On position
-                if(speedCameraSwitch.isChecked()){
-                    prefs.edit()
-                            .putBoolean("playVoiceUpdate", true)
-                            .commit();
+                try {
+                    if (speedCameraSwitch.isChecked()) {
+                        prefs.edit()
+                                .putBoolean("playVoiceUpdate", true)
+                                .commit();
+                    } else {
+                        prefs.edit()
+                                .putBoolean("playVoiceUpdate", false)
+                                .commit();
+                    }
                 }
-                else{
-                    prefs.edit()
-                            .putBoolean("playVoiceUpdate", false)
-                            .commit();
+                catch(Exception e){
+
                 }
             }
         });
@@ -236,15 +239,18 @@ public class UserSettings extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // do something, the isChecked will be
                 // true if the switch is in the On position
-                if(receiveVoiceTrafficUpdates.isChecked()){
-                    prefs.edit()
-                            .putBoolean("playTrafficUpdates", true)
-                            .commit();
-                }
-                else{
-                    prefs.edit()
-                            .putBoolean("playTrafficUpdates", false)
-                            .commit();
+                try {
+                    if (receiveVoiceTrafficUpdates.isChecked()) {
+                        prefs.edit()
+                                .putBoolean("playTrafficUpdates", true)
+                                .commit();
+                    } else {
+                        prefs.edit()
+                                .putBoolean("playTrafficUpdates", false)
+                                .commit();
+                    }
+                }catch (Exception e){
+
                 }
             }
         });
@@ -255,15 +261,19 @@ public class UserSettings extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // do something, the isChecked will be
                 // true if the switch is in the On position
-                if(blockCallsSwitch.isChecked()){
-                    prefs.edit()
-                            .putBoolean("blockIncomingCalls", true)
-                            .commit();
+                try {
+                    if (blockCallsSwitch.isChecked()) {
+                        prefs.edit()
+                                .putBoolean("blockIncomingCalls", true)
+                                .commit();
+                    } else {
+                        prefs.edit()
+                                .putBoolean("blockIncomingCalls", false)
+                                .commit();
+                    }
                 }
-                else{
-                    prefs.edit()
-                            .putBoolean("blockIncomingCalls", false)
-                            .commit();
+                catch (Exception e){
+
                 }
             }
         });
@@ -272,15 +282,19 @@ public class UserSettings extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // do something, the isChecked will be
                 // true if the switch is in the On position
-                if(overLimitSwitch.isChecked()){
-                    prefs.edit()
-                            .putBoolean("playSpeedLimit", true)
-                            .commit();
+                try {
+                    if (overLimitSwitch.isChecked()) {
+                        prefs.edit()
+                                .putBoolean("playSpeedLimit", true)
+                                .commit();
+                    } else {
+                        prefs.edit()
+                                .putBoolean("playSpeedLimit", false)
+                                .commit();
+                    }
                 }
-                else{
-                    prefs.edit()
-                            .putBoolean("playSpeedLimit", false)
-                            .commit();
+                catch(Exception e){
+
                 }
             }
         });
@@ -294,9 +308,14 @@ public class UserSettings extends AppCompatActivity {
 
 
     public void saveLocaleSharedPreferences(String locale){
-        prefs.edit()
-                .putString("locale", locale)
-                .commit();
+        try {
+            prefs.edit()
+                    .putString("locale", locale)
+                    .commit();
+        }
+        catch(Exception e){
+
+        }
     }
 
     public void getCityAddress(double lat, double lon) {
@@ -364,10 +383,17 @@ public class UserSettings extends AppCompatActivity {
 
         String emergencyContact = String.valueOf(editText.getText());
 
-        int kilomPerm = Integer.parseInt(kilomPerim.getText().toString());
+        String kilom = kilomPerim.getText().toString();
+//        if(!kilom.equals("")){
+//            int kilomPerim = Integer.parseInt(kilom);
+//            prefs.edit()
+//                    .putInt("kilomPerim", kilomPerim)
+//                    .commit();
+//        }
+
         prefs.edit()
                 .putString("emergencyContact", emergencyContact)
-                .putInt("kilomPerim", kilomPerm)
+                .putString("kilomPerim", kilom)
                 .commit();
 
         if(receiveTrafficUpdates.isChecked()){

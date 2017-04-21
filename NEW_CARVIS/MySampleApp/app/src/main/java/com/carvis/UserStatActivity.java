@@ -55,15 +55,15 @@ public class UserStatActivity extends AppCompatActivity {
             final TextView kilomTravelled = (TextView) findViewById(R.id.kilomTravelled);
             final TextView avgJourneykilom = (TextView) findViewById(R.id.avgJourneykilom);
             try {
-                memberSince.setText(getString(R.string.averageSpeed) + "\n" + "\n" + String.valueOf(userStat.getAverageSpeed()));
-                averageJourneyTime.setText(getString(R.string.averageJourneyTime) + "\n" + "\n" + String.valueOf(userStat.getAverageJourneyTime()));
-                numberOfJourneys.setText(getString(R.string.numJourneys) + "\n" + "\n" + String.valueOf(userStat.getNumJourneys()));
-                numberOfOverSpeeds.setText(getString(R.string.numOverSpeeds) + "\n" + "\n" + String.valueOf(userStat.getNumOverSpeed()));
-                overSpeedPercentage.setText(getString(R.string.percentageOverSpeed) + "\n" + "\n" + String.valueOf(userStat.getOverSpeedPercentage()));
-                overSpeedDay.setText(getString(R.string.dayWithMostOverSpeed) + "\n" + "\n" + String.valueOf(userStat.getMostOverSpedDay()));
-                overSpeedRoad.setText(getString(R.string.mostOverSpeedRoad) + "\n" + "\n" + String.valueOf(userStat.getRoadAddress()));
-                kilomTravelled.setText(getString(R.string.kmTravelled) + "\n" + "\n" + String.valueOf(userStat.getKilomsTravelled()));
-                avgJourneykilom.setText(getString(R.string.avgJourneyKM) + "\n" + "\n" + String.valueOf(userStat.getAverageJourneyKiloms()));
+                memberSince.setText("Avg. km Per Speeding Incident" + "\n\n" + String.valueOf(userStat.overSpeedPerKilom()));
+                averageJourneyTime.setText(getString(R.string.averageJourneyTime) + "\n\n" + String.valueOf(userStat.getAverageJourneyTime()));
+                numberOfJourneys.setText(getString(R.string.numJourneys) + "\n\n\n" + String.valueOf(userStat.getNumJourneys()));
+                numberOfOverSpeeds.setText(getString(R.string.numOverSpeeds) + "\n\n\n" + String.valueOf(userStat.getNumOverSpeed()));
+                overSpeedPercentage.setText(getString(R.string.percentageOverSpeed) + "\n\n\n" + String.valueOf(userStat.getOverSpeedPercentage()));
+                overSpeedDay.setText(getString(R.string.dayWithMostOverSpeed) + "\n\n" + String.valueOf(userStat.getMostOverSpedDay()));
+                overSpeedRoad.setText(getString(R.string.mostOverSpeedRoad) + "\n\n" + String.valueOf(userStat.getRoadAddress()));
+                kilomTravelled.setText(getString(R.string.kmTravelled) + "\n\n" + String.valueOf(userStat.getKilomsTravelled()));
+                avgJourneykilom.setText(getString(R.string.avgJourneyKM) + "\n\n" + String.valueOf(userStat.getAverageJourneyKiloms()));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 e.printStackTrace();
@@ -141,8 +141,6 @@ public class UserStatActivity extends AppCompatActivity {
                 (ViewGroup) findViewById(R.id.custom_toast_container));
         TextView header = (TextView) layout.findViewById(R.id.toastHead);
         header.setText(getString(R.string.montlyJourney));
-
-
         try {
             HashMap<String, Integer> monthlyKilom = userStat.getMonthlyJourneysHashMap();
             TextView label = (TextView) layout.findViewById(R.id.label );

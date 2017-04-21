@@ -11,11 +11,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-    android:layout_marginRight="@dimen/activity_horizontal_margin"
-    android:layout_marginTop="@dimen/activity_vertical_margin"
+    android:background="@color/buttonBackground"
 
     tools:context="com.CARVISAPP.demo.userpools.SignUpActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        >
+
 
     <TextView
         android:id="@+id/signup_message"
@@ -23,7 +30,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:text="@string/sign_up_header"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/white"/>
 
     <Space
         android:id="@+id/signup_space1"
@@ -32,8 +40,6 @@
         android:layout_below="@id/signup_message"
         android:layout_centerHorizontal="true" />
 
-
-
     <EditText
         android:id="@+id/signup_username"
         android:layout_width="match_parent"
@@ -41,6 +47,8 @@
         android:layout_below="@id/signup_space1"
         android:layout_centerHorizontal="true"
         android:hint="@string/username_text"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:inputType="textPersonName" />
 
     <Space
@@ -50,6 +58,8 @@
         android:layout_below="@id/signup_username" />
 
     <EditText
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:id="@+id/signup_password"
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_text_height"
@@ -65,6 +75,8 @@
         android:layout_below="@id/signup_password" />
 
     <EditText
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:id="@+id/signup_given_name"
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_text_height"
@@ -80,6 +92,8 @@
         android:layout_below="@id/signup_given_name" />
 
     <EditText
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:id="@+id/signup_email"
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_text_height"
@@ -95,6 +109,8 @@
         android:layout_below="@id/signup_email" />
 
     <EditText
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:id="@+id/signup_phone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_text_height"
@@ -119,6 +135,6 @@
         android:text="@string/title_activity_sign_up"
         android:textAllCaps="false"
         android:textSize="@dimen/activity_button_text_size"/>
-
+    </RelativeLayout>
 
 </RelativeLayout>

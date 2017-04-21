@@ -138,7 +138,7 @@ public class NewListJourney extends Activity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 //                Toast.makeText(context, i, Toast.LENGTH_LONG).show();
                 final String selectedValue = (String) adapterView.getItemAtPosition(i);
-                Toast.makeText(context, selectedValue, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Getting Journey Details", Toast.LENGTH_LONG).show();
                 getFragments(selectedValue);
             }
 //

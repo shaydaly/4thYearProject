@@ -367,47 +367,47 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
         Runnable r = new Runnable() {
             @Override
             public void run() {
-        cameraRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                System.out.println("child added");
-                double latitude = Double.parseDouble(String.valueOf(dataSnapshot.child("latitude").getValue()));
-                double longitude = Double.parseDouble(String.valueOf(dataSnapshot.child("longitude").getValue()));
-                String time = String.valueOf(dataSnapshot.child("time").getValue());
+                cameraRef.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+                        System.out.println("child added");
+                        double latitude = Double.parseDouble(String.valueOf(dataSnapshot.child("latitude").getValue()));
+                        double longitude = Double.parseDouble(String.valueOf(dataSnapshot.child("longitude").getValue()));
+                        String time = String.valueOf(dataSnapshot.child("time").getValue());
 
-                TemporarySpeedCamera.addTemporaryCamera(new TemporarySpeedCamera(latitude, longitude,time));
-                //cameras.add(new SpeedCamera(id, startLat, startLong, endLat, endLong));
-                LatLng latLng = new LatLng(latitude, longitude);
-                mMap.addMarker(new MarkerOptions().position(latLng).title(time).icon(BitmapDescriptorFactory.fromResource(R.drawable.new_speed_amera)));
+                        TemporarySpeedCamera.addTemporaryCamera(new TemporarySpeedCamera(latitude, longitude,time));
+                        //cameras.add(new SpeedCamera(id, startLat, startLong, endLat, endLong));
+                        LatLng latLng = new LatLng(latitude, longitude);
+                        mMap.addMarker(new MarkerOptions().position(latLng).title(time).icon(BitmapDescriptorFactory.fromResource(R.drawable.new_speed_amera)));
 
 
 
-            }
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
+                    }
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
 
-            }
+                    }
 
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                double latitude = Double.parseDouble(String.valueOf(dataSnapshot.child("latitude").getValue()));
-                double longitude = Double.parseDouble(String.valueOf(dataSnapshot.child("longitude").getValue()));
-                String time = String.valueOf(dataSnapshot.child("time").getValue());
-                TemporarySpeedCamera.deleteTemporaryCamera(new TemporarySpeedCamera(latitude, longitude, time));
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+                        double latitude = Double.parseDouble(String.valueOf(dataSnapshot.child("latitude").getValue()));
+                        double longitude = Double.parseDouble(String.valueOf(dataSnapshot.child("longitude").getValue()));
+                        String time = String.valueOf(dataSnapshot.child("time").getValue());
+                        TemporarySpeedCamera.deleteTemporaryCamera(new TemporarySpeedCamera(latitude, longitude, time));
 //                //cameras.remove(dataSnapshot.getKey());
 //                SpeedCamera.removeSpeedCamera(Integer.parseInt(dataSnapshot.getKey()));
 //                System.out.println("camera size : "+SpeedCamera.cameras.size());
-            }
+                    }
 
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
-            }
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
+                    }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
 
-        });
+                });
                 trafficUpdateHandler.sendEmptyMessage(0);
             }
         };
@@ -505,7 +505,7 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
     @Override
     public void onBackPressed() {
         //super.onStop();
-       Log.wtf("onBackPressed", "CALLEd");
+        Log.wtf("onBackPressed", "CALLEd");
         super.onBackPressed();
         Intent intent = new Intent(getApplicationContext(), com.CARVISAPP.MainActivity.class);
         startActivity(intent);

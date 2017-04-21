@@ -45,7 +45,7 @@ android {
     }
 
     testOptions {
-        unitTests.returnDefaultValues = true
+        unitTests.returnDefaultValues = false
     }
 
     sourceCompatibility = 1.7
@@ -66,6 +66,12 @@ dependencies {
     //    compile 'com.google.maps:google-maps-services:1.1'
 
     //compile 'com.google.maps.android:android-maps-utils:0.5.+'
+
+    //testCompile "org.robolectric:robolectric:3.3.2"
+
+//    androidTestCompile "com.google.dexmaker:dexmaker:1.0"
+//    androidTestCompile "com.google.dexmaker:dexmaker-mockito:1.0"
+    //    androidTestCompile "org.mockito:mockito-core:1.9.5"
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:support-v4:23.4.0'
     compile 'com.android.support:design:23.4.0'
@@ -84,17 +90,8 @@ dependencies {
     compile 'com.amazonaws:aws-android-sdk-polly:2.3.4'
     compile 'junit:junit:4.12'
     compile 'com.google.firebase:firebase-messaging:10.2.0'
+    compile 'com.google.firebase:firebase-auth:10.2.0'
     testCompile 'junit:junit:4.12'
-    testCompile 'org.json:json:20140107'
-    testCompile 'org.mockito:mockito-core:1.9.5'
-
-
-
-    //testCompile "org.robolectric:robolectric:3.3.2"
-
-//    androidTestCompile "com.google.dexmaker:dexmaker:1.0"
-//    androidTestCompile "com.google.dexmaker:dexmaker-mockito:1.0"
-//    androidTestCompile "org.mockito:mockito-core:1.9.5"
 }
 
 

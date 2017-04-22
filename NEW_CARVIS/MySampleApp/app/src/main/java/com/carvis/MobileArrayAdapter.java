@@ -41,17 +41,14 @@ public class MobileArrayAdapter extends  ArrayAdapter<String> {
             View rowView = inflater.inflate(R.layout.activity_list_journey, parent, false);
         try {
             TextView journeyIDtextView = (TextView) rowView.findViewById(R.id.journeyID);
-            //ImageView imageView = (ImageView) rowView.findViewById(R.id.logo);
             journeyIDtextView.setText(journeys.get(position));
             journeyIDtextView.setTextColor(Color.BLACK);
 
             TextView timestampView = (TextView) rowView.findViewById(R.id.timestamp);
-            //ImageView imageView = (ImageView) rowView.findViewById(R.id.logo);
             timestampView.setText(timestamps.get(position));
 
 
             TextView durationsView = (TextView) rowView.findViewById(R.id.duration);
-            //ImageView imageView = (ImageView) rowView.findViewById(R.id.logo);
             durationsView.setText(durations.get(position));
             return rowView;
         }

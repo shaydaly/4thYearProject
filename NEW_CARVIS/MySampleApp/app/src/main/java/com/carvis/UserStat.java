@@ -33,27 +33,20 @@ public class UserStat implements Serializable {
     private String overSpeedRoad;
     private ArrayList<JourneyInfo> journeyInfos;
     private int journeysWithOverSpeed;
-    //private int numJourneys;
-    private DateTime memberSince;
     private ArrayList<DateTime> overSpeedDates;
     private String roadAddress;
-    private int daysSinceOverSpeed;
     private  int numOverSpeeds;
     private String mostOverSpedDay;
     private Map<String, Integer> mostCommon;
     private HashMap<String , Integer>monthlyJourneys;
 
-
     HashMap<String, Double> monthlyKilom;
 
     public UserStat(String overSpeedRoad, ArrayList<JourneyInfo> journeyInfos, int journeysWithOverSpeed, ArrayList<DateTime> overSpeedDates,  String roadAddress, int numOverSpeeds) {
-        //this.username = username;
         this.overSpeedRoad = overSpeedRoad;
         this.journeyInfos = journeyInfos;
         this.journeysWithOverSpeed = journeysWithOverSpeed;
-        //this.numJourneys = numJourneys;
         this.overSpeedDates = overSpeedDates;
-        //this.memberSince = memberSince;
         this.roadAddress = roadAddress;
         this.numOverSpeeds =  numOverSpeeds;
         monthlyKilom = new HashMap<>();
@@ -78,11 +71,6 @@ public class UserStat implements Serializable {
         mostCommon = new HashMap<>();
     }
 
-    public UserStat(String username){
-        this.username = username;
-        daysSinceOverSpeed = 0;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -90,53 +78,6 @@ public class UserStat implements Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
-
-    public void setDaysSinceOverSpeed(int daysSinceOverSpeed) {
-        this.daysSinceOverSpeed = daysSinceOverSpeed;
-    }
-
-    public int getDaysSinceOverSpeed() {
-        return daysSinceOverSpeed;
-    }
-
-    public DateTime getMemberSince() {
-        return memberSince;
-    }
-
-    public void setMemberSince(DateTime memberSince) {
-        this.memberSince = memberSince;
-    }
-
-    //    public String getUsername() {
-//        return username;
-//    }
-//
-//    public void setUsername(String username) {
-//        this.username = username;
-//    }
-
-    public String getOverSpeedRoad() {
-        return overSpeedRoad;
-    }
-
-    public void setOverSpeedRoad(String overSpeedRoad) {
-        this.overSpeedRoad = overSpeedRoad;
-    }
-
-    public ArrayList<JourneyInfo> getJourneyDates() {
-        return journeyInfos;
-    }
-
-    public void setJourneyDates(ArrayList<JourneyInfo> journeyInfos) {
-        this.journeyInfos = journeyInfos;
-    }
-
-
-
-    public int getNumOverSpeeds() {
-        return numOverSpeeds;
-    }
-
 
     public double  overSpeedPerKilom(){
         double total = 0;
@@ -149,10 +90,6 @@ public class UserStat implements Serializable {
         return getRoundedValue(total, 2);
     }
 
-    public int getJourneysWithOverSpeed() {
-        return journeysWithOverSpeed;
-    }
-
     public void setJourneysWithOverSpeed(int journeysWithOverSpeed) {
         this.journeysWithOverSpeed = journeysWithOverSpeed;
     }
@@ -161,17 +98,6 @@ public class UserStat implements Serializable {
         return journeyInfos.size();
     }
 
-//    //public void setNumJourneys(int numJourneys) {
-//        this.numJourneys = numJourneys;
-//    }
-
-    public ArrayList<DateTime> getOverSpeedDates() {
-        return overSpeedDates;
-    }
-
-    public void setOverSpeedDates(ArrayList<DateTime> overSpeedDates) {
-        this.overSpeedDates = overSpeedDates;
-    }
 
     public void addOverSpeedDate(DateTime date){
         overSpeedDates.add(date);
@@ -179,10 +105,6 @@ public class UserStat implements Serializable {
 
     public int getNumOverSpeed(){
         return journeysWithOverSpeed;
-    }
-
-    public void addJourneyDate(JourneyInfo journeyDate){
-        journeyInfos.add(journeyDate);
     }
 
     public ArrayList<JourneyInfo> getJourneyInfos() {
@@ -195,10 +117,6 @@ public class UserStat implements Serializable {
 
     public String getRoadAddress() {
         return roadAddress;
-    }
-
-    public void setRoadAddress(String roadAddress) {
-        this.roadAddress = roadAddress;
     }
 
     public String getDayOfWeek(DateTime dateTime){
@@ -398,101 +316,6 @@ public class UserStat implements Serializable {
     }
 }
 
-
-// class JourneyInfo implements  Serializable{
-//     DateTime startTime;
-//     DateTime endTime;
-//     double startLatitude, startLongitude, endLatitude, endLongitude;
-//
-//
-//     JourneyInfo(DateTime startTime, DateTime endTime, double startLatitude, double startLongitude, double endLatitude, double endLongitude){
-//         this.startTime = startTime;
-//         this.endTime = endTime;
-//         this.startLatitude = startLatitude;
-//         this.startLongitude = startLongitude;
-//         this.endLatitude  = endLatitude;
-//         this.endLongitude = endLongitude;
-//     }
-//
-//     JourneyInfo(DateTime startTime, DateTime endTime){
-//         this.startTime = startTime;
-//         this.endTime = endTime;
-//     }
-//
-//     public DateTime getStartTime() {
-//         return startTime;
-//     }
-//
-//     public void setStartTime(DateTime startTime) {
-//         this.startTime = startTime;
-//     }
-//
-//     public DateTime getEndTime() {
-//         return endTime;
-//     }
-//
-//     public void setEndTime(DateTime endTime) {
-//         this.endTime = endTime;
-//     }
-//
-//     public double getStartLatitude() {
-//         return startLatitude;
-//     }
-//
-//     public void setStartLatitude(double startLatitude) {
-//         this.startLatitude = startLatitude;
-//     }
-//
-//     public double getStartLongitude() {
-//         return startLongitude;
-//     }
-//
-//     public void setStartLongitude(double startLongitude) {
-//         this.startLongitude = startLongitude;
-//     }
-//
-//     public double getEndLatitude() {
-//         return endLatitude;
-//     }
-//
-//     public void setEndLatitude(double endLatitude) {
-//         this.endLatitude = endLatitude;
-//     }
-//
-//     public double getEndLongitude() {
-//         return endLongitude;
-//     }
-//
-//     public void setEndLongitude(double endLongitude) {
-//         this.endLongitude = endLongitude;
-//     }
-//
-////     public int describeContents() {
-////         return 0;
-////     }
-////
-////     public void writeToParcel(Parcel out, int flags) {
-////         out.wr;
-////         out.writeValue(startLocation);
-////         out.writeValue(endLocation);
-////     }
-////
-////     public static final Parcelable.Creator<JourneyInfo> CREATOR
-////             = new Parcelable.Creator<JourneyInfo>() {
-////         public JourneyInfo createFromParcel(Parcel in) {
-////             return new JourneyInfo(in);
-////         }
-////
-////         public JourneyInfo[] newArray(int size) {
-////             return new JourneyInfo[size];
-////         }
-////     };
-////
-////     private JourneyInfo(Parcel in) {
-//////         startLocation = in.readBundle();
-//////     }
-////     }
-// }
 
 
 

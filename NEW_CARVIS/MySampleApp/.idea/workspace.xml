@@ -43,38 +43,51 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="UserSettings.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/UserSettings.java">
+      <file leaf-file-name="MyLocationService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/MyLocationService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="302">
-              <caret line="467" column="31" selection-start-line="467" selection-start-column="31" selection-end-line="467" selection-end-column="31" />
+            <state relative-caret-position="-55">
+              <caret line="413" column="65" selection-start-line="413" selection-start-column="65" selection-end-line="413" selection-end-column="65" />
               <folding>
-                <element signature="class#4192:4655" expanded="false" />
-                <element signature="method#onItemSelected#0;class#7298:7758" expanded="false" />
-                <element signature="method#onNothingSelected#0;class#7298:7758" expanded="false" />
-                <element signature="e#7969#8007#0" expanded="false" />
-                <element signature="method#getPositionOfPlayVoice#0;class#UserSettings#0" expanded="false" />
-                <element signature="method#getSpeedPosition#0;class#UserSettings#0" expanded="false" />
+                <element signature="e#3118#3695#0" expanded="true" />
+                <element signature="e#3694#3695#0" expanded="true" />
+                <element signature="method#onDestroy#0;class#MyLocationService#0" expanded="false" />
+                <element signature="method#onConnected#0;class#MyLocationService#0" expanded="false" />
+                <element signature="method#onConnectionFailed#0;class#MyLocationService#0" expanded="false" />
+                <element signature="method#nearSpeedCamera#0;class#MyLocationService#0" expanded="false" />
+                <element signature="method#setOverSpeedLimit#0;class#MyLocationService#0" expanded="false" />
+                <element signature="method#endJourneys#0;class#MyLocationService#0" expanded="false" />
+                <element signature="method#createSpeedVanReference#0;class#MyLocationService#0" expanded="false" />
+                <element signature="method#createSpeedCameraReference#0;class#MyLocationService#0" expanded="false" />
+                <element signature="method#onChildChanged#0;class#22000:24802" expanded="false" />
+                <element signature="method#onChildRemoved#0;class#22000:24802" expanded="false" />
+                <element signature="method#createSpeedLimitReference#0;class#MyLocationService#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <file leaf-file-name="UserSettings.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/UserSettings.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1819">
-              <caret line="107" column="43" selection-start-line="107" selection-start-column="43" selection-end-line="107" selection-end-column="43" />
-              <folding />
+            <state relative-caret-position="357">
+              <caret line="340" column="0" selection-start-line="340" selection-start-column="0" selection-end-line="340" selection-end-column="0" />
+              <folding>
+                <element signature="class#3483:3946" expanded="false" />
+                <element signature="method#onItemSelected#0;class#5637:6097" expanded="false" />
+                <element signature="method#onNothingSelected#0;class#5637:6097" expanded="false" />
+                <element signature="e#9593#10249#0" expanded="true" />
+                <element signature="e#10248#10249#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NavigationDrawer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/CARVISAPP/navigation/NavigationDrawer.java">
+      <file leaf-file-name="Journey.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/Journey.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-531">
-              <caret line="246" column="25" selection-start-line="246" selection-start-column="16" selection-end-line="246" selection-end-column="25" />
+            <state relative-caret-position="399">
+              <caret line="196" column="0" selection-start-line="196" selection-start-column="0" selection-end-line="196" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -83,35 +96,15 @@
       <file leaf-file-name="TrackSpeedActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/TrackSpeedActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="583" column="73" selection-start-line="583" selection-start-column="73" selection-end-line="583" selection-end-column="73" />
+            <state relative-caret-position="6018">
+              <caret line="476" column="61" selection-start-line="476" selection-start-column="61" selection-end-line="476" selection-end-column="61" />
               <folding>
-                <element signature="e#7317#7361#0" expanded="false" />
+                <element signature="imports" expanded="true" />
                 <element signature="method#displaySpeedCameraInfo#0;class#TrackSpeedActivity#0" expanded="false" />
                 <element signature="method#chooseSpeedImage#0;class#TrackSpeedActivity#0" expanded="false" />
                 <element signature="method#showImage#0;class#TrackSpeedActivity#0" expanded="false" />
                 <element signature="method#hideAllImages#0;class#TrackSpeedActivity#0" expanded="false" />
-                <element signature="e#16910#16946#0" expanded="false" />
                 <element signature="method#showBadTrafficLocation#0;class#TrackSpeedActivity#0" expanded="false" />
-                <element signature="e#19141#19180#0" expanded="false" />
-                <element signature="method#createNotification#0;class#TrackSpeedActivity#0" expanded="false" />
-                <element signature="e#26235#26278#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserStatActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/UserStatActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="131" column="28" selection-start-line="131" selection-start-column="28" selection-end-line="131" selection-end-column="28" />
-              <folding>
-                <element signature="e#2300#2333#0" expanded="true" />
-                <element signature="method#onBackPressed#0;class#UserStatActivity#0" expanded="false" />
-                <element signature="method#onStop#0;class#UserStatActivity#0" expanded="false" />
-                <element signature="method#showMonthlyJourneys#0;class#UserStatActivity#0" expanded="false" />
-                <element signature="method#showOverSpeedDays#0;class#UserStatActivity#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -120,8 +113,8 @@
       <file leaf-file-name="HomeDemoFragment.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/CARVISAPP/demo/HomeDemoFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="518" column="35" selection-start-line="518" selection-start-column="25" selection-end-line="518" selection-end-column="35" />
+            <state relative-caret-position="579">
+              <caret line="536" column="4" selection-start-line="536" selection-start-column="4" selection-end-line="536" selection-end-column="4" />
               <folding>
                 <element signature="e#12617#12673#0" expanded="false" />
                 <element signature="method#onViewCreated#0;class#HomeDemoFragment#0" expanded="false" />
@@ -129,38 +122,38 @@
                 <element signature="class#ViewHolder#0;class#HomeDemoFragment#0" expanded="false" />
                 <element signature="method#registerButtons#0;class#HomeDemoFragment#0" expanded="false" />
                 <element signature="method#showTextView#0;class#HomeDemoFragment#0" expanded="false" />
-                <element signature="method#refreshToken#0;class#HomeDemoFragment#0" expanded="false" />
-                <marker date="1492856284218" expanded="false" signature="13262:13305" ph="&quot;It has been&quot;" />
-                <marker date="1492856284218" expanded="false" signature="13352:13395" ph="&quot;days since your last Speeding incident&quot;" />
-                <marker date="1492856284218" expanded="false" signature="13625:13656" ph="&quot;It may be advisable to consider slowing down&quot;" />
-                <marker date="1492856284218" expanded="false" signature="13772:13800" ph="&quot;Well Done !&quot;" />
-                <marker date="1492856284218" expanded="false" signature="14526:14558" ph="&quot;The day you tend to overspeed on is&quot;" />
-                <marker date="1492856284218" expanded="false" signature="14627:14663" ph="&quot;Perhaps taking an alternative route may be advisable on...&quot;" />
-                <marker date="1492856284218" expanded="false" signature="14779:14811" ph="&quot;&quot;You have yet to overspeed using CARVIS, Congratulations!&quot;&quot;" />
-                <marker date="1492856284218" expanded="false" signature="15262:15301" ph="&quot;times you have indicated heavy traffic&quot;" />
-                <marker date="1492856284218" expanded="false" signature="15409:15435" ph="&quot;Thanks for helping CARVIS help promote safe driving :)&quot;" />
-                <marker date="1492856284218" expanded="false" signature="15540:15572" ph="&quot;It would help CARVIS better promote safe driving if you...&quot;" />
-                <marker date="1492856284218" expanded="false" signature="16012:16050" ph="&quot;The following roads have experienced heavy traffic today&quot;" />
-                <marker date="1492856284218" expanded="false" signature="16305:16345" ph="&quot;No Roads have been indicated having heavy traffic today.&quot;" />
-                <marker date="1492856284218" expanded="false" signature="16958:16990" ph="&quot;You have regularly used the following roads which have ...&quot;" />
-                <marker date="1492856284218" expanded="false" signature="17241:17275" ph="&quot;You havent used any roads in the past week which have b...&quot;" />
+                <element signature="e#27417#27552#0" expanded="true" />
+                <element signature="e#27551#27552#0" expanded="true" />
+                <marker date="1492903233348" expanded="false" signature="13262:13305" ph="&quot;It has been&quot;" />
+                <marker date="1492903233348" expanded="false" signature="13352:13395" ph="&quot;days since your last Speeding incident&quot;" />
+                <marker date="1492903233348" expanded="false" signature="13625:13656" ph="&quot;It may be advisable to consider slowing down&quot;" />
+                <marker date="1492903233348" expanded="false" signature="13772:13800" ph="&quot;Well Done !&quot;" />
+                <marker date="1492903233348" expanded="false" signature="14526:14558" ph="&quot;The day you tend to overspeed on is&quot;" />
+                <marker date="1492903233348" expanded="false" signature="14627:14663" ph="&quot;Perhaps taking an alternative route may be advisable on...&quot;" />
+                <marker date="1492903233348" expanded="false" signature="14779:14811" ph="&quot;&quot;You have yet to overspeed using CARVIS, Congratulations!&quot;&quot;" />
+                <marker date="1492903233348" expanded="false" signature="15262:15301" ph="&quot;times you have indicated heavy traffic&quot;" />
+                <marker date="1492903233348" expanded="false" signature="15409:15435" ph="&quot;Thanks for helping CARVIS help promote safe driving :)&quot;" />
+                <marker date="1492903233348" expanded="false" signature="15540:15572" ph="&quot;It would help CARVIS better promote safe driving if you...&quot;" />
+                <marker date="1492903233348" expanded="false" signature="16012:16050" ph="&quot;The following roads have experienced heavy traffic today&quot;" />
+                <marker date="1492903233348" expanded="false" signature="16305:16345" ph="&quot;No Roads have been indicated having heavy traffic today.&quot;" />
+                <marker date="1492903233348" expanded="false" signature="16958:16990" ph="&quot;You have regularly used the following roads which have ...&quot;" />
+                <marker date="1492903233348" expanded="false" signature="17241:17275" ph="&quot;You havent used any roads in the past week which have b...&quot;" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fragment_demo_home.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_demo_home.xml">
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
+      <file leaf-file-name="UserStatActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/UserStatActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2241">
-              <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
+            <state relative-caret-position="-272">
+              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding>
-                <element signature="e#2960#3818#0" expanded="false" />
-                <element signature="e#3828#4652#0" expanded="false" />
-                <element signature="e#7351#9957#0" expanded="false" />
+                <element signature="method#onBackPressed#0;class#UserStatActivity#0" expanded="false" />
+                <element signature="method#onStop#0;class#UserStatActivity#0" expanded="false" />
+                <element signature="method#showToast#0;class#UserStatActivity#0" expanded="false" />
+                <element signature="method#showMonthlyJourneys#0;class#UserStatActivity#0" expanded="false" />
+                <element signature="method#showOverSpeedDays#0;class#UserStatActivity#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -169,17 +162,37 @@
       <file leaf-file-name="UserStat.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/UserStat.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="384" column="19" selection-start-line="384" selection-start-column="19" selection-end-line="384" selection-end-column="19" />
+            <state relative-caret-position="145">
+              <caret line="172" column="39" selection-start-line="172" selection-start-column="18" selection-end-line="172" selection-end-column="39" />
               <folding>
                 <element signature="method#getOverSpeedDay#0;class#UserStat#0" expanded="false" />
-                <element signature="method#getAverageJourneyTime#0;class#UserStat#0" expanded="false" />
                 <element signature="method#getKilomsTravelled#0;class#UserStat#0" expanded="false" />
+                <element signature="method#getMonthlyKilomTravelled#0;class#UserStat#0" expanded="false" />
                 <element signature="method#getMonthlyJourneys#0;class#UserStat#0" expanded="false" />
                 <element signature="method#getAverageJourneyKiloms#0;class#UserStat#0" expanded="false" />
                 <element signature="method#getJourneyDuration#0;class#UserStat#0" expanded="false" />
                 <element signature="method#getRoundedValue#0;class#UserStat#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NotificationActivityReceiver.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/NotificationActivityReceiver.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TrafficUpdate.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/TrafficUpdate.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="816">
+              <caret line="75" column="9" selection-start-line="75" selection-start-column="9" selection-end-line="75" selection-end-column="9" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -2565,17 +2578,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/custom_journey_row.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_list_journey.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/listview_header.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_new_list_journey.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/ListJourney.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/mysampleapp/navigation/NavigationDrawer.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/MainActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/mysampleapp/SignInActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/MobileArrayAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/MapsActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/TestPackage/TestHttpClient.java" />
         <option value="$PROJECT_DIR$/app/src/test/java/UnitTest.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/TestPackage/MockLocation.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/mysampleapp/demo/HomeDemoFragment.java" />
@@ -2587,10 +2589,8 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/OverSpeedLimit.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/CarvisFireBaseMessagingService.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/CARVISAPP/SignInActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/CARVISAPP/demo/userpools/SignUpActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/JourneyInfo.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/TestPackage/UnitTest.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/amazonaws/mobile/user/signin/CognitoUserPoolsSignInProvider.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/TemporarySpeedCamera.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_sign_in.xml" />
@@ -2600,21 +2600,34 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/speed_camera_toast.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/VolleyService.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/CarvisMediaPlayer.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/MyLocationService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/NewListJourney.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_user_stat.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_user_settings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/SpeedCameraMap.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/TrackSpeedActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/UserStat.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/UserStatActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_demo_home.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/UserSettings.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_sign_up.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_forgot_password.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/CARVISAPP/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/CARVISAPP/demo/userpools/SignUpActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/amazonaws/mobile/user/signin/CognitoUserPoolsSignInProvider.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/MobileArrayAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/MyLocationService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/Journey.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/JourneyFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/SpeedCameraMap.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/RoadRecord.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/Road.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/MapsActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/TrafficUpdate.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/UserStat.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/UserStatistics.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/android/internal/telephony/ITelephony.java" />
+        <option value="$PROJECT_DIR$/app/src/debug/res/values/google_maps_api.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/TrackSpeedActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/UserStatActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/SpeedVanLocations.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/carvis/UserSettings.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/CARVISAPP/demo/HomeDemoFragment.java" />
       </list>
     </option>
@@ -2649,7 +2662,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
+      <pane id="ProjectPane">
+        <subPane />
+      </pane>
       <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="Scratches" />
@@ -2663,140 +2678,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="Gradle Scripts" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidBuildScriptsGroupNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MySampleApp" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="values" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MySampleApp" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="raw" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MySampleApp" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MySampleApp" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MySampleApp" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MySampleApp" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CARVISAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MySampleApp" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CARVISAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="navigation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -2823,6 +2704,8 @@
     <property name="UI_DESIGNER_EDITOR_MODE.NlPaletteManager-NlEditorPanel.WIDTH" value="575" />
     <property name="UI_DESIGNER_EDITOR_MODE.NlPropertiesWindowManager-NlEditorPanel.SHOW" value="false" />
     <property name="UI_DESIGNER_EDITOR_MODE.NlPropertiesWindowManager-NlEditorPanel.WIDTH" value="295" />
+    <property name="android.project.structure.last.selected" value="SDK Location" />
+    <property name="android.project.structure.proportion" value="0.15" />
   </component>
   <component name="RecentsManager">
     <key name="android.template.packageName">
@@ -3306,13 +3189,13 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="1378" height="735" extended-state="1" />
+    <frame x="-7" y="0" width="1378" height="735" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5477816" sideWeight="0.5121396" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.06239168" sideWeight="0.48786038" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18890814" sideWeight="0.48786038" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -3320,18 +3203,18 @@
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32852808" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3993174" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14846416" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14558059" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.245827" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20307167" sideWeight="0.49394855" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0762565" sideWeight="0.49394855" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25569043" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48353553" sideWeight="0.4969743" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24127465" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14211439" sideWeight="0.4969743" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -3392,232 +3275,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="7" />
+      <option name="time" value="8" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/speed120km.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_track_speed.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="201" column="33" selection-start-line="201" selection-start-column="33" selection-end-line="201" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/shape3.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="24" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/shape.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="24" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/MissedCall.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="833">
-          <caret line="67" column="25" selection-start-line="67" selection-start-column="25" selection-end-line="67" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/shape4.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="36" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/journey_background.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/OverSpeedLimit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="41" column="4" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="36" column="56" selection-start-line="36" selection-start-column="56" selection-end-line="36" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/CARVISAPP/demo/userpools/SignUpActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="986">
-          <caret line="77" column="13" selection-start-line="77" selection-start-column="13" selection-end-line="77" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-119">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/internal/telephony/ITelephony.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="25" selection-start-line="9" selection-start-column="25" selection-end-line="9" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/CarvisFireBaseMessagingService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="29" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
-          <folding>
-            <element signature="method#sendNotification#0;class#CarvisFireBaseMessagingService#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/a6c32b40bf3d76eca54e3c601e5d1470c86fcdfa/junit-4.12-sources.jar!/org/junit/internal/requests/FilterRequest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/SpeedCamera.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/TestPackage/UnitTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-17">
-          <caret line="97" column="4" selection-start-line="97" selection-start-column="4" selection-end-line="117" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#testOverSpeedDay#0;class#UnitTest#0" expanded="false" />
-            <element signature="method#testOverSpeedPercentage#0;class#UnitTest#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/amazonaws/mobile/user/signin/CognitoUserPoolsSignInProvider.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="427" column="85" selection-start-line="427" selection-start-column="72" selection-end-line="427" selection-end-column="85" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="class#7704:8708" expanded="false" />
-            <element signature="e#8629#8663#0" expanded="false" />
-            <element signature="class#8851:9735" expanded="false" />
-            <element signature="method#onSuccess#0;class#8851:9735" expanded="false" />
-            <element signature="method#onSuccess#0;class#9893:12422" expanded="false" />
-            <element signature="method#getAuthenticationDetails#0;class#9893:12422" expanded="false" />
-            <element signature="method#getMFACode#0;class#9893:12422" expanded="false" />
-            <element signature="e#18026#18683#0" expanded="false" />
-            <element signature="e#18682#18683#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/JourneyInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="16" column="11" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/OnSwipeTouchListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-594">
-          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/RoadRecord.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="6" column="23" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/TemporarySpeedCamera.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="78" column="77" selection-start-line="78" selection-start-column="57" selection-end-line="78" selection-end-column="77" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/TrafficUpdate.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="51" column="80" selection-start-line="51" selection-start-column="57" selection-end-line="51" selection-end-column="80" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="96" column="0" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_sign_in.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="47" column="43" selection-start-line="47" selection-start-column="43" selection-end-line="47" selection-end-column="43" />
-          <folding>
-            <marker date="1492707990296" expanded="false" signature="2202:2231" ph="&quot;240dp&quot;" />
-            <marker date="1492707990296" expanded="false" signature="2273:2303" ph="&quot;40dp&quot;" />
-            <marker date="1492707990296" expanded="false" signature="2410:2440" ph="&quot;10dp&quot;" />
-            <marker date="1492707990296" expanded="false" signature="4276:4309" ph="&quot;2dp&quot;" />
-            <marker date="1492707990296" expanded="false" signature="4844:4864" ph="&quot;or sign in with&quot;" />
-            <marker date="1492707990296" expanded="false" signature="5163:5196" ph="&quot;2dp&quot;" />
-            <marker date="1492707990296" expanded="false" signature="5675:5704" ph="&quot;240dp&quot;" />
-            <marker date="1492707990296" expanded="false" signature="5742:5772" ph="&quot;40dp&quot;" />
-            <marker date="1492707990296" expanded="false" signature="5813:5843" ph="&quot;10dp&quot;" />
-            <marker date="1492707990296" expanded="false" signature="5887:5917" ph="&quot;10dp&quot;" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/CARVISAPP/SignInActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1608">
-          <caret line="114" column="39" selection-start-line="114" selection-start-column="39" selection-end-line="114" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="346">
@@ -3648,7 +3310,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/speed_camera_toast.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/user_stat_toast.xml">
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
@@ -3703,46 +3365,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/MyLocationService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#4053#4054#0" expanded="false" />
-            <element signature="e#4101#4102#0" expanded="false" />
-            <element signature="e#4653#4654#0" expanded="false" />
-            <element signature="e#4680#4681#0" expanded="false" />
-            <element signature="method#onDestroy#0;class#MyLocationService#0" expanded="false" />
-            <element signature="method#onConnected#0;class#MyLocationService#0" expanded="false" />
-            <element signature="method#onConnectionFailed#0;class#MyLocationService#0" expanded="false" />
-            <element signature="method#onLocationChanged#0;class#MyLocationService#0" expanded="false" />
-            <element signature="method#nearSpeedCamera#0;class#MyLocationService#0" expanded="false" />
-            <element signature="e#18375#18376#0" expanded="false" />
-            <element signature="e#18421#18422#0" expanded="false" />
-            <element signature="method#setOverSpeedLimit#0;class#MyLocationService#0" expanded="false" />
-            <element signature="method#endJourneys#0;class#MyLocationService#0" expanded="false" />
-            <element signature="method#createSpeedVanReference#0;class#MyLocationService#0" expanded="false" />
-            <element signature="method#createSpeedCameraReference#0;class#MyLocationService#0" expanded="false" />
-            <element signature="method#onChildChanged#0;class#27223:30025" expanded="false" />
-            <element signature="method#onChildRemoved#0;class#27223:30025" expanded="false" />
-            <element signature="e#31518#31519#0" expanded="false" />
-            <element signature="e#31547#31548#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="32" column="80" selection-start-line="32" selection-start-column="80" selection-end-line="32" selection-end-column="80" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/NewListJourney.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="319">
@@ -3762,66 +3384,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/SpeedCameraMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2202">
-          <caret line="266" column="40" selection-start-line="266" selection-start-column="40" selection-end-line="266" selection-end-column="40" />
-          <folding>
-            <element signature="e#10568#10576#0" expanded="false" />
-            <element signature="method#createTrafficReference#0;class#SpeedCameraMap#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/TrackSpeedActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="583" column="73" selection-start-line="583" selection-start-column="73" selection-end-line="583" selection-end-column="73" />
-          <folding>
-            <element signature="e#7317#7361#0" expanded="false" />
-            <element signature="method#displaySpeedCameraInfo#0;class#TrackSpeedActivity#0" expanded="false" />
-            <element signature="method#chooseSpeedImage#0;class#TrackSpeedActivity#0" expanded="false" />
-            <element signature="method#showImage#0;class#TrackSpeedActivity#0" expanded="false" />
-            <element signature="method#hideAllImages#0;class#TrackSpeedActivity#0" expanded="false" />
-            <element signature="e#16910#16946#0" expanded="false" />
-            <element signature="method#showBadTrafficLocation#0;class#TrackSpeedActivity#0" expanded="false" />
-            <element signature="e#19141#19180#0" expanded="false" />
-            <element signature="method#createNotification#0;class#TrackSpeedActivity#0" expanded="false" />
-            <element signature="e#26235#26278#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/UserStat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="384" column="19" selection-start-line="384" selection-start-column="19" selection-end-line="384" selection-end-column="19" />
-          <folding>
-            <element signature="method#getOverSpeedDay#0;class#UserStat#0" expanded="false" />
-            <element signature="method#getAverageJourneyTime#0;class#UserStat#0" expanded="false" />
-            <element signature="method#getKilomsTravelled#0;class#UserStat#0" expanded="false" />
-            <element signature="method#getMonthlyJourneys#0;class#UserStat#0" expanded="false" />
-            <element signature="method#getAverageJourneyKiloms#0;class#UserStat#0" expanded="false" />
-            <element signature="method#getJourneyDuration#0;class#UserStat#0" expanded="false" />
-            <element signature="method#getRoundedValue#0;class#UserStat#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/UserStatActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="131" column="28" selection-start-line="131" selection-start-column="28" selection-end-line="131" selection-end-column="28" />
-          <folding>
-            <element signature="e#2300#2333#0" expanded="true" />
-            <element signature="method#onBackPressed#0;class#UserStatActivity#0" expanded="false" />
-            <element signature="method#onStop#0;class#UserStatActivity#0" expanded="false" />
-            <element signature="method#showMonthlyJourneys#0;class#UserStatActivity#0" expanded="false" />
-            <element signature="method#showOverSpeedDays#0;class#UserStatActivity#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_demo_home.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -3834,34 +3396,6 @@
             <element signature="e#3828#4652#0" expanded="false" />
             <element signature="e#7351#9957#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_user_settings.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="240" column="48" selection-start-line="240" selection-start-column="29" selection-end-line="240" selection-end-column="48" />
-          <folding>
-            <element signature="e#2110#3140#0" expanded="false" />
-            <element signature="e#3146#4520#0" expanded="false" />
-            <element signature="e#4526#5559#0" expanded="false" />
-            <element signature="e#5565#6589#0" expanded="false" />
-            <element signature="e#6595#7630#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_list_journey.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-153">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3898,33 +3432,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/UserSettings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="467" column="31" selection-start-line="467" selection-start-column="31" selection-end-line="467" selection-end-column="31" />
-          <folding>
-            <element signature="class#4192:4655" expanded="false" />
-            <element signature="method#onItemSelected#0;class#7298:7758" expanded="false" />
-            <element signature="method#onNothingSelected#0;class#7298:7758" expanded="false" />
-            <element signature="e#7969#8007#0" expanded="false" />
-            <element signature="method#getPositionOfPlayVoice#0;class#UserSettings#0" expanded="false" />
-            <element signature="method#getSpeedPosition#0;class#UserSettings#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/CARVISAPP/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-99">
           <caret line="117" column="52" selection-start-line="117" selection-start-column="52" selection-end-line="117" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1819">
-          <caret line="107" column="43" selection-start-line="107" selection-start-column="43" selection-end-line="107" selection-end-column="43" />
           <folding />
         </state>
       </provider>
@@ -3937,10 +3448,391 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="157" column="40" selection-start-line="157" selection-start-column="37" selection-end-line="157" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="51" column="40" selection-start-line="51" selection-start-column="40" selection-end-line="51" selection-end-column="40" />
+          <folding>
+            <element signature="e#2716#2734#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/PolyVoice.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-204">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/CARVISAPP/demo/DemoInstructionFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="39" column="66" selection-start-line="39" selection-start-column="41" selection-end-line="39" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_demo_instruction.xml">
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="-714">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/CARVISAPP/demo/userpools/SignUpActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="83">
+          <caret line="82" column="35" selection-start-line="82" selection-start-column="35" selection-end-line="82" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_mfa.xml">
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_list_journey.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-510">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/listview_header.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/journey_background.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/CARVISAPP/demo/userpools/MFAActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="30" column="31" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_new_list_journey.xml">
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/amazonaws/mobile/user/signin/CognitoUserPoolsSignInProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1192">
+          <caret line="242" column="31" selection-start-line="242" selection-start-column="31" selection-end-line="242" selection-end-column="31" />
+          <folding>
+            <element signature="e#6905#6948#0" expanded="false" />
+            <element signature="e#7504#7546#0" expanded="false" />
+            <element signature="e#8094#8136#0" expanded="false" />
+            <element signature="e#8629#8663#0" expanded="false" />
+            <element signature="e#9000#9043#0" expanded="false" />
+            <element signature="e#9647#9689#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/MobileArrayAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/SpeedCameraMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="798">
+          <caret line="234" column="37" selection-start-line="234" selection-start-column="37" selection-end-line="234" selection-end-column="37" />
+          <folding>
+            <element signature="e#2843#2844#0" expanded="true" />
+            <element signature="e#2874#2875#0" expanded="true" />
+            <element signature="e#2919#2920#0" expanded="true" />
+            <element signature="e#2951#2952#0" expanded="true" />
+            <element signature="e#2997#2998#0" expanded="true" />
+            <element signature="e#3030#3031#0" expanded="true" />
+            <element signature="method#createTrafficReference#0;class#SpeedCameraMap#0" expanded="false" />
+            <element signature="method#createCameraReference#0;class#SpeedCameraMap#0" expanded="false" />
+            <element signature="method#createVanReference#0;class#SpeedCameraMap#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/Road.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/DBHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-204">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/MapsActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="79" column="49" selection-start-line="79" selection-start-column="49" selection-end-line="79" selection-end-column="49" />
+          <folding>
+            <element signature="e#8400#8401#0" expanded="true" />
+            <element signature="e#8430#8431#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/SpeedSearch.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/NotificationActivityReceiver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/SpeedVanPopUp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/TrafficUpdate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="816">
+          <caret line="75" column="9" selection-start-line="75" selection-start-column="9" selection-end-line="75" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/MyLocationService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-55">
+          <caret line="413" column="65" selection-start-line="413" selection-start-column="65" selection-end-line="413" selection-end-column="65" />
+          <folding>
+            <element signature="e#3118#3695#0" expanded="true" />
+            <element signature="e#3694#3695#0" expanded="true" />
+            <element signature="method#onDestroy#0;class#MyLocationService#0" expanded="false" />
+            <element signature="method#onConnected#0;class#MyLocationService#0" expanded="false" />
+            <element signature="method#onConnectionFailed#0;class#MyLocationService#0" expanded="false" />
+            <element signature="method#nearSpeedCamera#0;class#MyLocationService#0" expanded="false" />
+            <element signature="method#setOverSpeedLimit#0;class#MyLocationService#0" expanded="false" />
+            <element signature="method#endJourneys#0;class#MyLocationService#0" expanded="false" />
+            <element signature="method#createSpeedVanReference#0;class#MyLocationService#0" expanded="false" />
+            <element signature="method#createSpeedCameraReference#0;class#MyLocationService#0" expanded="false" />
+            <element signature="method#onChildChanged#0;class#22000:24802" expanded="false" />
+            <element signature="method#onChildRemoved#0;class#22000:24802" expanded="false" />
+            <element signature="method#createSpeedLimitReference#0;class#MyLocationService#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/JourneyFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+          <folding>
+            <element signature="method#JourneyFragment#0;class#JourneyFragment#0" expanded="false" />
+            <element signature="method#JourneyFragment#1;class#JourneyFragment#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/UserStatistics.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="51" column="5" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
+          <folding>
+            <element signature="e#881#882#0" expanded="true" />
+            <element signature="e#911#912#0" expanded="true" />
+            <element signature="e#959#960#0" expanded="true" />
+            <element signature="e#992#993#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/Journey.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="196" column="0" selection-start-line="196" selection-start-column="0" selection-end-line="196" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/internal/telephony/ITelephony.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/debug/res/values/google_maps_api.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="88" selection-start-line="1" selection-start-column="35" selection-end-line="1" selection-end-column="88" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_user_settings.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="329">
+          <caret line="240" column="48" selection-start-line="240" selection-start-column="29" selection-end-line="240" selection-end-column="48" />
+          <folding>
+            <element signature="e#2110#3140#0" expanded="false" />
+            <element signature="e#3146#4520#0" expanded="false" />
+            <element signature="e#4526#5559#0" expanded="false" />
+            <element signature="e#5565#6589#0" expanded="false" />
+            <element signature="e#6595#7630#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/TrackSpeedActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6018">
+          <caret line="476" column="61" selection-start-line="476" selection-start-column="61" selection-end-line="476" selection-end-column="61" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#displaySpeedCameraInfo#0;class#TrackSpeedActivity#0" expanded="false" />
+            <element signature="method#chooseSpeedImage#0;class#TrackSpeedActivity#0" expanded="false" />
+            <element signature="method#showImage#0;class#TrackSpeedActivity#0" expanded="false" />
+            <element signature="method#hideAllImages#0;class#TrackSpeedActivity#0" expanded="false" />
+            <element signature="method#showBadTrafficLocation#0;class#TrackSpeedActivity#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/UserStatActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-272">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding>
+            <element signature="method#onBackPressed#0;class#UserStatActivity#0" expanded="false" />
+            <element signature="method#onStop#0;class#UserStatActivity#0" expanded="false" />
+            <element signature="method#showToast#0;class#UserStatActivity#0" expanded="false" />
+            <element signature="method#showMonthlyJourneys#0;class#UserStatActivity#0" expanded="false" />
+            <element signature="method#showOverSpeedDays#0;class#UserStatActivity#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/UserStat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="172" column="39" selection-start-line="172" selection-start-column="18" selection-end-line="172" selection-end-column="39" />
+          <folding>
+            <element signature="method#getOverSpeedDay#0;class#UserStat#0" expanded="false" />
+            <element signature="method#getKilomsTravelled#0;class#UserStat#0" expanded="false" />
+            <element signature="method#getMonthlyKilomTravelled#0;class#UserStat#0" expanded="false" />
+            <element signature="method#getMonthlyJourneys#0;class#UserStat#0" expanded="false" />
+            <element signature="method#getAverageJourneyKiloms#0;class#UserStat#0" expanded="false" />
+            <element signature="method#getJourneyDuration#0;class#UserStat#0" expanded="false" />
+            <element signature="method#getRoundedValue#0;class#UserStat#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/RoadRecord.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/SpeedVanLocations.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/carvis/UserSettings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="340" column="0" selection-start-line="340" selection-start-column="0" selection-end-line="340" selection-end-column="0" />
+          <folding>
+            <element signature="class#3483:3946" expanded="false" />
+            <element signature="method#onItemSelected#0;class#5637:6097" expanded="false" />
+            <element signature="method#onNothingSelected#0;class#5637:6097" expanded="false" />
+            <element signature="e#9593#10249#0" expanded="true" />
+            <element signature="e#10248#10249#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/CARVISAPP/demo/HomeDemoFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="518" column="35" selection-start-line="518" selection-start-column="25" selection-end-line="518" selection-end-column="35" />
+        <state relative-caret-position="579">
+          <caret line="536" column="4" selection-start-line="536" selection-start-column="4" selection-end-line="536" selection-end-column="4" />
           <folding>
             <element signature="e#12617#12673#0" expanded="false" />
             <element signature="method#onViewCreated#0;class#HomeDemoFragment#0" expanded="false" />
@@ -3948,21 +3840,22 @@
             <element signature="class#ViewHolder#0;class#HomeDemoFragment#0" expanded="false" />
             <element signature="method#registerButtons#0;class#HomeDemoFragment#0" expanded="false" />
             <element signature="method#showTextView#0;class#HomeDemoFragment#0" expanded="false" />
-            <element signature="method#refreshToken#0;class#HomeDemoFragment#0" expanded="false" />
-            <marker date="1492856284218" expanded="false" signature="13262:13305" ph="&quot;It has been&quot;" />
-            <marker date="1492856284218" expanded="false" signature="13352:13395" ph="&quot;days since your last Speeding incident&quot;" />
-            <marker date="1492856284218" expanded="false" signature="13625:13656" ph="&quot;It may be advisable to consider slowing down&quot;" />
-            <marker date="1492856284218" expanded="false" signature="13772:13800" ph="&quot;Well Done !&quot;" />
-            <marker date="1492856284218" expanded="false" signature="14526:14558" ph="&quot;The day you tend to overspeed on is&quot;" />
-            <marker date="1492856284218" expanded="false" signature="14627:14663" ph="&quot;Perhaps taking an alternative route may be advisable on...&quot;" />
-            <marker date="1492856284218" expanded="false" signature="14779:14811" ph="&quot;&quot;You have yet to overspeed using CARVIS, Congratulations!&quot;&quot;" />
-            <marker date="1492856284218" expanded="false" signature="15262:15301" ph="&quot;times you have indicated heavy traffic&quot;" />
-            <marker date="1492856284218" expanded="false" signature="15409:15435" ph="&quot;Thanks for helping CARVIS help promote safe driving :)&quot;" />
-            <marker date="1492856284218" expanded="false" signature="15540:15572" ph="&quot;It would help CARVIS better promote safe driving if you...&quot;" />
-            <marker date="1492856284218" expanded="false" signature="16012:16050" ph="&quot;The following roads have experienced heavy traffic today&quot;" />
-            <marker date="1492856284218" expanded="false" signature="16305:16345" ph="&quot;No Roads have been indicated having heavy traffic today.&quot;" />
-            <marker date="1492856284218" expanded="false" signature="16958:16990" ph="&quot;You have regularly used the following roads which have ...&quot;" />
-            <marker date="1492856284218" expanded="false" signature="17241:17275" ph="&quot;You havent used any roads in the past week which have b...&quot;" />
+            <element signature="e#27417#27552#0" expanded="true" />
+            <element signature="e#27551#27552#0" expanded="true" />
+            <marker date="1492903233348" expanded="false" signature="13262:13305" ph="&quot;It has been&quot;" />
+            <marker date="1492903233348" expanded="false" signature="13352:13395" ph="&quot;days since your last Speeding incident&quot;" />
+            <marker date="1492903233348" expanded="false" signature="13625:13656" ph="&quot;It may be advisable to consider slowing down&quot;" />
+            <marker date="1492903233348" expanded="false" signature="13772:13800" ph="&quot;Well Done !&quot;" />
+            <marker date="1492903233348" expanded="false" signature="14526:14558" ph="&quot;The day you tend to overspeed on is&quot;" />
+            <marker date="1492903233348" expanded="false" signature="14627:14663" ph="&quot;Perhaps taking an alternative route may be advisable on...&quot;" />
+            <marker date="1492903233348" expanded="false" signature="14779:14811" ph="&quot;&quot;You have yet to overspeed using CARVIS, Congratulations!&quot;&quot;" />
+            <marker date="1492903233348" expanded="false" signature="15262:15301" ph="&quot;times you have indicated heavy traffic&quot;" />
+            <marker date="1492903233348" expanded="false" signature="15409:15435" ph="&quot;Thanks for helping CARVIS help promote safe driving :)&quot;" />
+            <marker date="1492903233348" expanded="false" signature="15540:15572" ph="&quot;It would help CARVIS better promote safe driving if you...&quot;" />
+            <marker date="1492903233348" expanded="false" signature="16012:16050" ph="&quot;The following roads have experienced heavy traffic today&quot;" />
+            <marker date="1492903233348" expanded="false" signature="16305:16345" ph="&quot;No Roads have been indicated having heavy traffic today.&quot;" />
+            <marker date="1492903233348" expanded="false" signature="16958:16990" ph="&quot;You have regularly used the following roads which have ...&quot;" />
+            <marker date="1492903233348" expanded="false" signature="17241:17275" ph="&quot;You havent used any roads in the past week which have b...&quot;" />
           </folding>
         </state>
       </provider>

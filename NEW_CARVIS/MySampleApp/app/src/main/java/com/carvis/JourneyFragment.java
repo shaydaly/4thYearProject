@@ -41,15 +41,12 @@ import java.lang.reflect.Type;
  */
 
 public class JourneyFragment implements Serializable{
-
-
     private Date time;
     private String latitude, longitude, journeyID, username;
     int currentSpeed, speedLimit, osmID;
     String timeString;
 
     JourneyFragment(String lat, String lon,  int sp, int sl,Date d, String jID, String u, int osmID){
- //       super(lat,lon,speed,speedLimit);
         latitude = lat;
         longitude = lon;
         currentSpeed = sp;
@@ -69,18 +66,6 @@ public class JourneyFragment implements Serializable{
         journeyID = jid;
     }
 
-//    public JourneyFragment() {
-//        this.latitude = "";
-//        this.time = null;
-//        this.longitude = "";
-//        this.speedLimit = "";
-//        this.journeyID = "";
-//        this.username = "";
-//        this.speed = "";
-//        this.currentSpeed = "";
-//        this.timeString ="";
-//    }
-
     public String getJourneyID() {
         return journeyID;
     }
@@ -89,17 +74,10 @@ public class JourneyFragment implements Serializable{
         return username;
     }
 
-    public String getTimeString() {
-        return timeString;
-    }
-
-//    public int getCurrentSpeed(){
-//        return speed;
-//    }
     public void setTime(Date time) {
         this.time = time;
     }
-//
+
 
     public void setLatitude(String latitude) {
         this.latitude = latitude;
@@ -110,19 +88,10 @@ public class JourneyFragment implements Serializable{
         this.longitude = longitude;
     }
 
-
-    public void setSpeedLimit(int speedLimit) {
-        this.speedLimit = speedLimit;
-    }
-
-//    public void setSpeed(int speed) {
-//        this.speed = speed;
-//    }
-
     public Date getTime() {
         return time;
     }
-//
+
 
     public String getLatitude() {
         return latitude;
@@ -138,26 +107,11 @@ public class JourneyFragment implements Serializable{
         return longitude;
     }
 
-//    public int getSpeed() {
-//        return speed;
-//    }
+
 
     public int getFragmentSpeed(){
         return currentSpeed;
     }
-
-    public int getOsmID() {
-        return osmID;
-    }
-
-    //    public void setTime(Date time) {
-//        this.time = time;
-//    }
-//
-//    public Date getTime() {
-//        return time;
-//    }
-
 
     public void setJourneyID(String journeyID) {
         this.journeyID = journeyID;
@@ -167,91 +121,7 @@ public class JourneyFragment implements Serializable{
         this.username = username;
     }
 
-//    public static void AddJourneyFragments(RequestQueue queue, List<JourneyFragment> journies, String journeyID){
-//        try {
-//            for(JourneyFragment j : journies){
-//                if(j.getJourneyID().equals("")){
-//                    j.setJourneyID(journeyID);
-//                }
-//            }
-//            System.out.println("AddJourneyFragments called");
-//            Gson gson = new Gson();
-//            String json = gson.toJson(journies);
-//            System.out.println(json);
-//            try {
-//                //RequestQueue requestQueue = Volley.newRequestQueue(c);
-//                String URL = "https://8ssr60mlih.execute-api.us-east-1.amazonaws.com/Test/journeyfragment";
-//                final String requestBody = json;
-//
-//                StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
-//                        //result = response;
-//                        Log.i("AddJourneyFragments", response);
-//                    }
-//                }, new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        Log.i("Volley Error1 ",error.toString());
-//                    }
-//                }) {
-//                    @Override
-//                    public String getBodyContentType() {
-//                        return "application/json; charset=utf-8";
-//                    }
-//
-//                    @Override
-//                    public byte[] getBody() throws AuthFailureError {
-//                        try {
-//                            return requestBody == null ? null : requestBody.getBytes("utf-8");
-//
-//                        } catch (UnsupportedEncodingException uee) {
-//                            // result = uee.toString();
-//                            VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
-//                            return null;
-//                        }
-//                    }
-//
-//                    @Override
-//                    protected Response<String> parseNetworkResponse(NetworkResponse response) {
-//
-//                        String responseString = "";
-////                        if (response != null) {
-////                            responseString = String.valueOf(response.statusCode);
-////                            // can get more details such as response.headers
-////                            //result = (response.toString());
-////
-//////                            try {
-//////                                String str = new String(response.data, "UTF-8");
-//////                                //journeyID = jID;
-//////                                //System.out.println(str+"______________!!");
-//////                            }
-//////                            catch(UnsupportedEncodingException e){
-//////                                System.out.println(e.getMessage());
-//////                            }
-////
-////
-////                        }
-//                        return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
-//                    }
-//                };
-//
-//                queue.add(stringRequest);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                //result = e.toString();
-//            }
-//
-//
-//
-//        }
-//
-//        catch(Exception e){
-//            System.out.println(e.getMessage());
-//        }
-//
-//
-//    }
+
 
 
 }

@@ -12,20 +12,12 @@
         "source": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.0.0\\res\\layout\\notification_template_big_media_narrow.xml"
     },
     {
-        "merged": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_bar_chart.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\src\\main\\res\\layout\\activity_bar_chart.xml"
-    },
-    {
         "merged": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_sign_in.xml",
         "source": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\src\\main\\res\\layout\\activity_sign_in.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_sign_up_confirm.xml",
         "source": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\src\\main\\res\\layout\\activity_sign_up_confirm.xml"
-    },
-    {
-        "merged": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\listview_header.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\src\\main\\res\\layout\\listview_header.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view_list_item.xml",
@@ -114,6 +106,10 @@
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\list_item_icon_text_with_subtitle.xml",
         "source": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\src\\main\\res\\layout\\list_item_icon_text_with_subtitle.xml"
+    },
+    {
+        "merged": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\user_stat_toast.xml",
+        "source": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\src\\main\\res\\layout\\user_stat_toast.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_content_include.xml",
@@ -242,10 +238,6 @@
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_bar.xml",
         "source": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.0.0\\res\\layout\\abc_action_mode_bar.xml"
-    },
-    {
-        "merged": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\speed_camera_toast.xml",
-        "source": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\src\\main\\res\\layout\\speed_camera_toast.xml"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\place_autocomplete_item_powered_by_google.xml",

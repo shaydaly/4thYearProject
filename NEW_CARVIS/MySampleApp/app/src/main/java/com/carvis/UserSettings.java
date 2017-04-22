@@ -47,8 +47,6 @@ public class UserSettings extends AppCompatActivity {
     private   String locale;
     private   FirebaseMessaging firebaseMessaging;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,28 +55,21 @@ public class UserSettings extends AppCompatActivity {
         context = getApplicationContext();
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         firebaseMessaging = FirebaseMessaging.getInstance();
-//        memberSince = (TextView)findViewById(R.id.memberSinceDisplay);
-//        memberSince.setText(prefs.getString("memberSince", ""));
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.settingsToolbar);
 
-        // Set up the activity to use this toolbar. As a side effect this sets the Toolbar's title
-        // to the activity's title.
+
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setTitle(R.string.settings);
 
         spinner  = (Spinner) findViewById(R.id.localeSpinner);
-        //voiceSpinner = (Spinner)findViewById(R.id.speedCameraVoiceUpdateSpinner);
-        //speedLimitSpinner = (Spinner) findViewById(R.id.speedOverLimitVoiceSpinner);
-        //blockIncomingCallSpinner = (Spinner) findViewById(R.id.blockIncomingSpinner);
 
         spinner.setBackgroundColor(Color.WHITE);
-// Create an ArrayAdapter using the string array and a default spinner layout
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.counties, android.R.layout.simple_spinner_item);
-// Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
         spinner.setAdapter(adapter);
 
         emergencyContact = PreferenceManager.getDefaultSharedPreferences(context).getString("emergencyContact", null);
@@ -127,25 +118,17 @@ public class UserSettings extends AppCompatActivity {
 
         if(prefs.contains("playVoiceUpdate")){
             if(prefs.getBoolean("playVoiceUpdate", false)){
-//                Log.wtf("playVoiceUpdate", "0");
-                //voiceSpinner.setSelection(0);
                 speedCameraSwitch.setChecked(true);
             }
             else{
-//                Log.wtf("playVoiceUpdate", "1");
-                //voiceSpinner.setSelection(1);
                 speedCameraSwitch.setChecked(false);
             }
         }
         if(prefs.contains("receiveTrafficNotifications")){
             if(prefs.getBoolean("receiveTrafficNotifications", false)){
-//                Log.wtf("playVoiceUpdate", "0");
-                //voiceSpinner.setSelection(0);
                 receiveTrafficUpdates.setChecked(true);
             }
             else{
-//                Log.wtf("playVoiceUpdate", "1");
-                //voiceSpinner.setSelection(1);
                 receiveTrafficUpdates.setChecked(false);
             }
         }
@@ -155,38 +138,29 @@ public class UserSettings extends AppCompatActivity {
 
         if(prefs.contains("playSpeedLimit")){
             if(prefs.getBoolean("playSpeedLimit", true)){
-                Log.wtf("playSpeedLimit", "0");
                 overLimitSwitch.setChecked(true);
             }
             else{
                 Log.wtf("playSpeedLimit", "1");
-//                speedLimitSpinner.setSelection(1);
                 overLimitSwitch.setChecked(false);
             }
         }
 
         if(prefs.contains("blockIncomingCalls")){
             if(prefs.getBoolean("blockIncomingCalls", false)){
-//                Log.wtf("blockIncomingCalls", "1");
-                //blockIncomingCallSpinner.setSelection(1);
                 blockCallsSwitch.setChecked(true);
             }
             else{
-//                Log.wtf("blockIncomingCalls", "1");
-                //blockIncomingCallSpinner.setSelection(0);
                 blockCallsSwitch.setChecked(false);
             }
         }
 
         if(prefs.contains("playTrafficUpdates")){
             if(prefs.getBoolean("playTrafficUpdates", false)){
-//                Log.wtf("playTrafficUpdates", "1");
-                //blockIncomingCallSpinner.setSelection(1);
                 receiveVoiceTrafficUpdates.setChecked(true);
             }
             else{
-//                Log.wtf("playTrafficUpdates", "1");
-                //blockIncomingCallSpinner.setSelection(0);
+
                 receiveVoiceTrafficUpdates.setChecked(false);
             }
         }
@@ -211,12 +185,9 @@ public class UserSettings extends AppCompatActivity {
 
         });
 
-
-
         speedCameraSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // do something, the isChecked will be
-                // true if the switch is in the On position
+
                 try {
                     if (speedCameraSwitch.isChecked()) {
                         prefs.edit()
@@ -267,8 +238,6 @@ public class UserSettings extends AppCompatActivity {
 
         receiveVoiceTrafficUpdates.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // do something, the isChecked will be
-                // true if the switch is in the On position
                 try {
                     if (receiveVoiceTrafficUpdates.isChecked()) {
                         prefs.edit()
@@ -289,8 +258,6 @@ public class UserSettings extends AppCompatActivity {
 
         blockCallsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // do something, the isChecked will be
-                // true if the switch is in the On position
                 try {
                     if (blockCallsSwitch.isChecked()) {
                         prefs.edit()
@@ -310,8 +277,6 @@ public class UserSettings extends AppCompatActivity {
 
         overLimitSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // do something, the isChecked will be
-                // true if the switch is in the On position
                 try {
                     if (overLimitSwitch.isChecked()) {
                         prefs.edit()
@@ -324,18 +289,10 @@ public class UserSettings extends AppCompatActivity {
                     }
                 }
                 catch(Exception e){
-
                 }
             }
         });
-
     }
-
-
-
-
-
-
 
     public void saveLocaleSharedPreferences(String locale){
         try {
@@ -348,55 +305,12 @@ public class UserSettings extends AppCompatActivity {
         }
     }
 
-    public void getCityAddress(double lat, double lon) {
-        try {
-            Geocoder gcd = new Geocoder(context, Locale.getDefault());
-            List<Address> addresses = gcd.getFromLocation(lat, lon, 1);
-            if (addresses.size() > 0) {
-                System.out.println("LOCAL  "+addresses.get(0).getLocality());
-            } else {
-                // do your staff
-            }
-        }
-        catch(IOException ioe){
-            System.out.println(ioe.getMessage());
-        }
-    }
-
-
-
     public int getPosition(String[]counties) {
         int position = 0;
         if(prefs.contains("locale")) {
             String locale = PreferenceManager.getDefaultSharedPreferences(context).getString("locale", null);
             for (int i = 0; i < counties.length; i++) {
                 if (counties[i].equals(locale)) {
-                    return i;
-                }
-            }
-        }
-        return position;
-    }
-
-    public int getPositionOfPlayVoice(String[]playVoiceChoices) {
-        int position = 0;
-        if(prefs.contains("playVoiceUpdate")) {
-            boolean locale = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("playVoiceUpdate", false);
-            for (int i = 0; i < playVoiceChoices.length; i++) {
-                if (playVoiceChoices[i].equals(locale)) {
-                    return i;
-                }
-            }
-        }
-        return position;
-    }
-
-    public int getSpeedPosition(String[]playVoiceChoices) {
-        int position = 0;
-        if(prefs.contains("playSpeedLimit")) {
-            boolean locale = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("playSpeedLimit", false);
-            for (int i = 0; i < playVoiceChoices.length; i++) {
-                if (playVoiceChoices[i].equals(locale)) {
                     return i;
                 }
             }
@@ -414,12 +328,6 @@ public class UserSettings extends AppCompatActivity {
         String emergencyContact = String.valueOf(editText.getText());
 
         String kilom = kilomPerim.getText().toString();
-//        if(!kilom.equals("")){
-//            int kilomPerim = Integer.parseInt(kilom);
-//            prefs.edit()
-//                    .putInt("kilomPerim", kilomPerim)
-//                    .commit();
-//        }
 
         prefs.edit()
                 .putString("emergencyContact", emergencyContact)
@@ -430,7 +338,6 @@ public class UserSettings extends AppCompatActivity {
             unsubcribeFromAll();
             firebaseMessaging.subscribeToTopic(locale);
         }
-
 
         Intent intent = new Intent(context, com.CARVISAPP.MainActivity.class);
         context.startActivity(intent);
@@ -445,12 +352,10 @@ public class UserSettings extends AppCompatActivity {
 
     private void kiomPerimError(){
         if(receiveTrafficUpdates.isChecked() && kilomPerim.getText().toString().equals("")){
-            Log.wtf("number 1","");
-            kilomPerim.setError("Kilom perimeter must be indicated to receive traffic updates");
+            kilomPerim.setError("Perimeter in km will default to 5km if left blank");
         }
         if(receiveTrafficUpdates.isChecked() && kilomPerim.getText().toString().equals("0")){
-            Log.wtf("number 2","");
-            kilomPerim.setError("0 should not be entered as a perimeter distance");
+            kilomPerim.setError("0 should not be entered as a perimeter distance as it will result in updates not being received");
         }
     }
 

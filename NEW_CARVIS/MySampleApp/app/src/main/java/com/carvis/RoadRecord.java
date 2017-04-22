@@ -15,9 +15,7 @@ public class RoadRecord {
         this.speedLimit = speedLimit;
     }
 
-    public RoadRecord(){
 
-    }
 
     public String getLatitude() {
         return latitude;
@@ -37,9 +35,5 @@ public class RoadRecord {
 
     public int getSpeedLimit() {
         return speedLimit;
-    }
-
-    public void setSpeedLimit(int speedLimit) {
-        this.speedLimit = speedLimit;
     }
 }

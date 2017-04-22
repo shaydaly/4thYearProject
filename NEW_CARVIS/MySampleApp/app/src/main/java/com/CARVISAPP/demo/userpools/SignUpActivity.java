@@ -80,7 +80,8 @@ public class SignUpActivity extends Activity {
 
         }
 
-        else if (phone.length()<10){
+        else if (phone.length()!=14){
+            Log.wtf("phone", String.valueOf(phone.length()));
             phoneNumberText.setError("Please enter a valid mobile number");
         }
 

@@ -534,10 +534,7 @@ public class HomeDemoFragment extends DemoFragmentBase {
 
         }
     }
-
-
-
-
+    
     public void registerButtons(){
 
         RelativeLayout startRel = (RelativeLayout) getActivity().findViewById(R.id.startJourneyRelative);
@@ -620,7 +617,12 @@ public class HomeDemoFragment extends DemoFragmentBase {
         int PERMISSION_ALL = 1;
 
         if(!hasPermissions(context, INITIAL_PERMS)){
-            ActivityCompat.requestPermissions(getActivity(), INITIAL_PERMS, PERMISSION_ALL);
+            if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), "")) {
+                ActivityCompat.requestPermissions(getActivity(), INITIAL_PERMS, PERMISSION_ALL);
+            }
+            else{
+                ActivityCompat.requestPermissions(getActivity(), INITIAL_PERMS, PERMISSION_ALL);
+            }
         }
 
     }
@@ -665,11 +667,6 @@ public class HomeDemoFragment extends DemoFragmentBase {
         Thread thread = new Thread(r);
         thread.start();
     }
-
-
-
-
-
 
     public static boolean hasPermissions(Context context, String... permissions) {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {

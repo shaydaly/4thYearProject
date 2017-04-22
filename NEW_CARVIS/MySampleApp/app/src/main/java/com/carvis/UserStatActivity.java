@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.CARVISAPP.*;
-
-import org.joda.time.DateTime;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -35,8 +32,6 @@ public class UserStatActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
 
-        // Set up the activity to use this toolbar. As a side effect this sets the Toolbar's title
-        // to the activity's title.
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setTitle(R.string.userStatistics);
 
@@ -65,12 +60,9 @@ public class UserStatActivity extends AppCompatActivity {
                 kilomTravelled.setText(getString(R.string.kmTravelled) + "\n\n" + String.valueOf(userStat.getKilomsTravelled()));
                 avgJourneykilom.setText(getString(R.string.avgJourneyKM) + "\n\n" + String.valueOf(userStat.getAverageJourneyKiloms()));
             } catch (Exception e) {
-                System.out.println(e.getMessage());
-                e.printStackTrace();
             }
         }
         catch (Exception e){
-            Log.wtf("errorr ", e.getMessage());
         }
 
     }
@@ -93,20 +85,15 @@ public class UserStatActivity extends AppCompatActivity {
 
     public void showToast(View view){
                 LayoutInflater inflater = getLayoutInflater();
-        View layout = inflater.inflate(R.layout.speed_camera_toast,
+        View layout = inflater.inflate(R.layout.user_stat_toast,
                 (ViewGroup) findViewById(R.id.custom_toast_container));
         TextView header = (TextView) layout.findViewById(R.id.toastHead);
         header.setText(getString(R.string.monthlyKm));
-
-
         try {
             HashMap<String, Double> monthlyKilom = userStat.getMonthlyKilom();
             TextView label = (TextView) layout.findViewById(R.id.label );
             TextView count = (TextView) layout.findViewById(R.id.count);
-            //Log.wtf("map size", String.valueOf(monthlyKilom.size()));
             Iterator it = monthlyKilom.entrySet().iterator();
-
-            String thisMonth = DateTime.now().toString("MMM");
 
             String countOutput="";
             String labelOutput="";
@@ -116,8 +103,6 @@ public class UserStatActivity extends AppCompatActivity {
                 System.out.println(pair.getKey() + "\t" + pair.getValue());
                 labelOutput += pair.getKey()+"\n";
                 countOutput += UserStat.getRoundedValue(Double.parseDouble(String.valueOf(pair.getValue())),2)+"\n";
-                //output = output + pair.getKey() + ":\t\t" + pair.getValue() + "\n";
-                //it.remove(); // avoids a ConcurrentModificationException
             }
 
             label.setText(labelOutput);
@@ -135,7 +120,7 @@ public class UserStatActivity extends AppCompatActivity {
 
     public void showMonthlyJourneys(View view){
         LayoutInflater inflater = getLayoutInflater();
-        View layout = inflater.inflate(R.layout.speed_camera_toast,
+        View layout = inflater.inflate(R.layout.user_stat_toast,
                 (ViewGroup) findViewById(R.id.custom_toast_container));
         TextView header = (TextView) layout.findViewById(R.id.toastHead);
         header.setText(getString(R.string.montlyJourney));
@@ -143,21 +128,16 @@ public class UserStatActivity extends AppCompatActivity {
             HashMap<String, Integer> monthlyKilom = userStat.getMonthlyJourneysHashMap();
             TextView label = (TextView) layout.findViewById(R.id.label );
             TextView count = (TextView) layout.findViewById(R.id.count);
-            //Log.wtf("map size", String.valueOf(monthlyKilom.size()));
             Iterator it = monthlyKilom.entrySet().iterator();
 
             String countOutput="";
             String labelOutput="";
-            String output = "";
             while (it.hasNext()) {
                 Map.Entry pair = (Map.Entry) it.next();
                 System.out.println(pair.getKey() + "\t" + pair.getValue());
                 labelOutput += pair.getKey()+"\n";
                 countOutput += pair.getValue()+"\n";
-                //it.remove(); // avoids a ConcurrentModificationException
             }
-
-
             label.setText(labelOutput);
             count.setText(countOutput);
 
@@ -176,7 +156,7 @@ public class UserStatActivity extends AppCompatActivity {
         try {
             Map<String, Integer> days = userStat.getMostCommon();
                 LayoutInflater inflater = getLayoutInflater();
-                View layout = inflater.inflate(R.layout.speed_camera_toast,
+                View layout = inflater.inflate(R.layout.user_stat_toast,
                         (ViewGroup) findViewById(R.id.custom_toast_container));
                 TextView header = (TextView) layout.findViewById(R.id.toastHead);
                 header.setText(getString(R.string.overSpeedDays));
@@ -184,25 +164,16 @@ public class UserStatActivity extends AppCompatActivity {
 
                 TextView label = (TextView) layout.findViewById(R.id.label );
                 TextView count = (TextView) layout.findViewById(R.id.count);
-                //Log.wtf("map size", String.valueOf(monthlyKilom.size()));
-
-
 
             if(days!=null) {
                 Iterator it = days.entrySet().iterator();
-
-                String thisMonth = DateTime.now().toString("MMM");
-
                 String countOutput = "";
                 String labelOutput = "";
                 while (it.hasNext()) {
                     Map.Entry pair = (Map.Entry) it.next();
                     labelOutput += pair.getKey() + "\n";
                     countOutput += pair.getValue() + "\n";
-                    //it.remove(); // avoids a ConcurrentModificationException
                 }
-
-
                 label.setText(labelOutput);
                 count.setText(countOutput);
             }
@@ -214,12 +185,10 @@ public class UserStatActivity extends AppCompatActivity {
                 toast.setDuration(Toast.LENGTH_SHORT);
                 toast.setView(layout);
                 toast.show();
-
         }
         catch (Exception e){
 
         }
-
     }
 
 }

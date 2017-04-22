@@ -84,12 +84,12 @@
         "source": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.facebook.android\\facebook-android-sdk\\4.6.0\\res\\drawable\\com_facebook_button_send_background.xml"
     },
     {
-        "merged": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\speed60km.png",
-        "source": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\src\\main\\res\\drawable\\speed60km.png"
-    },
-    {
         "merged": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_notification_rewind.xml",
         "source": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\10.2.0\\res\\drawable\\cast_ic_notification_rewind.xml"
+    },
+    {
+        "merged": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\speed60km.png",
+        "source": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\src\\main\\res\\drawable\\speed60km.png"
     },
     {
         "merged": "C:\\Users\\Seamus\\Desktop\\Project\\NEW_CARVIS\\MySampleApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_expand.xml",

@@ -21,49 +21,27 @@ public class UserStatistics extends AppCompatActivity {
         setContentView(R.layout.activity_user_statistics);
 
     }
-//    @Override
-//    public void onBackPressed() {
-//        Intent myIntent = new Intent(context, com.mysampleapp.MainActivity.class);
-//        myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        context.startActivity(myIntent);
-//    }
-
-//    @Override
-//    protected void onStop(){
-//        super.onStop();
-//    }
     @Override
     protected void onResume(){
         super.onResume();
         goToUserStats();
-        Log.i("shay", "on resume called");
-        //goToUserStats();
-        //super.onStop();
     }
-//
+
     @Override
     protected void onPause(){
         super.onPause();
         finish();
-        Log.i("shay", "on pause called");
     }
 
     @Override
     protected void onStop(){
         super.onStop();
-        Log.i("shay", "on stop called");
     }
 
     @Override
     protected  void onDestroy(){
         super.onDestroy();
-        Log.i("shay", "on destroy called");
     }
-//
-//    @Override
-//    protected void onDestroy(){
-//        super.onDestroy();
-//    }
 
     public void goToUserStats(){
         super.onStop();
@@ -72,6 +50,4 @@ public class UserStatistics extends AppCompatActivity {
         volleyService = new VolleyService(context);
         volleyService.getUserStatistics(provider);
     }
-
-
 }

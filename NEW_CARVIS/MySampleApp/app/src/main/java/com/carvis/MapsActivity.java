@@ -78,7 +78,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        // getSnapToRoadsPoints(context);
         mMap = googleMap;
         LatLng dublin = new LatLng(53.348778, -6.270933);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(dublin,11.0f));
@@ -91,10 +90,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 for (int i = 0; i < listOfJourneys.size(); i++) {
                     LatLng latLng = new LatLng(Double.parseDouble(listOfJourneys.get(i).getLatitude()), Double.parseDouble(listOfJourneys.get(i).getLongitude()));
                     latlngs.add(latLng);
-                    //rectOptions.add(latLng);
-                    //rectOptions.color(Color.RED);
-                    //options.position(latLng);
-                    //options.title(listOfJourneys.get(i).getLatitude()+"_"+listOfJourneys.get(i).getLongitude());
                     options.title("Speed: " + listOfJourneys.get(i).getFragmentSpeed());
                     if(listOfJourneys.get(i).getSpeedLimit()!=0) {
                         options.snippet("Limit:" + listOfJourneys.get(i).getSpeedLimit());//
@@ -119,7 +114,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                             options.flat(true);
                             options.position(latLng);
-                            //rectOptions.add(latLng).color(Color.RED);
                             mMap.addPolyline(new PolylineOptions()
                                     .add(new LatLng(Double.parseDouble(listOfJourneys.get(i).getLatitude()), Double.parseDouble(listOfJourneys.get(i).getLongitude())), new LatLng(Double.parseDouble(listOfJourneys.get(i + 1).getLatitude()), Double.parseDouble(listOfJourneys.get(i + 1).getLongitude())))
                                     .width(20)
@@ -132,7 +126,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
                             options.flat(true);
                             options.position(latLng);
-                            //rectOptions.add(latLng).color(Color.GREEN);
                             mMap.addPolyline(new PolylineOptions()
                                     .add(new LatLng(Double.parseDouble(listOfJourneys.get(i).getLatitude()), Double.parseDouble(listOfJourneys.get(i).getLongitude())), new LatLng(Double.parseDouble(listOfJourneys.get(i + 1).getLatitude()), Double.parseDouble(listOfJourneys.get(i + 1).getLongitude())))
                                     .width(20)
@@ -141,7 +134,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                     .endCap(new RoundCap())
                                     .startCap(new RoundCap())
                                     .geodesic(true));
-                            //Polyline p = mMap.ge
                         }
                     }
                     else {
@@ -177,7 +169,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     protected void onStop() {
-        // Disconnecting the client invalidates it.
         super.onStop();
     }
 
@@ -191,15 +182,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Geocoder geocoder= new Geocoder(this, Locale.ENGLISH);
         StringBuilder strAddress = new StringBuilder();
         try {
-
-            //Place your latitude and longitude
             List<Address> addresses = geocoder.getFromLocation(latlngs.get(pos).latitude,latlngs.get(pos).longitude, 1);
-
             if(addresses != null) {
-
                 Address fetchedAddress = addresses.get(0);
-
-
                 for(int i=0; i<fetchedAddress.getMaxAddressLineIndex(); i++) {
                     strAddress.append(fetchedAddress.getAddressLine(i));
                     if (i != fetchedAddress.getMaxAddressLineIndex() - 1) {
@@ -214,49 +199,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             else{
                 address ="Unknown";
             }
-            //myAddress.setText("No location found..!");
-
         }
         catch (IOException e) {
 
         }
         return address;
     }
-
-    public void getSnapToRoadsPoints(Context c){
-        System.out.println("Called");
-        RequestQueue queue = Volley.newRequestQueue(c);
-        String url = "https://roads.googleapis.com/v1/snapToRoads?path=-35.27801,149.12958|-35.28032,149.12907|-35.28099,149.12929|-35.28144,149.12984|-35.28194,149.13003|-35.28282,149.12956|-35.28302,149.12881|-35.28473,149.12836&interpolate=true&key=AIzaSyANu-d2RqCWLTyyZoh3s9lL0_PurPTNlIQ";
-        final JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONObject obj = new JSONObject(response.toString());
-//                            //journey.setSpeedLimit((obj.get("speed").toString()));
-                            JSONArray jarray = obj.getJSONArray("snappedPoints");
-                            //System.out.println("11\t"+jarray.toString());
-
-                            for(int i =0; i<jarray.length(); i++){
-
-                            }
-
-
-                        } catch (JSONException e) {
-                            System.out.println(e.getMessage());
-                        }
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //journey.setSpeedLimit("");
-                        System.out.println(error.toString());
-                    }
-                });
-        queue.add(jsObjRequest);
-    }
-
-
 }

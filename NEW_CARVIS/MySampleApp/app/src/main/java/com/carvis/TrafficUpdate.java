@@ -51,18 +51,9 @@ public class TrafficUpdate {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("reportedTrafficIncident");
 
-
-//        FirebaseMessaging fm = FirebaseMessaging.getInstance();
-//        fm.send(new RemoteMessage.Builder("SHAY" + "@gcm.googleapis.com")
-//                .setMessageId(FirebaseInstanceId.getInstance().getToken())
-//                .addData("my_message", "Hello World")
-//                .addData("my_action","SAY_HELLO")
-//                .build());
-
         Location updateLocation  = new Location("Traffic Location");
         updateLocation.setLatitude(latitude);
         updateLocation.setLongitude(longitude);
-//        myRef.push().setValue(new TrafficUpdate(latitude, longitude, date));
         if(!checkTrafficDistance(updateLocation)) {
             myRef.push().setValue(new TrafficUpdate(latitude, longitude, date));
             addTrafficUpdateToList(new TrafficUpdate(latitude, longitude, date));
@@ -83,7 +74,6 @@ public class TrafficUpdate {
                 return true;
             }
         }
-        Log.i("daly", "true");
         return false;
     }
 

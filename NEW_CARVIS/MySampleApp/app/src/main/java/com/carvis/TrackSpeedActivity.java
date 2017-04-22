@@ -1,6 +1,5 @@
 package com.carvis;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -14,8 +13,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
-import android.provider.Telephony;
-import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
@@ -26,39 +23,19 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
 import com.android.internal.telephony.ITelephony;
-import com.android.volley.RequestQueue;
-
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationRequest;
 import com.CARVISAPP.*;
 import com.CARVISAPP.MainActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import static android.telephony.PhoneStateListener.LISTEN_CALL_STATE;
 import static android.telephony.TelephonyManager.ACTION_PHONE_STATE_CHANGED;
-import static android.telephony.TelephonyManager.ACTION_RESPOND_VIA_MESSAGE;
-import static android.telephony.TelephonyManager.CALL_STATE_RINGING;
-import static android.telephony.TelephonyManager.EXTRA_INCOMING_NUMBER;
 
 public class TrackSpeedActivity extends Activity {
 
 
-
-    //  SpeedCheckService speedCheckService;
     boolean  speedCameraWarningShowing,
              playVoice, playSpeedVoice, blockPhoneCalls, playTrafficVoice, receiveTrafficUpdates;
 
@@ -67,12 +44,12 @@ public class TrackSpeedActivity extends Activity {
 
     SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    ImageView imageView50, imageView60, imageView80, imageView100, imageView120;
+    private ImageView imageView50, imageView60, imageView80, imageView100, imageView120;
 
     private TextView currentSpeedTextView, speedCameraTextView, badTraffic;
     private CognitoUserPoolsSignInProvider provider;
 
-    private  MediaPlayer mediaPlayer, speedLimitPlayer, speedCameraPlayer, trafficPlayer;
+    private  MediaPlayer mediaPlayer;
     private  CarvisMediaPlayer carvisMediaPlayer;
     private  ArrayList<Integer> songs;
     private ArrayList<ImageView> imageViews;
@@ -146,15 +123,9 @@ public class TrackSpeedActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_track_speed);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        speedCameraPlayer = new MediaPlayer();
-        trafficPlayer = new MediaPlayer();
-        speedLimitPlayer = new MediaPlayer();
-
         limit = 0;
 
         speedSearch = new SpeedSearch(-99);
-
-        missedCallNumbers = new ArrayList<>();
 
         context = getApplicationContext();
         provider = new CognitoUserPoolsSignInProvider(context);
@@ -172,7 +143,6 @@ public class TrackSpeedActivity extends Activity {
         }
         kilomPerim = Integer.parseInt(kilom);
 
-
         locale = PreferenceManager.getDefaultSharedPreferences(context).getString("locale", "");
         if (locale.equals("")) {
             locale = "Dublin";
@@ -181,7 +151,6 @@ public class TrackSpeedActivity extends Activity {
         songs = new ArrayList<>();
         mediaPlayer = new MediaPlayer();
         carvisMediaPlayer = new CarvisMediaPlayer(mediaPlayer, songs, context);
-
 
         serviceIntent = new Intent(context, MyLocationService.class);
         startService(serviceIntent);
@@ -200,50 +169,6 @@ public class TrackSpeedActivity extends Activity {
         speedCameraTextView = (TextView) findViewById(R.id.speedCamera);
         badTraffic = (TextView) findViewById(R.id.badTrafficReported);
 
-
-
- //       mAuth = FirebaseAuth.getInstance();
-//
-//        String uid = "some-uid";
-//
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        if (user != null) {
-//            // Name, email address, and profile photo Url
-//            String name = user.getDisplayName();
-//            String email = user.getEmail();
-//            Uri photoUrl = user.getPhotoUrl();
-//
-//            // The user's ID, unique to the Firebase project. Do NOT use this value to
-//            // authenticate with your backend server, if you have one. Use
-//            // FirebaseUser.getToken() instead.
-//            String uid = user.getUid();
-//        }
-
-//        mAuth.signInWithCustomToken("")
-//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//                            // Sign in success, update UI with the signed-in user's information
-//                            Log.d("", "signInWithCustomToken:success");
-//                            FirebaseUser user = mAuth.getCurrentUser();
-//
-//                        } else {
-//                            // If sign in fails, display a message to the user.
-//                            Log.w("", "signInWithCustomToken:failure", task.getException());
-//                        }
-//                    }
-//                });
-//
-//
-//        mAuth.getCurrentUser().getToken(
-////        mAuth.createCustomToken(uid)
-////                .addOnSuccessListener(new OnSuccessListener<String>() {
-////                    @Override
-////                    public void onSuccess(String customToken) {
-////                        // Send token back to client
-////                    }
-////                });
     }
 
 
@@ -264,25 +189,14 @@ public class TrackSpeedActivity extends Activity {
                         latitude = intent.getDoubleExtra("latitude", 0);
                         longitude = intent.getDoubleExtra("longitude", 0);
                     } else if (intent.getAction().equals(MyLocationService.LIMIT_MESSAGE)) {
-                        //Log.i("speeeeeeedd", String.valueOf(intent.getIntExtra("speedLimit", 0)));
                         limit = intent.getIntExtra("speedLimit", 0);
                         chooseSpeedImage(limit);
                         speedSearch.setOsm_id(intent.getIntExtra("osmID", 0));
 
                     } else if (intent.getAction().equals(MyLocationService.PLAY_SPEED_MESSAGE) && playSpeedVoice) {
-                        //Log.i("VOICEEEE", "PLAY VOICE RECEIVED");
-                        //playSpeedPolly();
                         carvisMediaPlayer.addSongToQueue(R.raw.speedlimitpolly);
-                        // Log.wtf("Speed limit polly", String.valueOf(R.raw.speedlimitpolly));
                     }
-//                    else if (intent.getAction().equals(MyLocationService.STOP_SPEED_MESSAGE)) {
-//                        // Log.i("VOICEEEE", "STOP VOICE RECEIVED");
-//                        //stopSpeedVoice();
-//                        carvisMediaPlayer.stopMediaPlayer();
-//                    }
-
                     else if (intent.getAction().equals(MyLocationService.PLAY_CAMERA_MESSAGE)) {
-//                        Log.i("shay", "received play speed camera broadcast");
                         double cameraLatitude = intent.getDoubleExtra("latitude", 0);
                         double cameraLongitude = intent.getDoubleExtra("longitude", 0);
                         String time = intent.getStringExtra("time");
@@ -294,32 +208,20 @@ public class TrackSpeedActivity extends Activity {
 
                         if (playVoice) {
                             carvisMediaPlayer.addSongToQueue(R.raw.speedcamerapolly);
-                            //Log.wtf("Speed camera polly", String.valueOf(R.raw.speedcamerapolly));
                         }
-//                        if (!isPlayingCameraVoice && playVoice) {
-//
-//                            playSpeedCameraPolly();
-//                        }
+
                     } else if (intent.getAction().equals(ACTION_PHONE_STATE_CHANGED) && blockPhoneCalls) {
                         blockIncomeCalls(intent);
                     } else if (intent.getAction().equals(CarvisFireBaseMessagingService.TAG)) {
-//                        Log.wtf("badTrafficLocation", intent.getStringExtra("badTrafficLocation"));
-//                        Toast.makeText(context,intent.getStringExtra("badTrafficLocation"), Toast.LENGTH_LONG ).show();
-
                         if (receiveTrafficUpdates) {
                             if (distanceToTrafficAddress(intent.getDoubleExtra("latitude", 0), intent.getDoubleExtra("longitude", 0))) {
                                 showBadTrafficLocation(intent.getStringExtra("badTrafficLocation"));
                                 if (playTrafficVoice) {
-                                    //Log.wtf("play traffic", " paly");
-                                    //Log.wtf("bad traffic", String.valueOf(R.raw.badtraffic));
                                     carvisMediaPlayer.addSongToQueue(R.raw.badtraffic);
-                                    //playBadTrafficPolly();
                                 }
                             }
                         }
-
                     }
-
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
@@ -337,26 +239,17 @@ public class TrackSpeedActivity extends Activity {
         filter.addAction(CarvisFireBaseMessagingService.TAG);
         registerReceiver(mBroadcastReceiver, filter);
 
-
         registerButtons();
-
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        // Connect the client.
-        //mGoogleApiClient.connect();
-
-
     }
 
     @Override
     protected void onStop() {
-        // Disconnecting the client invalidates it.
         super.onStop();
-
         try {
             unregisterReceiver(mBroadcastReceiver);
         } catch (Exception e) {
@@ -371,12 +264,10 @@ public class TrackSpeedActivity extends Activity {
         context.stopService(serviceIntent);
         context.stopService(firebaseIntent);
         createNotification();
-        //startActivity(new Intent(context, MainActivity.class));
     }
 
     @Override
     public void onBackPressed() {
-        //super.onStop();
         super.onBackPressed();
         Intent intent = new Intent(getApplicationContext(), com.CARVISAPP.MainActivity.class);
         startActivity(intent);
@@ -439,43 +330,6 @@ public class TrackSpeedActivity extends Activity {
         }
     }
 
-//    public void playSpeedPolly() {
-//        Runnable r = new Runnable() {
-//            @Override
-//            public void run() {
-//                isPlayingVoice = true;
-//                try {
-//                    stopSpeedVoice();
-//                    speedLimitPlayer = MediaPlayer.create(TrackSpeedActivity.this, R.raw.speedlimitpolly);
-//                    speedLimitPlayer.start();
-//
-//                } catch (Exception e) {
-//                    System.out.println(e.getMessage());
-//                }
-//                long futureTime = System.currentTimeMillis() + 5000;
-//                while (System.currentTimeMillis() < futureTime) {
-//                    synchronized (this) {
-//                        try {
-//                            wait(futureTime - System.currentTimeMillis());
-//                        } catch (Exception e) {
-//
-//                        }
-//                    }
-//                }
-//                isPlayingVoice = false;
-//            }
-//        };
-//        Thread t = new Thread(r);
-//        t.start();
-//
-////        player.reset();
-////        player.setDataSource(Environment.getExternalStorageDirectory().getPath()+"/2cp.3gp");
-////        player.prepare();
-////        player.start();
-//
-//    }
-
-
     private void showBadTrafficLocation(final String address) {
         Runnable r = new Runnable() {
             @Override
@@ -506,38 +360,6 @@ public class TrackSpeedActivity extends Activity {
 
     }
 
-
-//    public void playSpeedVanPolly() {
-//        Log.i("playSpeedVanPolly", "plzy");
-//        Runnable r = new Runnable() {
-//            @Override
-//            public void run() {
-//                isPlayingVoice = true;
-//                try {
-//                    stopVoice();
-//                    mediaPlayer = MediaPlayer.create(TrackSpeedActivity.this, R.raw.speedvanpolly);
-//                    mediaPlayer.start();
-//
-//                } catch (Exception e) {
-//
-//                }
-//                long futureTime = System.currentTimeMillis() + 5000;
-//                while (System.currentTimeMillis() < futureTime) {
-//                    synchronized (this) {
-//                        try {
-//                            wait(futureTime - System.currentTimeMillis());
-//                        } catch (Exception e) {
-//
-//                        }
-//                    }
-//                }
-//                isPlayingVoice = false;
-//            }
-//        };
-//        Thread t = new Thread(r);
-//        t.start();
-//    }
-
     private void blockIncomeCalls(Intent intent) {
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         try {
@@ -548,14 +370,15 @@ public class TrackSpeedActivity extends Activity {
             Bundle bundle = intent.getExtras();
             String phoneNumber = bundle.getString("incoming_number");
 
+            if(missedCallNumbers==null){
+                missedCallNumbers = new ArrayList<>();
+            }
             if (!missedCallNumbers.contains(phoneNumber)) {
                 missedCallNumbers.add(phoneNumber);
                 sendDrivingSMS(phoneNumber);
             }
-//                Log.wtf("INCOMING", phoneNumber);
             if ((phoneNumber != null)) {
                 telephonyService.endCall();
-//                    Log.wtf("HANG UP", phoneNumber);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -570,9 +393,6 @@ public class TrackSpeedActivity extends Activity {
             public boolean onLongClick(View v) {
 
                 String emergencyContact = PreferenceManager.getDefaultSharedPreferences(context).getString("emergencyContact", "");
-//                if (emergencyContact.equals("")) {
-//                    emergencyContact = "0851329485";
-//                }
                 try {
                     if(!emergencyContact.equals("")) {
                         SmsManager smsManager = SmsManager.getDefault();
@@ -630,7 +450,6 @@ public class TrackSpeedActivity extends Activity {
             public void onClick(View v) {
                 try {
                     Toast.makeText(context, "Journey Ended", Toast.LENGTH_SHORT).show();
-                    //finish();
                     Intent intent = new Intent(context, MainActivity.class);
                     startActivity(intent);
                     finish();
@@ -648,16 +467,14 @@ public class TrackSpeedActivity extends Activity {
                 NotificationCompat.Builder notification = new NotificationCompat.Builder(this);
                 notification.setAutoCancel(true);
 
-                notification.setSmallIcon(R.mipmap.splash_icon);
+                notification.setSmallIcon(R.mipmap.ic_launcher);
                 notification.setWhen(System.currentTimeMillis());
                 notification.setContentText(getString(R.string.missedCall));
                 Intent intent = new Intent(this, MissedCall.class);
 
-
                 intent.putStringArrayListExtra("numbers", missedCallNumbers);
                 PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                 notification.setContentIntent(pendingIntent);
-
                 NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                 nm.notify(1231, notification.build());
             }
@@ -677,33 +494,6 @@ public class TrackSpeedActivity extends Activity {
         }
     }
 
-
-//    private void showPermissionDialog() {
-//        if (!MyLocationService.checkPermission(this)) {
-//            ActivityCompat.requestPermissions(
-//                    this,
-//                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
-//                    1);
-//        }
-//    }
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode,
-//                                           String permissions[], int[] grantResults) {
-//                // If request is cancelled, the result arrays are empty.
-//                if (grantResults.length > 0
-//                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//                        return;
-//                    }
-//
-//                    Intent intent = new Intent();
-//                    // sets keyword to listen out for for this broadcast
-//                    intent.setAction("SEAMUS");
-//                    intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-//                    intent.setPackage(context.getPackageName());
-//                    //Sends out broadcast
-//
-
     private boolean distanceToTrafficAddress(double trafficLatitude, double trafficLongitude) {
         Location current = new Location("current");
         current.setLatitude(latitude);
@@ -716,6 +506,4 @@ public class TrackSpeedActivity extends Activity {
         }
         return false;
     }
-
-
 }

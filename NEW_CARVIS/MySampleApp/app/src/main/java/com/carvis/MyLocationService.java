@@ -78,9 +78,6 @@ public class MyLocationService extends Service implements
 
     private HashMap<Integer, ArrayList<RoadRecord>> roadHashMap;
 
-    private OverSpeedLimit overSpeedLimit;
-
-
     public MyLocationService() {
     }
 
@@ -90,8 +87,7 @@ public class MyLocationService extends Service implements
         @Override
         public void handleMessage(Message msg) {
             if (journey.getCurrentSpeed() > journey.getSpeedLimit()) {
-                //journeyList.add(new JourneyFragment(journey.getLatitude(), journey.getLongitude(), journey.getCurrentSpeed(), limit, dNow, journey.getJourneyID(), provider.getUserName(), speedSearch.getOsm_id()));
-                overSpeedLimit = new OverSpeedLimit(journey.getLatitude(), journey.getLongitude(), journey.getCurrentSpeed(),
+                OverSpeedLimit overSpeedLimit = new OverSpeedLimit(journey.getLatitude(), journey.getLongitude(), journey.getCurrentSpeed(),
                         (limit), dNow, provider.getUserName(), journey.getJourneyID(), speedSearch.getOsm_id());
                 if (!overSpeedLimits.contains(overSpeedLimit)) {
                     overSpeedLimits.add(overSpeedLimit);
@@ -135,13 +131,11 @@ public class MyLocationService extends Service implements
         super.onCreate();
         context = getApplicationContext();
         FirebaseApp.initializeApp(context);
-        //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         database = FirebaseDatabase.getInstance();
         volleyService = new VolleyService(context);
         provider = new CognitoUserPoolsSignInProvider(context);
         speedSearch = new SpeedSearch(-99);
         isPlayingVoice = false;
-        final SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         locale = PreferenceManager.getDefaultSharedPreferences(context).getString("locale", "");
         if(locale.equals("")){
             locale ="Dublin";
@@ -156,8 +150,6 @@ public class MyLocationService extends Service implements
         createSpeedVanReference();
         createSpeedCameraReference();
         createSpeedLimitReference(locale);
-
-        //setContentView(mLocationView);
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
@@ -178,7 +170,6 @@ public class MyLocationService extends Service implements
         ses.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
-                // do some work
                 try {
                     if(!intialMovement) {
                         nearKnownSpeedLimit(speedSearch);
@@ -195,21 +186,13 @@ public class MyLocationService extends Service implements
                 try {
                     try {
                         dNow = new Date();
-//                        if (journey.getSpeedLimit() != -99) {
-//                            limit = (journey.getSpeedLimit());
-//                        } else {
-//                            limit = 0;
-//                        }
-//                        limit = journey.getSpeedLimit();
                         if(!intialMovement) {
                             journeyList.add(new JourneyFragment(journey.getLatitude(), journey.getLongitude(), journey.getCurrentSpeed(), limit, dNow, journey.getJourneyID(), provider.getUserName(), speedSearch.getOsm_id()));
                         }
                             if (journeyList.size() == 20) {
-//                            JourneyFragment.AddJourneyFragments(queue, journeyList, journey.getJourneyID());
                             volleyService.addJourneyFragments(journeyList, journey.getJourneyID(), provider.getToken());
                             journeyList.clear();
                         }
-                        //System.out.println(cameras.size());
                     } catch (Exception e) {
                         Log.i("Get Limit Exception", e.getMessage());
                     }
@@ -257,13 +240,6 @@ public class MyLocationService extends Service implements
         }
     }
 
-
-//    public static boolean checkPermission(final Context context) {
-//        return ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-//                && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
-//    }
-
-
     @Override
     public void onConnectionSuspended(int i) {
         Log.i(TAG, "GoogleApiClient connection has been suspend");
@@ -279,16 +255,9 @@ public class MyLocationService extends Service implements
         mThreadPool.execute(new Runnable() {
             @Override
             public void run() {
-                //Log.wtf(TAG, String.valueOf(location.getLatitude()));
-                //Data within intent to send in a broadcast.
-                //  Intent intent = new Intent(HuhConnectionService.NEW_MESSAGE);
-
                 try {
-                    //trackSpeedLocation = location;
                     journey.setLatitude(String.valueOf(location.getLatitude()));
                     journey.setLongitude(String.valueOf(location.getLongitude()));
-
-                    // Called when a new location is found by the network location provider.
                     if (location.hasSpeed()) {
                         speed = (int) (Math.round((location.getSpeed() * 3.6) * 100.0) / 100.0);
                         journey.setCurrentSpeed((speed));
@@ -300,24 +269,12 @@ public class MyLocationService extends Service implements
                         currentSpeedIntent.putExtra("speed", speed);
                         currentSpeedIntent.putExtra("latitude", location.getLatitude());
                         currentSpeedIntent.putExtra("longitude", location.getLongitude());
-                        //Sends out broadcast
                         sendBroadcast(currentSpeedIntent);
-
-
-//                if (speed > Integer.parseInt(journey.getSpeedLimit())) {
-//                    currentSpeedTextView.setTextColor(Color.RED);
-//                } else {
-//                    currentSpeedTextView.setTextColor(Color.WHITE);
-//                }
-                        //journey.setSpeedLimit(String.valueOf(nearKnownSpeedLimit(location)));
-
                     }
 
                     nearSpeedCamera(location);
 
-
                     if (intialMovement) {
-                        //journey.addJourneyDB(queue, provider.getUserName(), "insert");
                         volleyService.addJourneyDB(journey, provider, "insert");
                         intialMovement = false;
                     }
@@ -331,31 +288,19 @@ public class MyLocationService extends Service implements
                                 playVoiceIntent.setAction(PLAY_SPEED_MESSAGE);
                                 playVoiceIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 playVoiceIntent.setPackage(context.getPackageName());
-                                //Sends out broadcast
                                 sendBroadcast(playVoiceIntent);
                             }
-                            //speeding = true;
                             if (!isRunning) {
                                 setOverSpeedLimit();
                             }
-                            //speedCheckService.wait10Seconds();
-
-                            //currentSpeedTextView.setText(jID);
-//                    OverSpeedLimit o = new OverSpeedLimit(journey.getLatitude(), journey.getLongitude(), String.valueOf(journey.getCurrentSpeed()), String.valueOf(limit));
-//                    o.InsertOverLimitDB(queue, journey.getJourneyID(), provider.getUserName());
-                            // overSpeedLimits.add(new OverSpeedLimit(journey.getLatitude(), journey.getLongitude(), String.valueOf(journey.getCurrentSpeed()), String.valueOf(limit), dNow, provider.getUserName(), journey.getJourneyID()));
                         } else {
-//                            Intent intent = new Intent();
-                            // sets keyword to listen out for for this broadcast
                             stopVoiceIntent = new Intent();
                             stopVoiceIntent.setAction(STOP_SPEED_MESSAGE);
                             stopVoiceIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                             stopVoiceIntent.setPackage(context.getPackageName());
 
-                            //Sends out broadcast
                             sendBroadcast(stopVoiceIntent);
                         }
-
                     } catch (Exception e) {
                         Log.i("Except", e.getMessage());
                     }
@@ -466,12 +411,8 @@ public class MyLocationService extends Service implements
                     test.setLatitude(Double.parseDouble(r.getLatitude()));
                     test.setLongitude(Double.parseDouble(r.getLongitude()));
                     if (speedSearch.getLocation().distanceTo(test) / 1000 <= 0.015) {
-                        //Log.i("speed Test log 1", "near" + r.getSpeedLimit());
-                        // speedLimit =  roadRecords.get(i).getSpeedLimit();
                         journey.setSpeedLimit(r.getSpeedLimit());
-
                         speedLimitIntent = new Intent();
-                        // sets keyword to listen out for for this broadcast
                         speedLimitIntent.setAction(LIMIT_MESSAGE);
                         speedLimitIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                         speedLimitIntent.setPackage(context.getPackageName());
@@ -488,13 +429,9 @@ public class MyLocationService extends Service implements
                     test.setLatitude(Double.parseDouble(r.getLatitude()));
                     test.setLongitude(Double.parseDouble(r.getLongitude()));
                     if (speedSearch.getLocation().distanceTo(test) / 1000 <= 0.02) {
-                       // Log.i("speed Test log 2", "near" + r.getSpeedLimit());
-                        // speedLimit =  roadRecords.get(i).getSpeedLimit();
                         speedSearch.setOsm_id(entry.getKey());
-                        //Log.wtf("osmIDDI", String.valueOf(entry.getKey()));
                         journey.setSpeedLimit(r.getSpeedLimit());
                         speedLimitIntent = new Intent();
-                        // sets keyword to listen out for for this broadcast
                         speedLimitIntent.setAction(LIMIT_MESSAGE);
                         speedLimitIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                         speedLimitIntent.setPackage(context.getPackageName());
@@ -504,11 +441,9 @@ public class MyLocationService extends Service implements
                         return;
                     }
                 }
-                // System.out.println(entry.getKey() + "/" + entry.getValue());
             }
             volleyService.getSpeedFromLambda(this, speedSearch, journey.getLatitude(), journey.getLongitude(), provider.getToken());
             speedLimitIntent = new Intent();
-            // sets keyword to listen out for for this broadcast
             speedLimitIntent.setAction(LIMIT_MESSAGE);
             speedLimitIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
             speedLimitIntent.setPackage(context.getPackageName());
@@ -520,16 +455,11 @@ public class MyLocationService extends Service implements
         }
     }
 
-
-
-
     public void endJourneys() {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                //journey.addJourneyDB(queue, provider.getUserName(), "update");
                 volleyService.addJourneyDB(journey, provider, "update");
-//                JourneyFragment.AddJourneyFragments(queue, journeyList, journey.getJourneyID());
                 volleyService.addJourneyFragments(journeyList, journey.getJourneyID(), provider.getToken());
                 volleyService.addOverSpeedLimits(overSpeedLimits, journey.getJourneyID(), provider.getToken());
                 updateHandler.sendEmptyMessage(0);
@@ -546,13 +476,11 @@ public class MyLocationService extends Service implements
         vanRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                //System.out.println(dataSnapshot.child("startLatitude").getValue());
                 int id = Integer.parseInt(String.valueOf(dataSnapshot.getKey()));
                 double startLat = Double.parseDouble(String.valueOf(dataSnapshot.child("startLatitude").getValue()));
                 double startLong = Double.parseDouble(String.valueOf(dataSnapshot.child("startLongitude").getValue()));
                 double endLat = Double.parseDouble(String.valueOf(dataSnapshot.child("endLatitude").getValue()));
                 double endLong = Double.parseDouble(String.valueOf(dataSnapshot.child("endLongitude").getValue()));
-                //System.out.println(String.valueOf(dataSnapshot.child("reportedTimes").getValue()));
                 HashMap<String, String> reports = (HashMap<String, String>) dataSnapshot.child("Reported Times").getValue();
                 ArrayList<String> dates = new ArrayList<String>();
                 if (reports != null) {
@@ -564,31 +492,15 @@ public class MyLocationService extends Service implements
                     }
                 }
                 SpeedCamera.addSpeedCamera(new SpeedCamera(id, startLat, startLong, endLat, endLong, dates));
-                //cameras.add(new SpeedCamera(id, startLat, startLong, endLat, endLong));
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
-
-
-//                cameras.remove(dataSnapshot.getKey());
-//                System.out.println(cameras.size());
-
-                int id = Integer.parseInt(String.valueOf(dataSnapshot.getKey()));
-                double startLat = Double.parseDouble(String.valueOf(dataSnapshot.child("startLatitude").getValue()));
-                double startLong = Double.parseDouble(String.valueOf(dataSnapshot.child("startLongitude").getValue()));
-                double endLat = Double.parseDouble(String.valueOf(dataSnapshot.child("endLatitude").getValue()));
-                double endLong = Double.parseDouble(String.valueOf(dataSnapshot.child("endLongitude").getValue()));
-                //cameras.add(new SpeedCamera(id, startLat, startLong, endLat, endLong));
-
-                //System.out.println(SpeedCamera.getCameras().size());
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                //cameras.remove(dataSnapshot.getKey());
                 SpeedCamera.removeSpeedCamera(Integer.parseInt(dataSnapshot.getKey()));
-                // System.out.println("camera size : "+SpeedCamera.getCameras().size());
             }
 
             @Override

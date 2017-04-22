@@ -57,8 +57,7 @@ public class MyLocationService extends Service implements
     public static final String PLAY_SPEED_MESSAGE = "PLAYVOICE";
     public static final String STOP_SPEED_MESSAGE = "STOPVOICE";
     public static final String PLAY_CAMERA_MESSAGE = "PLAYCAMERA";
-    public static final String STOP_CAMERA_MESSAGE = "STOPCAMERA";
-    public static final String UPDATE_LOCATION = "UPDATELOCATION";
+
 
     private LocationRequest mLocationRequest;
     private GoogleApiClient mGoogleApiClient;
@@ -78,8 +77,6 @@ public class MyLocationService extends Service implements
     private ArrayList<RoadRecord> record;
 
     private HashMap<Integer, ArrayList<RoadRecord>> roadHashMap;
-
-    private BroadcastReceiver mBroadcastReceiver;
 
     private OverSpeedLimit overSpeedLimit;
 
@@ -207,11 +204,11 @@ public class MyLocationService extends Service implements
                         if(!intialMovement) {
                             journeyList.add(new JourneyFragment(journey.getLatitude(), journey.getLongitude(), journey.getCurrentSpeed(), limit, dNow, journey.getJourneyID(), provider.getUserName(), speedSearch.getOsm_id()));
                         }
-//                            if (journeyList.size() == 20) {
-////                            JourneyFragment.AddJourneyFragments(queue, journeyList, journey.getJourneyID());
-//                            volleyService.addJourneyFragments(journeyList, journey.getJourneyID(), provider.getToken());
-//                            journeyList.clear();
-//                        }
+                            if (journeyList.size() == 20) {
+//                            JourneyFragment.AddJourneyFragments(queue, journeyList, journey.getJourneyID());
+                            volleyService.addJourneyFragments(journeyList, journey.getJourneyID(), provider.getToken());
+                            journeyList.clear();
+                        }
                         //System.out.println(cameras.size());
                     } catch (Exception e) {
                         Log.i("Get Limit Exception", e.getMessage());
@@ -661,7 +658,6 @@ public class MyLocationService extends Service implements
 
     public  void createSpeedLimitReference(String locale){
         speedref =null;
-        System.out.println("LOCALE : : "+(locale));
         speedref = database.getReference("speedLimits").child(locale);
         speedref.keepSynced(true);
 

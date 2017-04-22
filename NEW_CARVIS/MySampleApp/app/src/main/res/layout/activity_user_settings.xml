@@ -297,53 +297,7 @@
             android:textColorHint="@color/white"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:paddingTop="20dp"
-        android:paddingRight="20dp"
-        android:paddingLeft="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/linearLayout8"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
 
-        <TextView
-            android:id="@+id/memberSince"
-            android:gravity="left"
-            android:text="@string/memberSince"
-            android:layout_weight="2"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            android:textAlignment="center"
-            android:textStyle="normal"
-            />
-
-        <TextView
-            android:id="@+id/memberSinceDisplay"
-            android:text=""
-            android:layout_width="131dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            android:textAlignment="center"
-            android:textStyle="normal"
-            android:layout_marginBottom="0dp"
-            android:layout_marginRight="0dp"
-            android:gravity="right" />
-
-        <!--<Spinner-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="30dp"-->
-        <!--android:id="@+id/blockIncomingSpinner"-->
-        <!--android:layout_weight="1"-->
-        <!--android:background="@color/white"-->
-        <!--android:entries="@array/blockIncomingCallsChoices"-->
-        <!--/>-->
-    </LinearLayout>
 
 
 </RelativeLayout>

@@ -15,7 +15,7 @@
     <string name="button_text_sign_in">SIGN IN</string>
     <string name="button_text_sign_out">SIGN OUT</string>
     <string name="sign_in_email">Email</string>
-    <string name="sign_in_username">Username</string>
+    <string name="sign_in_username">Username/Email</string>
     <string name="sign_in_password">Password</string>
     <string name="sign_in_new_account">New User?</string>
     <string name="sign_in_forgot_password">Forgot Your Password?</string>
@@ -89,7 +89,7 @@
     <string name="speedMetric">km/h</string>
     <string name="journeys">Previous Journeys</string>
     <string name="addCamera">Add Speed Camera</string>
-    <string name="roadMap">Road Map</string>
+    <string name="roadMap">Map</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
@@ -105,7 +105,7 @@
     <string name="title_activity_maps">Map</string>
     <string name="map">Map</string>
     <string name="title_activity_speed_camera_map">Map</string>
-    <string name="userStatistics">User Statistics</string>
+    <string name="userStatistics">User Stats</string>
     <string name="averageJourneyTime">Avg. Journey Time (mins)</string>
     <string name="numJourneys">Number of Journeys</string>
     <string name="numOverSpeeds">Over Speed Journeys</string>
@@ -136,7 +136,7 @@
     <string name="noOverSpeeds">You have yet to overspeed using CARVIS, Congratulations!</string>
     <string name="roadsWithOverspeed">The following roads have experienced heavy traffic today</string>
     <string name="noRoadsWithOverspeed">No Roads have been indicated having heavy traffic today.</string>
-    <string name="voiceUpdate">Speed Camera Notification</string>
+    <string name="voiceUpdate">Speed camera notifications</string>
     <string name="endJourney">End Journey</string>
     <string name="noPastWeekRoad">You havent used any roads in the past week which have been indicated to have heavy traffic</string>
     <string name="pastWeekRoad">You have regularly used the following roads which have been indicated to have heavy traffic in the past week</string>
@@ -150,15 +150,16 @@
     <string name="overSpeedDayTitle">Days speed on</string>
     <string name="averageSpeed">Avg. Speed(km)</string>
     <string name="receiveTraffic">Receive traffic notifications</string>
-    <string name="receiveTrafficVoice">Receive Voice Traffic Updates</string>
+    <string name="receiveTrafficVoice">Receive voice traffic updates</string>
     <string name="noOverSpeedDay">You have not yet driven over the speed limit on any date. Well done !</string>
-    <string name="trafficPerim">Traffic Notification (km)</string>
+    <string name="trafficPerim">Traffic notification (km)</string>
     <string name="firebaseKey">key=AAAADMY4DF0:APA91bF-6FzxakqhfIG1Zc2O2auOhnjSBHcIYmqm2RJVcRnT_tcE6Lz6LqLlujGQazCwh4XSDVxI_vXRrHZ10OMc9s-XeRtbenFVw4GbpqbqCMSVmEpv8T-8VxgdqiUwGLIKbASydy5h</string>
     <string name="montlyJourney">Monthly Journeys</string>
     <string name="monthlyKm">Monthly Kilometers</string>
     <string name="overSpeedDays">Over Speed Days</string>
     <string name="enterUsername">Enter username</string>
     <string name="legendText"></string>
+    <string name="avgKilomSpeed">Avg. km Per Speeding Incident</string>
 
     <string-array name="counties">
         <item>Dublin</item>

@@ -46,7 +46,7 @@ public class UserStatActivity extends AppCompatActivity {
             userStat.getMonthlyKilomTravelled();
             userStat.getMonthlyJourneys();
             final TextView averageJourneyTime = (TextView) findViewById(R.id.averageJourneyTime);
-            final TextView memberSince = (TextView) findViewById(R.id.memberSince);
+            final TextView avgKilomPerSpeed = (TextView) findViewById(R.id.avgKilomSpeed);
             final TextView numberOfJourneys = (TextView) findViewById(R.id.numberOfUserJourneys);
             final TextView numberOfOverSpeeds = (TextView) findViewById(R.id.numberOfOverSpeedJourneys);
             final TextView overSpeedPercentage = (TextView) findViewById(R.id.overSpeedPercentage);
@@ -55,7 +55,7 @@ public class UserStatActivity extends AppCompatActivity {
             final TextView kilomTravelled = (TextView) findViewById(R.id.kilomTravelled);
             final TextView avgJourneykilom = (TextView) findViewById(R.id.avgJourneykilom);
             try {
-                memberSince.setText("Avg. km Per Speeding Incident" + "\n\n" + String.valueOf(userStat.overSpeedPerKilom()));
+                avgKilomPerSpeed.setText(getString(R.string.avgKilomSpeed) + "\n\n" + String.valueOf(userStat.overSpeedPerKilom()));
                 averageJourneyTime.setText(getString(R.string.averageJourneyTime) + "\n\n" + String.valueOf(userStat.getAverageJourneyTime()));
                 numberOfJourneys.setText(getString(R.string.numJourneys) + "\n\n\n" + String.valueOf(userStat.getNumJourneys()));
                 numberOfOverSpeeds.setText(getString(R.string.numOverSpeeds) + "\n\n\n" + String.valueOf(userStat.getNumOverSpeed()));
@@ -115,11 +115,10 @@ public class UserStatActivity extends AppCompatActivity {
                 Map.Entry pair = (Map.Entry) it.next();
                 System.out.println(pair.getKey() + "\t" + pair.getValue());
                 labelOutput += pair.getKey()+"\n";
-                countOutput += pair.getValue()+"\n";
+                countOutput += UserStat.getRoundedValue(Double.parseDouble(String.valueOf(pair.getValue())),2)+"\n";
                 //output = output + pair.getKey() + ":\t\t" + pair.getValue() + "\n";
                 //it.remove(); // avoids a ConcurrentModificationException
             }
-
 
             label.setText(labelOutput);
             count.setText(countOutput);
@@ -131,7 +130,6 @@ public class UserStatActivity extends AppCompatActivity {
             toast.show();
         }
         catch (Exception e){
-
         }
     }
 

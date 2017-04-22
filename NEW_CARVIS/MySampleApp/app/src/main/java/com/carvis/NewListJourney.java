@@ -208,6 +208,16 @@ public class NewListJourney extends Activity {
         registerReceiver(mBroadCastReceiver, filter);
     }
 
+
+    @Override
+    public void onBackPressed() {
+        //super.onStop();
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), com.CARVISAPP.MainActivity.class);
+        startActivity(intent);
+    }
+
+
 //    @Override
 //    protected void onItemClick(ListView l, View v, int position, long id) {
 //

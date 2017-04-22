@@ -429,7 +429,6 @@ public class VolleyService extends Activity {
 
                             try {
                                 String str = new String(response.data, "UTF-8");
-                                Log.wtf("FRaAGGG!!!", str);
                                 //journeyID = jID;
                                 //System.out.println(str+"______________!!");
                             } catch (UnsupportedEncodingException e) {

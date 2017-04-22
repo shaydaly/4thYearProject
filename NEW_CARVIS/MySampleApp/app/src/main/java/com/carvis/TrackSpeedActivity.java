@@ -57,15 +57,10 @@ import static android.telephony.TelephonyManager.EXTRA_INCOMING_NUMBER;
 public class TrackSpeedActivity extends Activity {
 
 
-    private static final String[] INITIAL_PERMS = {
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.SEND_SMS
-    };
 
     //  SpeedCheckService speedCheckService;
-    boolean  snackBackShown, isRunning, isPlayingVoice, speedCameraWarningShowing,
-            isPlayingCameraVoice, playVoice, playSpeedVoice, blockPhoneCalls, playTrafficVoice, receiveTrafficUpdates;
+    boolean  speedCameraWarningShowing,
+             playVoice, playSpeedVoice, blockPhoneCalls, playTrafficVoice, receiveTrafficUpdates;
 
 
     private Context context;
@@ -88,7 +83,6 @@ public class TrackSpeedActivity extends Activity {
 
     VolleyService volleyService;
 
-    private Location test;
     Intent serviceIntent;
     Intent firebaseIntent;
 
@@ -96,8 +90,6 @@ public class TrackSpeedActivity extends Activity {
 
     private String locale;
 
-
-    //Location trackSpeedLocation;
 
     SpeedSearch speedSearch;
 
@@ -146,13 +138,7 @@ public class TrackSpeedActivity extends Activity {
 
     BroadcastReceiver mBroadcastReceiver;
 
-    FirebaseAuth mAuth;
-    private String firebaseToken;
-//    private Handler handler;
-//    private Runnable runnable;
-//
-//    private Handler journeyFragmentHandler;
-//    private Runnable journeyFragmentRunnable;
+
 
 
     @Override
@@ -164,14 +150,7 @@ public class TrackSpeedActivity extends Activity {
         trafficPlayer = new MediaPlayer();
         speedLimitPlayer = new MediaPlayer();
 
-
-        //speeding = false;
-
-        isRunning = false;
-        isPlayingVoice = false;
-        isPlayingCameraVoice = false;
         limit = 0;
-        snackBackShown = false;
 
         speedSearch = new SpeedSearch(-99);
 
@@ -180,9 +159,6 @@ public class TrackSpeedActivity extends Activity {
         context = getApplicationContext();
         provider = new CognitoUserPoolsSignInProvider(context);
         volleyService = new VolleyService(context);
-        //showPermissionDialog();
-
-
         playVoice = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("playVoiceUpdate", true);
         playSpeedVoice = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("playSpeedLimit", true);
         blockPhoneCalls = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("blockIncomingCalls", false);
@@ -190,7 +166,11 @@ public class TrackSpeedActivity extends Activity {
         receiveTrafficUpdates = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("receiveTrafficNotifications", false);
 
 
-        kilomPerim = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(context).getString("kilomPerim", "5"));
+        String kilom = PreferenceManager.getDefaultSharedPreferences(context).getString("kilomPerim", "");
+        if(kilom.equals("")){
+            kilom = "5";
+        }
+        kilomPerim = Integer.parseInt(kilom);
 
 
         locale = PreferenceManager.getDefaultSharedPreferences(context).getString("locale", "");
@@ -286,9 +266,6 @@ public class TrackSpeedActivity extends Activity {
                     } else if (intent.getAction().equals(MyLocationService.LIMIT_MESSAGE)) {
                         //Log.i("speeeeeeedd", String.valueOf(intent.getIntExtra("speedLimit", 0)));
                         limit = intent.getIntExtra("speedLimit", 0);
-//                        if (limit != 0) {
-//                            chooseSpeedImage(limit);
-//                        }
                         chooseSpeedImage(limit);
                         speedSearch.setOsm_id(intent.getIntExtra("osmID", 0));
 
@@ -400,7 +377,6 @@ public class TrackSpeedActivity extends Activity {
     @Override
     public void onBackPressed() {
         //super.onStop();
-        Log.wtf("onBackPressed", "CALLEd");
         super.onBackPressed();
         Intent intent = new Intent(getApplicationContext(), com.CARVISAPP.MainActivity.class);
         startActivity(intent);
@@ -594,14 +570,19 @@ public class TrackSpeedActivity extends Activity {
             public boolean onLongClick(View v) {
 
                 String emergencyContact = PreferenceManager.getDefaultSharedPreferences(context).getString("emergencyContact", "");
-                if (emergencyContact.equals("")) {
-                    emergencyContact = "0851329485";
-                }
+//                if (emergencyContact.equals("")) {
+//                    emergencyContact = "0851329485";
+//                }
                 try {
-                    SmsManager smsManager = SmsManager.getDefault();
-                    String messageBody = getString(R.string.emergencyText) + " " + latitude + "," + longitude + "\n\nhttp://www.google.com/maps/place/" + latitude + "," + longitude;
-                    smsManager.sendTextMessage(emergencyContact, null, messageBody, null, null);
-                    Toast.makeText(context, "MESSAGE SENT", Toast.LENGTH_SHORT).show();
+                    if(!emergencyContact.equals("")) {
+                        SmsManager smsManager = SmsManager.getDefault();
+                        String messageBody = getString(R.string.emergencyText) + " " + latitude + "," + longitude + "\n\nhttp://www.google.com/maps/place/" + latitude + "," + longitude;
+                        smsManager.sendTextMessage(emergencyContact, null, messageBody, null, null);
+                        Toast.makeText(context, "MESSAGE SENT", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(context, "No emergency contact set", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 catch(Exception e){
 
@@ -692,7 +673,7 @@ public class TrackSpeedActivity extends Activity {
             Toast.makeText(context, "MESSAGE SENT", Toast.LENGTH_SHORT).show();
         }
         catch(Exception e){
-
+            Log.wtf("SMS", e.getMessage());
         }
     }
 

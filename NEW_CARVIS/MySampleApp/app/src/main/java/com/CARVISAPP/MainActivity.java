@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         navigationDrawer.addDemoFeatureToMenu(JourneyList);
 
         DemoConfiguration.DemoFeature CameraMap = new DemoConfiguration.DemoFeature();
-        CameraMap.iconResId = R.drawable.new_speed_amera;
+        CameraMap.iconResId = R.mipmap.speed_cam_new;
         CameraMap.titleResId = R.string.roadMap;
         navigationDrawer.addDemoFeatureToMenu(CameraMap);
 

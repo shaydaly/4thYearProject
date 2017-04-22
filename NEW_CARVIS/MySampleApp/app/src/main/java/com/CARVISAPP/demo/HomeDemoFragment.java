@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
@@ -73,8 +74,8 @@ public class HomeDemoFragment extends DemoFragmentBase {
        provider = new CognitoUserPoolsSignInProvider(context);
 
 
-
         return inflater.inflate(R.layout.fragment_demo_home, container, false);
+
     }
 
     @Override
@@ -114,10 +115,9 @@ public class HomeDemoFragment extends DemoFragmentBase {
          count = 0;
 
         modulo = 0;
-        Log.wtf("TOKEN", provider.getToken());
+        getPermissions();
+        refreshToken();
 
-
-        provider.refreshToken();
 
 
         Intent firebaseIntent = new Intent(context, CarvisFireBaseMessagingService.class);
@@ -315,12 +315,6 @@ public class HomeDemoFragment extends DemoFragmentBase {
             // Put your logic here for text visibility and for timer like progress bar for 5 second and setText
         }
 
-//            @Override
-//            public void onSwipeBottom(){
-//                super.onSwipeBottom();
-//                Log.wtf("Swipe down", "Swipe down");
-//
-//            }
     });
 
 
@@ -528,13 +522,13 @@ public class HomeDemoFragment extends DemoFragmentBase {
         // If request is cancelled, the result arrays are empty.
         if (grantResults.length > 0
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
-            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
-            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
 
@@ -542,9 +536,6 @@ public class HomeDemoFragment extends DemoFragmentBase {
     }
 
 
-    public void startJourney(View view){
-        Toast.makeText(context, "Start Jounrey", Toast.LENGTH_LONG).show();
-    }
 
 
     public void registerButtons(){
@@ -624,337 +615,15 @@ public class HomeDemoFragment extends DemoFragmentBase {
 //        });
     }
 
-    private void increaseCount(){
-
-    }
-
-    private void decreaseCount(){
-        count --;
-    }
 
     private void getPermissions(){
-            int permission = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
-            int locationPermission = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
-            int readExternal = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE);
-            int writeExterna= ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
-            int sendSMS = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.SEND_SMS);
-            int readPhone = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_PHONE_STATE);
-// If we don't have permissions, ask user for permissions
-            if (permission != PackageManager.PERMISSION_GRANTED) {
-                String[] PERMISSIONS_STORAGE = {
-                        android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-                };
-                int REQUEST_EXTERNAL_STORAGE = 1;
+        int PERMISSION_ALL = 1;
 
-                ActivityCompat.requestPermissions(
-                        getActivity(),
-                        PERMISSIONS_STORAGE,
-                        REQUEST_EXTERNAL_STORAGE
-                );
-            }
-        if (sendSMS != PackageManager.PERMISSION_GRANTED) {
-            String[] PERMISSIONS_STORAGE = {
-                    Manifest.permission.SEND_SMS
-            };
-            int REQUEST_EXTERNAL_STORAGE = 2;
-
-            ActivityCompat.requestPermissions(
-                    getActivity(),
-                    PERMISSIONS_STORAGE,
-                    REQUEST_EXTERNAL_STORAGE
-            );
-        }
-        if (readPhone != PackageManager.PERMISSION_GRANTED) {
-            String[] PERMISSIONS_STORAGE = {
-                    Manifest.permission.READ_PHONE_STATE
-            };
-            int REQUEST_EXTERNAL_STORAGE = 3;
-
-            ActivityCompat.requestPermissions(
-                    getActivity(),
-                    PERMISSIONS_STORAGE,
-                    REQUEST_EXTERNAL_STORAGE
-            );
-        }
-        if (locationPermission != PackageManager.PERMISSION_GRANTED) {
-            String[] PERMISSIONS_STORAGE = {
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-            };
-            int REQUEST_EXTERNAL_STORAGE = 4;
-
-            ActivityCompat.requestPermissions(
-                    getActivity(),
-                    PERMISSIONS_STORAGE,
-                    REQUEST_EXTERNAL_STORAGE
-            );
+        if(!hasPermissions(context, INITIAL_PERMS)){
+            ActivityCompat.requestPermissions(getActivity(), INITIAL_PERMS, PERMISSION_ALL);
         }
 
-
-
-
-
-            if (ContextCompat.checkSelfPermission(context,
-                    Manifest.permission.SEND_SMS)
-                    != PackageManager.PERMISSION_GRANTED) {
-
-                // Should we show an explanation?
-                if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                        Manifest.permission.SEND_SMS)) {
-
-                    // Show an explanation to the user *asynchronously* -- don't block
-                    // this thread waiting for the user's response! After the user
-                    // sees the explanation, try again to request the permission.
-                    ActivityCompat.requestPermissions(getActivity(),
-                            new String[]{Manifest.permission.SEND_SMS},
-                            1);
-                } else {
-
-                    // No explanation needed, we can request the permission.
-
-                    ActivityCompat.requestPermissions(getActivity(),
-                            new String[]{Manifest.permission.SEND_SMS},
-                            1);
-
-                    // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                    // app-defined int constant. The callback method gets the
-                    // result of the request.
-                }
-            }
-            if (ContextCompat.checkSelfPermission(context,
-                    Manifest.permission.READ_PHONE_STATE)
-                    != PackageManager.PERMISSION_GRANTED) {
-
-                // Should we show an explanation?
-                if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                        Manifest.permission.READ_PHONE_STATE)) {
-                    ActivityCompat.requestPermissions(getActivity(),
-                            new String[]{Manifest.permission.READ_PHONE_STATE},
-                            1);
-
-                } else {
-
-                    // No explanation needed, we can request the permission.
-
-                    ActivityCompat.requestPermissions(getActivity(),
-                            new String[]{Manifest.permission.READ_PHONE_STATE},
-                            1);
-
-                }
-            }
-
-            if (ContextCompat.checkSelfPermission(context,
-                    Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED) {
-
-                // Should we show an explanation?
-                if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                        Manifest.permission.ACCESS_FINE_LOCATION)) {
-                    ActivityCompat.requestPermissions(getActivity(),
-                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                            1);
-
-                } else {
-
-                    // No explanation needed, we can request the permission.
-
-                    ActivityCompat.requestPermissions(getActivity(),
-                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                            1);
-
-                    // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                    // app-defined int constant. The callback method gets the
-                    // result of the request.
-                }
-            }
-
-            if (ContextCompat.checkSelfPermission(context,
-                    Manifest.permission.CALL_PHONE)
-                    != PackageManager.PERMISSION_GRANTED) {
-
-                // Should we show an explanation?
-                if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                        Manifest.permission.CALL_PHONE)) {
-                    ActivityCompat.requestPermissions(getActivity(),
-                            new String[]{Manifest.permission.CALL_PHONE},
-                            1);
-
-                } else {
-
-                    // No explanation needed, we can request the permission.
-
-                    ActivityCompat.requestPermissions(getActivity(),
-                            new String[]{Manifest.permission.CALL_PHONE},
-                            1);
-
-                    // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                    // app-defined int constant. The callback method gets the
-                    // result of the request.
-                }
-            }
-
-            if (ContextCompat.checkSelfPermission(context,
-                    Manifest.permission.BIND_INCALL_SERVICE)
-                    != PackageManager.PERMISSION_GRANTED) {
-
-                // Should we show an explanation?
-                if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                        Manifest.permission.BIND_INCALL_SERVICE)) {
-                    ActivityCompat.requestPermissions(getActivity(),
-                            new String[]{Manifest.permission.BIND_INCALL_SERVICE},
-                            1);
-
-                } else {
-
-                    // No explanation needed, we can request the permission.
-
-                    ActivityCompat.requestPermissions(getActivity(),
-                            new String[]{Manifest.permission.BIND_INCALL_SERVICE},
-                            1);
-
-                    // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                    // app-defined int constant. The callback method gets the
-                    // result of the request.
-                }
-            }
-
-        }
-
-
-
-
-//// If we don't have permissions, ask user for permissions
-//
-//
-//
-//
-//
-//        if (ContextCompat.checkSelfPermission(context,
-//                Manifest.permission.SEND_SMS)
-//                != PackageManager.PERMISSION_GRANTED) {
-//
-//            // Should we show an explanation?
-//            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-//                    Manifest.permission.SEND_SMS)) {
-//
-//                // Show an explanation to the user *asynchronously* -- don't block
-//                // this thread waiting for the user's response! After the user
-//                // sees the explanation, try again to request the permission.
-//                ActivityCompat.requestPermissions(getActivity(),
-//                        new String[]{Manifest.permission.SEND_SMS},
-//                        1);
-//            } else {
-//
-//                // No explanation needed, we can request the permission.
-//
-//                ActivityCompat.requestPermissions(getActivity(),
-//                        new String[]{Manifest.permission.SEND_SMS},
-//                        1);
-//
-//                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-//                // app-defined int constant. The callback method gets the
-//                // result of the request.
-//            }
-//        }
-//        if (ContextCompat.checkSelfPermission(context,
-//                Manifest.permission.READ_PHONE_STATE)
-//                != PackageManager.PERMISSION_GRANTED) {
-//
-//            // Should we show an explanation?
-//            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-//                    Manifest.permission.READ_PHONE_STATE)) {
-//                ActivityCompat.requestPermissions(getActivity(),
-//                        new String[]{Manifest.permission.READ_PHONE_STATE},
-//                        1);
-//
-//            } else {
-//
-//                // No explanation needed, we can request the permission.
-//
-//                ActivityCompat.requestPermissions(getActivity(),
-//                        new String[]{Manifest.permission.READ_PHONE_STATE},
-//                        1);
-//
-//            }
-//        }
-//
-//        if (ContextCompat.checkSelfPermission(context,
-//                Manifest.permission.ACCESS_FINE_LOCATION)
-//                != PackageManager.PERMISSION_GRANTED) {
-//
-//            // Should we show an explanation?
-//            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-//                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-//                ActivityCompat.requestPermissions(getActivity(),
-//                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-//                        1);
-//
-//            } else {
-//
-//                // No explanation needed, we can request the permission.
-//
-//                ActivityCompat.requestPermissions(getActivity(),
-//                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-//                        1);
-//
-//                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-//                // app-defined int constant. The callback method gets the
-//                // result of the request.
-//            }
-//        }
-//
-//        if (ContextCompat.checkSelfPermission(context,
-//                Manifest.permission.CALL_PHONE)
-//                != PackageManager.PERMISSION_GRANTED) {
-//
-//            // Should we show an explanation?
-//            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-//                    Manifest.permission.CALL_PHONE)) {
-//                ActivityCompat.requestPermissions(getActivity(),
-//                        new String[]{Manifest.permission.CALL_PHONE},
-//                        1);
-//
-//            } else {
-//
-//                // No explanation needed, we can request the permission.
-//
-//                ActivityCompat.requestPermissions(getActivity(),
-//                        new String[]{Manifest.permission.CALL_PHONE},
-//                        1);
-//
-//                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-//                // app-defined int constant. The callback method gets the
-//                // result of the request.
-//            }
-//        }
-//
-//        if (ContextCompat.checkSelfPermission(context,
-//                Manifest.permission.BIND_INCALL_SERVICE)
-//                != PackageManager.PERMISSION_GRANTED) {
-//
-//            // Should we show an explanation?
-//            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-//                    Manifest.permission.BIND_INCALL_SERVICE)) {
-//                ActivityCompat.requestPermissions(getActivity(),
-//                        new String[]{Manifest.permission.BIND_INCALL_SERVICE},
-//                        1);
-//
-//            } else {
-//
-//                // No explanation needed, we can request the permission.
-//
-//                ActivityCompat.requestPermissions(getActivity(),
-//                        new String[]{Manifest.permission.BIND_INCALL_SERVICE},
-//                        1);
-//
-//                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-//                // app-defined int constant. The callback method gets the
-//                // result of the request.
-//            }
-//        }
-
-
+    }
 
 
     private void showTextView(int tvNum){
@@ -983,5 +652,33 @@ public class HomeDemoFragment extends DemoFragmentBase {
             numIncidentsReported.setVisibility(View.VISIBLE);
 //            Log.wtf("",String.valueOf(numIncidentsReported.getText()));
         }
+    }
+
+
+    private void refreshToken(){
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                provider.refreshToken();
+            }
+        };
+        Thread thread = new Thread(r);
+        thread.start();
+    }
+
+
+
+
+
+
+    public static boolean hasPermissions(Context context, String... permissions) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

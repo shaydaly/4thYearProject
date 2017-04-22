@@ -29,7 +29,6 @@ public class CarvisMediaPlayer {
 
     public void play() {
         if (!isPlaying) {
-            Log.wtf("play", "222222");
             stopMediaPlayer();
             mediaPlayer = MediaPlayer.create(context, queue.get(0));
             mediaPlayer.start();
@@ -59,7 +58,6 @@ public class CarvisMediaPlayer {
                         isPlaying = false;
                         play();
                     } else {
-                        Log.wtf("oncompleterion", "else ");
                         stopMediaPlayer();
                         isPlaying = false;
                     }

@@ -332,7 +332,7 @@ public class SpeedCameraMap extends FragmentActivity implements OnMapReadyCallba
                                 .strokeColor(ContextCompat.getColor(mContext, R.color.redTransparent))
                                 .fillColor(ContextCompat.getColor(mContext, R.color.redTransparent)));
 
-                        mMap.addMarker(new MarkerOptions().position(new LatLng(latitude,longitude)).title("bad traffic reported\t "+time).alpha(0.00f));
+                        mMap.addMarker(new MarkerOptions().position(new LatLng(latitude,longitude)).title("Bad Traffic Reported\t "+time).alpha(0.00f));
 
                         Log.i("shay", latitude+"\t"+longitude+"\t"+time);
                         //TrafficUpdate.addTrafficUpdateToList(new TrafficUpdate(latitude,longitude, time));

@@ -59,7 +59,6 @@ public class UserStat implements Serializable {
         monthlyKilom = new HashMap<>();
         mostOverSpedDay = getOverSpeedDay();
         monthlyJourneys = new HashMap<>();
-
     }
 
     public String getMostOverSpedDay() {
@@ -247,11 +246,9 @@ public class UserStat implements Serializable {
 
     public String getOverSpeedPercentage(){
         if(journeyInfos.size()!=0) {
-            System.out.println("in overspeed");
             double percentage = ((double) journeysWithOverSpeed / journeyInfos.size()) * 100;
             return String.valueOf(getRoundedValue(percentage,2))+"%";
         }
-        System.out.println("outside overspeed");
         return String.valueOf(0.0)+"%";
 
     }
@@ -333,6 +330,7 @@ public class UserStat implements Serializable {
                 monthlyTotal = getRoundedValue(monthlyTotal, 2);
                 String month = journeyInfo.getStartTime().toString("MMMM");
 
+                Log.wtf("monthly total", String.valueOf(monthlyTotal));
                 if (!monthlyKilom.containsKey(month)) {
                     monthlyKilom.put(month, monthlyTotal);
                 } else {
@@ -384,7 +382,7 @@ public class UserStat implements Serializable {
         }
     }
 
-    public  double getRoundedValue(double value, int places) {
+    public  static double getRoundedValue(double value, int places) {
         double returnValue = 0.0;
         try {
             if (places < 0) throw new IllegalArgumentException();

@@ -818,6 +818,7 @@
     <string name="averageJourneyTime">Avg. Journey Time (mins)</string>
     <string name="averageSpeed">Avg. Speed(km)</string>
     <string name="avgJourneyKM">Avg. Journey Distance(km)</string>
+    <string name="avgKilomSpeed">Avg. km Per Speeding Incident</string>
     <string name="blockIncoming">Block incoming calls</string>
     <string name="bottom_sheet_behavior" translatable="false">android.support.design.widget.BottomSheetBehavior</string>
     <string name="button_text_sign_in">SIGN IN</string>
@@ -1021,9 +1022,9 @@
     <string name="prompt_password">Password (optional)</string>
     <string name="promtTraffic">It would help CARVIS better promote safe driving if you could indicate heavy Traffic. Thanks again</string>
     <string name="receiveTraffic">Receive traffic notifications</string>
-    <string name="receiveTrafficVoice">Receive Voice Traffic Updates</string>
+    <string name="receiveTrafficVoice">Receive voice traffic updates</string>
     <string name="register">Register</string>
-    <string name="roadMap">Road Map</string>
+    <string name="roadMap">Map</string>
     <string name="roadsWithOverspeed">The following roads have experienced heavy traffic today</string>
     <string name="settings">Settings</string>
     <string name="signIn">Sign In</string>
@@ -1032,7 +1033,7 @@
     <string name="sign_in_new_account">New User?</string>
     <string name="sign_in_or">or sign in with</string>
     <string name="sign_in_password">Password</string>
-    <string name="sign_in_username">Username</string>
+    <string name="sign_in_username">Username/Email</string>
     <string name="sign_up_confirm_code">Confirmation code</string>
     <string name="sign_up_confirm_code_sent">A confirmation code was sent.</string>
     <string name="sign_up_confirm_enter_code">Please enter the code below to confirm your account.</string>
@@ -1066,14 +1067,14 @@
     <string name="title_activity_sign_up">Sign Up</string>
     <string name="title_activity_sign_up_confirm">Confirm Account</string>
     <string name="title_activity_speed_camera_map">Map</string>
-    <string name="trafficPerim">Traffic Notification (km)</string>
+    <string name="trafficPerim">Traffic notification (km)</string>
     <string name="unknown_user">Guest User</string>
-    <string name="userStatistics">User Statistics</string>
+    <string name="userStatistics">User Stats</string>
     <string name="user_id">USER IDENTIFIER</string>
     <string name="username">Username</string>
     <string name="username_text">Username</string>
     <string name="verify_button_text">Verify</string>
-    <string name="voiceUpdate">Speed Camera Notification</string>
+    <string name="voiceUpdate">Speed camera notifications</string>
     <string name="wallet_buy_button_place_holder">Buy with Google</string>
     <string name="wellDone">Well Done !</string>
     <style name="AlertDialog.AppCompat" parent="Base.AlertDialog.AppCompat"/>
